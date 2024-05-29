@@ -6,6 +6,15 @@
       "AbsoluteMoniker": "D:0:0:{890CA403-5FF8-4B45-98A1-A5B204770902}|..\\VividEngine\\VividEngine.vcxproj|C:\\Dev\\Vivid3D\\VividEngine\\MaterialBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{890CA403-5FF8-4B45-98A1-A5B204770902}|..\\VividEngine\\VividEngine.vcxproj|C:\\Dev\\Vivid3D\\VividEngine\\Mesh3D.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{890CA403-5FF8-4B45-98A1-A5B204770902}|..\\VividEngine\\VividEngine.vcxproj|C:\\Dev\\Vivid3D\\VividEngine\\data.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{890CA403-5FF8-4B45-98A1-A5B204770902}|..\\VividEngine\\VividEngine.vcxproj|C:\\Dev\\Vivid3D\\VividEngine\\Mesh3D.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{890CA403-5FF8-4B45-98A1-A5B204770902}|..\\VividEngine\\VividEngine.vcxproj|C:\\Dev\\Vivid3D\\VividEngine\\MaterialBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
@@ -50,9 +59,6 @@
       "AbsoluteMoniker": "D:0:0:{890CA403-5FF8-4B45-98A1-A5B204770902}|..\\VividEngine\\VividEngine.vcxproj|C:\\Dev\\Vivid3D\\VividEngine\\NodeCamera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{890CA403-5FF8-4B45-98A1-A5B204770902}|..\\VividEngine\\VividEngine.vcxproj|C:\\Dev\\Vivid3D\\VividEngine\\Mesh3D.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{890CA403-5FF8-4B45-98A1-A5B204770902}|..\\VividEngine\\VividEngine.vcxproj|C:\\Dev\\Vivid3D\\VividEngine\\MeshBuffer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
@@ -60,13 +66,7 @@
       "RelativeMoniker": "D:0:0:{D5DED9C6-911D-409A-91AB-DEE3F1DD9A63}|Vivid3D.vcxproj|solutionrelative:Vivid3D.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{890CA403-5FF8-4B45-98A1-A5B204770902}|..\\VividEngine\\VividEngine.vcxproj|C:\\Dev\\Vivid3D\\VividEngine\\data.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{890CA403-5FF8-4B45-98A1-A5B204770902}|..\\VividEngine\\VividEngine.vcxproj|C:\\Dev\\Vivid3D\\VividEngine\\Importer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{890CA403-5FF8-4B45-98A1-A5B204770902}|..\\VividEngine\\VividEngine.vcxproj|C:\\Dev\\Vivid3D\\VividEngine\\Mesh3D.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{890CA403-5FF8-4B45-98A1-A5B204770902}|..\\VividEngine\\VividEngine.vcxproj|C:\\Dev\\Vivid3D\\VividEngine\\VividEngine.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
@@ -114,7 +114,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "MeshBuffer.h",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\MeshBuffer.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\MeshBuffer.h",
@@ -126,7 +126,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 2,
               "Title": "data.h",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\data.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\data.h",
@@ -138,7 +138,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 3,
               "Title": "Mesh3D.h",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\Mesh3D.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\Mesh3D.h",
@@ -150,7 +150,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "VOutput.h",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\Vivid3D\\Widgets\\VOutput.h",
               "RelativeDocumentMoniker": "Widgets\\VOutput.h",
@@ -162,7 +162,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "VOutput.cpp",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\Vivid3D\\Widgets\\VOutput.cpp",
               "RelativeDocumentMoniker": "Widgets\\VOutput.cpp",
@@ -174,7 +174,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "Engine.cpp",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\Engine.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\Engine.cpp",
@@ -186,7 +186,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "MaterialBase.h",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\MaterialBase.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\MaterialBase.h",
@@ -198,7 +198,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "NodeEntity.h",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\NodeEntity.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\NodeEntity.h",
@@ -210,19 +210,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "NodeEntity.cpp",
-              "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\NodeEntity.cpp",
-              "RelativeDocumentMoniker": "..\\VividEngine\\NodeEntity.cpp",
-              "ToolTip": "C:\\Dev\\Vivid3D\\VividEngine\\NodeEntity.cpp",
-              "RelativeToolTip": "..\\VividEngine\\NodeEntity.cpp",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-05-29T13:29:19.081Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 1,
               "Title": "Mesh3D.cpp",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\Mesh3D.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\Mesh3D.cpp",
@@ -234,7 +222,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 5,
+              "Title": "NodeEntity.cpp",
+              "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\NodeEntity.cpp",
+              "RelativeDocumentMoniker": "..\\VividEngine\\NodeEntity.cpp",
+              "ToolTip": "C:\\Dev\\Vivid3D\\VividEngine\\NodeEntity.cpp",
+              "RelativeToolTip": "..\\VividEngine\\NodeEntity.cpp",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-29T13:29:19.081Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
               "Title": "MeshBuffer.cpp",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\MeshBuffer.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\MeshBuffer.cpp",
@@ -246,7 +246,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "Engine.h",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\Engine.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\Engine.h",
@@ -258,7 +258,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 17,
               "Title": "NodeCamera.h",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\NodeCamera.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\NodeCamera.h",
@@ -270,7 +270,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "Importer.cpp",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\Importer.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\Importer.cpp",
@@ -282,7 +282,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
               "Title": "SceneGraph.cpp",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\SceneGraph.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\SceneGraph.cpp",
@@ -294,7 +294,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "Node.h",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\Node.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\Node.h",
@@ -306,7 +306,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "Node.cpp",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\Node.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\Node.cpp",
@@ -318,7 +318,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "SceneGraph.h",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\SceneGraph.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\SceneGraph.h",
@@ -330,7 +330,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 19,
               "Title": "Vivid3D.cpp",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\Vivid3D\\Vivid3D.cpp",
               "RelativeDocumentMoniker": "Vivid3D.cpp",
@@ -342,7 +342,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "Importer.h",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\Importer.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\Importer.h",

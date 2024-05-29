@@ -11,9 +11,6 @@ struct Vertex {
 	float3 normal;
 	float3 binormal;
 	float3 tangent;
-	float4 bone_ids;
-	float4 bone_weights;
-
 
 };
 
