@@ -96,6 +96,9 @@ public:
 protected:
 	void resizeEvent(QResizeEvent* event) override;
 	void paintEvent(QPaintEvent* event) override;
+	void mousePressEvent(QMouseEvent* event) override;
+	void mouseReleaseEvent(QMouseEvent* event) override;
+	void mouseMoveEvent(QMouseEvent* event) override;
 private:
 	Ui::VOutputClass ui;
 	//Win32NativeWindow Window;
@@ -106,5 +109,9 @@ private:
 	Importer* m_Import;
 	SceneGraph* m_Graph1;
 	NodeEntity* m_Node1;
-
+	NodeLight* m_Light1;
+	float m_ViewPitch = 0;
+	float m_ViewYaw = 0;
+	bool m_CamRotate = false;
+	QPoint m_MouseLast;
 };

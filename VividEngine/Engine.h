@@ -30,6 +30,8 @@
 #include "DeviceContext.h"
 #include "SwapChain.h"
 #include "BasicMath.hpp"
+#include "NodeCamera.h"
+#include "NodeLight.h"
 
 using namespace Diligent;
 
@@ -41,6 +43,13 @@ public:
 	static RefCntAutoPtr<IDeviceContext> m_pImmediateContext;
 	static RefCntAutoPtr<ISwapChain>     m_pSwapChain;
 	static RefCntAutoPtr<IShaderSourceInputStreamFactory> m_pShaderFactory;
+	static NodeCamera* m_Camera;
+	static Node* m_Node;
+	static int GetFrameWidth();
+	static int GetFrameHeight();
+	static int m_FrameWidth;
+	static int m_FrameHeight;
+	static std::vector<NodeLight*> m_Lights;
 
 
 };

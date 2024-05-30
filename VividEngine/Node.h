@@ -18,7 +18,21 @@ public:
 	int NodesCount();
 	Node* GetNode(int index);
 	std::vector<Node*> GetNodes();
+
+	//Transform
+	void SetPosition(float3 position);
+	void SetRotation(float pitch, float yaw, float roll);
+	float3 GetPosition();
+
 	virtual float4x4 GetWorldMatrix();
+	virtual void Render() {
+		RenderChildren();
+	};
+	void RenderChildren() {
+		for (auto node : m_Nodes) {
+			node->Render();
+		}
+	}
 
 
 private:

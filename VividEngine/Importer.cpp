@@ -8,6 +8,7 @@
 #include "data.h"
 #include "BasicMath.hpp"
 #include "NodeEntity.h"
+#include "MaterialMeshLight.h"
 
 using namespace Diligent;
 
@@ -16,7 +17,7 @@ Node* Importer::ImportNode(std::string path) {
     Assimp::Importer importer;
 
     // Define import flags (e.g., to triangulate polygons)
-    unsigned int flags = aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_GenNormals | aiProcess_CalcTangentSpace;
+    unsigned int flags = aiProcess_CalcTangentSpace;
 
     // Load the scene from the file
     const aiScene* scene = importer.ReadFile(path, flags);
@@ -43,12 +44,12 @@ Node* Importer::ImportNode(std::string path) {
             auto aTan = aMesh->mTangents[v];
 
             Vertex vertex;
-            vertex.position = float3(aVertex.x, aVertex.y, aVertex.z);
+            vertex.position = float3(-aVertex.x, aVertex.z, aVertex.y);
             vertex.color = float4(1, 1, 1, 1);
-            vertex.texture = float3(aTex.x, aTex.y, aTex.z);
-            vertex.normal = float3(aNorm.x, aNorm.y, aNorm.z);
-            vertex.binormal = float3(aBiNorm.x, aBiNorm.y, aBiNorm.z);
-            vertex.tangent = float3(aTan.x, aTan.y, aTan.z);
+            vertex.texture = float3(aTex.x, 1.0f-aTex.y, aTex.z);
+            vertex.normal = float3(-aNorm.x, aNorm.z, aNorm.y);
+            vertex.binormal = float3(-aBiNorm.x, aBiNorm.z, aBiNorm.y);
+            vertex.tangent = float3(-aTan.x, aTan.z, aTan.y);
 
             mesh->AddVertex(vertex,true);
 
@@ -69,6 +70,8 @@ Node* Importer::ImportNode(std::string path) {
         }
 
         mesh->Build();
+
+        mesh->SetMaterial(new MaterialMeshLight);
 
         root->AddMesh(mesh);
 

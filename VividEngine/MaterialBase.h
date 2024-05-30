@@ -9,6 +9,8 @@
 
 using namespace Diligent;
 
+class Texture2D;
+
 class MaterialBase
 {
 public:
@@ -18,9 +20,18 @@ public:
 	void SetVertexShader(std::string path);
 	void SetPixelShader(std::string path);
 	RefCntAutoPtr<IBuffer> CreateUniform(int size, std::string name);
+	virtual void Bind();
+	RefCntAutoPtr<IShaderResourceBinding> GetSRB() {
+		return m_SRB;
+	}
 
 
-private:
+protected:
+
+	//Textures
+	Texture2D* m_Diffuse;
+	Texture2D* m_Normal;
+	Texture2D* m_Specular;
 
 	//Basic
 	RefCntAutoPtr<IBuffer> BasicUniform;

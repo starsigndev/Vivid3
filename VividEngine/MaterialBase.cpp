@@ -2,10 +2,20 @@
 #include "MaterialBase.h"
 #include "Engine.h"
 #include <vector>
+#include "Texture2D.h"
 
+#include <Graphics/GraphicsEngine/interface/RenderDevice.h>
+#include <Graphics/GraphicsEngine/interface/DeviceContext.h>
+#include <Graphics/GraphicsEngine/interface/Buffer.h>
+#include <Graphics/GraphicsEngine/interface/SwapChain.h>
+#include <Common/interface/RefCntAutoPtr.hpp>
+#include <MapHelper.hpp> // Add this line
+using namespace Diligent;
 MaterialBase::MaterialBase() {
 
-    Create();
+   // Create();
+   // m_Diffuse = new Texture2D("test/test1.png");
+
 
 }
 
@@ -18,13 +28,15 @@ void MaterialBase::Create() {
 
     GraphicsPipelineDesc gp;
 
-    gp.SubpassIndex = 0;
+  
 
 
     RasterizerStateDesc r_desc;
 
     
-    r_desc.CullMode = CULL_MODE_NONE;
+    
+    r_desc.CullMode = CULL_MODE_BACK;
+ 
 
 
     DepthStencilStateDesc ds_desc;
@@ -36,9 +48,8 @@ void MaterialBase::Create() {
     BlendStateDesc b_desc;
 
     b_desc.RenderTargets[0].BlendEnable = false;
-    b_desc.RenderTargets[0].SrcBlend = BLEND_FACTOR::BLEND_FACTOR_SRC_ALPHA;
-    b_desc.RenderTargets[0].DestBlend = BLEND_FACTOR::BLEND_FACTOR_INV_SRC_ALPHA;
-    
+    b_desc.RenderTargets[0].SrcBlend = BLEND_FACTOR::BLEND_FACTOR_ONE;
+    b_desc.RenderTargets[0].DestBlend = BLEND_FACTOR::BLEND_FACTOR_ZERO;
 
 
     LayoutElement pos;
@@ -89,20 +100,43 @@ void MaterialBase::Create() {
     elements.push_back(tangent);
 
     InputLayoutDesc in_desc;
-    in_desc.LayoutElements = elements.data();
+
+    LayoutElement LayoutElems[] =
+    {
+        // Attribute 0 - vertex position
+        LayoutElement{0, 0, 3, VT_FLOAT32, False},
+        // Attribute 1 - vertex color
+        LayoutElement{1, 0, 4, VT_FLOAT32, False},
+                LayoutElement{2, 0, 3, VT_FLOAT32, False},
+                        LayoutElement{3, 0, 3, VT_FLOAT32, False},
+                                LayoutElement{4, 0, 3, VT_FLOAT32, False},
+                                        LayoutElement{5, 0, 3, VT_FLOAT32, False}
+    };
+
+    in_desc.LayoutElements = LayoutElems;
     in_desc.NumElements = 6;
+   
 
-
+    
     gp.PrimitiveTopology = PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
-    gp.RasterizerDesc = r_desc;
+   gp.RasterizerDesc = r_desc;
+  //  gp.RasterizerDesc.CullMode = CULL_MODE_NONE;
     gp.DepthStencilDesc = ds_desc;
-    gp.SmplDesc.Count = 1;
-    gp.NumRenderTargets = 1;
+    gp.SmplDesc.Count = 4;
+
+    //gp.SmplDesc.Quality = 1.0f;
+
+    //gp.NumRenderTargets = 0;
+
     gp.BlendDesc = b_desc;
     gp.RTVFormats[0] = Engine::m_pSwapChain->GetDesc().ColorBufferFormat;
     gp.DSVFormat = Engine::m_pSwapChain->GetDesc().DepthBufferFormat;
     gp.InputLayout = in_desc;
+    //gp.NumViewports = 1;
 
+
+    gp.NumRenderTargets = 1;
+    
 
     std::vector<ShaderResourceVariableDesc> vars;
     std::vector<ImmutableSamplerDesc> samplers;
@@ -123,7 +157,7 @@ void MaterialBase::Create() {
     v_rsampler.AddressU = TEXTURE_ADDRESS_MODE::TEXTURE_ADDRESS_WRAP;
     v_rsampler.AddressV = TEXTURE_ADDRESS_MODE::TEXTURE_ADDRESS_WRAP;
     v_rsampler.AddressW = TEXTURE_ADDRESS_MODE::TEXTURE_ADDRESS_CLAMP;
-    v_rsampler.MaxAnisotropy = 8.0f;
+   // v_rsampler.MaxAnisotropy = 1.0f;
 
 
 
@@ -140,22 +174,26 @@ void MaterialBase::Create() {
     rl_desc.Variables = vars.data();
     rl_desc.ImmutableSamplers = samplers.data();
     rl_desc.NumVariables = 1;
+
     rl_desc.NumImmutableSamplers = 1;
-    
+
+
     PipelineStateDesc pso_desc;
 
     pso_desc.Name = "Material Basic";
     pso_desc.ResourceLayout = rl_desc;
-
-
-
+  
+//    pso_desc.PipelineType = PIPELINE_TYPE_GRAPHICS;
+   
 
     GraphicsPipelineStateCreateInfo gp_desc;
     gp_desc.pVS = m_VS;
     gp_desc.pPS = m_PS;
     gp_desc.GraphicsPipeline = gp;
     gp_desc.PSODesc = pso_desc;
+   // gp_desc.ResourceSignaturesCount = 0;
     
+     
 
     //CreateUniform()
 
@@ -164,8 +202,8 @@ void MaterialBase::Create() {
     Engine::m_pDevice->CreateGraphicsPipelineState(gp_desc, &ps);
 
     m_Pipeline = ps;
-    ps->GetStaticVariableByName(SHADER_TYPE_VERTEX, "Constants")->Set(BasicUniform);
-    ps->CreateShaderResourceBinding(&m_SRB,true);
+    m_Pipeline->GetStaticVariableByName(SHADER_TYPE_VERTEX, "Constants")->Set(BasicUniform);
+    m_Pipeline->CreateShaderResourceBinding(&m_SRB,true);
 
     
 
@@ -176,7 +214,7 @@ RefCntAutoPtr<IBuffer> MaterialBase::CreateUniform(int size, std::string path) {
 
     BufferDesc desc;
     desc.Name = path.c_str();
-    desc.Size = size;
+    desc.Size = (Uint64)size;
     desc.Usage = USAGE_DYNAMIC;
     desc.BindFlags = BIND_UNIFORM_BUFFER;
     desc.CPUAccessFlags = CPU_ACCESS_WRITE;
@@ -202,13 +240,14 @@ void MaterialBase::SetVertexShader(std::string path) {
 
     desc.Name = diligentPath;
     desc.ShaderType = SHADER_TYPE_VERTEX;
-    desc.UseCombinedTextureSamplers = true;
+     desc.UseCombinedTextureSamplers = true;
           
 
 	ShaderCreateInfo info;
     info.FilePath = diligentPath;
     info.pShaderSourceStreamFactory = Engine::m_pShaderFactory;
     info.Desc = desc;
+    info.EntryPoint = "main";
     info.SourceLanguage = SHADER_SOURCE_LANGUAGE_HLSL;
 
 	Engine::m_pDevice->CreateShader(info, &m_VS);
@@ -230,13 +269,51 @@ void MaterialBase::SetPixelShader(std::string path) {
     desc.Name = diligentPath;
     desc.ShaderType = SHADER_TYPE_PIXEL;
     desc.UseCombinedTextureSamplers = true;
+    
 
     ShaderCreateInfo info;
     info.FilePath = diligentPath;
     info.pShaderSourceStreamFactory = Engine::m_pShaderFactory;
     info.Desc = desc;
     info.SourceLanguage = SHADER_SOURCE_LANGUAGE_HLSL;
+    info.EntryPoint = "main";
 
     Engine::m_pDevice->CreateShader(info, &m_PS);
+
+}
+
+void MaterialBase::Bind() {
+
+    m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "v_Texture")->Set(m_Diffuse->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
+    //Engine::m_pImmediateContext->MapBuffer(BasicUniform, MAP_TYPE::MAP_WRITE, MAP_FLAGS::MAP_FLAG_DISCARD);
+    
+    MapHelper<float4x4> map_data(Engine::m_pImmediateContext, BasicUniform, MAP_WRITE, MAP_FLAG_DISCARD);
+    float FOVRadians = 45.0f * (3.14159265358979323846f / 180.0f);
+
+
+   
+    
+    float4x4 mvp = Engine::m_Camera->GetProjection(); //float4x4::Projection(FOVRadians, 1024.0f / 760.0f,0.01,1001,false);
+   
+
+    float4x4 view = Engine::m_Camera->GetWorldMatrix();  //float4x4::Translation(float3(0,1.0f,-5)).Inverse();
+
+    float4x4 model = Engine::m_Node->GetWorldMatrix();
+
+    float4x4 id = float4x4::Identity().Inverse();
+
+    //mvp = mvp*id;
+
+    //mvp.Transpose();
+
+  
+    mvp = model*view * mvp;
+
+
+    map_data[0] = mvp.Transpose();
+
+  //map_data.Unmap();
+
+    Engine::m_pImmediateContext->SetPipelineState(m_Pipeline);
 
 }

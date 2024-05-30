@@ -6,7 +6,7 @@
 class MaterialBase;
 class Mesh3D;
 
-class NodeEntity : Node
+class NodeEntity : public Node
 {
 public:
 
@@ -15,11 +15,12 @@ public:
 	int MeshesCount();
 	Mesh3D* GetMesh(int index);
 	std::vector<Mesh3D*> GetMeshes();
+	void Render();
 
 private:
 
 	std::vector<Mesh3D*> m_Meshes;
-	MaterialBase* m_Material;
+
 
 };
 

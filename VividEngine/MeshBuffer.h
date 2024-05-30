@@ -17,6 +17,12 @@ public:
 	MeshBuffer();
 	void SetMesh(Mesh3D* mesh);
 	void Build();
+	RefCntAutoPtr<IBuffer> GetVertexBuffer() {
+		return VertexBuffer;
+	}
+	RefCntAutoPtr<IBuffer> GetIndexBuffer() {
+		return IndexBuffer;
+	}
 
 private:
 	RefCntAutoPtr<IBuffer> VertexBuffer;

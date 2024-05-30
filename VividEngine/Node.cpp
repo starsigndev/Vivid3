@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Node.h"
+#include "MathsHelp.h"
 
 Node::Node() {
 
@@ -31,6 +32,26 @@ std::vector<Node*> Node::GetNodes()
 {
 
 	return m_Nodes;
+
+}
+
+void Node::SetPosition(float3 position) {
+
+	m_Position = position;
+
+}
+
+float3 Node::GetPosition() {
+
+	return m_Position;
+
+}
+
+void Node::SetRotation(float pitch, float yaw, float roll) {
+
+	yaw = MathsHelp::Deg2Rad(yaw);
+	pitch = MathsHelp::Deg2Rad(pitch);
+	m_Rotation = float4x4::RotationX(pitch) * float4x4::RotationY(yaw);
 
 }
 

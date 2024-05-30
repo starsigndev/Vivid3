@@ -34,6 +34,12 @@
     <Filter Include="Material">
       <UniqueIdentifier>{321b511d-943e-4dec-af53-556a005a48ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Texture2D">
+      <UniqueIdentifier>{809a1d87-be42-40e9-abc7-aed56af8e488}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helper">
+      <UniqueIdentifier>{12bdfc1d-57a8-4359-a636-c15192bac589}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -66,10 +72,22 @@
     <ClInclude Include="Importer.h">
       <Filter>Import</Filter>
     </ClInclude>
-    <ClInclude Include="NodeCamera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MaterialBase.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture2D.h">
+      <Filter>Texture2D</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeCamera.h">
+      <Filter>Scene\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="MathsHelp.h">
+      <Filter>Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeLight.h">
+      <Filter>Scene\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialMeshLight.h">
       <Filter>Material</Filter>
     </ClInclude>
   </ItemGroup>
@@ -101,10 +119,22 @@
     <ClCompile Include="Importer.cpp">
       <Filter>Import</Filter>
     </ClCompile>
-    <ClCompile Include="NodeCamera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MaterialBase.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture2D.cpp">
+      <Filter>Texture2D</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeCamera.cpp">
+      <Filter>Scene\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="MathsHelp.cpp">
+      <Filter>Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeLight.cpp">
+      <Filter>Scene\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialMeshLight.cpp">
       <Filter>Material</Filter>
     </ClCompile>
   </ItemGroup>

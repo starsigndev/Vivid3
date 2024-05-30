@@ -18,4 +18,5 @@ private:
     //Docks
     QDockWidget* dockScene;
     VOutput* mSceneView;
+
 };
