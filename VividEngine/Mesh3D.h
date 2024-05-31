@@ -2,6 +2,7 @@
 #include <vector>
 #include "data.h"
 
+class NodeEntity;
 class MeshBuffer;
 class MaterialBase;
 class NodeCamera;
@@ -23,6 +24,8 @@ public:
 	void SetMaterial(MaterialBase* material) {
 		m_Material = material;
 	}
+	void SetOwner(NodeEntity* entity);
+	NodeEntity* GetOwner();
 	void Render();
 
 private:
@@ -32,5 +35,6 @@ private:
 	//
 	MeshBuffer* m_Buffer;
 	MaterialBase* m_Material;
+	NodeEntity* m_Owner;
 };
 

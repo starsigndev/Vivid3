@@ -1,6 +1,5 @@
-﻿  Importer.cpp
-C:\Dev\Vivid3D\VividEngine\Importer.cpp(33,23): warning C4018: '<': signed/unsigned mismatch
-C:\Dev\Vivid3D\VividEngine\Importer.cpp(38,27): warning C4018: '<': signed/unsigned mismatch
-C:\Dev\Vivid3D\VividEngine\Importer.cpp(58,27): warning C4018: '<': signed/unsigned mismatch
+﻿  Node.cpp
+C:\Dev\Vivid3D\VividEngine\MathsHelp.h(12,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\Dev\Vivid3D\VividEngine\Node.cpp(21,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
 Importer.obj : warning LNK4006: "public: struct aiScene const * __cdecl Assimp::Importer::ReadFile(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,unsigned int)" (?ReadFile@Importer@Assimp@@QEAAPEBUaiScene@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@I@Z) already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
   VividEngine.vcxproj -> C:\Dev\Vivid3D\Vivid3D\x64\Debug\VividEngine.lib

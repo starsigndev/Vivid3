@@ -1,6 +1,13 @@
+C:\Dev\Vivid3D\Vivid3D\Editor.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\Editor.obj
+C:\Dev\Vivid3D\Vivid3D\VSceneGraph.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\VSceneGraph.obj
+C:\Dev\Vivid3D\Vivid3D\VTools.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\VTools.obj
+C:\Dev\Vivid3D\Vivid3D\VTreeView.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\VTreeView.obj
 C:\Dev\Vivid3D\Vivid3D\Widgets\VOutput.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\VOutput.obj
 C:\Dev\Vivid3D\Vivid3D\Vivid3D.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\Vivid3D.obj
 C:\Dev\Vivid3D\Vivid3D\main.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\main.obj
 C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\rcc\qrc_Vivid3D.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\qrc_Vivid3D.obj
 C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_Vivid3D.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc_Vivid3D.obj
 C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_VOutput.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc_VOutput.obj
+C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_VSceneGraph.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc_VSceneGraph.obj
+C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_VTreeView.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc_VTreeView.obj
+C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_VTools.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc_VTools.obj

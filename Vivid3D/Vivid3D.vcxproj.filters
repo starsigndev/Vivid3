@@ -21,6 +21,12 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
+    <Filter Include="Widgets">
+      <UniqueIdentifier>{94bc2e27-d40b-4f7e-aed0-22a82d169290}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{198d5620-0501-4fdf-8721-f5d01db25d48}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Vivid3D.qrc">
@@ -49,9 +55,30 @@
     <ClCompile Include="Widgets\VOutput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VSceneGraph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VTreeView.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="VTools.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Widgets\VOutput.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="VTreeView.h">
+      <Filter>Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="VSceneGraph.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="VTools.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -59,5 +86,19 @@
     <QtUic Include="Widgets\VOutput.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="VSceneGraph.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VTreeView.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VTools.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Editor.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

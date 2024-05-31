@@ -14,6 +14,7 @@ NodeEntity::NodeEntity() {
 void NodeEntity::AddMesh(Mesh3D* mesh) {
 
 	m_Meshes.push_back(mesh);
+	mesh->SetOwner(this);
 
 }
 
@@ -51,5 +52,33 @@ void NodeEntity::Render() {
 		}
 	}
 
+
+}
+
+void NodeEntity::SetMaterial(MaterialBase* material) {
+
+	for (auto mesh : m_Meshes) {
+
+		mesh->SetMaterial(material);
+
+	}
+
+}
+
+bool NodeEntity::IsMeshIndex(Mesh3D* mesh, int idx)
+{
+
+	int i = 0;
+	for (auto me : m_Meshes) {
+
+		if (me == mesh) {
+			if (i == idx) {
+				return true;
+			}
+		}
+		i++;
+	}
+
+	return false;
 
 }

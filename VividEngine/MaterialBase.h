@@ -24,6 +24,7 @@ public:
 	RefCntAutoPtr<IShaderResourceBinding> GetSRB() {
 		return m_SRB;
 	}
+	void SetDiffuse(Texture2D* texture);
 
 
 protected:

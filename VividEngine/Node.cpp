@@ -55,6 +55,49 @@ void Node::SetRotation(float pitch, float yaw, float roll) {
 
 }
 
+void Node::Move(float3 delta) {
+
+	m_Position = m_Position + (delta * m_Rotation);
+
+}
+
+void Node::Translate(float3 delta) {
+
+	m_Position = m_Position + delta;
+
+}
+
+void Node::Rotate(float pitch, float yaw, float roll) {
+
+
+	yaw = MathsHelp::Deg2Rad(yaw);
+	pitch = MathsHelp::Deg2Rad(pitch);
+	roll = MathsHelp::Deg2Rad(roll);
+	
+
+
+}
+
+void Node::Turn(float pitch, float yaw, float roll,bool local) {
+
+	yaw = MathsHelp::Deg2Rad(yaw);
+	pitch = MathsHelp::Deg2Rad(pitch);
+	roll = MathsHelp::Deg2Rad(roll);
+
+
+	float4x4 turn = float4x4::RotationX(pitch) * float4x4::RotationY(yaw) * float4x4::RotationZ(roll);
+
+	if (local) {
+
+		m_Rotation = m_Rotation * turn;
+
+	}
+	else {
+		m_Rotation = turn * m_Rotation;
+	}
+
+}
+
 float4x4 Node::GetWorldMatrix() {
 
 	float4x4 translationMatrix = float4x4::Translation(m_Position);

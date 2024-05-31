@@ -23,6 +23,10 @@ public:
 	void SetPosition(float3 position);
 	void SetRotation(float pitch, float yaw, float roll);
 	float3 GetPosition();
+	void Move(float3 delta);
+	void Translate(float3 delta);
+	void Rotate(float pitch, float yaw, float roll);
+	void Turn(float pitch, float yaw, float roll, bool local);
 
 	virtual float4x4 GetWorldMatrix();
 	virtual void Render() {
@@ -33,9 +37,17 @@ public:
 			node->Render();
 		}
 	}
+	std::string GetName() {
+		return m_Name;
+	}
+	void SetName(std::string name) {
+		m_Name = name;
+	}
 
 
 private:
+
+	std::string m_Name;
 
 	//transform
 	float4x4 m_Rotation;

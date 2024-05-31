@@ -17,6 +17,8 @@ private:
     Ui::Vivid3DClass ui;
     //Docks
     QDockWidget* dockScene;
+    QDockWidget* m_SceneGraph;
+
     VOutput* mSceneView;
 
 };

@@ -66,3 +66,15 @@ void Mesh3D::Render() {
 	Engine::m_pImmediateContext->DrawIndexed(attrib);
 
 }
+
+void Mesh3D::SetOwner(NodeEntity* entity) {
+
+	m_Owner = entity;
+
+}
+
+NodeEntity* Mesh3D::GetOwner() {
+
+	return m_Owner;
+
+}

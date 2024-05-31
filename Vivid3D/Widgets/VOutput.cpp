@@ -2,7 +2,12 @@
 #ifdef Q_OS_WIN
 #include <windows.h>
 #endif
+#include "Editor.h"
 #include "Engine.h"
+#include "qtimer.h"
+#include "Texture2D.h"
+#include "MaterialBase.h"
+#include "Mesh3D.h"
 
 VOutput::VOutput(QWidget *parent)
 	: QWidget(parent)
@@ -18,7 +23,7 @@ VOutput::VOutput(QWidget *parent)
     Engine::m_pImmediateContext = m_pImmediateContext;
     Engine::m_pShaderFactory = m_pShaderFactory;
     
-
+    setFocusPolicy(Qt::StrongFocus);
     m_Import = new Importer;
     m_Graph1 = new SceneGraph;
     m_Node1 = (NodeEntity*)m_Import->ImportNode("test/mesh1.fbx");
@@ -30,8 +35,62 @@ VOutput::VOutput(QWidget *parent)
     auto cam = m_Graph1->GetCamera();
     cam->SetPosition(float3(0, 8,0));
     setMouseTracking(true);
+    m_MoveTimer = new QTimer(this);
+
+    m_EditCamera = cam;
+    connect(m_MoveTimer, &QTimer::timeout, this, &VOutput::onMove);
+    m_MoveTimer->setInterval(25); // Set the interval in milliseconds
+    m_MoveTimer->start();
+
+    Editor::m_Graph = m_Graph1;
+
+   
+
+    m_GizTranslate = (NodeEntity*)m_Import->ImportNode("engine/gizmo/translate1.fbx");
+    auto blue_mat = new MaterialBase;
+    blue_mat->Create();
+    blue_mat->SetDiffuse(new Texture2D("engine/gizmo/blue.png"));
+
+    auto meshes = m_GizTranslate->GetMeshes();
+
+
+    meshes[2]->SetMaterial(blue_mat);
+
+    //mesh 2 = Y
+    //mesh 1 = X 
+    //mesh 0 = Z
+
+    auto red_mat = new MaterialBase;
+    red_mat->Create();
+    red_mat->SetDiffuse(new Texture2D("engine/gizmo/red.png"));
+
+    meshes[1]->SetMaterial(red_mat);
+
+
+    auto green_mat = new MaterialBase;
+    green_mat->Create();
+    green_mat->SetDiffuse(new Texture2D("engine/gizmo/green.png"));
+
+    meshes[0]->SetMaterial(green_mat);
+
+    m_GizRotate = (NodeEntity*)m_Import->ImportNode("engine/gizmo/rotate1.fbx");
+
+    meshes = m_GizRotate->GetMeshes();
+
+    meshes[0]->SetMaterial(blue_mat);
+
+    //0 = Yaw
+    //1 = Roll
+    //2 = pitch
+
+    meshes[1]->SetMaterial(red_mat);
+    meshes[2]->SetMaterial(green_mat);
+
+
+    m_Gizmo = m_GizRotate;
 
 }
+
 
 
 void VOutput::CreateDX12() {
@@ -82,8 +141,74 @@ void VOutput::mousePressEvent(QMouseEvent* event)
 {
     if (event->button() == Qt::LeftButton)
     {
+
+        //m_Graph1->MousePick(m_MousePosition.x(), m_MousePosition.y());
         // Handle left mouse button press
-       
+        auto res = m_Graph1->MousePick(m_MousePosition.x(), m_MousePosition.y(), m_Gizmo);
+        
+        switch (Editor::m_GizmoMode) {
+        case GM_Translate:
+            if (res.m_Hit) {
+                printf("Hit!!\n");
+                if (res.m_Entity->IsMeshIndex(res.m_Mesh, 2)) {
+                    // printf("Y!!!\n");
+                    m_LockY = true;
+                    m_LockX = 0;
+                    m_LockZ = 0;
+
+                }
+                if (res.m_Entity->IsMeshIndex(res.m_Mesh, 1)) {
+                    // printf("Y!!!\n");
+                    m_LockY = false;
+                    m_LockX = true;
+                    m_LockZ = 0;
+
+                }
+                if (res.m_Entity->IsMeshIndex(res.m_Mesh, 0)) {
+                    // printf("Y!!!\n");
+                    m_LockY = false;
+                    m_LockX = false;
+                    m_LockZ = true;
+
+                }
+                return;
+            }
+            
+            break;
+        case GM_Rotate:
+            if (res.m_Entity->IsMeshIndex(res.m_Mesh, 2)) {
+                // printf("Y!!!\n");
+                m_LockY = false;
+                m_LockX = true;
+                m_LockZ = 0;
+
+            }
+            if (res.m_Entity->IsMeshIndex(res.m_Mesh, 1)) {
+                // printf("Y!!!\n");
+                m_LockY = false;
+                m_LockX = false;
+                m_LockZ = true;
+
+            }
+            if (res.m_Entity->IsMeshIndex(res.m_Mesh, 0)) {
+                // printf("Y!!!\n");
+                m_LockY = true;
+                m_LockX = false;
+                m_LockZ = false;
+
+            }
+            return;
+            break;
+        }
+
+        auto res1 = m_Graph1->MousePick(m_MousePosition.x(), m_MousePosition.y());
+        if (res1.m_Hit) {
+            Editor::m_CurrentNode = res1.m_Entity;
+        }
+        else {
+            Editor::m_CurrentNode = nullptr;
+        }
+
     }
     else if (event->button() == Qt::RightButton)
     {
@@ -100,6 +225,9 @@ void VOutput::mouseReleaseEvent(QMouseEvent* event)
 {
     if (event->button() == Qt::LeftButton)
     {
+        m_LockX = false;
+        m_LockY = false;
+        m_LockZ = false;
       
         // Handle left mouse button release
     }
@@ -118,12 +246,12 @@ float ay = 0;
 void VOutput::mouseMoveEvent(QMouseEvent* event)
 {
 
-  
 
 
 
     QPoint delta = event->pos() - m_MouseLast;
     m_MouseLast = event->pos();
+    m_MousePosition = event->pos();
     // Handle mouse move event
     // Use event->pos() or event->globalPos() to get the cursor position
     if (m_CamRotate) {
@@ -132,11 +260,128 @@ void VOutput::mouseMoveEvent(QMouseEvent* event)
 
       //  update();
     }
+    switch (Editor::m_GizmoMode)
+    {
+    case GM_Translate:
+        if (m_LockY) {
+            Editor::m_CurrentNode->Translate(float3(0, -delta.y() * 0.01f, 0));
+        }
+        if (m_LockX) {
+            Editor::m_CurrentNode->Translate(float3(-delta.x() * 0.01f,0, 0));
+        }
+        if (m_LockZ) {
+            Editor::m_CurrentNode->Translate(float3(0,0, -delta.x() * 0.01f));
+        }
+        
+        break;
+    case GM_Rotate:
+
+
+        if (Editor::m_SpaceMode == SM_Global) {
+            //Yaw
+            if (m_LockY) {
+
+                Editor::m_CurrentNode->Turn(0, delta.x() * 0.1f, 0, true);
+
+            }
+            //Pitch
+            if (m_LockX) {
+                Editor::m_CurrentNode->Turn(delta.x() * 0.1f, 0, 0, true);
+            }
+            if (m_LockZ) {
+                Editor::m_CurrentNode->Turn(0, 0,delta.y() * 0.1f, true);
+            }
+        }
+        else {
+
+        }
+
+        break;
+    }
+
     
     // Call base class implementation if necessary
     QWidget::mouseMoveEvent(event);
 }
 
+
+void VOutput::keyPressEvent(QKeyEvent* event)
+{
+    // Check which key was pressed
+    if (event->key() == Qt::Key_W) {
+        //qDebug() << "Key A is pressed";
+        m_MoveW = true;
+    }
+    else if (event->key() == Qt::Key_A) {
+        m_MoveA = true;
+    //    qDebug() << "Space bar is pressed";
+    }
+    else if (event->key() == Qt::Key_D)
+    {
+        m_MoveD = True;
+    }
+    else if (event->key() == Qt::Key_S)
+    {
+        m_MoveS = true;
+    }
+    if (event->key() == Qt::Key_Shift)
+    {
+        m_MoveFast = true;
+    }
+    // Call base class implementation (if needed)
+    QWidget::keyPressEvent(event);
+}
+
+void VOutput::keyReleaseEvent(QKeyEvent* event)
+{
+    // Check which key was released
+    if (event->key() == Qt::Key_W) {
+        //qDebug() << "Key A is pressed";
+        m_MoveW = false;
+    }
+    else if (event->key() == Qt::Key_A) {
+        m_MoveA = false;
+        //    qDebug() << "Space bar is pressed";
+    }
+    else if (event->key() == Qt::Key_D)
+    {
+        m_MoveD = false;
+    }
+    else if (event->key() == Qt::Key_S)
+    {
+        m_MoveS = false;
+    }
+    if (event->key() == Qt::Key_Shift)
+    {
+        m_MoveFast =false;
+    }
+    // Call base class implementation (if needed)
+    QWidget::keyReleaseEvent(event);
+}
+
+void VOutput::onMove()
+{
+    float scale = 1.0f;
+
+    if (m_MoveFast) {
+        scale = 2.5f;
+    }
+
+    if (m_MoveW) {
+        m_EditCamera->Move(float3(0, 0, 0.1f*scale));
+    }
+    if (m_MoveA) {
+        m_EditCamera->Move(float3(-0.1f*scale, 0,0));
+    }
+    if (m_MoveS) {
+        m_EditCamera->Move(float3(0, 0, -0.1f*scale));
+    }
+    if (m_MoveD) {
+        m_EditCamera->Move(float3(0.1f*scale, 0, 0));
+    }
+    // Action to perform while the key is held down
+    //qDebug() << "Key A is held down";
+}
 
 VOutput::~VOutput()
 {}
@@ -167,6 +412,20 @@ void VOutput::paintEvent(QPaintEvent* event)
     cam->SetRotation(m_ViewPitch, m_ViewYaw, 0);
 
     m_Graph1->Render();
+
+    switch (Editor::m_GizmoMode) {
+    case GM_Translate:
+        m_Gizmo = m_GizTranslate;
+        break;
+    case GM_Rotate:
+        m_Gizmo = m_GizRotate;
+        break;
+    }
+
+    if (Editor::m_CurrentNode != nullptr) {
+        m_Gizmo->SetPosition(Editor::m_CurrentNode->GetPosition());
+        m_Gizmo->Render();
+    }
 
     pContext->Flush();
  

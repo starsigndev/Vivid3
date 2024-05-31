@@ -99,6 +99,12 @@ protected:
 	void mousePressEvent(QMouseEvent* event) override;
 	void mouseReleaseEvent(QMouseEvent* event) override;
 	void mouseMoveEvent(QMouseEvent* event) override;
+	void keyPressEvent(QKeyEvent* event) override;
+	void keyReleaseEvent(QKeyEvent* event) override;
+
+private slots:
+	void onMove();
+
 private:
 	Ui::VOutputClass ui;
 	//Win32NativeWindow Window;
@@ -109,9 +115,19 @@ private:
 	Importer* m_Import;
 	SceneGraph* m_Graph1;
 	NodeEntity* m_Node1;
+	NodeCamera* m_EditCamera;
 	NodeLight* m_Light1;
 	float m_ViewPitch = 0;
 	float m_ViewYaw = 0;
 	bool m_CamRotate = false;
 	QPoint m_MouseLast;
+	bool m_MoveW, m_MoveA, m_MoveS, m_MoveD;
+	bool m_MoveFast = false;
+	QTimer* m_MoveTimer;
+	QPoint m_MousePosition;
+	NodeEntity* m_Gizmo = nullptr;
+	NodeEntity* m_GizTranslate;
+	NodeEntity* m_GizRotate;
+	bool m_LockX, m_LockY, m_LockZ;
+
 };

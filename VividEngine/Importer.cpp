@@ -17,7 +17,7 @@ Node* Importer::ImportNode(std::string path) {
     Assimp::Importer importer;
 
     // Define import flags (e.g., to triangulate polygons)
-    unsigned int flags = aiProcess_CalcTangentSpace;
+    unsigned int flags = aiProcess_CalcTangentSpace | aiProcess_Triangulate;
 
     // Load the scene from the file
     const aiScene* scene = importer.ReadFile(path, flags);
@@ -29,6 +29,8 @@ Node* Importer::ImportNode(std::string path) {
     }
 
     NodeEntity* root = new NodeEntity;
+
+    root->SetName(scene->mRootNode->mName.C_Str());
 
     for (int i = 0; i < scene->mNumMeshes; i++) {
 

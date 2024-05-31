@@ -110,11 +110,13 @@ void MaterialBase::Create() {
                 LayoutElement{2, 0, 3, VT_FLOAT32, False},
                         LayoutElement{3, 0, 3, VT_FLOAT32, False},
                                 LayoutElement{4, 0, 3, VT_FLOAT32, False},
-                                        LayoutElement{5, 0, 3, VT_FLOAT32, False}
+                                        LayoutElement{5, 0, 3, VT_FLOAT32, False},
+                                        LayoutElement(6,0,4,VT_FLOAT32,False),
+                                        LayoutElement(7,0,4,VT_FLOAT32,False)
     };
 
     in_desc.LayoutElements = LayoutElems;
-    in_desc.NumElements = 6;
+    in_desc.NumElements = 8;
    
 
     
@@ -315,5 +317,11 @@ void MaterialBase::Bind() {
   //map_data.Unmap();
 
     Engine::m_pImmediateContext->SetPipelineState(m_Pipeline);
+
+}
+
+void MaterialBase::SetDiffuse(Texture2D* texture) {
+
+    m_Diffuse = texture;
 
 }
