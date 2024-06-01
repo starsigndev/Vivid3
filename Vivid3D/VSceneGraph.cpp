@@ -10,6 +10,8 @@ VSceneGraph::VSceneGraph(QWidget *parent)
 {
 	ui.setupUi(this);
 
+	Editor::m_SceneGraph = this;
+
 	VTreeView* tree = new VTreeView(this);
 
 	QScrollArea* scrollArea = new QScrollArea;
@@ -30,9 +32,11 @@ VSceneGraph::VSceneGraph(QWidget *parent)
 
 }
 
-void AddNode(TreeItem* item, Node* node) {
+void VSceneGraph::AddNode(TreeItem* item, Node* node) {
 
 	item->m_Text = node->GetName();
+	
+	m_NodeMap[node] = item;
 	
 	for (auto sub : node->GetNodes()) {
 
@@ -46,12 +50,33 @@ void AddNode(TreeItem* item, Node* node) {
 
 void VSceneGraph::UpdateGraph() {
 
+	m_NodeMap.clear();
+
 	auto item = new TreeItem;
 	item->m_Text = "Scene Root";
 
 	AddNode(item, Editor::m_Graph->GetRoot());
 
 	m_Tree->SetRoot(item);
+
+}
+
+void VSceneGraph::SetNode(Node* node) {
+
+	m_CurrentNode = node;
+	//Up
+	if (node == nullptr) {
+		m_Tree->SetActive(nullptr);
+		//repaint();
+		update();
+		m_Tree->update();
+		return;
+	}
+	auto item = m_NodeMap[node];
+	m_Tree->SetActive(item);
+//	repaint();
+	update();
+	m_Tree->update();
 
 }
 

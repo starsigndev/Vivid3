@@ -1,6 +1,7 @@
 #include "Vivid3D.h"
 #include <QtWidgets>
 #include "VSceneGraph.h"
+#include "VContentBrowser.h"
 #include "VTools.h"
 
 Vivid3D::Vivid3D(QWidget *parent)
@@ -25,6 +26,14 @@ Vivid3D::Vivid3D(QWidget *parent)
     setCentralWidget(mSceneView);
 
     addToolBar(Qt::TopToolBarArea, new VTools(this));
+
+    m_ContentBrowser = new QDockWidget("Content Browser", this);
+    m_ContentBrowser->setWidget(new VContentBrowser);
+    SetDockWidget(m_ContentBrowser);
+    addDockWidget(Qt::BottomDockWidgetArea, m_ContentBrowser);
+    m_ContentBrowser->setMinimumWidth(300);
+    m_ContentBrowser->setMinimumHeight(250);
+
 
 
 }

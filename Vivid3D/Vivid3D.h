@@ -18,6 +18,7 @@ private:
     //Docks
     QDockWidget* dockScene;
     QDockWidget* m_SceneGraph;
+    QDockWidget* m_ContentBrowser;
 
     VOutput* mSceneView;
 

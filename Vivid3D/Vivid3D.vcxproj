@@ -103,11 +103,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp" />
+    <ClCompile Include="VContentBrowser.cpp" />
+    <ClCompile Include="VContentView.cpp" />
     <ClCompile Include="VSceneGraph.cpp" />
     <ClCompile Include="VTools.cpp" />
     <ClCompile Include="VTreeView.cpp" />
     <ClCompile Include="Widgets\VOutput.cpp" />
     <QtRcc Include="Vivid3D.qrc" />
+    <QtUic Include="VContentBrowser.ui" />
+    <QtUic Include="VContentView.ui" />
     <QtUic Include="Vivid3D.ui" />
     <QtMoc Include="Vivid3D.h" />
     <ClCompile Include="Vivid3D.cpp" />
@@ -130,6 +134,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor.h" />
+    <QtMoc Include="VContentView.h" />
+    <QtMoc Include="VContentBrowser.h" />
     <QtMoc Include="VTools.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

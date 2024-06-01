@@ -6,8 +6,8 @@
 #include <vector>
 #include <QResizeEvent>
 #include <QDebug>
-struct TreeItem {
-
+class TreeItem {
+public:
 	std::string m_Text;
 	std::vector<TreeItem*> m_Items;
 	bool m_Open = true;
@@ -33,6 +33,9 @@ public:
 	void SetRoot(TreeItem* item) {
 		m_Root = item;
 	}
+	void SetActive(TreeItem* item) {
+		m_ActiveItem = item;
+	}
 
 protected:
 	void mousePressEvent(QMouseEvent* event) override;
@@ -43,4 +46,5 @@ private:
 	Ui::VTreeViewClass ui;
 	TreeItem* m_Root;
 	TreeItem* m_OverItem = nullptr;
+	TreeItem* m_ActiveItem = nullptr;
 };

@@ -1,7 +1,8 @@
 #include "VTools.h"
 #include "Editor.h"
+#include "qcombobox.h"
 
-VTools::VTools(QWidget *parent)
+VTools::VTools(QWidget* parent)
 	: QToolBar(parent)
 {
 	ui.setupUi(this);
@@ -23,6 +24,29 @@ VTools::VTools(QWidget *parent)
 
 		});
 
+
+
+	QComboBox* space = new QComboBox(this);
+
+	space->addItem("Local");
+	space->addItem("Global");
+	space->setMinimumWidth(80);
+
+	addWidget(space);
+
+
+	connect(space, QOverload<int>::of(&QComboBox::currentIndexChanged),
+		[this](int index) {
+			//label->setText(QString("Selected Option: %1").arg(index + 1));
+			if (index == 0) {
+				Editor::m_SpaceMode = SM_Local;
+			}
+			else {
+				Editor::m_SpaceMode = SM_Global;
+			}
+		});
+
+		//&MainWindow::onComboBoxIndexChanged);
 
 }
 

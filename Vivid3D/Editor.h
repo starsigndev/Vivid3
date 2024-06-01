@@ -9,6 +9,8 @@ enum SpaceMode {
 
 class SceneGraph;
 class NodeEntity;
+class VSceneGraph;
+class VContentBrowser;
 
 class Editor
 {
@@ -18,6 +20,7 @@ public:
 	static GizmoMode m_GizmoMode;
 	static NodeEntity* m_CurrentNode;
 	static SpaceMode m_SpaceMode;
-
+	static VSceneGraph* m_SceneGraph;
+	static VContentBrowser* m_ContentBrowser;
 };
 

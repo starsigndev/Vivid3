@@ -67,6 +67,12 @@ void Node::Translate(float3 delta) {
 
 }
 
+float3 Node::TransformVector(float3 vector) {
+
+	return vector * m_Rotation;
+
+}
+
 void Node::Rotate(float pitch, float yaw, float roll) {
 
 
@@ -88,12 +94,13 @@ void Node::Turn(float pitch, float yaw, float roll,bool local) {
 	float4x4 turn = float4x4::RotationX(pitch) * float4x4::RotationY(yaw) * float4x4::RotationZ(roll);
 
 	if (local) {
+		m_Rotation = turn * m_Rotation;
+		
+	}
+	else {
 
 		m_Rotation = m_Rotation * turn;
 
-	}
-	else {
-		m_Rotation = turn * m_Rotation;
 	}
 
 }

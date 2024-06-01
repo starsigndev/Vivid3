@@ -67,6 +67,12 @@
     <ClCompile Include="VTools.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VContentBrowser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VContentView.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Widgets\VOutput.h">
@@ -81,6 +87,12 @@
     <QtMoc Include="VTools.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="VContentBrowser.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="VContentView.h">
+      <Filter>Widgets</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Widgets\VOutput.ui">
@@ -93,6 +105,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="VTools.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VContentBrowser.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VContentView.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

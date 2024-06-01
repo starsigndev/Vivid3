@@ -27,7 +27,13 @@ public:
 	void Translate(float3 delta);
 	void Rotate(float pitch, float yaw, float roll);
 	void Turn(float pitch, float yaw, float roll, bool local);
-
+	float4x4 GetRotation() {
+		return m_Rotation;
+	}
+	void SetRotation(float4x4 rotation) {
+		m_Rotation = rotation;
+	}
+	float3 TransformVector(float3 vector);
 	virtual float4x4 GetWorldMatrix();
 	virtual void Render() {
 		RenderChildren();

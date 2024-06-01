@@ -99,9 +99,9 @@ void VTreeView::paintEvent(QPaintEvent* event)
 
     // Create a QPainter object
     QPainter painter(this);
-
+    QColor bg(40, 40, 40);
     // Set background color
-    painter.fillRect(rect(), Qt::darkGray);
+    painter.fillRect(rect(), bg);
 
     RenderItem(m_Root, 25, 20);
 
@@ -128,7 +128,7 @@ int VTreeView::RenderItem(TreeItem* item, int x, int y) {
 
     QPainter painter(this);
 
-    if (item == m_OverItem) {
+    if (item == m_OverItem || item == m_ActiveItem) {
 
         QBrush brush(Qt::gray);
         painter.setBrush(brush);
