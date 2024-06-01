@@ -38,7 +38,7 @@ public:
 	HitResult MousePick(int x, int y);
 	HitResult MousePick(int x, int y, NodeEntity* entity);
 	HitResult RayCast(float3 pos, float3 dir);
-	
+	float2 ToScreenSpace(float3 position);
 private:
 
 	NodeCamera* m_Camera;

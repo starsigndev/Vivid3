@@ -325,3 +325,28 @@ HitResult SceneGraph::RayCast(float3 pos, float3 end) {
     return close;
 
 }
+
+float2 SceneGraph::ToScreenSpace(float3 position) {
+
+
+    float4x4 view = m_Camera->GetWorldMatrix();
+
+    float4x4 proj = m_Camera->GetProjection();
+
+    float4x4 mvp = view * proj;
+
+    float4 pos = float4(position, 1.0) * mvp;
+
+    pos.x = pos.x / pos.w;
+    pos.y = pos.y / pos.w;
+
+    pos.x = (0.5f + pos.x * 0.5f) * Engine::m_FrameWidth;
+    pos.y = (0.5f - pos.y * 0.5f) * Engine::m_FrameHeight;
+
+    return float2(pos.x, pos.y);
+
+   
+    
+
+
+}

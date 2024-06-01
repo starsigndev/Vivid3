@@ -212,6 +212,12 @@ void VOutput::mousePressEvent(QMouseEvent* event)
     }
     else if (event->button() == Qt::RightButton)
     {
+
+
+        float2 ps = m_Graph1->ToScreenSpace(m_Gizmo->GetPosition());
+
+        printf("XP:%f YP:%f\n", ps.x, ps.y);
+
         m_CamRotate = true;
         // Handle right mouse button press
     }
@@ -247,6 +253,9 @@ void VOutput::mouseMoveEvent(QMouseEvent* event)
 {
 
 
+    //Translate from origin along selected axis, then into screen space. if final x>y use mouse x else use mouse y
+
+
 
 
     QPoint delta = event->pos() - m_MouseLast;
@@ -267,10 +276,78 @@ void VOutput::mouseMoveEvent(QMouseEvent* event)
             Editor::m_CurrentNode->Translate(float3(0, -delta.y() * 0.01f, 0));
         }
         if (m_LockX) {
-            Editor::m_CurrentNode->Translate(float3(-delta.x() * 0.01f,0, 0));
+            //Editor::m_CurrentNode->Translate(float3(-delta.x() * 0.01f,0, 0));
+
+            float3 s_w = Editor::m_CurrentNode->GetPosition();
+            float2 s_p = m_Graph1->ToScreenSpace(s_w);
+
+            float3 x_w = s_w + float3(2, 0, 0);
+            float2 x_p = m_Graph1->ToScreenSpace(x_w);
+
+            int b = 5;
+
+            float xd = x_p.x - s_p.x;
+            float yd = x_p.y - s_p.y;
+
+            if (abs(xd) > abs(yd)) {
+
+                float s = 1.0f;
+
+                if (xd < 0) {
+                    s = -1.0f;
+                }
+                Editor::m_CurrentNode->Translate(float3(delta.x()*0.01f*s, 0, 0));
+
+            }
+            else {
+
+                float s = 1.0f;
+                if (yd < 0) {
+                    s = -1.0f;
+                }
+
+                Editor::m_CurrentNode->Translate(float3(delta.y() * 0.01f*s, 0, 0));
+
+            }
+
+
         }
         if (m_LockZ) {
-            Editor::m_CurrentNode->Translate(float3(0,0, -delta.x() * 0.01f));
+            float3 s_w = Editor::m_CurrentNode->GetPosition();
+            float2 s_p = m_Graph1->ToScreenSpace(s_w);
+
+            float3 x_w = s_w + float3(0, 0, 2);
+            float2 x_p = m_Graph1->ToScreenSpace(x_w);
+
+            int b = 5;
+
+            float xd = x_p.x - s_p.x;
+            float yd = x_p.y - s_p.y;
+
+            if (abs(xd) > abs(yd)) {
+
+                float s = 1.0f;
+
+                if (xd < 0) {
+                    s = -1.0f;
+                }
+                Editor::m_CurrentNode->Translate(float3(0,0,delta.x() * 0.01f * s));
+
+            }
+            else {
+
+                float s = 1.0f;
+                if (yd < 0) {
+                    s = -1.0f;
+                }
+
+                Editor::m_CurrentNode->Translate(float3(0,0,delta.y() * 0.01f * s));
+
+            }
+
+            
+            //Editor::m_CurrentNode->Translate(float3(0,0, -delta.x() * 0.01f));
+
         }
         
         break;
