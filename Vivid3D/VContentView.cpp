@@ -10,6 +10,8 @@
 #include "VSceneGraph.h"
 #include "MaterialMeshLight.h"
 #include "VPropertyEditor.h"
+#include <qmimedata.h>
+#include <qdrag.h>
 
 VContentView::VContentView(QWidget *parent)
 	: QWidget(parent)
@@ -114,6 +116,28 @@ void VContentView::mousePressEvent(QMouseEvent* event)
             Browse(top);
             update();
             
+        }
+      
+    }
+    if (event->button() == Qt::LeftButton) {
+
+        if (m_OverItem != nullptr) {
+            // Create a MIME data object to hold the drag data
+            QMimeData* mimeData = new QMimeData;
+            mimeData->setText(m_OverItem->m_Name.c_str());
+            //mimeData->setData()
+            QStringList filePaths;
+            filePaths << m_OverItem->m_FullPath.c_str();
+            QList<QUrl> urls;
+            for (const QString& filePath : filePaths) {
+                urls.append(QUrl::fromLocalFile(filePath));
+            }
+            mimeData->setUrls(urls);
+
+            // Create a drag object and initiate the drag operation
+            QDrag* drag = new QDrag(this);
+            drag->setMimeData(mimeData);
+            drag->exec(Qt::DropAction::TargetMoveAction);
         }
     }
     /*
@@ -343,6 +367,14 @@ void VContentView::mouseDoubleClickEvent(QMouseEvent* event)
                     }
                     if (m_OverItem->m_Ext == "material")
                     {
+                         auto old_mat = Engine::FindActiveMaterial(m_OverItem->m_FullPath);
+
+                        if (old_mat != nullptr) {
+
+                            Editor::m_PropEditor->SetMaterial(old_mat);
+                            return;
+                        }
+
                         MaterialMeshLight* mat = new MaterialMeshLight;
                         mat->LoadMaterial(m_OverItem->m_FullPath);
                         int b = 5;

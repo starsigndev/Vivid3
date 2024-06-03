@@ -104,8 +104,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp" />
+    <ClCompile Include="VColorPreview.cpp" />
     <ClCompile Include="VContentBrowser.cpp" />
     <ClCompile Include="VContentView.cpp" />
+    <ClCompile Include="VImagePreview.cpp" />
     <ClCompile Include="VPropEditor.cpp" />
     <ClCompile Include="VPropertyEditor.cpp" />
     <ClCompile Include="VSceneGraph.cpp" />
@@ -113,9 +115,11 @@
     <ClCompile Include="VTreeView.cpp" />
     <ClCompile Include="Widgets\VOutput.cpp" />
     <QtRcc Include="Vivid3D.qrc" />
+    <QtUic Include="VColorPreview.ui" />
     <QtUic Include="VContentBrowser.ui" />
     <QtUic Include="VContentView.ui" />
     <QtUic Include="VElementEditor.ui" />
+    <QtUic Include="VImagePreview.ui" />
     <QtUic Include="Vivid3D.ui" />
     <QtMoc Include="Vivid3D.h" />
     <ClCompile Include="Vivid3D.cpp" />
@@ -140,6 +144,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor.h" />
+    <QtMoc Include="VColorPreview.h" />
+    <QtMoc Include="VImagePreview.h" />
     <QtMoc Include="VPropEditor.h" />
     <QtMoc Include="VPropertyEditor.h" />
     <QtMoc Include="VContentView.h" />

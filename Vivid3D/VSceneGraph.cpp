@@ -35,6 +35,7 @@ VSceneGraph::VSceneGraph(QWidget *parent)
 void VSceneGraph::AddNode(TreeItem* item, Node* node) {
 
 	item->m_Text = node->GetName();
+	item->m_Data = (void*)node;
 	
 	m_NodeMap[node] = item;
 	

@@ -27,8 +27,26 @@ public:
 	void SetDiffuse(Texture2D* texture);
 	void SetSpecular(Texture2D* texture);
 	void SetNormals(Texture2D* texture);
+	Texture2D* GetDiffuse() {
+		return m_Diffuse;
+	}
+	Texture2D* GetSpecular() {
+		return m_Specular;
+	}
+	Texture2D* GetNormal() {
+		return m_Normal;
+	}
 	virtual void SaveMaterial(std::string path);
 	virtual void LoadMaterial(std::string path);
+	std::string GetPath() {
+		return m_FullPath;
+	}
+	float4 GetDiffuseColor() {
+		return m_DiffuseColor;
+	}
+	float4 GetSpecularColor() {
+		return m_SpecularColor;
+	}
 
 protected:
 
@@ -39,6 +57,9 @@ protected:
 
 	float4 m_DiffuseColor;
 	float4 m_SpecularColor;
+
+	bool m_CastShadows = true;
+	bool m_ReceiveShadows = true;
 
 	//Basic
 	RefCntAutoPtr<IBuffer> BasicUniform;
@@ -51,7 +72,7 @@ protected:
 	RefCntAutoPtr<IBuffer> m_UniformBuffer;
 	RefCntAutoPtr<IShaderResourceBinding> m_SRB;
 	RefCntAutoPtr<IShaderResourceBinding> m_SecondPassSRB;
-
+	std::string m_FullPath;
 
 };
 

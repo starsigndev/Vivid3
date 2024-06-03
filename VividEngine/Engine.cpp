@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Engine.h"
 #include "RenderTargetCube.h"
+#include "MaterialBase.h"
 
 RefCntAutoPtr<IRenderDevice>  Engine::m_pDevice;
 RefCntAutoPtr<IDeviceContext> Engine::m_pImmediateContext;
@@ -57,5 +58,32 @@ void Engine::SetBoundRTC(RenderTargetCube* target) {
 	m_BoundRTC = target;
 
 }
+
+bool containsSubstring(const std::string& str, const std::string& substring) {
+	return str.find(substring) != std::string::npos;
+}
+
+MaterialBase* Engine::FindActiveMaterial(std::string path) {
+
+	for (auto mat : m_ActiveMaterials) {
+
+		if (mat->GetPath() == path) {
+			return mat;
+		}
+		if (containsSubstring(mat->GetPath(), path))
+		{
+			return mat;
+		}
+		if (containsSubstring(path, mat->GetPath()))
+		{
+			return mat;
+		}
+
+	}
+	return nullptr;
+
+}
+
+std::vector<MaterialBase*> Engine::m_ActiveMaterials;
 
 NodeLight* Engine::m_Light = nullptr;

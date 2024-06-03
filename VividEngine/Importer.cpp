@@ -77,15 +77,23 @@ Node* Importer::ImportNode(std::string path) {
 
         std::string check = mat_path + name + ".material";
 
+        auto lmat = Engine::FindActiveMaterial(check);
+
+        if (lmat != nullptr) {
+            materials.push_back(lmat);
+            continue;
+        }
+
         if (VFile::Exists(check.c_str())) {
 
             v_mat->LoadMaterial(check);
             materials.push_back(v_mat);
+            Engine::m_ActiveMaterials.push_back(v_mat);
             continue;
 
         }
 
-
+        Engine::m_ActiveMaterials.push_back(v_mat);
         materials.push_back(v_mat);
 
         for (unsigned int j = 0; j < mat->GetTextureCount(aiTextureType_DIFFUSE); ++j) {

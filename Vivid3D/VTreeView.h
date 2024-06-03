@@ -11,6 +11,7 @@ public:
 	std::string m_Text;
 	std::vector<TreeItem*> m_Items;
 	bool m_Open = true;
+	void* m_Data = nullptr;
 	TreeItem* AddItem(std::string text) {
 		TreeItem* item = new TreeItem;
 		item->m_Text = text;

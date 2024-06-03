@@ -353,6 +353,7 @@ void MaterialBase::SaveMaterial(std::string path) {
 
 
     out->Close();
+    m_FullPath = path;
 
 }
 
@@ -369,5 +370,7 @@ void MaterialBase::LoadMaterial(std::string path) {
     m_SpecularColor = in->ReadVec4();
 
     in->Close();
+    
+    m_FullPath = path;
 
 }

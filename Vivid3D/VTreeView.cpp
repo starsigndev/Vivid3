@@ -1,5 +1,7 @@
 #include "VTreeView.h"
 #include <QPainter>
+#include "Node.h"
+#include "Editor.h"
 
 VTreeView::VTreeView(QWidget *parent)
 	: QWidget(parent)
@@ -58,6 +60,14 @@ void VTreeView::mousePressEvent(QMouseEvent* event)
             if (m_OverItem->m_Items.size() > 0) {
                 m_OverItem->m_Open = m_OverItem->m_Open ? false : true;
                 update();
+            }
+            else {
+                auto node = (Node*)m_OverItem->m_Data;
+                if (node != nullptr) {
+                    Editor::m_CurrentNode = (NodeEntity*)node;
+                    
+                }
+                m_ActiveItem = m_OverItem;
             }
         }
         // Handle left mouse button press

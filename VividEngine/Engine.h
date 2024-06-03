@@ -36,6 +36,7 @@
 using namespace Diligent;
 
 class RenderTargetCube;
+class MaterialBase;
 
 class Engine
 {
@@ -58,6 +59,8 @@ public:
 	static void SetBoundRTC(RenderTargetCube* target);
 
 	static RenderTargetCube* m_BoundRTC;
+	static std::vector<MaterialBase*> m_ActiveMaterials;
+	static MaterialBase* FindActiveMaterial(std::string path);
 
 private:
 

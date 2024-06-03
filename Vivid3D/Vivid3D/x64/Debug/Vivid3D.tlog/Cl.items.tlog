@@ -1,6 +1,8 @@
 C:\Dev\Vivid3D\Vivid3D\Editor.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\Editor.obj
+C:\Dev\Vivid3D\Vivid3D\VColorPreview.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\VColorPreview.obj
 C:\Dev\Vivid3D\Vivid3D\VContentBrowser.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\VContentBrowser.obj
 C:\Dev\Vivid3D\Vivid3D\VContentView.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\VContentView.obj
+C:\Dev\Vivid3D\Vivid3D\VImagePreview.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\VImagePreview.obj
 C:\Dev\Vivid3D\Vivid3D\VPropEditor.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\VPropEditor.obj
 C:\Dev\Vivid3D\Vivid3D\VPropertyEditor.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\VPropertyEditor.obj
 C:\Dev\Vivid3D\Vivid3D\VSceneGraph.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\VSceneGraph.obj
@@ -14,6 +16,8 @@ C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_Vivid3D.cpp;C:\Dev\Vivid3D\Vivi
 C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_VOutput.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc_VOutput.obj
 C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_VSceneGraph.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc_VSceneGraph.obj
 C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_VTreeView.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc_VTreeView.obj
+C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_VColorPreview.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc_VColorPreview.obj
+C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_VImagePreview.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc_VImagePreview.obj
 C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_VPropEditor.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc_VPropEditor.obj
 C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_VPropertyEditor.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc_VPropertyEditor.obj
 C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_VContentView.cpp;C:\Dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc_VContentView.obj

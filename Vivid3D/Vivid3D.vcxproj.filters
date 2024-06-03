@@ -79,6 +79,12 @@
     <ClCompile Include="VPropEditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VImagePreview.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VColorPreview.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Widgets\VOutput.h">
@@ -103,6 +109,12 @@
       <Filter>Widgets</Filter>
     </QtMoc>
     <QtMoc Include="VPropEditor.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="VImagePreview.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="VColorPreview.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -132,6 +144,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="VPropEditor.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VImagePreview.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VColorPreview.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

@@ -1,8 +1,18 @@
-﻿  Importer.cpp
+﻿  Engine.cpp
+  Importer.cpp
 C:\Dev\Vivid3D\VividEngine\Importer.cpp(71,23): warning C4018: '<': signed/unsigned mismatch
-C:\Dev\Vivid3D\VividEngine\Importer.cpp(124,23): warning C4018: '<': signed/unsigned mismatch
-C:\Dev\Vivid3D\VividEngine\Importer.cpp(129,27): warning C4018: '<': signed/unsigned mismatch
-C:\Dev\Vivid3D\VividEngine\Importer.cpp(149,27): warning C4018: '<': signed/unsigned mismatch
+C:\Dev\Vivid3D\VividEngine\Importer.cpp(132,23): warning C4018: '<': signed/unsigned mismatch
+C:\Dev\Vivid3D\VividEngine\Importer.cpp(137,27): warning C4018: '<': signed/unsigned mismatch
+C:\Dev\Vivid3D\VividEngine\Importer.cpp(157,27): warning C4018: '<': signed/unsigned mismatch
+  MaterialBase.cpp
+  MaterialDepth.cpp
+  MaterialMeshLight.cpp
+  Mesh3D.cpp
+C:\Dev\Vivid3D\VividEngine\Mesh3D.cpp(65,36): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
+C:\Dev\Vivid3D\VividEngine\Mesh3D.cpp(85,36): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
+  NodeEntity.cpp
+C:\Dev\Vivid3D\VividEngine\NodeEntity.cpp(24,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
 Importer.obj : warning LNK4006: "public: struct aiScene const * __cdecl Assimp::Importer::ReadFile(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,unsigned int)" (?ReadFile@Importer@Assimp@@QEAAPEBUaiScene@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@I@Z) already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 Importer.obj : warning LNK4006: "public: unsigned int __cdecl aiMaterial::GetTextureCount(enum aiTextureType)const " (?GetTextureCount@aiMaterial@@QEBAIW4aiTextureType@@@Z) already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 Importer.obj : warning LNK4006: "public: enum aiReturn __cdecl aiMaterial::GetTexture(enum aiTextureType,unsigned int,struct aiString *,enum aiTextureMapping *,unsigned int *,float *,enum aiTextureOp *,enum aiTextureMapMode *)const " (?GetTexture@aiMaterial@@QEBA?AW4aiReturn@@W4aiTextureType@@IPEAUaiString@@PEAW4aiTextureMapping@@PEAIPEAMPEAW4aiTextureOp@@PEAW4aiTextureMapMode@@@Z) already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
