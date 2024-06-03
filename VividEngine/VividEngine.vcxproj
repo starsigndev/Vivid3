@@ -113,6 +113,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsTools\interface;C:\Dev\git\DE\DiligentEngine\DiligentCore;C:\Dev\git\DE\DiligentEngine\DiligentTools\TextureLoader\interface;C:\Dev\git\DE\DiligentEngine\DiligentTools\TextureLoader\include;C:\Dev\Assimp\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsEngine\interface;C:\Dev\git\DE\DiligentEngine\DiligentCore\Common\interface;C:\Dev\git\DE\DiligentEngine\DiligentCore\ThirdParty\SPIRV-Cross\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Platforms\Basic\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\ShaderTools\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\HLSL2GLSLConverterLib\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsEngineD3D12\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsEngine\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Common\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -146,10 +148,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CubeRenderer.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Importer.h" />
     <ClInclude Include="MaterialBase.h" />
+    <ClInclude Include="MaterialDepth.h" />
     <ClInclude Include="MaterialMeshLight.h" />
     <ClInclude Include="MathsHelp.h" />
     <ClInclude Include="Mesh3D.h" />
@@ -159,14 +163,18 @@
     <ClInclude Include="NodeEntity.h" />
     <ClInclude Include="NodeLight.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="RenderTargetCube.h" />
     <ClInclude Include="SceneGraph.h" />
     <ClInclude Include="data.h" />
     <ClInclude Include="Texture2D.h" />
+    <ClInclude Include="VFile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CubeRenderer.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Importer.cpp" />
     <ClCompile Include="MaterialBase.cpp" />
+    <ClCompile Include="MaterialDepth.cpp" />
     <ClCompile Include="MaterialMeshLight.cpp" />
     <ClCompile Include="MathsHelp.cpp" />
     <ClCompile Include="Mesh3D.cpp" />
@@ -181,8 +189,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="RenderTargetCube.cpp" />
     <ClCompile Include="SceneGraph.cpp" />
     <ClCompile Include="Texture2D.cpp" />
+    <ClCompile Include="VFile.cpp" />
     <ClCompile Include="VividEngine.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

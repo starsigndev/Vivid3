@@ -73,6 +73,12 @@
     <ClCompile Include="VContentView.cpp">
       <Filter>Widgets</Filter>
     </ClCompile>
+    <ClCompile Include="VPropertyEditor.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="VPropEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Widgets\VOutput.h">
@@ -93,6 +99,12 @@
     <QtMoc Include="VContentView.h">
       <Filter>Widgets</Filter>
     </QtMoc>
+    <QtMoc Include="VPropertyEditor.h">
+      <Filter>Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="VPropEditor.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Widgets\VOutput.ui">
@@ -111,6 +123,15 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="VContentView.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VElementEditor.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VPropertyEditor.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VPropEditor.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

@@ -58,6 +58,8 @@ void VSceneGraph::UpdateGraph() {
 	AddNode(item, Editor::m_Graph->GetRoot());
 
 	m_Tree->SetRoot(item);
+	update();
+	m_Tree->update();
 
 }
 

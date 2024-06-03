@@ -11,6 +11,7 @@ class SceneGraph;
 class NodeEntity;
 class VSceneGraph;
 class VContentBrowser;
+class VPropertyEditor;
 
 class Editor
 {
@@ -22,5 +23,6 @@ public:
 	static SpaceMode m_SpaceMode;
 	static VSceneGraph* m_SceneGraph;
 	static VContentBrowser* m_ContentBrowser;
+	static VPropertyEditor* m_PropEditor;
 };
 

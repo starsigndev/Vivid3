@@ -10,5 +10,6 @@ Texture2D::Texture2D(std::string path) {
     
     m_pTextureView =  m_pTexture->GetDefaultView(TEXTURE_VIEW_SHADER_RESOURCE);
 
+    m_Path = path;
 
 }

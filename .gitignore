@@ -28,6 +28,9 @@
 *.a
 *.lib
 
+*.pdb
+
+
 # Executables
 *.exe
 *.out

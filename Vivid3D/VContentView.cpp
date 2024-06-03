@@ -2,7 +2,15 @@
 #include <QPainter>
 #include <QDir>
 #include <qevent.h>
+#include "Editor.h"
+#include "engine.h"
+#include "Importer.h"
+#include "SceneGraph.h"
 #include <QDirIterator>
+#include "VSceneGraph.h"
+#include "MaterialMeshLight.h"
+#include "VPropertyEditor.h"
+
 VContentView::VContentView(QWidget *parent)
 	: QWidget(parent)
 {
@@ -80,6 +88,34 @@ void VContentView::paintEvent(QPaintEvent* event)
 
 void VContentView::mousePressEvent(QMouseEvent* event)
 {
+
+    if (event->button() == Qt::BackButton) {
+        if (m_Paths.size() > 1)
+        {
+            m_Paths.pop();
+            
+            m_Files.clear();
+            m_Folders.clear();
+            m_All.clear();
+            std::string top = m_Paths.top();
+            m_Paths.pop();
+            printf("DIR:>>");
+            printf(top.c_str());
+            printf("\n");
+            Browse(top);
+            update();
+        }
+        else {
+            m_Files.clear();
+            m_Folders.clear();
+            m_All.clear();
+            std::string top = m_Paths.top();
+            m_Paths.pop();
+            Browse(top);
+            update();
+            
+        }
+    }
     /*
     if (event->button() == Qt::LeftButton)
     {
@@ -100,6 +136,7 @@ void VContentView::mouseMoveEvent(QMouseEvent* event)
 {
     auto pos = event->position();
     m_OverItem = nullptr;
+    update();
 
     for (auto item : m_All) {
     
@@ -151,7 +188,18 @@ QString extractFileName(const QString& filePath)
     return filePath.mid(lastIndex + 1);
 }
 
+QString extractFileExtension(const QString& fileName)
+{
+    int dotIndex = fileName.lastIndexOf('.');
+    if (dotIndex != -1) {
+        return fileName.mid(dotIndex + 1);
+    }
+    return QString(); // Return an empty string if no extension found
+}
+
 void VContentView::Browse(std::string path) {
+
+    m_Paths.push(path);
 
     QDir directory(path.c_str());
 
@@ -172,6 +220,7 @@ void VContentView::Browse(std::string path) {
             item->m_Name = extractFileName(fileInfo.absoluteFilePath()).toStdString();
             item->m_FullPath = fileInfo.absoluteFilePath().toStdString();
             item->m_Folder = false;
+            item->m_Ext = extractFileExtension(fileInfo.absoluteFilePath()).toStdString();
             m_Files.push_back(item);
         }
         else if (fileInfo.isDir()) {
@@ -230,7 +279,7 @@ void VContentView::UpdateView() {
     }
 
    // setMaximumSize(max_w, dy);
-    setMinimumHeight(dy+64);
+    setMinimumHeight(dy+96);
     int b = 5;
 
 }
@@ -254,4 +303,54 @@ void VContentView::resizeEvent(QResizeEvent* event)
     Engine::m_FrameWidth = newSize.width();
     Engine::m_FrameHeight = newSize.height();
     */
+}
+
+void VContentView::mouseDoubleClickEvent(QMouseEvent* event) 
+{
+    // Call the base class implementation of mouseDoubleClickEvent
+    QWidget::mouseDoubleClickEvent(event);
+
+
+    if (m_OverItem != nullptr) {
+        // Check if the event occurred in the left mouse button
+        if (m_OverItem->m_Folder) {
+            if (event->button() == Qt::LeftButton) {
+                if (m_OverItem != nullptr) {
+                    m_Files.clear();
+                    m_Folders.clear();
+                    m_All.clear();
+
+                    Browse(m_OverItem->m_FullPath);
+                    update();
+
+                }
+                //qDebug() << "Double-click event occurred at (" << event->x() << ", " << event->y() << ")";
+            }
+        }
+        else {
+            if (event->button() == Qt::LeftButton) {
+                if (m_OverItem != nullptr) {
+                    if (m_OverItem->m_Ext == "fbx")
+                    {
+                        Importer* imp = new Importer;
+                        auto node = imp->ImportNode(m_OverItem->m_FullPath);
+                        Editor::m_Graph->AddNode(node);
+                        Editor::m_SceneGraph->UpdateGraph();
+
+
+                        //exit(1);
+
+                    }
+                    if (m_OverItem->m_Ext == "material")
+                    {
+                        MaterialMeshLight* mat = new MaterialMeshLight;
+                        mat->LoadMaterial(m_OverItem->m_FullPath);
+                        int b = 5;
+                        Editor::m_PropEditor->SetMaterial(mat);
+                    }
+
+                }
+            }
+        }
+    }
 }

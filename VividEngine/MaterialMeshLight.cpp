@@ -2,6 +2,8 @@
 #include "MaterialMeshLight.h"
 #include "Engine.h"
 #include <vector>
+#include "NodeLight.h"
+#include "RenderTargetCube.h"
 #include "Texture2D.h"
 
 #include <Graphics/GraphicsEngine/interface/RenderDevice.h>
@@ -38,9 +40,9 @@ struct Constants {
 MaterialMeshLight::MaterialMeshLight() {
 
 	Create();
-    m_Diffuse = new Texture2D("test/test1.png");
-    m_Normal = new Texture2D("test/normal1.png");
-    m_Specular = new Texture2D("test/spec1.png");
+    m_Diffuse = new Texture2D("engine/white.png");
+    m_Normal = new Texture2D("engine/normal.png");
+    m_Specular = new Texture2D("engine/white.png");
 }
 
 void MaterialMeshLight::Create() {
@@ -189,6 +191,11 @@ void MaterialMeshLight::Create() {
     v_spec.Type = SHADER_RESOURCE_VARIABLE_TYPE_DYNAMIC;
     vars.push_back(v_spec);
 
+    v_tex.ShaderStages = SHADER_TYPE_PIXEL;
+    v_tex.Name = "v_Shadow";
+    v_tex.Type = SHADER_RESOURCE_VARIABLE_TYPE_DYNAMIC;
+    vars.push_back(v_tex);
+
     ImmutableSamplerDesc v_sampler;
 
     SamplerDesc v_rsampler;
@@ -197,7 +204,7 @@ void MaterialMeshLight::Create() {
     v_rsampler.MipFilter = FILTER_TYPE::FILTER_TYPE_LINEAR;
     v_rsampler.AddressU = TEXTURE_ADDRESS_MODE::TEXTURE_ADDRESS_WRAP;
     v_rsampler.AddressV = TEXTURE_ADDRESS_MODE::TEXTURE_ADDRESS_WRAP;
-    v_rsampler.AddressW = TEXTURE_ADDRESS_MODE::TEXTURE_ADDRESS_CLAMP;
+    v_rsampler.AddressW = TEXTURE_ADDRESS_MODE::TEXTURE_ADDRESS_WRAP;
     // v_rsampler.MaxAnisotropy = 1.0f;
 
 
@@ -221,15 +228,20 @@ void MaterialMeshLight::Create() {
 
     samplers.push_back(v_sampler);
 
+    v_sampler.Desc = v_rsampler;
+    v_sampler.SamplerOrTextureName = "v_Shadow";
+    v_sampler.ShaderStages = SHADER_TYPE_PIXEL;
+
+    samplers.push_back(v_sampler);
 
     PipelineResourceLayoutDesc rl_desc;
 
     rl_desc.DefaultVariableType = SHADER_RESOURCE_VARIABLE_TYPE_STATIC;
     rl_desc.Variables = vars.data();
     rl_desc.ImmutableSamplers = samplers.data();
-    rl_desc.NumVariables = 3;
+    rl_desc.NumVariables = 4;
 
-    rl_desc.NumImmutableSamplers = 3;
+    rl_desc.NumImmutableSamplers = 4;
 
 
     PipelineStateDesc pso_desc;
@@ -264,6 +276,8 @@ void MaterialMeshLight::Bind() {
 
     m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_Texture")->Set(m_Diffuse->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
    m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureNorm")->Set(m_Normal->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
+   m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "v_Shadow")->Set(Engine::m_Light->GetShadowMap()->GetTexView(), SET_SHADER_RESOURCE_FLAG_NONE);
+
   //  m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureSpec")->Set(m_Specular->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
     //Engine::m_pImmediateContext->MapBuffer(BasicUniform, MAP_TYPE::MAP_WRITE, MAP_FLAGS::MAP_FLAG_DISCARD);
 

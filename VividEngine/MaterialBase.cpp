@@ -10,13 +10,16 @@
 #include <Graphics/GraphicsEngine/interface/SwapChain.h>
 #include <Common/interface/RefCntAutoPtr.hpp>
 #include <MapHelper.hpp> // Add this line
+#include "VFile.h"
+
 using namespace Diligent;
 MaterialBase::MaterialBase() {
 
    // Create();
    // m_Diffuse = new Texture2D("test/test1.png");
 
-
+    m_DiffuseColor = float4(1, 1, 1, 1);
+    m_SpecularColor = float4(1, 1, 1, 1);
 }
 
 void MaterialBase::Create() {
@@ -323,5 +326,48 @@ void MaterialBase::Bind() {
 void MaterialBase::SetDiffuse(Texture2D* texture) {
 
     m_Diffuse = texture;
+
+}
+
+void MaterialBase::SetSpecular(Texture2D* texture) {
+
+    m_Specular = texture;
+
+}
+
+void MaterialBase::SetNormals(Texture2D* texture) {
+
+    m_Normal = texture;
+
+}
+
+void MaterialBase::SaveMaterial(std::string path) {
+
+    VFile* out = new VFile(path.c_str(), FileMode::Write);
+
+    out->WriteString(m_Diffuse->GetPath().c_str());
+    out->WriteString(m_Specular->GetPath().c_str());
+    out->WriteString(m_Normal->GetPath().c_str());
+    out->WriteVec4(m_DiffuseColor);
+    out->WriteVec4(m_SpecularColor);
+
+
+    out->Close();
+
+}
+
+void MaterialBase::LoadMaterial(std::string path) {
+
+
+    VFile* in = new VFile(path.c_str(), FileMode::Read);
+
+    m_Diffuse = new Texture2D(in->ReadString());
+    m_Specular = new Texture2D(in->ReadString());
+    m_Normal = new Texture2D(in->ReadString());
+
+    m_DiffuseColor = in->ReadVec4();
+    m_SpecularColor = in->ReadVec4();
+
+    in->Close();
 
 }

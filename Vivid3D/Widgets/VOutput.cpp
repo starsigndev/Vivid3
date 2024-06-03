@@ -113,6 +113,8 @@ void VOutput::CreateDX12() {
 
     //SCDesc.ColorBufferFormat = TEX_FORMAT_RGBA16_FLOAT;
 
+   // SCDesc.ColorBufferFormat = TEX_FORMAT_RGB32_FLOAT;
+   // SCDesc.DepthBufferFormat = TEX_FORMAT_D32_FLOAT;
 
     EngineD3D12CreateInfo EngineCI;
     pFactoryD3D12->CreateDeviceAndContextsD3D12(EngineCI, &m_pDevice, &m_pImmediateContext);
@@ -133,8 +135,8 @@ void VOutput::resizeEvent(QResizeEvent* event)
      m_pSwapChain->Resize(static_cast<Uint32>(newSize.width()), static_cast<Uint32>(newSize.height()));
     // For demonstration, print the new size to the debug output
     qDebug() << "Widget resized from" << oldSize << "to" << newSize;
-    Engine::m_FrameWidth = newSize.width();
-    Engine::m_FrameHeight = newSize.height();
+    Engine::SetFrameWidth(newSize.width());
+    Engine::SetFrameHeight(newSize.height());
 }
 
 
@@ -276,391 +278,393 @@ void VOutput::mouseMoveEvent(QMouseEvent* event)
 
         //  update();
     }
-    switch (Editor::m_GizmoMode)
-    {
-    case GM_Translate:
 
-        if (Editor::m_SpaceMode == SM_Local)
+    if (Editor::m_CurrentNode != nullptr) {
+        switch (Editor::m_GizmoMode)
         {
-            if (m_LockY) {
-                //Editor::m_CurrentNode->Translate(float3(0, -delta.y() * 0.01f, 0));
-                float3 s_w = Editor::m_CurrentNode->GetPosition();
-                float2 s_p = m_Graph1->ToScreenSpace(s_w);
+        case GM_Translate:
 
-                float3 x_w = s_w + Editor::m_CurrentNode->TransformVector(float3(0, 2, 0));
-                float2 x_p = m_Graph1->ToScreenSpace(x_w);
+            if (Editor::m_SpaceMode == SM_Local)
+            {
+                if (m_LockY) {
+                    //Editor::m_CurrentNode->Translate(float3(0, -delta.y() * 0.01f, 0));
+                    float3 s_w = Editor::m_CurrentNode->GetPosition();
+                    float2 s_p = m_Graph1->ToScreenSpace(s_w);
 
-                int b = 5;
+                    float3 x_w = s_w + Editor::m_CurrentNode->TransformVector(float3(0, 2, 0));
+                    float2 x_p = m_Graph1->ToScreenSpace(x_w);
 
-                float xd = x_p.x - s_p.x;
-                float yd = x_p.y - s_p.y;
+                    int b = 5;
 
-                if (abs(xd) > abs(yd)) {
+                    float xd = x_p.x - s_p.x;
+                    float yd = x_p.y - s_p.y;
 
-                    float s = 1.0f;
+                    if (abs(xd) > abs(yd)) {
 
-                    if (xd < 0) {
-                        s = -1.0f;
+                        float s = 1.0f;
+
+                        if (xd < 0) {
+                            s = -1.0f;
+                        }
+                        Editor::m_CurrentNode->Move(float3(0, delta.x() * 0.01f * s, 0));
+
                     }
-                    Editor::m_CurrentNode->Move(float3(0, delta.x() * 0.01f * s, 0));
+                    else {
+
+                        float s = 1.0f;
+                        if (yd < 0) {
+                            s = -1.0f;
+                        }
+
+                        Editor::m_CurrentNode->Move(float3(0, delta.y() * 0.01f * s, 0));
+
+                    }
+
+
+                    //Editor::m_CurrentNode->Translate(float3(0,0, -delta.x() * 0.01f));
+
 
                 }
-                else {
+                if (m_LockX) {
+                    //Editor::m_CurrentNode->Translate(float3(-delta.x() * 0.01f,0, 0));
 
-                    float s = 1.0f;
-                    if (yd < 0) {
-                        s = -1.0f;
+                    float3 s_w = Editor::m_CurrentNode->GetPosition();
+                    float2 s_p = m_Graph1->ToScreenSpace(s_w);
+
+                    float3 x_w = s_w + Editor::m_CurrentNode->TransformVector(float3(2, 0, 0));
+                    float2 x_p = m_Graph1->ToScreenSpace(x_w);
+
+                    int b = 5;
+
+                    float xd = x_p.x - s_p.x;
+                    float yd = x_p.y - s_p.y;
+
+                    if (abs(xd) > abs(yd)) {
+
+                        float s = 1.0f;
+
+                        if (xd < 0) {
+                            s = -1.0f;
+                        }
+                        Editor::m_CurrentNode->Move(float3(delta.x() * 0.01f * s, 0, 0));
+
+                    }
+                    else {
+
+                        float s = 1.0f;
+                        if (yd < 0) {
+                            s = -1.0f;
+                        }
+
+                        Editor::m_CurrentNode->Move(float3(delta.y() * 0.01f * s, 0, 0));
+
                     }
 
-                    Editor::m_CurrentNode->Move(float3(0, delta.y() * 0.01f * s, 0));
 
                 }
+                if (m_LockZ) {
+                    float3 s_w = Editor::m_CurrentNode->GetPosition();
+                    float2 s_p = m_Graph1->ToScreenSpace(s_w);
+
+                    float3 x_w = s_w + Editor::m_CurrentNode->TransformVector(float3(0, 0, 2));
+                    float2 x_p = m_Graph1->ToScreenSpace(x_w);
+
+                    int b = 5;
+
+                    float xd = x_p.x - s_p.x;
+                    float yd = x_p.y - s_p.y;
+
+                    if (abs(xd) > abs(yd)) {
+
+                        float s = 1.0f;
+
+                        if (xd < 0) {
+                            s = -1.0f;
+                        }
+                        Editor::m_CurrentNode->Move(float3(0, 0, delta.x() * 0.01f * s));
+
+                    }
+                    else {
+
+                        float s = 1.0f;
+                        if (yd < 0) {
+                            s = -1.0f;
+                        }
+
+                        Editor::m_CurrentNode->Move(float3(0, 0, delta.y() * 0.01f * s));
+
+                    }
 
 
-                //Editor::m_CurrentNode->Translate(float3(0,0, -delta.x() * 0.01f));
+                    //Editor::m_CurrentNode->Translate(float3(0,0, -delta.x() * 0.01f));
 
+                }
+            }
+            if (Editor::m_SpaceMode == SM_Global) {
+
+                if (m_LockY) {
+                    Editor::m_CurrentNode->Translate(float3(0, -delta.y() * 0.01f, 0));
+                }
+                if (m_LockX) {
+                    //Editor::m_CurrentNode->Translate(float3(-delta.x() * 0.01f,0, 0));
+
+                    float3 s_w = Editor::m_CurrentNode->GetPosition();
+                    float2 s_p = m_Graph1->ToScreenSpace(s_w);
+
+                    float3 x_w = s_w + float3(2, 0, 0);
+                    float2 x_p = m_Graph1->ToScreenSpace(x_w);
+
+                    int b = 5;
+
+                    float xd = x_p.x - s_p.x;
+                    float yd = x_p.y - s_p.y;
+
+                    if (abs(xd) > abs(yd)) {
+
+                        float s = 1.0f;
+
+                        if (xd < 0) {
+                            s = -1.0f;
+                        }
+                        Editor::m_CurrentNode->Translate(float3(delta.x() * 0.01f * s, 0, 0));
+
+                    }
+                    else {
+
+                        float s = 1.0f;
+                        if (yd < 0) {
+                            s = -1.0f;
+                        }
+
+                        Editor::m_CurrentNode->Translate(float3(delta.y() * 0.01f * s, 0, 0));
+
+                    }
+
+
+                }
+                if (m_LockZ) {
+                    float3 s_w = Editor::m_CurrentNode->GetPosition();
+                    float2 s_p = m_Graph1->ToScreenSpace(s_w);
+
+                    float3 x_w = s_w + float3(0, 0, 2);
+                    float2 x_p = m_Graph1->ToScreenSpace(x_w);
+
+                    int b = 5;
+
+                    float xd = x_p.x - s_p.x;
+                    float yd = x_p.y - s_p.y;
+
+                    if (abs(xd) > abs(yd)) {
+
+                        float s = 1.0f;
+
+                        if (xd < 0) {
+                            s = -1.0f;
+                        }
+                        Editor::m_CurrentNode->Translate(float3(0, 0, delta.x() * 0.01f * s));
+
+                    }
+                    else {
+
+                        float s = 1.0f;
+                        if (yd < 0) {
+                            s = -1.0f;
+                        }
+
+                        Editor::m_CurrentNode->Translate(float3(0, 0, delta.y() * 0.01f * s));
+
+                    }
+
+
+                    //Editor::m_CurrentNode->Translate(float3(0,0, -delta.x() * 0.01f));
+
+                }
+            }
+
+            break;
+        case GM_Rotate:
+
+            if (Editor::m_SpaceMode == SM_Local) {
+
+
+                if (m_LockY) {
+
+                    Editor::m_CurrentNode->Turn(0, delta.x() * 0.1f, 0, false);
+
+
+                }
+                //Pitch
+                if (m_LockX) {
+
+
+                    float3 s_w = Editor::m_CurrentNode->GetPosition();
+                    float2 s_p = m_Graph1->ToScreenSpace(s_w);
+
+                    float3 x_w = s_w + Editor::m_CurrentNode->TransformVector(float3(2, 0, 0));
+                    float2 x_p = m_Graph1->ToScreenSpace(x_w);
+
+                    int b = 5;
+
+                    float xd = x_p.x - s_p.x;
+                    float yd = x_p.y - s_p.y;
+
+                    if (abs(xd) > abs(yd)) {
+
+                        float s = -1.0f;
+
+                        if (xd < 0) {
+                            s = 1.0f;
+                        }
+                        Editor::m_CurrentNode->Turn(delta.y() * 0.1f * s, 0, 0, true);
+
+                    }
+                    else {
+
+                        float s = 1.0f;
+                        if (yd < 0) {
+                            s = -1.0f;
+                        }
+
+                        Editor::m_CurrentNode->Turn(delta.x() * 0.1f * s, 0, 0, true);
+
+                    }
+
+
+                    //Editor::m_CurrentNode->Turn(delta.x() * 0.1f, 0, 0, true);
+
+                }
+                if (m_LockZ) {
+
+                    // Editor::m_CurrentNode->Turn(0, 0,delta.y() * 0.1f, true);
+
+                    float3 s_w = Editor::m_CurrentNode->GetPosition();
+                    float2 s_p = m_Graph1->ToScreenSpace(s_w);
+
+                    float3 x_w = s_w + Editor::m_CurrentNode->TransformVector(float3(0, 0, 2));
+                    float2 x_p = m_Graph1->ToScreenSpace(x_w);
+
+                    int b = 5;
+
+                    float xd = x_p.x - s_p.x;
+                    float yd = x_p.y - s_p.y;
+
+                    if (abs(xd) > abs(yd)) {
+
+                        float s = -1.0f;
+
+                        if (xd < 0) {
+                            s = 1.0f;
+                        }
+
+                        Editor::m_CurrentNode->Turn(0, 0, delta.y() * 0.1f * s, true);
+                    }
+                    else {
+
+                        float s = 1.0f;
+                        if (yd < 0) {
+                            s = -1.0f;
+                        }
+
+
+                        Editor::m_CurrentNode->Turn(0, 0, delta.x() * 0.1f * s, true);
+                    }
+
+
+                }
+            }
+
+            if (Editor::m_SpaceMode == SM_Global) {
+                //Yaw
+                if (m_LockY) {
+
+                    Editor::m_CurrentNode->Turn(0, delta.x() * 0.1f, 0, false);
+
+                }
+                //Pitch
+                if (m_LockX) {
+
+                    float3 s_w = Editor::m_CurrentNode->GetPosition();
+                    float2 s_p = m_Graph1->ToScreenSpace(s_w);
+
+                    float3 x_w = s_w + float3(2, 0, 0);
+                    float2 x_p = m_Graph1->ToScreenSpace(x_w);
+
+                    int b = 5;
+
+                    float xd = x_p.x - s_p.x;
+                    float yd = x_p.y - s_p.y;
+
+                    if (abs(xd) > abs(yd)) {
+
+                        float s = -1.0f;
+
+                        if (xd < 0) {
+                            s = 1.0f;
+                        }
+                        Editor::m_CurrentNode->Turn(delta.y() * 0.1f * s, 0, 0, false);
+
+                    }
+                    else {
+
+                        float s = 1.0f;
+                        if (yd < 0) {
+                            s = -1.0f;
+                        }
+
+                        Editor::m_CurrentNode->Turn(delta.x() * 0.1f * s, 0, 0, false);
+
+                    }
+
+
+                    //Editor::m_CurrentNode->Turn(delta.x() * 0.1f, 0, 0, true);
+
+                }
+                if (m_LockZ) {
+                    // Editor::m_CurrentNode->Turn(0, 0,delta.y() * 0.1f, true);
+
+                    float3 s_w = Editor::m_CurrentNode->GetPosition();
+                    float2 s_p = m_Graph1->ToScreenSpace(s_w);
+
+                    float3 x_w = s_w + float3(2, 0, 0);
+                    float2 x_p = m_Graph1->ToScreenSpace(x_w);
+
+                    int b = 5;
+
+                    float xd = x_p.x - s_p.x;
+                    float yd = x_p.y - s_p.y;
+
+                    if (abs(xd) > abs(yd)) {
+
+                        float s = -1.0f;
+
+                        if (xd < 0) {
+                            s = 1.0f;
+                        }
+
+                        Editor::m_CurrentNode->Turn(0, 0, delta.x() * 0.1f * s, false);
+                    }
+                    else {
+
+                        float s = -1.0f;
+                        if (yd < 0) {
+                            s = 1.0f;
+                        }
+
+
+                        Editor::m_CurrentNode->Turn(0, 0, delta.y() * 0.1f * s, false);
+                    }
+
+
+                }
+            }
+            else {
 
             }
-            if (m_LockX) {
-                //Editor::m_CurrentNode->Translate(float3(-delta.x() * 0.01f,0, 0));
 
-                float3 s_w = Editor::m_CurrentNode->GetPosition();
-                float2 s_p = m_Graph1->ToScreenSpace(s_w);
-
-                float3 x_w = s_w + Editor::m_CurrentNode->TransformVector(float3(2, 0, 0));
-                float2 x_p = m_Graph1->ToScreenSpace(x_w);
-
-                int b = 5;
-
-                float xd = x_p.x - s_p.x;
-                float yd = x_p.y - s_p.y;
-
-                if (abs(xd) > abs(yd)) {
-
-                    float s = 1.0f;
-
-                    if (xd < 0) {
-                        s = -1.0f;
-                    }
-                    Editor::m_CurrentNode->Move(float3(delta.x() * 0.01f * s, 0, 0));
-
-                }
-                else {
-
-                    float s = 1.0f;
-                    if (yd < 0) {
-                        s = -1.0f;
-                    }
-
-                    Editor::m_CurrentNode->Move(float3(delta.y() * 0.01f * s, 0, 0));
-
-                }
-
-
-            }
-            if (m_LockZ) {
-                float3 s_w = Editor::m_CurrentNode->GetPosition();
-                float2 s_p = m_Graph1->ToScreenSpace(s_w);
-
-                float3 x_w = s_w + Editor::m_CurrentNode->TransformVector(float3(0, 0,2));
-                float2 x_p = m_Graph1->ToScreenSpace(x_w);
-
-                int b = 5;
-
-                float xd = x_p.x - s_p.x;
-                float yd = x_p.y - s_p.y;
-
-                if (abs(xd) > abs(yd)) {
-
-                    float s = 1.0f;
-
-                    if (xd < 0) {
-                        s = -1.0f;
-                    }
-                    Editor::m_CurrentNode->Move(float3(0, 0, delta.x() * 0.01f * s));
-
-                }
-                else {
-
-                    float s = 1.0f;
-                    if (yd < 0) {
-                        s = -1.0f;
-                    }
-
-                    Editor::m_CurrentNode->Move(float3(0, 0, delta.y() * 0.01f * s));
-
-                }
-
-
-                //Editor::m_CurrentNode->Translate(float3(0,0, -delta.x() * 0.01f));
-
-            }
+            break;
         }
-        if (Editor::m_SpaceMode == SM_Global) {
 
-            if (m_LockY) {
-                Editor::m_CurrentNode->Translate(float3(0, -delta.y() * 0.01f, 0));
-            }
-            if (m_LockX) {
-                //Editor::m_CurrentNode->Translate(float3(-delta.x() * 0.01f,0, 0));
-
-                float3 s_w = Editor::m_CurrentNode->GetPosition();
-                float2 s_p = m_Graph1->ToScreenSpace(s_w);
-
-                float3 x_w = s_w + float3(2, 0, 0);
-                float2 x_p = m_Graph1->ToScreenSpace(x_w);
-
-                int b = 5;
-
-                float xd = x_p.x - s_p.x;
-                float yd = x_p.y - s_p.y;
-
-                if (abs(xd) > abs(yd)) {
-
-                    float s = 1.0f;
-
-                    if (xd < 0) {
-                        s = -1.0f;
-                    }
-                    Editor::m_CurrentNode->Translate(float3(delta.x() * 0.01f * s, 0, 0));
-
-                }
-                else {
-
-                    float s = 1.0f;
-                    if (yd < 0) {
-                        s = -1.0f;
-                    }
-
-                    Editor::m_CurrentNode->Translate(float3(delta.y() * 0.01f * s, 0, 0));
-
-                }
-
-
-            }
-            if (m_LockZ) {
-                float3 s_w = Editor::m_CurrentNode->GetPosition();
-                float2 s_p = m_Graph1->ToScreenSpace(s_w);
-
-                float3 x_w = s_w + float3(0, 0, 2);
-                float2 x_p = m_Graph1->ToScreenSpace(x_w);
-
-                int b = 5;
-
-                float xd = x_p.x - s_p.x;
-                float yd = x_p.y - s_p.y;
-
-                if (abs(xd) > abs(yd)) {
-
-                    float s = 1.0f;
-
-                    if (xd < 0) {
-                        s = -1.0f;
-                    }
-                    Editor::m_CurrentNode->Translate(float3(0, 0, delta.x() * 0.01f * s));
-
-                }
-                else {
-
-                    float s = 1.0f;
-                    if (yd < 0) {
-                        s = -1.0f;
-                    }
-
-                    Editor::m_CurrentNode->Translate(float3(0, 0, delta.y() * 0.01f * s));
-
-                }
-
-
-                //Editor::m_CurrentNode->Translate(float3(0,0, -delta.x() * 0.01f));
-
-            }
-        }
-
-        break;
-    case GM_Rotate:
-
-        if (Editor::m_SpaceMode == SM_Local) {
-
-
-            if (m_LockY) {
-
-                Editor::m_CurrentNode->Turn(0, delta.x() * 0.1f, 0, false);
-
-
-            }
-            //Pitch
-            if (m_LockX) {
-       
-
-                float3 s_w = Editor::m_CurrentNode->GetPosition();
-                float2 s_p = m_Graph1->ToScreenSpace(s_w);
-
-                float3 x_w = s_w + Editor::m_CurrentNode->TransformVector(float3(2, 0, 0));
-                float2 x_p = m_Graph1->ToScreenSpace(x_w);
-
-                int b = 5;
-
-                float xd = x_p.x - s_p.x;
-                float yd = x_p.y - s_p.y;
-
-                if (abs(xd) > abs(yd)) {
-
-                    float s = -1.0f;
-
-                    if (xd < 0) {
-                        s = 1.0f;
-                    }
-                    Editor::m_CurrentNode->Turn(delta.y() * 0.1f * s, 0, 0, true);
-
-                }
-                else {
-
-                    float s = 1.0f;
-                    if (yd < 0) {
-                        s = -1.0f;
-                    }
-
-                    Editor::m_CurrentNode->Turn(delta.x() * 0.1f * s, 0, 0, true);
-
-                }
-
-
-                //Editor::m_CurrentNode->Turn(delta.x() * 0.1f, 0, 0, true);
-
-            }
-            if (m_LockZ) {
-
-                // Editor::m_CurrentNode->Turn(0, 0,delta.y() * 0.1f, true);
-
-                float3 s_w = Editor::m_CurrentNode->GetPosition();
-                float2 s_p = m_Graph1->ToScreenSpace(s_w);
-
-                float3 x_w = s_w + Editor::m_CurrentNode->TransformVector(float3(0, 0, 2));
-                float2 x_p = m_Graph1->ToScreenSpace(x_w);
-
-                int b = 5;
-
-                float xd = x_p.x - s_p.x;
-                float yd = x_p.y - s_p.y;
-
-                if (abs(xd) > abs(yd)) {
-
-                    float s = -1.0f;
-
-                    if (xd < 0) {
-                        s = 1.0f;
-                    }
-
-                    Editor::m_CurrentNode->Turn(0, 0, delta.y() * 0.1f * s, true);
-                }
-                else {
-
-                    float s = 1.0f;
-                    if (yd < 0) {
-                        s = -1.0f;
-                    }
-
-
-                    Editor::m_CurrentNode->Turn(0, 0, delta.x() * 0.1f * s, true);
-                }
-
-
-            }
-        }
-
-        if (Editor::m_SpaceMode == SM_Global) {
-            //Yaw
-            if (m_LockY) {
-
-                Editor::m_CurrentNode->Turn(0, delta.x() * 0.1f, 0,false);
-
-            }
-            //Pitch
-            if (m_LockX) {
-
-                float3 s_w = Editor::m_CurrentNode->GetPosition();
-                float2 s_p = m_Graph1->ToScreenSpace(s_w);
-
-                float3 x_w = s_w + float3(2, 0, 0);
-                float2 x_p = m_Graph1->ToScreenSpace(x_w);
-
-                int b = 5;
-
-                float xd = x_p.x - s_p.x;
-                float yd = x_p.y - s_p.y;
-
-                if (abs(xd) > abs(yd)) {
-
-                    float s = -1.0f;
-
-                    if (xd < 0) {
-                        s = 1.0f;
-                    }
-                    Editor::m_CurrentNode->Turn(delta.y() * 0.1f * s,0,0,false);
-
-                }
-                else {
-
-                    float s = 1.0f;
-                    if (yd < 0) {
-                        s = -1.0f;
-                    }
-
-                    Editor::m_CurrentNode->Turn(delta.x() * 0.1f * s, 0, 0,false);
-
-                }
-
-
-                //Editor::m_CurrentNode->Turn(delta.x() * 0.1f, 0, 0, true);
-
-            }
-            if (m_LockZ) {
-               // Editor::m_CurrentNode->Turn(0, 0,delta.y() * 0.1f, true);
-
-                float3 s_w = Editor::m_CurrentNode->GetPosition();
-                float2 s_p = m_Graph1->ToScreenSpace(s_w);
-
-                float3 x_w = s_w + float3(2, 0, 0);
-                float2 x_p = m_Graph1->ToScreenSpace(x_w);
-
-                int b = 5;
-
-                float xd = x_p.x - s_p.x;
-                float yd = x_p.y - s_p.y;
-
-                if (abs(xd) > abs(yd)) {
-
-                    float s = -1.0f;
-
-                    if (xd < 0) {
-                        s = 1.0f;
-                    }
-                  
-                    Editor::m_CurrentNode->Turn(0, 0, delta.x() * 0.1f * s, false);
-                }
-                else {
-
-                    float s = -1.0f;
-                    if (yd < 0) {
-                        s = 1.0f;
-                    }
-
-                    
-                    Editor::m_CurrentNode->Turn(0, 0, delta.y() * 0.1f * s, false);
-                }
-
-
-            }
-        }
-        else {
-
-        }
-
-        break;
     }
-
-    
     // Call base class implementation if necessary
     QWidget::mouseMoveEvent(event);
 }
@@ -668,6 +672,10 @@ void VOutput::mouseMoveEvent(QMouseEvent* event)
 
 void VOutput::keyPressEvent(QKeyEvent* event)
 {
+    if (event->key() == Qt::Key_Space)
+    {
+        m_Light1->SetPosition(m_EditCamera->GetPosition());
+    }
     // Check which key was pressed
     if (event->key() == Qt::Key_W) {
         //qDebug() << "Key A is pressed";
@@ -771,8 +779,10 @@ void VOutput::paintEvent(QPaintEvent* event)
   //  m_Node1->SetRotation(0, ay, 0);
     
     cam->SetRotation(m_ViewPitch, m_ViewYaw, 0);
-
+    m_Graph1->RenderShadows();
     m_Graph1->Render();
+
+    Engine::ClearZ();
 
     switch (Editor::m_GizmoMode) {
     case GM_Translate:

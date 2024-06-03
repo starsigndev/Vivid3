@@ -19,7 +19,7 @@ private:
     QDockWidget* dockScene;
     QDockWidget* m_SceneGraph;
     QDockWidget* m_ContentBrowser;
-
+    QDockWidget* m_PropEditor;
     VOutput* mSceneView;
 
 };

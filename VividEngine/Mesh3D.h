@@ -7,6 +7,7 @@ class MeshBuffer;
 class MaterialBase;
 class NodeCamera;
 class NodeLight;
+class MaterialDepth;
 
 class Mesh3D
 {
@@ -24,9 +25,19 @@ public:
 	void SetMaterial(MaterialBase* material) {
 		m_Material = material;
 	}
+	MaterialDepth* GetDepthMaterial()
+	{
+		return m_DepthMaterial;
+	}
+
+	void SetDepthMaterial(MaterialDepth* depth)
+	{
+		m_DepthMaterial = depth;
+	}
 	void SetOwner(NodeEntity* entity);
 	NodeEntity* GetOwner();
 	void Render();
+	void RenderDepth();
 
 private:
 
@@ -35,6 +46,7 @@ private:
 	//
 	MeshBuffer* m_Buffer;
 	MaterialBase* m_Material;
+	MaterialDepth* m_DepthMaterial;
 	NodeEntity* m_Owner;
 };
 

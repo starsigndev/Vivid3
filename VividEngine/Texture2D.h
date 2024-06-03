@@ -23,11 +23,13 @@ public:
 	RefCntAutoPtr<ITextureView> GetView() {
 		return m_pTextureView;
 	}
-
+	std::string GetPath() {
+		return m_Path;
+	}
 private:
 
 	RefCntAutoPtr<ITexture> m_pTexture;
 	RefCntAutoPtr<ITextureView> m_pTextureView;
-
+	std::string m_Path;
 };
 

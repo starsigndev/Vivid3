@@ -40,6 +40,15 @@
     <Filter Include="Helper">
       <UniqueIdentifier>{12bdfc1d-57a8-4359-a636-c15192bac589}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RenderTarget">
+      <UniqueIdentifier>{82fb01f7-94b0-4a09-82cd-4d192c684080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderers">
+      <UniqueIdentifier>{a02f214b-dc7f-482a-9421-ab5ba0e93133}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File">
+      <UniqueIdentifier>{fadcb192-64eb-4fc3-b953-e8eba2a26640}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -90,6 +99,18 @@
     <ClInclude Include="MaterialMeshLight.h">
       <Filter>Material</Filter>
     </ClInclude>
+    <ClInclude Include="MaterialDepth.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTargetCube.h">
+      <Filter>RenderTarget</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeRenderer.h">
+      <Filter>Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="VFile.h">
+      <Filter>File</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VividEngine.cpp">
@@ -136,6 +157,18 @@
     </ClCompile>
     <ClCompile Include="MaterialMeshLight.cpp">
       <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialDepth.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTargetCube.cpp">
+      <Filter>RenderTarget</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeRenderer.cpp">
+      <Filter>Renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="VFile.cpp">
+      <Filter>File</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

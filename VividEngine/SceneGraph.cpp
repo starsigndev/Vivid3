@@ -5,12 +5,14 @@
 #include "NodeCamera.h"
 #include "Engine.h"
 #include "Mesh3D.h"
+#include "CubeRenderer.h"
 
 SceneGraph::SceneGraph() {
 
 	m_Camera = new NodeCamera;
 	m_RootNode = new Node();
 	m_RootNode->SetName("Graph Root");
+//    m_CubeRenderer = new CubeRenderer()
 
 }
 
@@ -26,10 +28,30 @@ void SceneGraph::AddLight(NodeLight* light) {
 
 }
 
+void SceneGraph::RenderShadows() {
+
+
+    for (auto light : m_Lights) {
+
+        CubeRenderer* renderer = new CubeRenderer(this, light->GetShadowMap());
+        renderer->RenderDepth(light->GetPosition(), light->GetRange());
+
+    }
+
+}
+
+void SceneGraph::RenderDepth() {
+
+    Engine::m_Camera = m_Camera;
+    m_RootNode->RenderDepth();
+
+}
+
 void SceneGraph::Render() {
 
 	Engine::m_Camera = m_Camera;
 	Engine::m_Lights = m_Lights;
+    Engine::m_Light = m_Lights[0];
 	m_RootNode->Render();
 	
 
@@ -146,8 +168,8 @@ HitResult SceneGraph::MousePick(int x, int y, NodeEntity* entity) {
 
     float fx = (float)x;
     float fy = (float)y;
-    float mx = -1 + (float)(x) / (float)(Engine::m_FrameWidth) * 2;
-    float my = 1 - (float)(y) / (float)(Engine::m_FrameHeight) * 2;
+    float mx = -1 + (float)(x) / (float)(Engine::GetFrameWidth()) * 2;
+    float my = 1 - (float)(y) / (float)(Engine::GetFrameHeight()) * 2;
 
     float3 origin = float3(mx, my, 0);
     float3 dest = float3(mx, my, 1.0f);
@@ -210,8 +232,8 @@ HitResult SceneGraph::MousePick(int x, int y)
 {
 	float fx = (float)x;
 	float fy = (float)y;
-    float mx = -1 + (float)(x) / (float)(Engine::m_FrameWidth) * 2;
-    float my = 1 - (float)(y) / (float)(Engine::m_FrameHeight) * 2;
+    float mx = -1 + (float)(x) / (float)(Engine::GetFrameWidth()) * 2;
+    float my = 1 - (float)(y) / (float)(Engine::GetFrameHeight()) * 2;
 
     float3 origin = float3(mx, my, 0);
     float3 dest = float3(mx, my, 1.0f);
@@ -340,8 +362,8 @@ float2 SceneGraph::ToScreenSpace(float3 position) {
     pos.x = pos.x / pos.w;
     pos.y = pos.y / pos.w;
 
-    pos.x = (0.5f + pos.x * 0.5f) * Engine::m_FrameWidth;
-    pos.y = (0.5f - pos.y * 0.5f) * Engine::m_FrameHeight;
+    pos.x = (0.5f + pos.x * 0.5f) * Engine::GetFrameWidth();
+    pos.y = (0.5f - pos.y * 0.5f) * Engine::GetFrameHeight();
 
     return float2(pos.x, pos.y);
 

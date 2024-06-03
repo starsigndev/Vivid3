@@ -4,6 +4,7 @@
 #include "Engine.h"
 #include "MaterialBase.h"
 #include "MaterialMeshLight.h"
+#include "MaterialDepth.h"
 Mesh3D::Mesh3D() {
 	//m_Material = new MaterialBase;
 
@@ -58,6 +59,26 @@ void Mesh3D::Render() {
 	Engine::m_pImmediateContext->SetIndexBuffer(m_Buffer->GetIndexBuffer(), 0, RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
 
 	Engine::m_pImmediateContext->CommitShaderResources(m_Material->GetSRB(), RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
+
+	DrawIndexedAttribs attrib;
+	attrib.IndexType = VALUE_TYPE::VT_UINT32;
+	attrib.NumIndices = m_Tris.size() * 3;
+	attrib.Flags = DRAW_FLAG_VERIFY_ALL;
+	Engine::m_pImmediateContext->DrawIndexed(attrib);
+
+}
+
+void Mesh3D::RenderDepth() {
+
+	Uint64 offsets = 0;
+
+
+	IBuffer* pBuffs[] = { m_Buffer->GetVertexBuffer() };
+
+	Engine::m_pImmediateContext->SetVertexBuffers(0, 1, pBuffs, &offsets, RESOURCE_STATE_TRANSITION_MODE_TRANSITION, SET_VERTEX_BUFFERS_FLAG_RESET);
+	Engine::m_pImmediateContext->SetIndexBuffer(m_Buffer->GetIndexBuffer(), 0, RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
+
+	Engine::m_pImmediateContext->CommitShaderResources(m_DepthMaterial->GetSRB(), RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
 
 	DrawIndexedAttribs attrib;
 	attrib.IndexType = VALUE_TYPE::VT_UINT32;

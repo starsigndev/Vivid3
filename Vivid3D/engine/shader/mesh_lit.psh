@@ -6,7 +6,8 @@ Texture2D g_TextureNorm;
 SamplerState g_TextureNorm_sampler;
 Texture2D g_TextureSpec;
 SamplerState g_TextureSpec_sampler;
-
+TextureCube v_Shadow;
+SamplerState v_Shadow_sampler;
 
 
 
@@ -133,6 +134,48 @@ float light_GetSpotFalloff(float3 lightPos,float3 lightDir,float3 fragPos,float 
 
 
 
+float light_GetShadow(float3 fragPos,float3 lightPos,float lightRange){
+
+    float3 fragToLight = fragPos - lightPos;
+    float currentDepth = abs(distance(fragPos,lightPos));
+
+    int samples = 20;
+    float diskRadius = 0.0025f;
+    float bias = 0.005;
+    float shadowVal = 0;
+    currentDepth = currentDepth / lightRange;
+
+    for(int i=0;i<samples;i++){
+
+        float closestDepth = v_Shadow.Sample(v_Shadow_sampler,normalize(fragToLight)+sampleOffsetDirections[i] * diskRadius).r;
+
+
+        if( (currentDepth-0.005)>closestDepth)
+        {
+
+         shadowVal +=1.0f;
+        
+
+        }
+    
+    }
+
+    shadowVal = shadowVal / (float)samples;
+   
+ //   shadowVal = shadowVal * v_Shadow.Sample(v_Shadow_sampler,normalize(fragToLight)).g;
+   
+
+
+    shadowVal = 1.0 - shadowVal;
+    
+    //shadowVal =shadowVal * v_Shadow.Sample(v_Shadow_sampler,normalize(fragToLight)).g;
+
+    
+
+    return shadowVal;
+
+}
+
 
 // Note that if separate shader objects are not supported (this is only the case for old GLES3.0 devices), vertex
 // shader output variable name must match exactly the name of the pixel shader input variable.
@@ -162,8 +205,12 @@ void main(in  PSInput  PSIn,
 
     float shadowVal = 0;
 
-   
 
+    //LightValues lighting; 
+
+    //lighting = CalculateLighting(PSIn.v_LightMode[0],tNormal,PSIn.TLP,PSIn.TFP,PSIn.TVP,PSIn.v_LightPos,PSIn.fragPos,PSIn.v_LightDir,PSIn.v_LightCone,PSIn.localNormal);
+
+    shadowVal = light_GetShadow(PSIn.fragPos,PSIn.lightPos,PSIn.lightProp.x);
 
 
         float diff = light_GetPointDiff(PSIn.TLP,PSIn.TFP,PSIn.TVP,tNormal,PSIn.lightPos,PSIn.fragPos);
@@ -176,8 +223,7 @@ void main(in  PSInput  PSIn,
 
 
 
-
-        shadowVal = 1.0;
+//hadowVal = 1.0;
 
 
 

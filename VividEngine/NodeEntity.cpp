@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "NodeEntity.h"
 #include "MaterialBase.h"
+#include "MaterialDepth.h"
 #include <windows.h>
 #include "Mesh3D.h"
 #include "Engine.h"
@@ -36,6 +37,20 @@ std::vector<Mesh3D*> NodeEntity::GetMeshes() {
 
 }
 
+void NodeEntity::RenderDepth() {
+
+	Engine::m_Node = this;
+	for (auto mesh : m_Meshes) {
+	
+		mesh->GetDepthMaterial()->Bind();
+		mesh->RenderDepth();
+
+	}
+
+	RenderDepthChildren();
+
+}
+
 void NodeEntity::Render() {
 
 //	printf("Rendering NodeEntity.\n");
@@ -52,6 +67,7 @@ void NodeEntity::Render() {
 		}
 	}
 
+	RenderChildren();
 
 }
 

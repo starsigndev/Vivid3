@@ -18,10 +18,29 @@ public:
 
     }
 
+    float GetNearZ() {
+        return m_NearZ;
+    }
+
+    float GetFarZ() {
+        return m_FarZ;
+    }
+
+    void SetNearZ(float z) {
+        m_NearZ = z;
+    }
+    void SetFarZ(float z) {
+
+        m_FarZ = z;
+    }
+    void SetFov(float fov) {
+        m_FOV = fov;
+    }
+
 private:
 
     float m_NearZ = 0.1f;
-    float m_FarZ = 100.0f;
+    float m_FarZ = 30.0f;
     float m_FOV = 45.0f;
 
 

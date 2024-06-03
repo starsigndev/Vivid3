@@ -35,6 +35,8 @@
 
 using namespace Diligent;
 
+class RenderTargetCube;
+
 class Engine
 {
 public:
@@ -47,10 +49,20 @@ public:
 	static Node* m_Node;
 	static int GetFrameWidth();
 	static int GetFrameHeight();
+	static void SetFrameWidth(int w);
+	static void SetFrameHeight(int h);
+	
+	static std::vector<NodeLight*> m_Lights;
+	static NodeLight* m_Light;
+	static void ClearZ();
+	static void SetBoundRTC(RenderTargetCube* target);
+
+	static RenderTargetCube* m_BoundRTC;
+
+private:
+
 	static int m_FrameWidth;
 	static int m_FrameHeight;
-	static std::vector<NodeLight*> m_Lights;
-
 
 };
 

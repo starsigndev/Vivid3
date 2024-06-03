@@ -25,7 +25,10 @@ public:
 		return m_SRB;
 	}
 	void SetDiffuse(Texture2D* texture);
-
+	void SetSpecular(Texture2D* texture);
+	void SetNormals(Texture2D* texture);
+	virtual void SaveMaterial(std::string path);
+	virtual void LoadMaterial(std::string path);
 
 protected:
 
@@ -33,6 +36,9 @@ protected:
 	Texture2D* m_Diffuse;
 	Texture2D* m_Normal;
 	Texture2D* m_Specular;
+
+	float4 m_DiffuseColor;
+	float4 m_SpecularColor;
 
 	//Basic
 	RefCntAutoPtr<IBuffer> BasicUniform;

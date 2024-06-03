@@ -71,6 +71,7 @@
     <ClCompile>
       <PreprocessorDefinitions>PLATFORM_WIN32;D3D12_SUPPORTED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Dev\Vivid3D\VividEngine;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsTools\interface;C:\Dev\git\DE\DiligentEngine\DiligentCore;C:\Dev\git\DE\DiligentEngine\DiligentTools\TextureLoader\interface;C:\Dev\git\DE\DiligentEngine\DiligentTools\TextureLoader\include;C:\Dev\Assimp\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsEngine\interface;C:\Dev\git\DE\DiligentEngine\DiligentCore\Common\interface;C:\Dev\git\DE\DiligentEngine\DiligentCore\ThirdParty\SPIRV-Cross\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Platforms\Basic\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\ShaderTools\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\HLSL2GLSLConverterLib\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsEngineD3D12\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsEngine\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Common\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -105,6 +106,8 @@
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="VContentBrowser.cpp" />
     <ClCompile Include="VContentView.cpp" />
+    <ClCompile Include="VPropEditor.cpp" />
+    <ClCompile Include="VPropertyEditor.cpp" />
     <ClCompile Include="VSceneGraph.cpp" />
     <ClCompile Include="VTools.cpp" />
     <ClCompile Include="VTreeView.cpp" />
@@ -112,11 +115,14 @@
     <QtRcc Include="Vivid3D.qrc" />
     <QtUic Include="VContentBrowser.ui" />
     <QtUic Include="VContentView.ui" />
+    <QtUic Include="VElementEditor.ui" />
     <QtUic Include="Vivid3D.ui" />
     <QtMoc Include="Vivid3D.h" />
     <ClCompile Include="Vivid3D.cpp" />
     <ClCompile Include="main.cpp" />
     <None Include="Vivid3D.ico" />
+    <QtUic Include="VPropEditor.ui" />
+    <QtUic Include="VPropertyEditor.ui" />
     <QtUic Include="VSceneGraph.ui" />
     <QtUic Include="VTools.ui" />
     <QtUic Include="VTreeView.ui" />
@@ -134,6 +140,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor.h" />
+    <QtMoc Include="VPropEditor.h" />
+    <QtMoc Include="VPropertyEditor.h" />
     <QtMoc Include="VContentView.h" />
     <QtMoc Include="VContentBrowser.h" />
     <QtMoc Include="VTools.h" />

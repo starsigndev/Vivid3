@@ -38,6 +38,14 @@ public:
 	virtual void Render() {
 		RenderChildren();
 	};
+	virtual void RenderDepth() {
+		RenderDepthChildren();
+	}
+	void RenderDepthChildren() {
+		for (auto node : m_Nodes) {
+			node->RenderDepth();
+		}
+	}
 	void RenderChildren() {
 		for (auto node : m_Nodes) {
 			node->Render();
