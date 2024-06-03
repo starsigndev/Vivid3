@@ -6,6 +6,7 @@
 #include "Texture2D.h"
 #include "qmimedata.h"
 #include <QColor>
+#include <qcolordialog.h>
 VPropEditor::VPropEditor(QWidget *parent)
 	: QWidget(parent)
 {
@@ -151,17 +152,30 @@ void VPropEditor::SetMaterial(MaterialBase* material) {
 	diff_lab->setMinimumWidth(16);
 	diff_lab->setMinimumHeight(12);
 	*/
-	VColorPreview* diff_prev = new VColorPreview;
+	m_DiffCol = new VColorPreview;
 
 	col_diff_box->addWidget(col_dif_lab);
-	col_diff_box->addWidget(diff_prev);
-	diff_prev->SetColor(m_Material->GetDiffuseColor());
+	col_diff_box->addWidget(m_DiffCol);
+	m_DiffCol->SetColor(m_Material->GetDiffuseColor());
 	//diff_prev->setAcceptDrops()
 	col_diff_box->setAlignment(Qt::AlignLeft);
 
 	QPushButton* pick_diff = new QPushButton("Pick Color");
 	col_diff_box->addWidget(pick_diff);
 	pick_diff->setMinimumWidth(50);
+
+	QObject::connect(pick_diff, &QPushButton::clicked, [&]() {
+		//	qDebug() << "Button clicked!";
+	//	m_Material->SaveMaterial(m_Material->GetPath());
+		QColor color = QColorDialog::getColor(Qt::white, this, "Select Diffuse Color");
+		if (color.isValid()) {
+			//updateColor(color);
+			m_DiffCol->SetColor(float4(color.redF(), color.greenF(), color.blueF(), 1.0));
+			m_Material->SetDiffuseColor(float4(color.redF(), color.greenF(), color.blueF(), 1.0f));
+		}
+		});
+
+
 
 	//------
 
@@ -171,11 +185,11 @@ void VPropEditor::SetMaterial(MaterialBase* material) {
 
 	col_spec_lab->setMinimumWidth(55);
 		
-	VColorPreview* spec_prev = new VColorPreview;
+	m_SpecCol = new VColorPreview;
 
 	col_spec_box->addWidget(col_spec_lab);
-	col_spec_box->addWidget(spec_prev);
-	spec_prev->SetColor(m_Material->GetSpecularColor());
+	col_spec_box->addWidget(m_SpecCol);
+	m_SpecCol->SetColor(m_Material->GetSpecularColor());
 	//diff_prev->setAcceptDrops()
 	col_spec_box->setAlignment(Qt::AlignLeft);
 
@@ -184,6 +198,16 @@ void VPropEditor::SetMaterial(MaterialBase* material) {
 	pick_spec->setMinimumWidth(50);
 	//---------
 
+	QObject::connect(pick_spec, &QPushButton::clicked, [&]() {
+		//	qDebug() << "Button clicked!";
+	//	m_Material->SaveMaterial(m_Material->GetPath());
+		QColor color = QColorDialog::getColor(Qt::white, this, "Select Specular Color");
+		if (color.isValid()) {
+			//updateColor(color);
+			m_SpecCol->SetColor(float4(color.redF(), color.greenF(), color.blueF(), 1.0));
+			m_Material->SetSpecularColor(float4(color.redF(), color.greenF(), color.blueF(), 1.0f));
+		}
+		});
 
 	
 

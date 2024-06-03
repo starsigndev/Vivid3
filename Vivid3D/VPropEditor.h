@@ -26,5 +26,7 @@ private:
 	VImagePreview* m_DiffuseImg;
 	VImagePreview* m_SpecImg;
 	VImagePreview* m_NormImg;
+	VColorPreview* m_DiffCol;
+	VColorPreview* m_SpecCol;
 
 };

@@ -47,6 +47,12 @@ public:
 	float4 GetSpecularColor() {
 		return m_SpecularColor;
 	}
+	void SetDiffuseColor(float4 diff) {
+		m_DiffuseColor = diff;
+	}
+	void SetSpecularColor(float4 spec) {
+		m_SpecularColor = spec;
+	}
 
 protected:
 
