@@ -141,7 +141,10 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="VAction.h" />
+    <ClInclude Include="VCallParameters.h" />
     <ClInclude Include="VClass.h" />
+    <ClInclude Include="VCodeBody.h" />
     <ClInclude Include="VContext.h" />
     <ClInclude Include="VDefineParams.h" />
     <ClInclude Include="VExpression.h" />
@@ -150,10 +153,13 @@
     <ClInclude Include="VName.h" />
     <ClInclude Include="VParameter.h" />
     <ClInclude Include="VParser.h" />
+    <ClInclude Include="VScope.h" />
     <ClInclude Include="VSource.h" />
+    <ClInclude Include="VStatementCall.h" />
     <ClInclude Include="VToken.h" />
     <ClInclude Include="VTokenizer.h" />
     <ClInclude Include="VTokenStream.h" />
+    <ClInclude Include="VVar.h" />
     <ClInclude Include="VVarGroup.h" />
   </ItemGroup>
   <ItemGroup>
@@ -163,7 +169,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="VAction.cpp" />
+    <ClCompile Include="VCallParameters.cpp" />
     <ClCompile Include="VClass.cpp" />
+    <ClCompile Include="VCodeBody.cpp" />
     <ClCompile Include="VContext.cpp" />
     <ClCompile Include="VDefineParams.cpp" />
     <ClCompile Include="VExpression.cpp" />
@@ -172,11 +181,14 @@
     <ClCompile Include="VName.cpp" />
     <ClCompile Include="VParameter.cpp" />
     <ClCompile Include="VParser.cpp" />
+    <ClCompile Include="VScope.cpp" />
     <ClCompile Include="VScript.cpp" />
     <ClCompile Include="VSource.cpp" />
+    <ClCompile Include="VStatementCall.cpp" />
     <ClCompile Include="VToken.cpp" />
     <ClCompile Include="VTokenizer.cpp" />
     <ClCompile Include="VTokenStream.cpp" />
+    <ClCompile Include="VVar.cpp" />
     <ClCompile Include="VVarGroup.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

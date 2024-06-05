@@ -25,6 +25,9 @@
     <Filter Include="Runtime">
       <UniqueIdentifier>{dc44a446-a75c-4a37-bf08-ed7c423e2093}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actions">
+      <UniqueIdentifier>{883af32a-38fd-403c-8385-fb53b78130c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -75,6 +78,24 @@
     <ClInclude Include="VParameter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="VAction.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="VCodeBody.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="VVar.h">
+      <Filter>Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="VStatementCall.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="VScope.h">
+      <Filter>Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="VCallParameters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VScript.cpp">
@@ -123,6 +144,24 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VParameter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VAction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="VCodeBody.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="VVar.cpp">
+      <Filter>Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="VStatementCall.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="VScope.cpp">
+      <Filter>Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="VCallParameters.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

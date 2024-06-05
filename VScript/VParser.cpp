@@ -4,6 +4,10 @@
 #include "VVarGroup.h"
 #include "VFunction.h"
 #include "VDefineParams.h"
+#include "VCodeBody.h"
+#include "VStatementCall.h"
+#include "VCallParameters.h"
+#include "VExpression.h"
 
 VParser::VParser() {
 
@@ -104,6 +108,7 @@ VClass* VParser::ParseClass() {
 		{
 			int bb = 5;
 			VFunction* func = ParseFunction();
+			n_cls->AddFunction(func);
 		}
 			break;
 		case T_End:
@@ -138,7 +143,19 @@ VClass* VParser::ParseClass() {
 
 				}
 				auto v_name = ParseName();
-				group->AddName(v_name,nullptr);
+			
+				auto next = m_Stream.Peek(0);
+
+				VExpression* expr = nullptr;
+
+				if (next.GetLex() == "=")
+				{
+					expr = ParseExpression();
+
+					auto tok = m_Stream.Peek(0);
+				}
+
+				group->AddName(v_name,expr);
 
 			}
 
@@ -167,18 +184,317 @@ VFunction* VParser::ParseFunction() {
 
 	auto next = m_Stream.GetNext();
 
-	if (next.GetLex() == "()")
+	if (next.GetLex() == "(")
 	{
+		auto next = m_Stream.GetNext();
+
+		if (next.GetType() == T_End)
+		{
+			return func;
+		}
+
+		if (next.GetLex() == ")") {
+			m_Stream.Back();
+			auto body = ParseCodeBody();
+			func->SetBody(body);
+			auto nx = m_Stream.Peek(0);
+			if (nx.GetType() == T_End)
+			{
+				m_Stream.GetNext();
+			}
+			return func;
+		}
+		m_Stream.Back();
+		auto pars = ParseParameters();
+
+		func->SetParams(pars);
+		m_Stream.Back();
+		auto body = ParseCodeBody();
+		func->SetBody(body);
+		auto nx = m_Stream.Peek(0);
+		if (nx.GetType() == T_End)
+		{
+			m_Stream.GetNext();
+		}
+
 		return func;
 	}
 	else {
 
 		auto pars = ParseParameters();
+
+		func->SetParams(pars);
 		int aa = 5;
+
+		auto next = m_Stream.GetNext();
+		if (next.GetType() == T_End)
+		{
+			return func;
+		}
 
 	}
 
 	int a = 5;
+
+	return nullptr;
+}
+
+PredictType VParser::PredictNext(VTokenStream stream)
+{
+
+	bool p_statement = false;
+
+	while (!stream.End()) {
+
+		auto tok = stream.GetNext();
+
+		switch (tok.GetType()) {
+		case T_Int:
+		case T_Float:
+		case T_Bool:
+		case T_String:
+
+			return P_DeclareVar;
+
+			break;
+		case T_Ident:
+			p_statement = true;
+			break;
+		default:
+			if (tok.GetLex() == "(" || tok.GetLex() == "()")
+			{
+				return P_Statement;
+			}
+			if (tok.GetLex() == "end")
+			{
+				return P_End;
+			}
+			break;
+		}
+
+	}
+
+	return P_Unknown;
+
+}
+
+VCodeBody* VParser::ParseCodeBody() {
+
+	//auto token = m_Stream.GetNext();
+	auto tok = m_Stream.Peek(0);
+	if (tok.GetLex() == ")")
+	{
+		m_Stream.GetNext();
+	}
+	int ba = 5;
+	VCodeBody* body = new VCodeBody;
+
+	while (!m_Stream.End()) {
+
+		PredictType pt = PredictNext(m_Stream);
+
+		switch (pt) {
+		case P_DeclareVar:
+		{
+			//auto tok = m_Stream.GetNext();
+			auto declare = ParseDeclare();
+			body->AddCode(declare);
+			int b = 5;
+		}
+			break;
+		case P_Statement:
+
+		{
+			//	m_Stream.Back();
+			auto statement = ParseStatement();
+			body->AddCode(statement);
+		}
+			break;
+		case P_End:
+
+			return body;
+
+			break;
+		}
+
+
+		int a = 5;
+
+	}
+	int b = 5;
+
+	return nullptr;
+}
+
+VVarGroup* VParser::ParseDeclare() {
+
+	VVarGroup* group = new VVarGroup(m_Stream.GetNext().GetType());
+
+	while (!m_Stream.End()) {
+
+		auto tok = m_Stream.GetNext();
+		if (tok.GetLex() == ",")
+		{
+			continue;
+		}
+		if (tok.GetLex() == ";")
+		{
+			return group;
+		}
+		auto name = VName();
+		name.Add(tok.GetLex());
+		group->AddName(name, nullptr);
+		int b = 5;
+
+	}
+
+	return group;
+
+}
+
+VStatementCall* VParser::ParseStatement() {
+
+	auto tok = m_Stream.GetNext();
+
+	VStatementCall* call = new VStatementCall;
+	call->SetName(tok.GetLex());
+
+	tok = m_Stream.GetNext();
+	auto tok2 = m_Stream.Peek(0);
+
+	if (tok.GetLex() == "(" && tok2.GetLex() == ")") {
+
+	//	m_Stream.GetNext();
+		//call->SetName(m_Stream.GetNext().GetLex());
+
+		auto el = m_Stream.Peek(0);
+		if (el.GetLex() == ")")
+		{
+			el = m_Stream.Peek(1);
+		}
+
+		if (el.GetType() == T_EOL)
+		{
+			m_Stream.GetNext();
+			m_Stream.GetNext();
+			return call;
+		}
+		else {
+			Err("Unknown follow up to statement call.\n");
+		}
+
+	}
+	else {
+
+	//	tok2 = m_Stream.GetNext();
+
+		auto call_params = ParseCallParameters();
+
+		call->SetCallParameters(call_params);
+		return call;
+
+		//int aa = 5;
+
+	}
+
+	int a = 5;
+
+	return nullptr;
+
+}
+
+VCallParameters* VParser::ParseCallParameters() {
+
+	VCallParameters* params = new VCallParameters;
+	//auto tok = m_Stream.GetNext();
+	while (!m_Stream.End()) {
+
+		auto token = m_Stream.Peek(0);
+
+		if (token.GetLex() == ")" || token.GetLex() == ";")
+		{
+			if (token.GetLex() == ";")
+			{
+				int aa = 5;
+				m_Stream.GetNext();
+			}
+			return params;
+		}
+
+		VExpression* expression = ParseExpression();
+
+		params->AddParam(expression);
+
+
+
+	}
+
+	int b = 5;
+
+	return nullptr;
+}
+
+VExpression* VParser::ParseExpression() {
+
+	//auto toke = m_Stream.GetNext();
+
+	VExpression* expr = new VExpression;
+
+	VName v_name;
+
+	while (!m_Stream.End()) {
+
+		auto toke = m_Stream.GetNext();
+		if (toke.GetLex() == ",")
+		{
+			return expr;
+		}
+
+		switch (toke.GetType()) {
+		case T_Ident:
+		{
+			ExpElement var_ele;
+
+			VName qname;
+			qname.Add(toke.GetLex());
+			var_ele.VarName = qname;
+
+			expr->Elements.push_back(var_ele);
+
+
+		}
+			break;
+		case T_Number:
+		{
+			ExpElement num_ele;
+
+			num_ele.IntValue = std::stoi(toke.GetLex());
+
+			expr->Elements.push_back(num_ele);
+
+		}
+			break;
+		default:
+
+			if (toke.GetLex() == ")")
+			{
+			
+			
+					return expr;
+			
+			}
+			if (toke.GetLex() == ";")
+			{
+				m_Stream.Back();
+				return expr;
+			}
+
+			break;
+		}
+
+		int b = 5;
+
+	}
 
 	return nullptr;
 }

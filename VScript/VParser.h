@@ -3,10 +3,20 @@
 #include "VTokenStream.h"
 #include "VModule.h"
 
+
+enum PredictType {
+	P_Statement, P_ClassCall,P_Unknown,P_End,P_DeclareVar
+};
+
+
+class VStatementCall;
 class VName;
 class VClass;
 class VFunction;
 class VDefineParams;
+class VCodeBody;
+class VCallParameters;
+class VExpression;
 
 class VParser
 {
@@ -20,6 +30,12 @@ public:
 	VClass* ParseClass();
 	VFunction* ParseFunction();
 	VDefineParams* ParseParameters();
+	VCodeBody* ParseCodeBody();
+	PredictType PredictNext(VTokenStream stream);
+	VStatementCall* ParseStatement();
+	VVarGroup* ParseDeclare();
+	VCallParameters* ParseCallParameters();
+	VExpression* ParseExpression();
 
 private:
 

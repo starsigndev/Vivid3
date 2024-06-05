@@ -1,5 +1,8 @@
 C:\Dev\Vivid3D\VScript\pch.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\pch.obj
+C:\Dev\Vivid3D\VScript\VAction.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VAction.obj
+C:\Dev\Vivid3D\VScript\VCallParameters.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VCallParameters.obj
 C:\Dev\Vivid3D\VScript\VClass.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VClass.obj
+C:\Dev\Vivid3D\VScript\VCodeBody.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VCodeBody.obj
 C:\Dev\Vivid3D\VScript\VContext.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VContext.obj
 C:\Dev\Vivid3D\VScript\VDefineParams.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VDefineParams.obj
 C:\Dev\Vivid3D\VScript\VExpression.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VExpression.obj
@@ -8,9 +11,12 @@ C:\Dev\Vivid3D\VScript\VModule.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VModule.obj
 C:\Dev\Vivid3D\VScript\VName.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VName.obj
 C:\Dev\Vivid3D\VScript\VParameter.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VParameter.obj
 C:\Dev\Vivid3D\VScript\VParser.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VParser.obj
+C:\Dev\Vivid3D\VScript\VScope.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VScope.obj
 C:\Dev\Vivid3D\VScript\VScript.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VScript.obj
 C:\Dev\Vivid3D\VScript\VSource.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VSource.obj
+C:\Dev\Vivid3D\VScript\VStatementCall.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VStatementCall.obj
 C:\Dev\Vivid3D\VScript\VToken.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VToken.obj
 C:\Dev\Vivid3D\VScript\VTokenizer.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VTokenizer.obj
 C:\Dev\Vivid3D\VScript\VTokenStream.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VTokenStream.obj
+C:\Dev\Vivid3D\VScript\VVar.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VVar.obj
 C:\Dev\Vivid3D\VScript\VVarGroup.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VVarGroup.obj

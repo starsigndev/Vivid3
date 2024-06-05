@@ -81,23 +81,7 @@ VTokenStream VTokenizer::Tokenize(VSource* source) {
 
 			std::string op = intToCharString((int)ch);
 
-			while (true) {
-
-				auto nc = m_Source->GetNext();
-
-				if (std::isspace(nc)) {
-
-					continue;
-				}
-				if (IsOperator(nc)) {
-					op += nc;
-					continue;
-				}
-
-				m_Source->Back();
-				break;
-
-			}
+			
 			VToken token(TokenType::T_Operator,op);
 			m_TokenStream.AddToken(token);
 			continue;

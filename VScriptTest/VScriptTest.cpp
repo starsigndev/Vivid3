@@ -8,6 +8,20 @@
 #include "VTokenizer.h"
 #include "VTokenStream.h"
 #include "VContext.h"
+#include "VFunction.h"
+#include "VAction.h"
+#include "VVar.h"
+#include <vector>
+
+VVar* TestDebug(std::initializer_list<VVar*> args)
+{
+    int b = 5;
+    std::vector<VVar*> vec(args);
+
+    printf("Debug:%d\n",vec[0]->m_IntValue);
+
+    return nullptr;
+}
 
 int main()
 {
@@ -35,6 +49,11 @@ int main()
 
     VContext* con1 = new VContext;
     con1->AddModule(test_mod);
+    auto i1 = con1->CreateInstance("TestClass");
+    auto f1 = i1->FindFunction("TestClass");
+    con1->RegisterCFunc("debug",TestDebug);
+
+    f1->Call(nullptr);
 
     auto mod1 = con1->GetModule("Vivid", "Test");
 

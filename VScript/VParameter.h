@@ -12,6 +12,9 @@ public:
 	void SetName(VName name);
 	void SetDefaultExpression(VExpression* expr);
 	void SetType(TokenType type);
+	TokenType GetType();
+	VName GetName();
+	VExpression* GetExpression();
 
 private:
 

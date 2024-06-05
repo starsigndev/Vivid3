@@ -3,14 +3,21 @@
 #include <vector>
 #include <string>
 #include "VName.h"
+#include "VAction.h"
 
 class VExpression;
 
-class VVarGroup
+class VVarGroup : public VAction
 {
 public:
 
 	VVarGroup(TokenType type);
+	std::vector<VName> GetNames() {
+		return m_Names;
+	}
+	std::vector<VExpression*> GetExpressions() {
+		return m_Defaults;
+	}
 	void AddName(VName name,VExpression* expr);
 
 private:

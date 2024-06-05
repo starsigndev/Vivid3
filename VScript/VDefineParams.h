@@ -8,6 +8,7 @@ class VDefineParams
 public:
 
 	void AddParam(VParameter* param);
+	std::vector<VParameter*> GetParams();
 
 private:
 

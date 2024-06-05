@@ -9,6 +9,9 @@ public:
 	void SetName(VName name);
 	void AddClass(VClass* cls);
 	VName GetName();
+	VModule* Clone();
+	VClass* FindClass(std::string name);
+
 private:
 
 	VName m_Name;

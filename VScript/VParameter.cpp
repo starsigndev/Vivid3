@@ -25,3 +25,21 @@ void VParameter::SetDefaultExpression(VExpression* expr) {
 	m_Default = expr;
 
 }
+
+TokenType VParameter::GetType() {
+
+	return m_Type;
+
+}
+
+VName VParameter::GetName() {
+
+	return m_Name;
+
+}
+
+VExpression* VParameter::GetExpression() {
+
+	return m_Default;
+
+}

@@ -23,3 +23,34 @@ VName VModule::GetName() {
 	return m_Name;
 
 }
+
+VModule* VModule::Clone() {
+
+	VModule* clone = new VModule;
+	clone->SetName(m_Name);
+
+	for (auto cls : m_Classes)
+	{
+		clone->AddClass(cls->Clone());
+	}
+
+	return clone;
+
+
+}
+
+VClass* VModule::FindClass(std::string name)
+{
+
+	for (auto cls : m_Classes)
+	{
+
+		auto c_name = cls->GetName();
+		if (c_name.GetNames()[0] == name)
+		{
+			return cls;
+		}
+
+	}
+	return nullptr;
+}
