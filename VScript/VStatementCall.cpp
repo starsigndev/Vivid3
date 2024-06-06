@@ -19,8 +19,12 @@ VVar* VStatementCall::Exec() {
 
 				p->m_Context = GetContext();
 				VVar* v = new VVar;
-				v->m_IntValue = p->Express()->m_IntValue;
-				vars.push_back(v);
+				auto res = p->Express();
+
+				//v->m_IntValue = p->Express()->m_IntValue;
+				//v->m_FloatValue = p->Express()->m_FloatValue;
+
+				vars.push_back(res);
 			}
 
 			auto res = direct({ vars[0]});

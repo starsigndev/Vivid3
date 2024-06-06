@@ -96,6 +96,9 @@
     <ClInclude Include="VCallParameters.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="VVarAssign.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VScript.cpp">
@@ -163,6 +166,9 @@
     </ClCompile>
     <ClCompile Include="VCallParameters.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VVarAssign.cpp">
+      <Filter>Actions</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

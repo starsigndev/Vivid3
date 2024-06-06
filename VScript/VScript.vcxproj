@@ -160,6 +160,7 @@
     <ClInclude Include="VTokenizer.h" />
     <ClInclude Include="VTokenStream.h" />
     <ClInclude Include="VVar.h" />
+    <ClInclude Include="VVarAssign.h" />
     <ClInclude Include="VVarGroup.h" />
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +190,7 @@
     <ClCompile Include="VTokenizer.cpp" />
     <ClCompile Include="VTokenStream.cpp" />
     <ClCompile Include="VVar.cpp" />
+    <ClCompile Include="VVarAssign.cpp" />
     <ClCompile Include="VVarGroup.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

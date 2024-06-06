@@ -8,6 +8,7 @@
 #include "VStatementCall.h"
 #include "VCallParameters.h"
 #include "VExpression.h"
+#include "VVarAssign.h"
 
 VParser::VParser() {
 
@@ -259,6 +260,15 @@ PredictType VParser::PredictNext(VTokenStream stream)
 			break;
 		case T_Ident:
 			p_statement = true;
+			if (m_Stream.LineHas("=")) {
+			//	return P_New;
+				return P_Assign;
+			}
+
+
+
+
+
 			break;
 		default:
 			if (tok.GetLex() == "(" || tok.GetLex() == "()")
@@ -294,6 +304,17 @@ VCodeBody* VParser::ParseCodeBody() {
 		PredictType pt = PredictNext(m_Stream);
 
 		switch (pt) {
+		case P_Assign:
+		{
+			auto ass = ParseAssign();
+			body->AddCode(ass);
+		}
+			break;
+		case P_New:
+
+		
+
+			break;
 		case P_DeclareVar:
 		{
 			//auto tok = m_Stream.GetNext();
@@ -324,6 +345,33 @@ VCodeBody* VParser::ParseCodeBody() {
 	int b = 5;
 
 	return nullptr;
+}
+
+VVarAssign* VParser::ParseAssign() {
+
+	auto name = ParseName();
+
+	if (!m_Stream.Peek(0).GetType() == T_Equal)
+	{
+
+		Err("Expecting '='\n");
+
+	}
+
+	VVarAssign* ass = new VVarAssign;
+
+	ass->SetExpression(ParseExpression());
+	ass->SetTarget(name);
+
+//	ass
+	auto tok = m_Stream.GetNext();
+
+	int aa = 5;
+
+
+
+	return ass;
+
 }
 
 VVarGroup* VParser::ParseDeclare() {
@@ -437,6 +485,9 @@ VCallParameters* VParser::ParseCallParameters() {
 VExpression* VParser::ParseExpression() {
 
 	//auto toke = m_Stream.GetNext();
+	if (m_Stream.Peek(0).GetLex() == "=") {
+		m_Stream.GetNext();
+	}
 
 	VExpression* expr = new VExpression;
 
@@ -449,8 +500,44 @@ VExpression* VParser::ParseExpression() {
 		{
 			return expr;
 		}
+		if (toke.GetLex() == ")")
+		{
+			return expr;
+		}
+		if (toke.GetLex() == ";")
+		{
+			m_Stream.Back();
+			return expr;
+		}
 
 		switch (toke.GetType()) {
+		case T_Operator:
+		{
+			ExpElement op_ele;
+			op_ele.EleType = T_Operator;
+			if (toke.GetLex() == "+")
+			{
+				op_ele.OpType = T_Plus;
+			}
+			if (toke.GetLex() == "-")
+			{
+				op_ele.OpType = T_Minus;
+			}
+			if (toke.GetLex() == "*")
+			{
+				op_ele.OpType = T_Times;
+			}
+			if (toke.GetLex() == "/")
+			{
+				op_ele.OpType = T_Divide;
+			}
+			if (toke.GetLex() == "=") {
+				op_ele.OpType = T_Equal;
+			}
+			expr->Elements.push_back(op_ele);
+		}
+
+			break;
 		case T_Ident:
 		{
 			ExpElement var_ele;
@@ -459,6 +546,7 @@ VExpression* VParser::ParseExpression() {
 			qname.Add(toke.GetLex());
 			var_ele.VarName = qname;
 
+			var_ele.EleType = T_Ident;
 			expr->Elements.push_back(var_ele);
 
 
@@ -468,10 +556,22 @@ VExpression* VParser::ParseExpression() {
 		{
 			ExpElement num_ele;
 
+			num_ele.EleType = T_Number;
 			num_ele.IntValue = std::stoi(toke.GetLex());
 
 			expr->Elements.push_back(num_ele);
 
+		}
+
+			break;
+		case T_FloatNumber:
+		{
+			ExpElement num_ele;
+
+			num_ele.FloatValue = std::stof(toke.GetLex());
+			num_ele.EleType = T_FloatNumber;
+
+			expr->Elements.push_back(num_ele);
 		}
 			break;
 		default:

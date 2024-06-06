@@ -1,0 +1,5 @@
+GS scripts will enable ->
+
+1) Full screen Post-processing
+2) Per material rendering effects.
+

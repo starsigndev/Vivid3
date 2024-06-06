@@ -42,3 +42,39 @@ void VTokenStream::Back() {
 	m_Index--;
 
 }
+
+bool VTokenStream::LineHas(TokenType type) {
+	int idx = 0;
+	while (true) {
+
+		auto token = Peek(idx);
+		if (token.GetType() == TokenType::T_EOL)
+		{
+			return false;
+		}
+		if (token.GetType() == type) {
+			return true;
+		}
+		idx++;
+
+	}
+	return false;
+}
+
+bool VTokenStream::LineHas(std::string lex) {
+	int idx = 0;
+	while (true) {
+
+		auto token = Peek(idx);
+		if (token.GetType() == TokenType::T_EOL)
+		{
+			return false;
+		}
+		if (token.GetLex() == lex) {
+			return true;
+		}
+		idx++;
+
+	}
+	return false;
+}

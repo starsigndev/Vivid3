@@ -19,4 +19,5 @@ C:\Dev\Vivid3D\VScript\VToken.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VToken.obj
 C:\Dev\Vivid3D\VScript\VTokenizer.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VTokenizer.obj
 C:\Dev\Vivid3D\VScript\VTokenStream.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VTokenStream.obj
 C:\Dev\Vivid3D\VScript\VVar.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VVar.obj
+C:\Dev\Vivid3D\VScript\VVarAssign.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VVarAssign.obj
 C:\Dev\Vivid3D\VScript\VVarGroup.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VVarGroup.obj

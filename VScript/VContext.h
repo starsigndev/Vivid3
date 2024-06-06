@@ -78,7 +78,37 @@ public:
             if (ii >= pc) {
                 break;
             }
-            v->m_IntValue = params->GetParams()[ii]->Express()->m_IntValue;
+            auto pres= params->GetParams()[ii]->Express();
+            switch (v->m_Type) {
+            case T_Int:
+            {
+                int a = 5;
+                switch (pres->m_Type) {
+                case T_Number:
+                    v->m_IntValue = pres->m_IntValue;
+                    break;
+                case T_FloatNumber:
+                    v->m_IntValue = (int)pres->m_FloatValue;
+                    break;
+
+                }
+            }
+            break;
+            case T_Float:
+            {
+                switch (pres->m_Type) {
+                case T_Number:
+                    v->m_FloatValue = pres->m_IntValue;
+                    break;
+                case T_FloatNumber:
+                    v->m_FloatValue = (int)pres->m_FloatValue;
+                    break;
+
+                }
+                int b = 5;
+            }
+            break;
+            }
             ii++;
         }
         m_ScopeStack.push(scope);

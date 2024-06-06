@@ -14,6 +14,7 @@ struct ExpElement {
 	VVar* VarElement;
 	TokenType EleType;
 	VName VarName;
+	TokenType OpType;
 
 };
 
@@ -23,7 +24,9 @@ public:
 
 	std::vector<ExpElement> Elements;
 	VContext* m_Context;
-
+	bool Is_Float();
+	bool Is_Int();
+	std::vector<std::string> ToVector();
 	VVar* Express();
 };
 

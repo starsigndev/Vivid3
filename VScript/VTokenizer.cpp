@@ -17,7 +17,7 @@ bool IsOperator(char ch) {
 	// Define a set of characters that are considered operators in C++/C#
 	static const std::unordered_set<char> operators = {
 		'(', ')', '{', '}', '[', ']', ';', ':', '?', ',', '.', '!', '@', '#',
-		'%', '^', '&', '*', '-', '+', '=', '|', '~', '<', '>', '/', '\\'
+		'%', '^', '&', '*', '-', '+', '=', '|', '~', '<', '>', '/', '\\','='
 	};
 
 	// Check if the character is in the set of operators
@@ -46,6 +46,8 @@ VTokenStream VTokenizer::Tokenize(VSource* source) {
 	toke_map["func"] = TokenType::T_Func;
 	toke_map["function"] = TokenType::T_Func;
 	toke_map["fn"] = TokenType::T_Func;
+	toke_map["new"] = TokenType::T_New;
+
 
 	m_Source = source;
 
@@ -146,6 +148,7 @@ void VTokenizer::TokenizeWord() {
 void VTokenizer::TokenizeNumber() {
 
 	std::string number = "";
+	bool is_float = false;
 
 	while (true) {
 
@@ -162,10 +165,17 @@ void VTokenizer::TokenizeNumber() {
 		else if (intToCharString((int)ch) == ".")
 		{
 			number += ch;
+			is_float = true;
 			continue;
 		}
 
-		VToken token(TokenType::T_Number, number);
+		TokenType n_type = TokenType::T_Number;
+
+		if (is_float) {
+			n_type = TokenType::T_FloatNumber;
+		}
+
+		VToken token(n_type, number);
 
 		m_TokenStream.AddToken(token);
 

@@ -19,7 +19,9 @@ public:
 		return m_Defaults;
 	}
 	void AddName(VName name,VExpression* expr);
-
+	TokenType GetType() {
+		return m_Type;
+	}
 private:
 
 	TokenType m_Type;

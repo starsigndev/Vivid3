@@ -1,18 +1,18 @@
 module Vivid.Test
 
+class CheckClass
+
+end 
+
 class TestClass
 
-    int check = 1200,other;
-
-    func test(int a)
-
-       debug(a);
-
-    end
+    int ant = 25;
 
     func TestClass()
 
-        test(255);
+        ant = 255*100;
+
+        debug(ant);    
 
     end 
 
