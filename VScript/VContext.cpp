@@ -28,10 +28,50 @@ VClass* VContext::CreateInstance(std::string name) {
 
 }
 
+VVar* VContext::FindVar(std::vector<std::string> names) {
+
+	if (names.size() == 1)
+	{
+		return FindVar(names[0]);
+	}
+	else {
+
+		VVar* cur = FindVar(names[0]);
+		if (cur->m_ClsValue == nullptr) {
+			printf("Runtime error:");
+			printf(names[0].c_str());
+			printf(" is null.\n");
+			exit(1);
+		}
+		int ii = 1;
+		while (true) {
+			
+			if (cur->m_ClsValue != nullptr) {
+				auto ncur = cur->m_ClsValue->FindVar(names[ii]);
+				if (ncur != nullptr) {
+					cur = ncur;
+				}
+				else {
+					return cur;
+				}
+
+			}
+
+			ii++;
+			if (ii >= names.size()) {
+				return cur;
+			}
+		}
+
+	}
+
+}
+
 VVar* VContext::FindVar(std::string name) {
 
 	auto var = m_ScopeStack.top()->FindVar(name);
 	if (var != nullptr) {
 		return var;
 	}
+	return nullptr;
 }

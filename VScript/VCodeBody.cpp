@@ -11,6 +11,8 @@ VVar* VCodeBody::Exec() {
 
 	for (auto code : m_Code) {
 
+		//code->SetContext(GetContext());
+
 		code->Exec();
 
 	}

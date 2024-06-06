@@ -145,6 +145,7 @@
     <ClInclude Include="VCallParameters.h" />
     <ClInclude Include="VClass.h" />
     <ClInclude Include="VClassAssign.h" />
+    <ClInclude Include="VClassCall.h" />
     <ClInclude Include="VCodeBody.h" />
     <ClInclude Include="VContext.h" />
     <ClInclude Include="VDeclareObject.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="VCallParameters.cpp" />
     <ClCompile Include="VClass.cpp" />
     <ClCompile Include="VClassAssign.cpp" />
+    <ClCompile Include="VClassCall.cpp" />
     <ClCompile Include="VCodeBody.cpp" />
     <ClCompile Include="VContext.cpp" />
     <ClCompile Include="VDeclareObject.cpp" />

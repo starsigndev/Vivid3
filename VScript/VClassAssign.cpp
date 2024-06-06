@@ -19,12 +19,16 @@ VVar* VClassAssign::Exec() {
 
 	int b = 5;
 
-	auto cls = GetContext()->FindVar(m_Name.GetNames()[0]);
-	auto var = cls->m_ClsValue->FindVar(m_Name.GetNames()[1]);
+	auto final = GetContext()->FindVar(m_Name.GetNames());
+
+//	auto cls = GetContext()->FindVar(m_Name.GetNames()[0]);
+//	auto var = cls->m_ClsValue->FindVar(m_Name.GetNames()[1]);
 	m_Expression->m_Context = GetContext();
 	auto res = m_Expression->Express();
-	var->m_IntValue = res->m_IntValue;
-	var->m_FloatValue = res->m_FloatValue;
+	final->m_IntValue = res->m_IntValue;
+	final->m_FloatValue = res->m_FloatValue;
+	final->m_ClsValue = res->m_ClsValue;
+	final->m_ClassType = res->m_ClassType;
 
 	return nullptr;
 }

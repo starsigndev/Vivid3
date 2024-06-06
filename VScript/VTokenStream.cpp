@@ -61,11 +61,15 @@ bool VTokenStream::LineHas(TokenType type) {
 	return false;
 }
 
-bool VTokenStream::LineHas(std::string lex) {
+bool VTokenStream::LineHas(std::string lex,std::string except) {
 	int idx = 0;
 	while (true) {
 
 		auto token = Peek(idx);
+		if (token.GetLex() == except)
+		{
+			return false;
+		}
 		if (token.GetType() == TokenType::T_EOL)
 		{
 			return false;

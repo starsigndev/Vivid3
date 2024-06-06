@@ -78,6 +78,7 @@ public:
             if (ii >= pc) {
                 break;
             }
+            
             auto pres= params->GetParams()[ii]->Express();
             switch (v->m_Type) {
             case T_Int:
@@ -152,6 +153,7 @@ public:
     }
 
     VVar* FindVar(std::string name);
+    VVar* FindVar(std::vector<std::string> names);
 
 private:
 

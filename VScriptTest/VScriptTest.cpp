@@ -46,7 +46,7 @@ int main()
     VParser* parser = new VParser;
     
     VModule* test_mod = parser->ParseModule(stream);
-
+    
     VContext* con1 = new VContext;
     con1->AddModule(test_mod);
     auto i1 = con1->CreateInstance("TestClass");

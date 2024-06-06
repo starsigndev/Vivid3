@@ -20,6 +20,7 @@ public:
 	void SetClass(VClass* cls);
 	void SetRoot(VScope* root) {
 		m_RootScope = root;
+		m_NoRoot = false;
 	}
 	std::vector<VVar*> GetVars() {
 		return m_LocalVars;

@@ -27,7 +27,7 @@ VVar* VStatementCall::Exec() {
 				vars.push_back(res);
 			}
 
-			auto res = direct({ vars[0]});
+			auto res = direct({ vars[0] });
 			return res;
 		}
 		else {

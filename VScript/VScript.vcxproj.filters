@@ -105,6 +105,9 @@
     <ClInclude Include="VClassAssign.h">
       <Filter>Actions</Filter>
     </ClInclude>
+    <ClInclude Include="VClassCall.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VScript.cpp">
@@ -180,6 +183,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VClassAssign.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="VClassCall.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
   </ItemGroup>

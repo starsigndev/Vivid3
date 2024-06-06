@@ -19,6 +19,7 @@ class VCallParameters;
 class VExpression;
 class VVarAssign;
 class VClassAssign;
+class VClassCall;
 
 class VParser
 {
@@ -41,6 +42,7 @@ public:
 	VExpression* ParseExpression();
 	VVarAssign* ParseAssign();
 	VClassAssign* ParseClassAssign();
+	VClassCall* ParseClassCall();
 
 private:
 

@@ -10,6 +10,7 @@
 #include "VExpression.h"
 #include "VVarAssign.h"
 #include "VClassAssign.h"
+#include "VClassCall.h"
 
 VParser::VParser() {
 
@@ -33,6 +34,9 @@ VModule* VParser::ParseModule(VTokenStream stream) {
 	while (!m_Stream.End()) {
 
 		auto token = m_Stream.GetNext();
+		if (m_Stream.End()) {
+			return module;
+		}
 
 		switch (token.GetType()) {
 		case T_Class:
@@ -108,11 +112,11 @@ VClass* VParser::ParseClass() {
 
 	while (!m_Stream.End()) {
 
-		auto token = m_Stream.GetNext();
+ 		auto token = m_Stream.GetNext();
 
 		switch (token.GetType()) {
 		case T_Func:
-		{
+		{ 
 			int bb = 5;
 			VFunction* func = ParseFunction();
 			n_cls->AddFunction(func);
@@ -122,6 +126,52 @@ VClass* VParser::ParseClass() {
 
 			return n_cls;
 
+			break;
+		case T_Ident:
+		{
+			//auto t = m_Stream.GetNext();
+			VVarGroup* group = new VVarGroup(TokenType::T_Ident);
+			group->SetClassType(token.GetLex());
+
+			n_cls->AddVarGroup(group);
+
+
+			while (!m_Stream.End()) {
+
+				auto peek = m_Stream.Peek(0);
+
+				if (peek.GetLex() == ",")
+				{
+					m_Stream.GetNext();
+					continue;
+				}
+				if (peek.GetType() == T_EOL) {
+
+					//n_cls->AddVars(
+					//)
+					m_Stream.GetNext();
+					break;
+
+				}
+				auto v_name = ParseName();
+
+				auto next = m_Stream.Peek(0);
+
+				VExpression* expr = nullptr;
+
+				if (next.GetLex() == "=")
+				{
+					expr = ParseExpression();
+
+					auto tok = m_Stream.Peek(0);
+				}
+
+				group->AddName(v_name, expr);
+
+			}
+
+			int b = 5;
+		}
 			break;
 		case T_Int:
 		case T_Float:
@@ -251,24 +301,35 @@ PredictType VParser::PredictNext(VTokenStream stream)
 
 	bool p_statement = false;
 	int idents = 0;
+	if (stream.Peek(0).GetLex() == ";")
+	{
+		stream.GetNext();
+	}
 
-	if (m_Stream.Match({ TokenType::T_Ident,TokenType::T_Ident }))
+	if (stream.Match({ TokenType::T_Ident,TokenType::T_Ident }))
 	{
 		return P_DeclareObject;
 	}
-	if (m_Stream.Match({ TokenType::T_Ident,TokenType::T_LeftPara }))
+	if (stream.Match({ TokenType::T_Ident,TokenType::T_LeftPara }))
 	{
 		return P_Statement;
 	}
 
-	if (m_Stream.Match({ TokenType::T_Ident,TokenType::T_Access }))
+	if (stream.Match({ TokenType::T_Ident,TokenType::T_Access }))
 	{
-		if (m_Stream.LineHas("="))
+		if (stream.LineHas("=","("))
 		{
 			return P_ClassAssign;
 		}
 		else {
 			return P_ClassCall;
+		}
+	}
+	if (stream.Match({ TokenType::T_Ident,TokenType::T_Operator }))
+	{
+
+		if (m_Stream.Peek(1).GetLex() == "=") {
+			return P_Assign;
 		}
 	}
 
@@ -375,6 +436,10 @@ VVarGroup* VParser::ParseDeclareObject() {
 VClassAssign* VParser::ParseClassAssign() {
 
 	//auto tok = m_Stream.GetNext();
+	if (m_Stream.Peek(0).GetType() == T_EOL) {
+		m_Stream.GetNext();
+	}
+
 	auto name = ParseName();
 
 	VClassAssign* ass = new VClassAssign;
@@ -411,6 +476,12 @@ VCodeBody* VParser::ParseCodeBody() {
 		PredictType pt = PredictNext(m_Stream);
 
 		switch (pt) {
+		case P_Assign:
+		{
+			auto ass = ParseClassAssign();
+			body->AddCode(ass);
+		}
+		break;
 		case P_ClassAssign:
 
 		{
@@ -425,10 +496,10 @@ VCodeBody* VParser::ParseCodeBody() {
 
 		}
 			break;
-		case P_Assign:
+		//case P_Assign:
 		{
-			auto ass = ParseAssign();
-			body->AddCode(ass);
+		//	auto ass = ParseAssign();
+		//	body->AddCode(ass);
 		}
 			break;
 		case P_New:
@@ -457,6 +528,12 @@ VCodeBody* VParser::ParseCodeBody() {
 			return body;
 
 			break;
+		case P_ClassCall:
+		{
+			auto call = ParseClassCall();
+			body->AddCode(call);
+		}
+			break;
 		}
 
 
@@ -466,6 +543,27 @@ VCodeBody* VParser::ParseCodeBody() {
 	int b = 5;
 
 	return nullptr;
+}
+
+VClassCall* VParser::ParseClassCall() {
+
+	if (m_Stream.Peek(0).GetType() == T_EOL) {
+		m_Stream.GetNext();
+	}
+
+	VClassCall* call = new VClassCall;
+	//auto tok = m_Stream.GetNext();
+	auto name = ParseName();
+	call->SetName(name);
+	m_Stream.GetNext();
+	call->SetParams(ParseCallParameters());
+	//auto tok = m_Stream.GetNext();
+
+
+	int a = 5;
+
+	return call;
+
 }
 
 VVarAssign* VParser::ParseAssign() {
@@ -653,7 +751,8 @@ VExpression* VParser::ParseExpression() {
 			new_ele.IsNew = true;
 			m_Stream.GetNext();
 			new_ele.NewParams = ParseCallParameters();
-			m_Stream.Back();
+		//	m_Stream.Back();
+			m_Stream.ToNext(";");
 			expr->Elements.push_back(new_ele);
 			return expr;
 

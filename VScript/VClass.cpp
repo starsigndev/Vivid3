@@ -103,20 +103,45 @@ void VClass::CreateScope() {
 	for (auto g : m_Groups) {
 
 		int ii = 0;
-		for (auto v : g->GetNames())
-		{
-			auto nv = new VVar;
-			nv->m_Name = v.GetNames()[0];
-			
-			if (g->GetExpressions()[ii] != nullptr) {
-				g->GetExpressions()[ii]->m_Context = this->m_Context;
-				nv->m_IntValue = g->GetExpressions()[ii]->Express()->m_IntValue;
-			}
-			nv->m_Type = g->GetType();
-			m_InstanceScope->RegisterVar(nv);
-			ii++;
+		if (g->GetType() != T_Ident) {
+			for (auto v : g->GetNames())
+			{
+				auto nv = new VVar;
+				nv->m_Name = v.GetNames()[0];
 
-			//nv->m_IntValue = 
+				if (g->GetExpressions()[ii] != nullptr) {
+					g->GetExpressions()[ii]->m_Context = this->m_Context;
+					nv->m_IntValue = g->GetExpressions()[ii]->Express()->m_IntValue;
+				}
+				nv->m_Type = g->GetType();
+				m_InstanceScope->RegisterVar(nv);
+				ii++;
+
+				//nv->m_IntValue = 
+			}
+		}
+		else {
+			for (auto v : g->GetNames())
+			{
+				auto nv = new VVar;
+				nv->m_Name = v.GetNames()[0];
+
+			//	if (g->GetExpressions()[ii] != nullptr) {
+			//		g->GetExpressions()[ii]->m_Context = this->m_Context;
+			//		nv->m_IntValue = g->GetExpressions()[ii]->Express()->m_IntValue;
+			//	}
+				nv->m_Type = T_Class;
+				nv->m_ClassType = g->GetClassType();
+				if (g->GetExpressions()[ii] != nullptr) {
+					g->GetExpressions()[ii]->m_Context = this->m_Context;
+					nv->m_ClsValue = g->GetExpressions()[ii]->Express()->m_ClsValue;
+				}
+				m_InstanceScope->RegisterVar(nv);
+
+				ii++;
+
+				//nv->m_IntValue = 
+			}
 		}
 
 	}
@@ -133,6 +158,7 @@ VVar* VClass::FindVar(std::string name) {
 			return v;
 		}
 	}
+	return nullptr;
 }
 
 VFunction* VClass::FindFunctionBySig(std::string name,std::vector<TokenType> sig) {
@@ -142,6 +168,10 @@ VFunction* VClass::FindFunctionBySig(std::string name,std::vector<TokenType> sig
 
 		if (func->GetName().GetNames()[0] == name)
 		{
+
+			if (sig.size() == 0 && func->GetParams() == nullptr) {
+				return func;
+			}
 			auto params = func->GetParams();
 			auto pl = params->GetParams();
 

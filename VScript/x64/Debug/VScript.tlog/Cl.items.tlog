@@ -3,6 +3,7 @@ C:\Dev\Vivid3D\VScript\VAction.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VAction.obj
 C:\Dev\Vivid3D\VScript\VCallParameters.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VCallParameters.obj
 C:\Dev\Vivid3D\VScript\VClass.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VClass.obj
 C:\Dev\Vivid3D\VScript\VClassAssign.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VClassAssign.obj
+C:\Dev\Vivid3D\VScript\VClassCall.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VClassCall.obj
 C:\Dev\Vivid3D\VScript\VCodeBody.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VCodeBody.obj
 C:\Dev\Vivid3D\VScript\VContext.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VContext.obj
 C:\Dev\Vivid3D\VScript\VDeclareObject.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VDeclareObject.obj

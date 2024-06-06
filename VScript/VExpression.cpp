@@ -157,7 +157,7 @@ bool VExpression::Is_Int() {
 
 	for (auto ele : Elements) {
 		if (ele.IsSubExpr) {
-
+			ele.SubExpr->m_Context = m_Context;
 			auto s_res = ele.SubExpr->Express();
 
 			if (s_res->m_Type == T_Number) {
@@ -178,15 +178,10 @@ bool VExpression::Is_Int() {
 		{
 
 			VVar* fv = nullptr;
-			if (ele.VarName.GetNames().size() == 1) {
-				fv = m_Context->FindVar(ele.VarName.GetNames()[0]);
-			}
-			else if(ele.VarName.GetNames().size()==2){
+		
 
-				fv = m_Context->FindVar(ele.VarName.GetNames()[0]);
-				fv = fv->m_ClsValue->FindVar(ele.VarName.GetNames()[1]);
+			fv = m_Context->FindVar(ele.VarName.GetNames());
 
-			}
 				 
 			
 			if (fv->m_Type == T_Float)
@@ -230,13 +225,15 @@ bool VExpression::Is_Int() {
 }
 
 bool VExpression::Is_Float() {
+
 	bool is_int = false;
 	bool is_float = false;
 
-	for (auto ele : Elements) {
+ 	for (auto ele : Elements) {
 
 		if (ele.IsSubExpr) {
 
+			ele.SubExpr->m_Context = m_Context;
 			auto s_res = ele.SubExpr->Express();
 
 			if (s_res->m_Type == T_Number) {
@@ -255,15 +252,9 @@ bool VExpression::Is_Float() {
 		case T_Ident:
 		{
 			VVar* fv = nullptr;
-			if (ele.VarName.GetNames().size() == 1) {
-				fv = m_Context->FindVar(ele.VarName.GetNames()[0]);
-			}
-			else if (ele.VarName.GetNames().size() == 2) {
 
-				fv = m_Context->FindVar(ele.VarName.GetNames()[0]);
-				fv = fv->m_ClsValue->FindVar(ele.VarName.GetNames()[1]);
 
-			}
+			fv = m_Context->FindVar(ele.VarName.GetNames());
 
 			if (fv->m_Type == T_Float)
 			{
@@ -405,7 +396,7 @@ std::vector<std::string> VExpression::ToVector() {
 	for (auto e : Elements) {
 
 		if (e.IsSubExpr) {
-
+			e.SubExpr->m_Context = m_Context;
 			auto res = e.SubExpr->Express();
 
 
@@ -423,15 +414,9 @@ std::vector<std::string> VExpression::ToVector() {
 		{
 		//	auto fv = m_Context->FindVar(e.VarName.GetNames()[0]);
 			VVar* fv = nullptr;
-			if (e.VarName.GetNames().size() == 1) {
-				fv = m_Context->FindVar(e.VarName.GetNames()[0]);
-			}
-			else if (e.VarName.GetNames().size() == 2) {
 
-				fv = m_Context->FindVar(e.VarName.GetNames()[0]);
-				fv = fv->m_ClsValue->FindVar(e.VarName.GetNames()[1]);
 
-			}
+			fv = m_Context->FindVar(e.VarName.GetNames());
 			if (fv->m_Type == T_Float)
 			{
 				stack.push_back(std::to_string(fv->m_FloatValue));
