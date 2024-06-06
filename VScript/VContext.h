@@ -141,6 +141,16 @@ public:
 
     }
 
+    VFunction* FindFunc(std::string name, std::vector<TokenType> sig)
+    {
+        return nullptr;
+      //  return m_ScopeStack.top()->FindFunc(name, sig);
+    }
+
+    VScope* GetTopScope() {
+        return m_ScopeStack.top();
+    }
+
     VVar* FindVar(std::string name);
 
 private:

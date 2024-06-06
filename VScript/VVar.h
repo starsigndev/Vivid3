@@ -15,6 +15,7 @@ public:
 	VClass* m_ClsValue = nullptr;
 	std::vector<VVar*> m_ArrValues;
 	TokenType m_Type;
+	std::string m_ClassType = "";
 
 };
 

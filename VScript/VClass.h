@@ -20,6 +20,8 @@ public:
 	VClass* Clone();
 	VName GetName();
 	VFunction* FindFunction(std::string name);
+	VFunction* FindFunctionBySig(std::string name,std::vector<TokenType> sig);
+	VVar* FindVar(std::string name);
 	VScope* GetScope() {
 		return m_InstanceScope;
 	}

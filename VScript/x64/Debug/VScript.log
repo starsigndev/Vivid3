@@ -1,7 +1,8 @@
-﻿  VParser.cpp
-C:\Dev\Vivid3D\VScript\VParser.cpp(354,37): warning C4806: '==': unsafe operation: no value of type 'bool' promoted to type 'TokenType' can equal the given constant
-C:\Dev\Vivid3D\VScript\VParser.cpp(560,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  VTokenStream.cpp
-  VTokenizer.cpp
-  Generating Code...
+﻿  VExpression.cpp
+C:\Dev\Vivid3D\VScript\VContext.h(75,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(101,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(104,48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\Vivid3D\VScript\VExpression.cpp(39,26): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+C:\Dev\Vivid3D\VScript\VExpression.cpp(56,32): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+C:\Dev\Vivid3D\VScript\VExpression.cpp(396,29): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   VScript.vcxproj -> C:\Dev\Vivid3D\Vivid3D\x64\Debug\VScript.lib

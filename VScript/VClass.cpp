@@ -5,6 +5,10 @@
 #include "VVar.h"
 #include "VName.h"
 #include "VExpression.h"
+#include "VDefineParams.h"
+#include "VParameter.h"
+#include "VContext.h"
+#include "VScope.h"
 
 void VClass::SetName(VName name) {
 
@@ -120,4 +124,48 @@ void VClass::CreateScope() {
 	m_InstanceScope->SetClass(this);
 	m_InstanceScope->NoRoot();
 
+}
+
+VVar* VClass::FindVar(std::string name) {
+
+	for (auto v : m_InstanceScope->GetVars()) {
+		if (v->m_Name == name) {
+			return v;
+		}
+	}
+}
+
+VFunction* VClass::FindFunctionBySig(std::string name,std::vector<TokenType> sig) {
+
+	
+	for (auto func : m_Funcs) {
+
+		if (func->GetName().GetNames()[0] == name)
+		{
+			auto params = func->GetParams();
+			auto pl = params->GetParams();
+
+			int si = 0;
+			for (auto p : pl) {
+
+				if (p->GetType() == T_Int)
+				{
+					if (sig[si] == T_Number)
+					{
+
+					}
+					else {
+						return nullptr;
+					}
+				}
+
+			}
+			
+			return func;
+			int b = 5;
+			//		return func;
+		}
+
+	}
+	return nullptr;
 }

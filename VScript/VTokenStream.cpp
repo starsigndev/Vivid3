@@ -78,3 +78,22 @@ bool VTokenStream::LineHas(std::string lex) {
 	}
 	return false;
 }
+
+bool VTokenStream::Match(std::initializer_list<TokenType> args)
+{
+	int idx = m_Index;
+
+	for (const auto& v : args) {
+		if (v == m_Tokens[idx].GetType())
+		{
+
+		}
+		else {
+			return false;
+		}
+		idx++;
+		//	std::cout << v << std::endl;
+	}
+	return true;
+
+}

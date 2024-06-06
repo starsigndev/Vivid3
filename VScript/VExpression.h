@@ -4,6 +4,7 @@
 #include "VVar.h"
 
 class VExpression;
+class VCallParameters;
 
 struct ExpElement {
 
@@ -15,6 +16,11 @@ struct ExpElement {
 	TokenType EleType;
 	VName VarName;
 	TokenType OpType;
+	bool IsSubExpr = false;
+	VExpression* SubExpr;
+	std::string ClassType = "";
+	bool IsNew = false;
+	VCallParameters* NewParams;
 
 };
 

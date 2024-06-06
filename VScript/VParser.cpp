@@ -9,6 +9,7 @@
 #include "VCallParameters.h"
 #include "VExpression.h"
 #include "VVarAssign.h"
+#include "VClassAssign.h"
 
 VParser::VParser() {
 
@@ -64,10 +65,15 @@ VName VParser::ParseName() {
 		auto tok = m_Stream.GetNext();
 		if (tok.GetType() == T_Ident) {
 			names.push_back(tok.GetLex());
-		}
-		else if (tok.GetType() == T_Access)
-		{
-
+			if (m_Stream.Peek(0).GetType() == T_Access)
+			{
+				m_Stream.GetNext();
+				continue;
+			}
+			else {
+//				m_Stream.Back();
+				break;
+			}
 		}
 		else {
 			m_Stream.Back();
@@ -244,6 +250,30 @@ PredictType VParser::PredictNext(VTokenStream stream)
 {
 
 	bool p_statement = false;
+	int idents = 0;
+
+	if (m_Stream.Match({ TokenType::T_Ident,TokenType::T_Ident }))
+	{
+		return P_DeclareObject;
+	}
+	if (m_Stream.Match({ TokenType::T_Ident,TokenType::T_LeftPara }))
+	{
+		return P_Statement;
+	}
+
+	if (m_Stream.Match({ TokenType::T_Ident,TokenType::T_Access }))
+	{
+		if (m_Stream.LineHas("="))
+		{
+			return P_ClassAssign;
+		}
+		else {
+			return P_ClassCall;
+		}
+	}
+
+	//if(m_Stream.Match({TokenType::T_Access}))
+
 
 	while (!stream.End()) {
 
@@ -254,15 +284,21 @@ PredictType VParser::PredictNext(VTokenStream stream)
 		case T_Float:
 		case T_Bool:
 		case T_String:
+		
 
 			return P_DeclareVar;
 
 			break;
 		case T_Ident:
-			p_statement = true;
-			if (m_Stream.LineHas("=")) {
-			//	return P_New;
-				return P_Assign;
+		//	p_statement = true;
+			idents++;
+			if (idents == 1) {
+
+				//if (m_Stream.Peek(0).GetType() == TokenType::T_Ident)
+				{
+				//	return P_DeclareObject;
+				}
+
 			}
 
 
@@ -288,6 +324,77 @@ PredictType VParser::PredictNext(VTokenStream stream)
 
 }
 
+VVarGroup* VParser::ParseDeclareObject() {
+
+	auto tok = m_Stream.GetNext();
+
+	VVarGroup* vg = new VVarGroup(TokenType::T_Class);
+	vg->SetClassType(tok.GetLex());
+
+	while (!m_Stream.End()) {
+
+		auto tok = m_Stream.GetNext();
+		if (tok.GetLex() == ",")
+		{
+			continue;
+		}
+		if (tok.GetLex() == ";")
+		{
+			return vg;
+		}
+		auto name = VName();
+		name.Add(tok.GetLex());
+		
+		VExpression* def = nullptr;
+
+		//auto test = m_Stream.Peek(0);
+		if (m_Stream.Peek(0).GetLex()=="=") {
+
+			def = ParseExpression();
+			
+
+			int b = 5;
+
+
+		}
+
+		vg->AddName(name,def);
+
+
+		int b = 5;
+
+	}
+
+
+	int b = 5;
+
+	return vg;
+
+}
+
+VClassAssign* VParser::ParseClassAssign() {
+
+	//auto tok = m_Stream.GetNext();
+	auto name = ParseName();
+
+	VClassAssign* ass = new VClassAssign;
+
+	ass->SetName(name);
+
+	auto tok = m_Stream.Peek(0);
+	if (tok.GetLex() == "=")
+	{
+		m_Stream.GetNext();
+	}
+
+	auto exp = ParseExpression();
+
+	ass->SetExpression(exp);
+
+	return ass;
+
+}
+
 VCodeBody* VParser::ParseCodeBody() {
 
 	//auto token = m_Stream.GetNext();
@@ -304,6 +411,20 @@ VCodeBody* VParser::ParseCodeBody() {
 		PredictType pt = PredictNext(m_Stream);
 
 		switch (pt) {
+		case P_ClassAssign:
+
+		{
+			auto cls_assign = ParseClassAssign();
+			body->AddCode(cls_assign);
+		}
+			break;
+		case P_DeclareObject:
+		{
+			auto declare = ParseDeclareObject();
+			body->AddCode(declare);
+
+		}
+			break;
 		case P_Assign:
 		{
 			auto ass = ParseAssign();
@@ -403,6 +524,10 @@ VVarGroup* VParser::ParseDeclare() {
 VStatementCall* VParser::ParseStatement() {
 
 	auto tok = m_Stream.GetNext();
+	if (tok.GetLex() == ";")
+	{
+		tok = m_Stream.GetNext();
+	}
 
 	VStatementCall* call = new VStatementCall;
 	call->SetName(tok.GetLex());
@@ -509,6 +634,31 @@ VExpression* VParser::ParseExpression() {
 			m_Stream.Back();
 			return expr;
 		}
+		if (toke.GetLex() == "(")
+		{
+			ExpElement sub_ele;
+			sub_ele.IsSubExpr = true;
+			sub_ele.SubExpr = ParseExpression();
+			expr->Elements.push_back(sub_ele);
+			continue;
+		}
+
+		if (toke.GetLex() == "new")
+		{
+			toke = m_Stream.GetNext();
+			auto cls_type = toke.GetLex();
+			int bb = 5;
+			ExpElement new_ele;
+			new_ele.ClassType = cls_type;
+			new_ele.IsNew = true;
+			m_Stream.GetNext();
+			new_ele.NewParams = ParseCallParameters();
+			m_Stream.Back();
+			expr->Elements.push_back(new_ele);
+			return expr;
+
+
+		}
 
 		switch (toke.GetType()) {
 		case T_Operator:
@@ -540,11 +690,15 @@ VExpression* VParser::ParseExpression() {
 			break;
 		case T_Ident:
 		{
+
 			ExpElement var_ele;
 
-			VName qname;
-			qname.Add(toke.GetLex());
+			m_Stream.Back();
+
+			VName qname = ParseName();
+			//qname.Add(toke.GetLex());
 			var_ele.VarName = qname;
+
 
 			var_ele.EleType = T_Ident;
 			expr->Elements.push_back(var_ele);

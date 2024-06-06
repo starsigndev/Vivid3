@@ -5,6 +5,7 @@
 #include <vector>
 #include <stack>
 #include <string>
+#include "VFunction.h"
 #include <stdexcept>
 // INT EVAL
 bool isOperator(const std::string& token) {
@@ -155,12 +156,39 @@ bool VExpression::Is_Int() {
 	bool is_float = false;
 
 	for (auto ele : Elements) {
+		if (ele.IsSubExpr) {
+
+			auto s_res = ele.SubExpr->Express();
+
+			if (s_res->m_Type == T_Number) {
+				is_int = true;
+			}
+			else if (s_res->m_Type == T_FloatNumber) {
+				is_float = true;
+				is_int = false;
+			}
+
+			int a = 5;
+
+		}
+
 
 		switch (ele.EleType) {
 		case T_Ident:
 		{
-			auto fv = m_Context->FindVar(ele.VarName.GetNames()[0]);
 
+			VVar* fv = nullptr;
+			if (ele.VarName.GetNames().size() == 1) {
+				fv = m_Context->FindVar(ele.VarName.GetNames()[0]);
+			}
+			else if(ele.VarName.GetNames().size()==2){
+
+				fv = m_Context->FindVar(ele.VarName.GetNames()[0]);
+				fv = fv->m_ClsValue->FindVar(ele.VarName.GetNames()[1]);
+
+			}
+				 
+			
 			if (fv->m_Type == T_Float)
 			{
 				is_float = true;
@@ -207,10 +235,35 @@ bool VExpression::Is_Float() {
 
 	for (auto ele : Elements) {
 
+		if (ele.IsSubExpr) {
+
+			auto s_res = ele.SubExpr->Express();
+
+			if (s_res->m_Type == T_Number) {
+				is_int = true;
+			}
+			else if (s_res->m_Type == T_FloatNumber) {
+				is_float = true;
+				is_int = false;
+			}
+
+			int a = 5;
+			continue;
+		}
+
 		switch (ele.EleType) {
 		case T_Ident:
 		{
-			auto fv = m_Context->FindVar(ele.VarName.GetNames()[0]);
+			VVar* fv = nullptr;
+			if (ele.VarName.GetNames().size() == 1) {
+				fv = m_Context->FindVar(ele.VarName.GetNames()[0]);
+			}
+			else if (ele.VarName.GetNames().size() == 2) {
+
+				fv = m_Context->FindVar(ele.VarName.GetNames()[0]);
+				fv = fv->m_ClsValue->FindVar(ele.VarName.GetNames()[1]);
+
+			}
 
 			if (fv->m_Type == T_Float)
 			{
@@ -237,6 +290,7 @@ bool VExpression::Is_Float() {
 			is_int = false;
 			is_float = true;
 			break;
+		
 		}
 
 	}
@@ -254,7 +308,53 @@ bool VExpression::Is_Float() {
 
 VVar* VExpression::Express() {
 
+	auto con1 = m_Context;
+
 	auto v = new VVar;
+
+	if (Elements.size() == 1)
+	{
+
+		if (Elements[0].IsNew) {
+
+			VVar* cls_v = new VVar;
+			cls_v->m_ClassType = Elements[0].ClassType;
+			cls_v->m_ClsValue = con1->CreateInstance(cls_v->m_ClassType);
+			
+			std::vector<VVar*> cps;
+			std::vector<TokenType> sig;
+
+			bool is_int = true;
+			bool is_float = false;
+
+			for (auto cp : Elements[0].NewParams->GetParams())
+			{
+				auto cv = cp->Express();
+				cps.push_back(cv);
+				if (cv->m_Type == T_Number) {
+					is_int = true;
+					sig.push_back(T_Number);
+				}
+				if (cv->m_Type == T_FloatNumber) {
+					is_int = false;
+					is_float = true;
+					sig.push_back(T_FloatNumber);
+				}
+				int b = 5;
+			}
+
+
+			auto func = cls_v->m_ClsValue->FindFunctionBySig(cls_v->m_ClassType,sig);
+
+			func->Call(Elements[0].NewParams);
+
+			int b = 5;
+			return cls_v;
+
+
+		}
+
+	}
 
 	if (Is_Float()) {
 
@@ -304,11 +404,34 @@ std::vector<std::string> VExpression::ToVector() {
 
 	for (auto e : Elements) {
 
+		if (e.IsSubExpr) {
+
+			auto res = e.SubExpr->Express();
+
+
+			if (res->m_Type == T_Float) {
+				stack.push_back(std::to_string(res->m_FloatValue));
+			}
+			else if (res->m_Type == T_Number) {
+				stack.push_back(std::to_string(res->m_IntValue));
+			}
+			continue;
+		}
+
 		switch (e.EleType) {
 		case T_Ident:
 		{
-			auto fv = m_Context->FindVar(e.VarName.GetNames()[0]);
+		//	auto fv = m_Context->FindVar(e.VarName.GetNames()[0]);
+			VVar* fv = nullptr;
+			if (e.VarName.GetNames().size() == 1) {
+				fv = m_Context->FindVar(e.VarName.GetNames()[0]);
+			}
+			else if (e.VarName.GetNames().size() == 2) {
 
+				fv = m_Context->FindVar(e.VarName.GetNames()[0]);
+				fv = fv->m_ClsValue->FindVar(e.VarName.GetNames()[1]);
+
+			}
 			if (fv->m_Type == T_Float)
 			{
 				stack.push_back(std::to_string(fv->m_FloatValue));

@@ -20,7 +20,7 @@ VVar* VCodeBody::Exec() {
 void VCodeBody::SetContext(VContext* context) {
 
 	for (auto code : m_Code) {
-
+		
 		code->SetContext(context);
 
 	}

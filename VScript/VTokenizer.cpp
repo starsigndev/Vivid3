@@ -47,7 +47,8 @@ VTokenStream VTokenizer::Tokenize(VSource* source) {
 	toke_map["function"] = TokenType::T_Func;
 	toke_map["fn"] = TokenType::T_Func;
 	toke_map["new"] = TokenType::T_New;
-
+	toke_map["("] = TokenType::T_LeftPara;
+	toke_map[")"] = TokenType::T_RightPara;
 
 	m_Source = source;
 

@@ -144,8 +144,10 @@
     <ClInclude Include="VAction.h" />
     <ClInclude Include="VCallParameters.h" />
     <ClInclude Include="VClass.h" />
+    <ClInclude Include="VClassAssign.h" />
     <ClInclude Include="VCodeBody.h" />
     <ClInclude Include="VContext.h" />
+    <ClInclude Include="VDeclareObject.h" />
     <ClInclude Include="VDefineParams.h" />
     <ClInclude Include="VExpression.h" />
     <ClInclude Include="VFunction.h" />
@@ -173,8 +175,10 @@
     <ClCompile Include="VAction.cpp" />
     <ClCompile Include="VCallParameters.cpp" />
     <ClCompile Include="VClass.cpp" />
+    <ClCompile Include="VClassAssign.cpp" />
     <ClCompile Include="VCodeBody.cpp" />
     <ClCompile Include="VContext.cpp" />
+    <ClCompile Include="VDeclareObject.cpp" />
     <ClCompile Include="VDefineParams.cpp" />
     <ClCompile Include="VExpression.cpp" />
     <ClCompile Include="VFunction.cpp" />

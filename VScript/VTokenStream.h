@@ -15,6 +15,7 @@ public:
 	void Back();
 	bool LineHas(TokenType type);
 	bool LineHas(std::string lex);
+	bool Match(std::initializer_list<TokenType> args);
 
 private:
 	std::vector<VToken> m_Tokens;

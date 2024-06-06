@@ -50,3 +50,4 @@ VFunction* VScope::FindFunc(std::string name) {
 	return func;
 	//return nullptr;
 }
+

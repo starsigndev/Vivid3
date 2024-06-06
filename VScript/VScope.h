@@ -16,6 +16,7 @@ public:
 		m_NoRoot = true;
 	}
 	VFunction* FindFunc(std::string name);
+
 	void SetClass(VClass* cls);
 	void SetRoot(VScope* root) {
 		m_RootScope = root;

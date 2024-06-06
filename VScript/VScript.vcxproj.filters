@@ -99,6 +99,12 @@
     <ClInclude Include="VVarAssign.h">
       <Filter>Actions</Filter>
     </ClInclude>
+    <ClInclude Include="VDeclareObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VClassAssign.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VScript.cpp">
@@ -168,6 +174,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VVarAssign.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="VDeclareObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VClassAssign.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
   </ItemGroup>
