@@ -1,36 +1,19 @@
 module Vivid.Test
 
-class Tester
-
-    func Tester()
-    
-        debug("Tester");
-
-    end
-
-    func Test(string aa)
-
-        debug(aa);
-
-    end 
-
-end 
 
 class TestClass
 
-    func other(string a)
-
-        debug(a);
-
-    end 
+  
 
     func TestClass()
-    
-        string name = "Antony Wells";
 
-        Tester tc = new Tester();
+        int a=0;
 
-        tc.Test(name);
+        for(a=0;a<50;a=a+1)
+
+            debug(a);
+
+        end 
 
     end 
 

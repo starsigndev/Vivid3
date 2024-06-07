@@ -31,11 +31,12 @@ VVar* VAssignArray::Exec() {
 	m_IndexExpression->m_Context = con;
 	m_Expression->m_Context = con;
 
-	int index = m_IndexExpression->Express()->m_IntValue;
+	int index = m_IndexExpression->Express()->ToInt();
 
 	auto fv = con->FindVar(m_Target.GetNames()[0]);
 
-	fv->m_ArrValues[index] = m_Expression->Express();
+	fv->SetArray(index, m_Expression->Express());
+
 
 	int b = 5;
 

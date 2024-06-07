@@ -81,7 +81,9 @@ public:
             
             params->GetParams()[ii]->m_Context = this;
            auto pres= params->GetParams()[ii]->Express();
+           v->Transfer(pres);
 
+           /*
             switch (v->m_Type) {
             case T_String:
             {
@@ -123,6 +125,7 @@ public:
                     v->m_ClassType = pres->m_ClassType;
                     break;
             }
+            */
             ii++;
         }
         m_ScopeStack.push(scope);

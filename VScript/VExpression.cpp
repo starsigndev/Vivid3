@@ -12,16 +12,17 @@
 // INT EVAL
 bool isOperator(const std::string& token) {
 	return token == "+" || token == "-" || token == "*" || token == "/" ||
-		token == "^" || token == "%" || token == "=";
+		token == "^" || token == "%" || token == "=" || token == "<" || token == ">";
 }
 
 // Helper function to get the precedence of an operator
 // Helper function to get the precedence of an operator
 int getPrecedence(const std::string& op) {
-	if (op == "+" || op == "-") return 1;
-	if (op == "*" || op == "/" || op == "%") return 2;
-	if (op == "^") return 3;
 	if (op == "=") return 0; // Equality check has the lowest precedence
+	if (op == "<" || op == ">") return 1; // Comparison operators have precedence between equality and arithmetic
+	if (op == "+" || op == "-") return 2;
+	if (op == "*" || op == "/" || op == "%") return 3;
+	if (op == "^") return 4;
 	return -1;
 }
 
@@ -39,6 +40,8 @@ float performOperationFLOAT(float a, float b, const std::string& op) {
 	}
 	if (op == "^") return std::pow(a, b);
 	if (op == "=") return a == b ? 1 : 0;
+	if (op == "<") return a < b ? 1 : 0;
+	if (op == ">") return a > b ? 1 : 0;
 	throw std::invalid_argument("Invalid operator");
 }
 
@@ -57,9 +60,10 @@ int performOperationINT(int a, int b, const std::string& op) {
 	}
 	if (op == "^") return std::pow(a, b);
 	if (op == "=") return a == b ? 1 : 0;
+	if (op == "<") return a < b ? 1 : 0;
+	if (op == ">") return a > b ? 1 : 0;
 	throw std::invalid_argument("Invalid operator");
 }
-
 
 // Function to convert infix expression to postfix (RPN)
 std::vector<std::string> infixToPostfix(const std::vector<std::string>& tokens) {
@@ -166,12 +170,17 @@ bool VExpression::Is_String() {
 			if (ele.EleType == T_Operator) {
 				continue;
 			}
+			if (ele.EleType == T_Number || ele.EleType == T_FloatNumber) {
+
+				return false;
+
+			}
 			VVar* fv = nullptr;
 
 
 			fv = m_Context->FindVar(ele.VarName.GetNames());
 
-			if (fv->m_Type == T_String) {
+			if (fv->IsType(T_String)) {
 
 				is_string = true;
 				int aa = 5;
@@ -198,10 +207,10 @@ bool VExpression::Is_Int() {
 			ele.SubExpr->m_Context = m_Context;
 			auto s_res = ele.SubExpr->Express();
 
-			if (s_res->m_Type == T_Number) {
+			if (s_res->IsType(T_Number)) {
 				is_int = true;
 			}
-			else if (s_res->m_Type == T_FloatNumber) {
+			else if (s_res->IsType(T_FloatNumber)) {
 				is_float = true;
 				is_int = false;
 			}
@@ -222,16 +231,16 @@ bool VExpression::Is_Int() {
 
 				 
 			
-			if (fv->m_Type == T_Float)
+			if (fv->IsType(T_FloatNumber))
 			{
 				is_float = true;
 				is_int = false;
 			}
-			else if (fv->m_Type == T_Int)
+			else if (fv->IsType(T_Number))
 			{
 				is_int = true;
 			}
-			else if (fv->m_Type == T_Class)
+			else if (fv->IsType(T_Class))
 			{
 				is_int = false;
 				is_float = false;
@@ -300,16 +309,16 @@ bool VExpression::Is_Float() {
 
 			fv = m_Context->FindVar(ele.VarName.GetNames());
 
-			if (fv->m_Type == T_Float)
+			if (fv->IsType(T_FloatNumber))
 			{
 				is_float = true;
 				is_int = false;
 			}
-			else if (fv->m_Type == T_Int)
+			else if (fv->IsType(T_Number))
 			{
 				is_int = true;
 			}
-			else if (fv->m_Type == T_Class)
+			else if (fv->IsType(T_Class))
 			{
 				is_int = false;
 				is_float = false;
@@ -358,9 +367,10 @@ VVar* VExpression::Express() {
 		if (Elements[0].IsNew) {
 
 			VVar* cls_v = new VVar;
-			cls_v->m_ClassType = Elements[0].ClassType;
-			cls_v->m_ClsValue = con1->CreateInstance(cls_v->m_ClassType);
+			cls_v->SetClassType(Elements[0].ClassType);
+			cls_v->SetClassValue(con1->CreateInstance(cls_v->GetClassType()));
 			
+
 			std::vector<VVar*> cps;
 			std::vector<TokenType> sig;
 
@@ -371,11 +381,11 @@ VVar* VExpression::Express() {
 			{
 				auto cv = cp->Express();
 				cps.push_back(cv);
-				if (cv->m_Type == T_Number) {
+				if (cv->IsType(T_Number)) {
 					is_int = true;
 					sig.push_back(T_Number);
 				}
-				if (cv->m_Type == T_FloatNumber) {
+				if (cv->IsType(T_FloatNumber)) {
 					is_int = false;
 					is_float = true;
 					sig.push_back(T_FloatNumber);
@@ -384,7 +394,7 @@ VVar* VExpression::Express() {
 			}
 
 
-			auto func = cls_v->m_ClsValue->FindFunctionBySig(cls_v->m_ClassType,sig);
+			auto func = cls_v->GetClassValue()->FindFunctionBySig(cls_v->GetClassType(), sig);
 
 			func->Call(Elements[0].NewParams);
 
@@ -398,7 +408,7 @@ VVar* VExpression::Express() {
 
 	if (Is_String()) {
 
-		v->m_Type = T_String;
+		v->SetType(T_String);
 		std::string res = "";
 
 		for (auto e : Elements) {
@@ -407,8 +417,13 @@ VVar* VExpression::Express() {
 
 			if (e.VarName.GetNames().size() > 0) {
 				fv = m_Context->FindVar(e.VarName.GetNames());
-				if (fv->m_Type == T_String) {
-					res = res + fv->m_StrValue;
+				//if(fv.)
+				if (e.IsArray) {
+					res = res + fv->GetArray(e.IndexExpression->Express()->ToInt())->ToString();
+				}
+
+				if (fv->IsType(T_String)) {
+					res = res + fv->ToString();
 				}
 			}
 			else {
@@ -418,8 +433,7 @@ VVar* VExpression::Express() {
 
 		}
 
-		v->m_StrValue = res;
-
+		v->SetString(res);
 		//v->m_StrValue = Elements[0].StringValue;
 
 
@@ -433,8 +447,8 @@ VVar* VExpression::Express() {
 
 		auto tvec = infixToPostfix(vec);
 
-		v->m_FloatValue = evaluateFLOAT(tvec);
-		v->m_Type = T_FloatNumber;
+		v->SetFloat(evaluateFLOAT(tvec));
+		v->SetType(T_FloatNumber);
 
 		return v;
 
@@ -446,9 +460,9 @@ VVar* VExpression::Express() {
 
 		auto tvec = infixToPostfix(vec);
 
-		v->m_IntValue = evaluateINT(tvec);
+		v->SetInt(evaluateINT(tvec));
 
-		v->m_Type = T_Number;
+		v->SetType(T_Number);
 
 		return v;
 
@@ -458,10 +472,11 @@ VVar* VExpression::Express() {
 		
 		auto fv = m_Context->FindVar(Elements[0].VarName.GetNames());
 		
-		v->m_Type = T_Class;
+		v->SetType(T_Class);
 
-		v->m_ClassType = fv->m_ClassType;
-		v->m_ClsValue = fv->m_ClsValue;
+		v->SetClassType(fv->GetClassType());
+		v->SetClassValue(fv->GetClassValue());
+
 
 		return v;
 
@@ -472,14 +487,14 @@ VVar* VExpression::Express() {
 
 	if (Elements[0].VarName.GetNames().size() > 0)
 	{
-		v->m_IntValue = 0;
+		v->SetInt(0);
 		auto fv = m_Context->FindVar(Elements[0].VarName.GetNames()[0]);
-		v->m_IntValue = fv->m_IntValue;
+		v->SetInt(fv->ToInt());
 		return v;
 
-	}
-	v->m_IntValue = Elements[0].IntValue;
 
+	}
+	v->SetInt(Elements[0].IntValue);
 	return v;
 }
 
@@ -508,10 +523,10 @@ std::vector<std::string> VExpression::ToVector() {
 			auto res = e.SubExpr->Express();
 
 
-			if (res->m_Type == T_FloatNumber) {
+			if (res->IsType(T_FloatNumber)) {
 				stack.push_back(std::to_string(res->ToFloat()));
 			}
-			else if (res->m_Type == T_Number) {
+			else if (res->IsType(T_Number)) {
 				stack.push_back(std::to_string(res->ToInt()));
 			}
 			continue;
@@ -527,14 +542,17 @@ std::vector<std::string> VExpression::ToVector() {
 
 				fv = m_Context->FindVar(e.VarName.GetNames());
 				e.IndexExpression->m_Context = m_Context;
-				int idx = e.IndexExpression->Express()->m_IntValue;
-				if (fv->m_Type == T_Int) {
-					stack.push_back(std::to_string(fv->m_ArrValues[idx]->m_IntValue));
+				int idx = e.IndexExpression->Express()->ToInt();
+				if (fv->IsType(T_Number)) {
+					stack.push_back(std::to_string(fv->GetArray(idx)->ToInt()));
 				}
-				else if(fv->m_Type == T_Float) {
+				else if(fv->IsType(T_FloatNumber)) {
 
-					stack.push_back(std::to_string(fv->m_ArrValues[idx]->m_FloatValue));
+					stack.push_back(std::to_string(fv->GetArray(idx)->ToFloat()));
 
+				}
+				else {
+					exit(100);
 				}
 				int bbb = 5;
 
@@ -542,16 +560,16 @@ std::vector<std::string> VExpression::ToVector() {
 			}
 
 			fv = m_Context->FindVar(e.VarName.GetNames());
-				if (fv->m_Type == T_Float)
+			if (fv->IsType(T_FloatNumber))
 			{
-				stack.push_back(std::to_string(fv->m_FloatValue));
+				stack.push_back(std::to_string(fv->ToFloat()));
 				//is_float = true;
 				//is_int = false;
 
 			}
-			else if (fv->m_Type == T_Int)
+			else if (fv->IsType(T_Number))
 			{
-				stack.push_back(std::to_string(fv->m_IntValue));
+				stack.push_back(std::to_string(fv->ToInt()));
 				//is_int = true;
 
 			}
@@ -584,6 +602,12 @@ std::vector<std::string> VExpression::ToVector() {
 				break;
 			case T_Equal:
 				stack.push_back("=");
+				break;
+			case T_GreaterThan:
+				stack.push_back(">");
+				break;
+			case T_LessThan:
+				stack.push_back("<");
 				break;
 			}
 

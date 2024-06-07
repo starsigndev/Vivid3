@@ -117,6 +117,15 @@
     <ClInclude Include="VAssignArray.h">
       <Filter>Actions</Filter>
     </ClInclude>
+    <ClInclude Include="VIf.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="VWhile.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="VFor.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VScript.cpp">
@@ -204,6 +213,15 @@
       <Filter>Actions</Filter>
     </ClCompile>
     <ClCompile Include="VAssignArray.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="VIf.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="VWhile.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="VFor.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
   </ItemGroup>

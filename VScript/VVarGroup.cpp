@@ -26,24 +26,29 @@ VVar* VVarGroup::Exec() {
 	int idx = 0;
 	for (auto name : m_Names) {
 		VVar* nv = new VVar;
-		nv->m_Type = TokenType::T_Class;
-		nv->m_Type = m_Type;
-		nv->m_ClassType = m_ClassType;
-		nv->m_Name = name.GetNames()[0];
+		//nv->m_Type = TokenType::T_Class;
+		nv->SetType(m_Type);
+		nv->SetClassType(m_ClassType);
+		nv->SetName(name.GetNames()[0]);
 		auto def = m_Defaults[idx];
 
 		if (def != nullptr) {
 
 			def->m_Context = GetContext();
 			VVar* res = def->Express();
-			nv->m_ClsValue = res->m_ClsValue;
-			nv->m_IntValue = res->m_IntValue;
-			nv->m_FloatValue = res->m_FloatValue;
-			nv->m_ClassType = res->m_ClassType;
-			nv->m_StrValue = res->m_StrValue;
-			nv->m_Type = res->m_Type;
-			if (nv->m_ClsValue != nullptr) {
-				nv->m_Type = TokenType::T_Class;
+			nv->Transfer(res);
+			nv->SetName(name.GetNames()[0]);
+			//nv->m_ClsValue = res->m_ClsValue;
+		//	nv->m_IntValue = res->m_IntValue;
+			//nv->m_FloatValue = res->m_FloatValue;
+			//nv->m_ClassType = res->m_ClassType;
+		//	nv->m_StrValue = res->m_StrValue;
+		//	nv->m_Type = res->m_Type;
+			//if (nv->m_ClsValue != nullptr) {
+		//		nv->m_Type = TokenType::T_Class;
+			//}
+			if (nv->GetClassValue() != nullptr) {
+				nv->SetType(TokenType::T_Class);
 			}
 
 

@@ -153,7 +153,9 @@
     <ClInclude Include="VDeclareObject.h" />
     <ClInclude Include="VDefineParams.h" />
     <ClInclude Include="VExpression.h" />
+    <ClInclude Include="VFor.h" />
     <ClInclude Include="VFunction.h" />
+    <ClInclude Include="VIf.h" />
     <ClInclude Include="VModule.h" />
     <ClInclude Include="VName.h" />
     <ClInclude Include="VParameter.h" />
@@ -168,6 +170,7 @@
     <ClInclude Include="VVar.h" />
     <ClInclude Include="VVarAssign.h" />
     <ClInclude Include="VVarGroup.h" />
+    <ClInclude Include="VWhile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -188,7 +191,9 @@
     <ClCompile Include="VDeclareObject.cpp" />
     <ClCompile Include="VDefineParams.cpp" />
     <ClCompile Include="VExpression.cpp" />
+    <ClCompile Include="VFor.cpp" />
     <ClCompile Include="VFunction.cpp" />
+    <ClCompile Include="VIf.cpp" />
     <ClCompile Include="VModule.cpp" />
     <ClCompile Include="VName.cpp" />
     <ClCompile Include="VParameter.cpp" />
@@ -204,6 +209,7 @@
     <ClCompile Include="VVar.cpp" />
     <ClCompile Include="VVarAssign.cpp" />
     <ClCompile Include="VVarGroup.cpp" />
+    <ClCompile Include="VWhile.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

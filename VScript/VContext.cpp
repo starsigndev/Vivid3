@@ -38,7 +38,7 @@ VVar* VContext::FindVar(std::vector<std::string> names) {
 	else {
 
 		VVar* cur = FindVar(names[0]);
-		if (cur->m_ClsValue == nullptr) {
+		if (cur->GetClassValue() == nullptr) {
 			printf("Runtime error:");
 			printf(names[0].c_str());
 			printf(" is null.\n");
@@ -47,8 +47,8 @@ VVar* VContext::FindVar(std::vector<std::string> names) {
 		int ii = 1;
 		while (true) {
 			
-			if (cur->m_ClsValue != nullptr) {
-				auto ncur = cur->m_ClsValue->FindVar(names[ii]);
+			if (cur->GetClassValue() != nullptr) {
+				auto ncur = cur->GetClassValue()->FindVar(names[ii]);
 				if (ncur != nullptr) {
 					cur = ncur;
 				}

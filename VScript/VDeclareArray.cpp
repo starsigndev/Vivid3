@@ -30,15 +30,22 @@ VVar* VDeclareArray::Exec() {
 	auto top_scope = con->GetTopScope();
 
 	auto nv = new VVar;
-	nv->m_Type = m_Type;
-	nv->m_Name = m_Name.GetNames()[0];
-	
-	int size = m_SizeExp->Express()->m_IntValue;
+//	nv->m_Type = m_Type;
+//	nv->m_Name = m_Name.GetNames()[0];
+	nv->SetType(m_Type);
+	nv->SetName(m_Name.GetNames()[0]);
+
+
+	int size = m_SizeExp->Express()->ToInt();
 
 	for (int i = 0; i < size; i++) {
 		VVar* ave = new VVar;
-		ave->m_Type = m_Type;
-		nv->m_ArrValues.push_back(ave);
+	//	ave->m_Type = m_Type;
+		ave->SetType(m_Type);
+		ave->SetArray(i, ave);
+
+		//nv->m_ArrValues.push_back(ave);
+
 	}
 
 	top_scope->RegisterVar(nv);

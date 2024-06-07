@@ -53,6 +53,10 @@ VTokenStream VTokenizer::Tokenize(VSource* source) {
 	toke_map["ret"] = TokenType::T_Return;
 	toke_map["["] = TokenType::T_LeftBracket;
 	toke_map["]"] = TokenType::T_RightBracket;
+	toke_map["else"] = TokenType::T_Else;
+	toke_map["elseif"] = TokenType::T_ElseIf;
+	toke_map["while"] = TokenType::T_While;
+	toke_map["for"] = TokenType::T_For;
 
 	m_Source = source;
 

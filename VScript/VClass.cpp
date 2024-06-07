@@ -108,7 +108,10 @@ void VClass::CreateScope() {
 			for (auto v : g->GetNames())
 			{
 				auto nv = new VVar;
-				nv->m_Name = v.GetNames()[0];
+
+				nv->SetName(v.GetNames()[0]);
+
+				//nv->m_Name = v.GetNames()[0];
 
 				if (g->GetExpressions()[ii] != nullptr) {
 					g->GetExpressions()[ii]->m_Context = this->m_Context;
@@ -116,16 +119,19 @@ void VClass::CreateScope() {
 
 					switch (g->GetType()) {
 					case T_Number:
-						
-						nv->m_IntValue = res->ToInt();
+						nv->SetInt(res->ToInt());
+						//nv->m_IntValue = res->ToInt();
 						break;
 					case T_Float:
-						nv->m_FloatValue = res->ToFloat();
+						nv->SetFloat(res->ToFloat());
+						//nv->m_FloatValue = res->ToFloat();
 						break;
 					}
 
 				}
-				nv->m_Type = g->GetType();
+				//nv->m_Type = g->GetType();
+
+				nv->SetType(g->GetType());
 				m_InstanceScope->RegisterVar(nv);
 				ii++;
 
@@ -136,17 +142,24 @@ void VClass::CreateScope() {
 			for (auto v : g->GetNames())
 			{
 				auto nv = new VVar;
-				nv->m_Name = v.GetNames()[0];
+				//nv->m_Name = v.GetNames()[0];
+
+				nv->SetName(v.GetNames()[0]);
 
 			//	if (g->GetExpressions()[ii] != nullptr) {
 			//		g->GetExpressions()[ii]->m_Context = this->m_Context;
 			//		nv->m_IntValue = g->GetExpressions()[ii]->Express()->m_IntValue;
 			//	}
-				nv->m_Type = T_Class;
-				nv->m_ClassType = g->GetClassType();
+
+				nv->SetType(T_Class);
+				nv->SetClassType(g->GetClassType());
+
+				//nv->m_Type = T_Class;
+				//nv->m_ClassType = g->GetClassType();
 				if (g->GetExpressions()[ii] != nullptr) {
 					g->GetExpressions()[ii]->m_Context = this->m_Context;
-					nv->m_ClsValue = g->GetExpressions()[ii]->Express()->m_ClsValue;
+					nv->SetClassValue(g->GetExpressions()[ii]->Express()->GetClassValue());
+
 				}
 				m_InstanceScope->RegisterVar(nv);
 
@@ -166,7 +179,7 @@ void VClass::CreateScope() {
 VVar* VClass::FindVar(std::string name) {
 
 	for (auto v : m_InstanceScope->GetVars()) {
-		if (v->m_Name == name) {
+		if (v->IsName(name)) {
 			return v;
 		}
 	}

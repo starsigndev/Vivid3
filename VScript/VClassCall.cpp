@@ -9,7 +9,7 @@ VVar* VClassCall::Exec() {
 
 	int a = 5;
 	auto cv = GetContext()->FindVar(m_Name.GetNames());
-	auto func = cv->m_ClsValue->FindFunction(m_Name.GetNames()[m_Name.GetNames().size() - 1]);
+	auto func = cv->GetClassValue()->FindFunction(m_Name.GetNames()[m_Name.GetNames().size() - 1]);
 	
 	for (auto p : m_Params->GetParams()) {
 

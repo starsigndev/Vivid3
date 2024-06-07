@@ -14,7 +14,7 @@ VVar* VScope::FindVar(std::string name) {
 
 	for (auto v : m_LocalVars) {
 
-		if (v->m_Name == name) {
+		if (v->IsName(name)) {
 			return v;
 		}
 

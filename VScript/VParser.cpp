@@ -14,6 +14,9 @@
 #include "VClassCall.h"
 #include "VDeclareArray.h"
 #include "VAssignArray.h"
+#include "VIf.h"
+#include "VWhile.h"
+#include "VFor.h"
 
 VParser::VParser() {
 
@@ -362,6 +365,15 @@ PredictType VParser::PredictNext(VTokenStream stream)
 		auto tok = stream.GetNext();
 
 		switch (tok.GetType()) {
+		case T_For:
+			return P_For;
+			break;
+		case T_While:
+			return P_While;
+			break;
+		case T_If:
+			return P_If;
+			break;
 		case T_Int:
 		case T_Float:
 		case T_Bool:
@@ -399,7 +411,7 @@ PredictType VParser::PredictNext(VTokenStream stream)
 			{
 				return P_Statement;
 			}
-			if (tok.GetLex() == "end")
+			if (tok.GetLex() == "end" || tok.GetLex()=="else" || tok.GetLex()=="elseif")
 			{
 				return P_End;
 			}
@@ -508,6 +520,27 @@ VCodeBody* VParser::ParseCodeBody() {
 		PredictType pt = PredictNext(m_Stream);
 
 		switch (pt) {
+		case P_For:
+		{
+			auto ret = ParseFor();
+			body->AddCode(ret);
+		}
+		break;
+		case P_While:
+		{
+			auto ret = ParseWhile();
+			body->AddCode(ret);
+
+		}
+		break;
+		case P_If:
+		{
+			auto ret = ParseIf();
+			body->AddCode(ret);
+			int b = 5;
+
+		}
+			break;
 		case P_AssignArray:
 		{
 			auto ret = ParseAssignArray();
@@ -596,6 +629,75 @@ VCodeBody* VParser::ParseCodeBody() {
 	int b = 5;
 
 	return nullptr;
+}
+
+VFor* VParser::ParseFor() {
+
+	auto toke = m_Stream.GetNext();
+	toke = m_Stream.GetNext();
+
+	VFor* vfor = new VFor;
+
+	vfor->SetInitial(ParseAssign());
+	vfor->SetExpression(ParseExpression());
+	if (m_Stream.Peek(0).GetLex() == ";") {
+		toke = m_Stream.GetNext();
+	}
+	vfor->SetInc(ParseAssign());
+	vfor->SetCode(ParseCodeBody());
+
+	return vfor;
+
+}
+
+VWhile* VParser::ParseWhile() {
+
+	auto tok = m_Stream.GetNext();
+	auto res = new VWhile;
+	m_Stream.GetNext();
+	res->SetExpression(ParseExpression());
+	res->SetCode(ParseCodeBody());
+	return res;
+
+}
+
+VIf* VParser::ParseIf() {
+
+	auto toke = m_Stream.GetNext();
+
+	auto res = new VIf;
+
+	if (toke.GetLex() == "if") {
+		toke = m_Stream.GetNext();
+	}
+
+	res->SetIfExp(ParseExpression());
+
+	toke = m_Stream.GetNext();
+	//toke = m_Stream.GetNext();
+
+	res->SetBody(ParseCodeBody());
+
+	toke = m_Stream.Peek(0);
+
+	if (toke.GetLex() == "elseif")
+	{
+		m_Stream.GetNext();
+		res->SetElseIf(ParseIf());
+	}
+
+	if (toke.GetLex() == "else")
+	{
+		m_Stream.GetNext();
+		res->SetElseBody(ParseCodeBody());
+
+	}
+
+
+	int b = 5;
+
+	return res;
+
 }
 
 VAssignArray* VParser::ParseAssignArray() {
@@ -934,6 +1036,12 @@ VExpression* VParser::ParseExpression() {
 			}
 			if (toke.GetLex() == "=") {
 				op_ele.OpType = T_Equal;
+			}
+			if (toke.GetLex() == "<") {
+				op_ele.OpType = T_LessThan;
+			}
+			if (toke.GetLex() == ">") {
+				op_ele.OpType = T_GreaterThan;
 			}
 			expr->Elements.push_back(op_ele);
 		}

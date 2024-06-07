@@ -11,8 +11,26 @@ VVar* VVarAssign::Exec() {
 
 
 	auto fv =con->FindVar(m_Name.GetNames()[0]);
+	//%%%%%%
 
-	fv->m_IntValue = m_Expr->Express()->m_IntValue;
+	switch (fv->GetType()) {
+	case T_Number:
+		fv->SetInt(m_Expr->Express()->ToInt());
+		break;
+	case T_FloatNumber:
+		fv->SetFloat(m_Expr->Express()->ToFloat());
+		break;
+	case T_Class:
+		fv->SetClassValue(m_Expr->Express()->GetClassValue());
+		break;
+	default:
+
+		int bb = 5;
+
+		break;
+	}
+
+	//fv->m_IntValue = m_Expr->Express()->m_IntValue;
 
 
 
