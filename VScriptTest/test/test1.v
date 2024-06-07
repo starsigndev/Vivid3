@@ -1,20 +1,13 @@
 module Vivid.Test
 
-
 class Other
 
-    int age = 30;
-
-
     func Other()
+    end
 
-        debug(255);
+    func Test(int a)
 
-    end 
-    
-    func TestFunc(int b)
-
-        debug(b+10);
+        return a;
 
     end 
 
@@ -22,14 +15,17 @@ end
 
 class TestClass
 
-
-    Other ac;
-
     func TestClass()
     
-        ac = new Other();
+        int ch = 20;
 
-        ac.TestFunc(ac.age+255);
+        Other tt = new Other();
+
+        ch = ((tt.Test(25/2)*2)+100)*1000;
+
+
+
+        debug(ch);
 
 
     end 

@@ -13,7 +13,10 @@ VVar* VCodeBody::Exec() {
 
 		//code->SetContext(GetContext());
 
-		code->Exec();
+		auto res = code->Exec();
+		if (res != nullptr) {
+			return res;
+		}
 
 	}
 	return nullptr;

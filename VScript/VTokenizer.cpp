@@ -49,6 +49,8 @@ VTokenStream VTokenizer::Tokenize(VSource* source) {
 	toke_map["new"] = TokenType::T_New;
 	toke_map["("] = TokenType::T_LeftPara;
 	toke_map[")"] = TokenType::T_RightPara;
+	toke_map["return"] = TokenType::T_Return;
+	toke_map["ret"] = TokenType::T_Return;
 
 	m_Source = source;
 

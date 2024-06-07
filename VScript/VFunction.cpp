@@ -63,13 +63,13 @@ VVar* VFunction::Call(VCallParameters* params) {
 		m_Context->PushScope(GetScope());
 	}
 
-	m_Code->Exec();
+	auto res = m_Code->Exec();
 
 	m_Context->PopScope();
 
 	m_Context->PopScope();
 
-	return nullptr;
+	return res;
 }
 
 void VFunction::SetBody(VCodeBody* code) {

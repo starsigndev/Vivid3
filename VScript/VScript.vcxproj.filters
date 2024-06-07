@@ -108,6 +108,9 @@
     <ClInclude Include="VClassCall.h">
       <Filter>Actions</Filter>
     </ClInclude>
+    <ClInclude Include="VReturn.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VScript.cpp">
@@ -186,6 +189,9 @@
       <Filter>Actions</Filter>
     </ClCompile>
     <ClCompile Include="VClassCall.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="VReturn.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
   </ItemGroup>

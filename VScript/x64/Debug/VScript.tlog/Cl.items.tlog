@@ -14,6 +14,7 @@ C:\Dev\Vivid3D\VScript\VModule.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VModule.obj
 C:\Dev\Vivid3D\VScript\VName.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VName.obj
 C:\Dev\Vivid3D\VScript\VParameter.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VParameter.obj
 C:\Dev\Vivid3D\VScript\VParser.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VParser.obj
+C:\Dev\Vivid3D\VScript\VReturn.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VReturn.obj
 C:\Dev\Vivid3D\VScript\VScope.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VScope.obj
 C:\Dev\Vivid3D\VScript\VScript.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VScript.obj
 C:\Dev\Vivid3D\VScript\VSource.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VSource.obj

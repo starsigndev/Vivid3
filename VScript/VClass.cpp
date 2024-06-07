@@ -99,6 +99,7 @@ VFunction* VClass::FindFunction(std::string name) {
 void VClass::CreateScope() {
 
 	m_InstanceScope = new VScope;
+	m_InstanceScope->NoRoot();
 
 	for (auto g : m_Groups) {
 

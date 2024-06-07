@@ -5,6 +5,8 @@
 
 class VExpression;
 class VCallParameters;
+class VStatementCall;
+class VClassCall;
 
 struct ExpElement {
 
@@ -21,6 +23,8 @@ struct ExpElement {
 	std::string ClassType = "";
 	bool IsNew = false;
 	VCallParameters* NewParams;
+	VStatementCall* Statement = nullptr;
+	VClassCall* ClassCall = nullptr;
 
 };
 

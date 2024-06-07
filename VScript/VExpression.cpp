@@ -7,6 +7,8 @@
 #include <string>
 #include "VFunction.h"
 #include <stdexcept>
+#include "VStatementCall.h"
+#include "VClassCall.h"
 // INT EVAL
 bool isOperator(const std::string& token) {
 	return token == "+" || token == "-" || token == "*" || token == "/" ||
@@ -152,7 +154,7 @@ int evaluateINT(const std::vector<std::string>& tokens) {
 
 bool VExpression::Is_Int() {
 
-	bool is_int = false;
+	bool is_int = true;
 	bool is_float = false;
 
 	for (auto ele : Elements) {
@@ -395,6 +397,20 @@ std::vector<std::string> VExpression::ToVector() {
 
 	for (auto e : Elements) {
 
+		if (e.EleType == T_Func) {
+
+			if (e.Statement != nullptr) {
+				e.Statement->SetContext(m_Context);
+				auto res = e.Statement->Exec();
+				stack.push_back(std::to_string(res->m_IntValue));
+			}
+			else {
+				e.ClassCall->SetContext(m_Context);
+				auto res = e.ClassCall->Exec();
+				stack.push_back(std::to_string(res->m_IntValue));
+			}
+		}
+
 		if (e.IsSubExpr) {
 			e.SubExpr->m_Context = m_Context;
 			auto res = e.SubExpr->Express();
@@ -417,7 +433,7 @@ std::vector<std::string> VExpression::ToVector() {
 
 
 			fv = m_Context->FindVar(e.VarName.GetNames());
-			if (fv->m_Type == T_Float)
+				if (fv->m_Type == T_Float)
 			{
 				stack.push_back(std::to_string(fv->m_FloatValue));
 				//is_float = true;

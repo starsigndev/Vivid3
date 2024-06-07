@@ -156,6 +156,7 @@
     <ClInclude Include="VName.h" />
     <ClInclude Include="VParameter.h" />
     <ClInclude Include="VParser.h" />
+    <ClInclude Include="VReturn.h" />
     <ClInclude Include="VScope.h" />
     <ClInclude Include="VSource.h" />
     <ClInclude Include="VStatementCall.h" />
@@ -188,6 +189,7 @@
     <ClCompile Include="VName.cpp" />
     <ClCompile Include="VParameter.cpp" />
     <ClCompile Include="VParser.cpp" />
+    <ClCompile Include="VReturn.cpp" />
     <ClCompile Include="VScope.cpp" />
     <ClCompile Include="VScript.cpp" />
     <ClCompile Include="VSource.cpp" />

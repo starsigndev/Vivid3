@@ -27,6 +27,7 @@ VVar* VVarGroup::Exec() {
 	for (auto name : m_Names) {
 		VVar* nv = new VVar;
 		nv->m_Type = TokenType::T_Class;
+		nv->m_Type = m_Type;
 		nv->m_ClassType = m_ClassType;
 		nv->m_Name = name.GetNames()[0];
 		auto def = m_Defaults[idx];
@@ -34,7 +35,14 @@ VVar* VVarGroup::Exec() {
 		if (def != nullptr) {
 
 			def->m_Context = GetContext();
-			nv->m_ClsValue = def->Express()->m_ClsValue;
+			VVar* res = def->Express();
+			nv->m_ClsValue = res->m_ClsValue;
+			nv->m_IntValue = res->m_IntValue;
+			nv->m_FloatValue = res->m_FloatValue;
+			nv->m_ClassType = res->m_ClassType;
+			if (nv->m_ClsValue != nullptr) {
+				nv->m_Type = TokenType::T_Class;
+			}
 
 
 		}

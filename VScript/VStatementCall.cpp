@@ -42,9 +42,10 @@ VVar* VStatementCall::Exec() {
 
 
 
-	func->Call(m_CallParams);
+	auto res = func->Call(m_CallParams);
 
 	int ba = 5;
+	return res;
 
 
 

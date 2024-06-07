@@ -18,7 +18,7 @@ VVar* VClassCall::Exec() {
 	}
 
 
-	func->Call(m_Params);
+	return func->Call(m_Params);
 
 	return nullptr;
 

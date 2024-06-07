@@ -10,6 +10,7 @@
 #include "VExpression.h"
 #include "VVarAssign.h"
 #include "VClassAssign.h"
+#include "VReturn.h"
 #include "VClassCall.h"
 
 VParser::VParser() {
@@ -306,6 +307,13 @@ PredictType VParser::PredictNext(VTokenStream stream)
 		stream.GetNext();
 	}
 
+	if (stream.Match({ TokenType::T_Return }))
+	{
+
+		return P_Return;
+
+	}
+
 	if (stream.Match({ TokenType::T_Ident,TokenType::T_Ident }))
 	{
 		return P_DeclareObject;
@@ -476,6 +484,14 @@ VCodeBody* VParser::ParseCodeBody() {
 		PredictType pt = PredictNext(m_Stream);
 
 		switch (pt) {
+		case P_Return:
+		{
+
+			auto ret = ParseReturn();
+			body->AddCode(ret);
+
+		}
+			break;
 		case P_Assign:
 		{
 			auto ass = ParseClassAssign();
@@ -545,6 +561,23 @@ VCodeBody* VParser::ParseCodeBody() {
 	return nullptr;
 }
 
+VReturn* VParser::ParseReturn() {
+
+	auto tok = m_Stream.GetNext();
+	if (tok.GetType() != TokenType::T_Return)
+	{
+		Err("Expecting 'return'");
+	}
+
+	VReturn* res = new VReturn;
+
+	res->SetExpression(ParseExpression());
+
+	tok = m_Stream.GetNext();
+	int v = 5;
+	return res;
+}
+
 VClassCall* VParser::ParseClassCall() {
 
 	if (m_Stream.Peek(0).GetType() == T_EOL) {
@@ -558,8 +591,11 @@ VClassCall* VParser::ParseClassCall() {
 	m_Stream.GetNext();
 	call->SetParams(ParseCallParameters());
 	//auto tok = m_Stream.GetNext();
-
-
+	//m_Stream.ToNext(";");
+	if (m_Stream.Peek(0).GetLex() == ")")
+	{
+		//m_Stream.GetNext();
+	}
 	int a = 5;
 
 	return call;
@@ -608,9 +644,21 @@ VVarGroup* VParser::ParseDeclare() {
 		{
 			return group;
 		}
+
 		auto name = VName();
 		name.Add(tok.GetLex());
-		group->AddName(name, nullptr);
+	
+		tok = m_Stream.Peek(0);
+
+		VExpression* exp = nullptr;
+
+		if (tok.GetLex() == "=")
+		{
+			m_Stream.GetNext();
+			exp = ParseExpression();
+		}
+		
+		group->AddName(name,exp);
 		int b = 5;
 
 	}
@@ -687,10 +735,12 @@ VCallParameters* VParser::ParseCallParameters() {
 			if (token.GetLex() == ";")
 			{
 				int aa = 5;
-				m_Stream.GetNext();
+				//m_Stream.GetNext();
 			}
+			m_Stream.GetNext();
 			return params;
 		}
+		
 
 		VExpression* expression = ParseExpression();
 
@@ -725,6 +775,7 @@ VExpression* VParser::ParseExpression() {
 		}
 		if (toke.GetLex() == ")")
 		{
+			m_Stream.Back();
 			return expr;
 		}
 		if (toke.GetLex() == ";")
@@ -738,6 +789,8 @@ VExpression* VParser::ParseExpression() {
 			sub_ele.IsSubExpr = true;
 			sub_ele.SubExpr = ParseExpression();
 			expr->Elements.push_back(sub_ele);
+			m_Stream.GetNext();
+
 			continue;
 		}
 
@@ -795,11 +848,46 @@ VExpression* VParser::ParseExpression() {
 			m_Stream.Back();
 
 			VName qname = ParseName();
-			//qname.Add(toke.GetLex());
-			var_ele.VarName = qname;
+
+			auto next = m_Stream.GetNext();
+
+			if (next.GetLex() == "(")
+			{
+				if (qname.GetNames().size() == 1) {
+					m_Stream.Back();
+					for (int i = 0; i < qname.GetNames().size(); i++)
+					{
+						m_Stream.Back();
+					}
+					//next = m_Stream.GetNext();
+					var_ele.Statement = ParseStatement();
+					var_ele.EleType = T_Func;
+					int bb = 5;
+					m_Stream.Back();
+				}
+				else {
+					m_Stream.Back();
+					for (int i = 0; i < qname.GetNames().size(); i++)
+					{
+						m_Stream.Back();
+					}
+					m_Stream.Back();
+					var_ele.ClassCall = ParseClassCall();
+					var_ele.EleType = T_Func;
+					int bb = 5;
+					//m_Stream.Back();
+				}
+			}
+			else {
+
+				//qname.Add(toke.GetLex());
+				var_ele.VarName = qname;
 
 
-			var_ele.EleType = T_Ident;
+				var_ele.EleType = T_Ident;
+				m_Stream.Back();
+			}
+
 			expr->Elements.push_back(var_ele);
 
 
