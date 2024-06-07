@@ -1,4 +1,49 @@
-﻿  VParser.cpp
-C:\Dev\Vivid3D\VScript\VParser.cpp(609,37): warning C4806: '==': unsafe operation: no value of type 'bool' promoted to type 'TokenType' can equal the given constant
-C:\Dev\Vivid3D\VScript\VParser.cpp(901,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+﻿  VAssignArray.cpp
+C:\Dev\Vivid3D\VScript\VContext.h(75,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(111,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(114,48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  VClass.cpp
+C:\Dev\Vivid3D\VScript\VContext.h(75,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(111,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(114,48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  VClassAssign.cpp
+C:\Dev\Vivid3D\VScript\VContext.h(75,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(111,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(114,48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  VClassCall.cpp
+C:\Dev\Vivid3D\VScript\VContext.h(75,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(111,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(114,48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  VContext.cpp
+C:\Dev\Vivid3D\VScript\VContext.h(75,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(111,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(114,48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  VDeclareArray.cpp
+C:\Dev\Vivid3D\VScript\VContext.h(75,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(111,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(114,48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  VExpression.cpp
+C:\Dev\Vivid3D\VScript\VContext.h(75,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(111,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(114,48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\Vivid3D\VScript\VExpression.cpp(41,26): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+C:\Dev\Vivid3D\VScript\VExpression.cpp(58,32): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+C:\Dev\Vivid3D\VScript\VExpression.cpp(481,29): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  VFunction.cpp
+C:\Dev\Vivid3D\VScript\VContext.h(75,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(111,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(114,48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  VStatementCall.cpp
+C:\Dev\Vivid3D\VScript\VContext.h(75,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(111,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(114,48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  VVarAssign.cpp
+C:\Dev\Vivid3D\VScript\VContext.h(75,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(111,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(114,48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  VVarGroup.cpp
+C:\Dev\Vivid3D\VScript\VContext.h(75,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(111,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Dev\Vivid3D\VScript\VContext.h(114,48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
   VScript.vcxproj -> C:\Dev\Vivid3D\Vivid3D\x64\Debug\VScript.lib

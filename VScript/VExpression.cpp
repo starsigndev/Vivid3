@@ -152,6 +152,42 @@ int evaluateINT(const std::vector<std::string>& tokens) {
 	return stack.top();
 }
 
+bool VExpression::Is_String() {
+
+	bool is_string = true;
+
+	for (auto ele : Elements) {
+
+		if (ele.EleType == T_String) {
+
+		}
+		else {
+
+			if (ele.EleType == T_Operator) {
+				continue;
+			}
+			VVar* fv = nullptr;
+
+
+			fv = m_Context->FindVar(ele.VarName.GetNames());
+
+			if (fv->m_Type == T_String) {
+
+				is_string = true;
+				int aa = 5;
+			}
+			else {
+
+				is_string = false;
+			}
+		}
+
+
+	}
+
+	return is_string;
+}
+
 bool VExpression::Is_Int() {
 
 	bool is_int = true;
@@ -195,6 +231,11 @@ bool VExpression::Is_Int() {
 			{
 				is_int = true;
 			}
+			else if (fv->m_Type == T_Class)
+			{
+				is_int = false;
+				is_float = false;
+			}
 			int bb = 5;
 
 		}
@@ -234,7 +275,7 @@ bool VExpression::Is_Float() {
  	for (auto ele : Elements) {
 
 		if (ele.IsSubExpr) {
-
+/*
 			ele.SubExpr->m_Context = m_Context;
 			auto s_res = ele.SubExpr->Express();
 
@@ -247,7 +288,8 @@ bool VExpression::Is_Float() {
 			}
 
 			int a = 5;
-			continue;
+	*/
+	//continue;
 		}
 
 		switch (ele.EleType) {
@@ -266,6 +308,11 @@ bool VExpression::Is_Float() {
 			else if (fv->m_Type == T_Int)
 			{
 				is_int = true;
+			}
+			else if (fv->m_Type == T_Class)
+			{
+				is_int = false;
+				is_float = false;
 			}
 			int bb = 5;
 
@@ -349,6 +396,36 @@ VVar* VExpression::Express() {
 
 	}
 
+	if (Is_String()) {
+
+		v->m_Type = T_String;
+		std::string res = "";
+
+		for (auto e : Elements) {
+
+			VVar* fv = nullptr;
+
+			if (e.VarName.GetNames().size() > 0) {
+				fv = m_Context->FindVar(e.VarName.GetNames());
+				if (fv->m_Type == T_String) {
+					res = res + fv->m_StrValue;
+				}
+			}
+			else {
+				res = res + e.StringValue;
+			}
+
+
+		}
+
+		v->m_StrValue = res;
+
+		//v->m_StrValue = Elements[0].StringValue;
+
+
+		return v;
+
+	}else 
 	if (Is_Float()) {
 
 		int a = 5;
@@ -363,8 +440,8 @@ VVar* VExpression::Express() {
 
 	}
 	else if (Is_Int()) {
-		
-		
+
+
 		auto vec = ToVector();
 
 		auto tvec = infixToPostfix(vec);
@@ -374,6 +451,21 @@ VVar* VExpression::Express() {
 		v->m_Type = T_Number;
 
 		return v;
+
+	}
+	else {
+
+		
+		auto fv = m_Context->FindVar(Elements[0].VarName.GetNames());
+		
+		v->m_Type = T_Class;
+
+		v->m_ClassType = fv->m_ClassType;
+		v->m_ClsValue = fv->m_ClsValue;
+
+		return v;
+
+		int aa = 5;
 
 	}
 
@@ -402,12 +494,12 @@ std::vector<std::string> VExpression::ToVector() {
 			if (e.Statement != nullptr) {
 				e.Statement->SetContext(m_Context);
 				auto res = e.Statement->Exec();
-				stack.push_back(std::to_string(res->m_IntValue));
+				stack.push_back(std::to_string(res->ToFloat()));
 			}
 			else {
 				e.ClassCall->SetContext(m_Context);
 				auto res = e.ClassCall->Exec();
-				stack.push_back(std::to_string(res->m_IntValue));
+				stack.push_back(std::to_string(res->ToFloat()));
 			}
 		}
 
@@ -416,11 +508,11 @@ std::vector<std::string> VExpression::ToVector() {
 			auto res = e.SubExpr->Express();
 
 
-			if (res->m_Type == T_Float) {
-				stack.push_back(std::to_string(res->m_FloatValue));
+			if (res->m_Type == T_FloatNumber) {
+				stack.push_back(std::to_string(res->ToFloat()));
 			}
 			else if (res->m_Type == T_Number) {
-				stack.push_back(std::to_string(res->m_IntValue));
+				stack.push_back(std::to_string(res->ToInt()));
 			}
 			continue;
 		}
@@ -431,6 +523,23 @@ std::vector<std::string> VExpression::ToVector() {
 		//	auto fv = m_Context->FindVar(e.VarName.GetNames()[0]);
 			VVar* fv = nullptr;
 
+			if (e.IsArray) {
+
+				fv = m_Context->FindVar(e.VarName.GetNames());
+				e.IndexExpression->m_Context = m_Context;
+				int idx = e.IndexExpression->Express()->m_IntValue;
+				if (fv->m_Type == T_Int) {
+					stack.push_back(std::to_string(fv->m_ArrValues[idx]->m_IntValue));
+				}
+				else if(fv->m_Type == T_Float) {
+
+					stack.push_back(std::to_string(fv->m_ArrValues[idx]->m_FloatValue));
+
+				}
+				int bbb = 5;
+
+				continue;
+			}
 
 			fv = m_Context->FindVar(e.VarName.GetNames());
 				if (fv->m_Type == T_Float)

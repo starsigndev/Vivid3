@@ -112,7 +112,18 @@ void VClass::CreateScope() {
 
 				if (g->GetExpressions()[ii] != nullptr) {
 					g->GetExpressions()[ii]->m_Context = this->m_Context;
-					nv->m_IntValue = g->GetExpressions()[ii]->Express()->m_IntValue;
+					auto res = g->GetExpressions()[ii]->Express();
+
+					switch (g->GetType()) {
+					case T_Number:
+						
+						nv->m_IntValue = res->ToInt();
+						break;
+					case T_Float:
+						nv->m_FloatValue = res->ToFloat();
+						break;
+					}
+
 				}
 				nv->m_Type = g->GetType();
 				m_InstanceScope->RegisterVar(nv);

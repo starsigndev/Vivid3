@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "VContext.h"
+#include "VScope.h"
 
 void VContext::AddModule(VModule* module) {
 
@@ -69,6 +70,7 @@ VVar* VContext::FindVar(std::vector<std::string> names) {
 
 VVar* VContext::FindVar(std::string name) {
 
+	m_ScopeStack.top()->SetContext(this);
 	auto var = m_ScopeStack.top()->FindVar(name);
 	if (var != nullptr) {
 		return var;

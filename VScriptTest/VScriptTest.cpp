@@ -18,7 +18,13 @@ VVar* TestDebug(std::initializer_list<VVar*> args)
     int b = 5;
     std::vector<VVar*> vec(args);
 
-    printf("Debug:%d\n",vec[0]->m_IntValue);
+    printf("DebugS:");
+    printf(vec[0]->m_StrValue.c_str());
+    printf("\n");
+
+    //printf("Debug1:%d\n",vec[0]->m_IntValue);
+
+    //printf("Debug2:%f\n", vec[0]->m_FloatValue);
 
     return nullptr;
 }

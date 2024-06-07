@@ -25,6 +25,8 @@ struct ExpElement {
 	VCallParameters* NewParams;
 	VStatementCall* Statement = nullptr;
 	VClassCall* ClassCall = nullptr;
+	VExpression* IndexExpression = nullptr;
+	bool IsArray = false;
 
 };
 
@@ -36,6 +38,7 @@ public:
 	VContext* m_Context;
 	bool Is_Float();
 	bool Is_Int();
+	bool Is_String();
 	std::vector<std::string> ToVector();
 	VVar* Express();
 };

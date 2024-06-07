@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 
+class VContext;
 class VVar;
 class VClass;
 class VFunction;
@@ -25,11 +26,13 @@ public:
 	std::vector<VVar*> GetVars() {
 		return m_LocalVars;
 	}
+	void SetContext(VContext* context);
 private:
 
 	VScope* m_RootScope = nullptr;
 	std::vector<VVar*> m_LocalVars;
 	bool m_NoRoot = false;
+	VContext* m_Context;
 	VClass* m_Owner = nullptr;
 
 };

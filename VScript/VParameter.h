@@ -15,11 +15,18 @@ public:
 	TokenType GetType();
 	VName GetName();
 	VExpression* GetExpression();
-
+	void SetClassType(std::string type)
+	{
+		m_ClassType = type;
+	}
+	std::string GetClassType() {
+		return m_ClassType;
+	}
 private:
 
 	TokenType m_Type;
 	VName m_Name;
+	std::string m_ClassType;
 	VExpression* m_Default;
 
 

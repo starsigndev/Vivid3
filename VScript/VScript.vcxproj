@@ -142,12 +142,14 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="VAction.h" />
+    <ClInclude Include="VAssignArray.h" />
     <ClInclude Include="VCallParameters.h" />
     <ClInclude Include="VClass.h" />
     <ClInclude Include="VClassAssign.h" />
     <ClInclude Include="VClassCall.h" />
     <ClInclude Include="VCodeBody.h" />
     <ClInclude Include="VContext.h" />
+    <ClInclude Include="VDeclareArray.h" />
     <ClInclude Include="VDeclareObject.h" />
     <ClInclude Include="VDefineParams.h" />
     <ClInclude Include="VExpression.h" />
@@ -175,12 +177,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="VAction.cpp" />
+    <ClCompile Include="VAssignArray.cpp" />
     <ClCompile Include="VCallParameters.cpp" />
     <ClCompile Include="VClass.cpp" />
     <ClCompile Include="VClassAssign.cpp" />
     <ClCompile Include="VClassCall.cpp" />
     <ClCompile Include="VCodeBody.cpp" />
     <ClCompile Include="VContext.cpp" />
+    <ClCompile Include="VDeclareArray.cpp" />
     <ClCompile Include="VDeclareObject.cpp" />
     <ClCompile Include="VDefineParams.cpp" />
     <ClCompile Include="VExpression.cpp" />

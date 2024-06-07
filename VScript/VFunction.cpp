@@ -102,6 +102,8 @@ VScope* VFunction::GetScope() {
 				VVar* f_var = new VVar;
 				f_var->m_Name = p->GetName().GetNames()[0];
 				f_var->m_Type = p->GetType();
+				f_var->m_ClassType = p->GetClassType();
+				f_var->m_ClsValue = nullptr;
 				r->RegisterVar(f_var);
 
 			}

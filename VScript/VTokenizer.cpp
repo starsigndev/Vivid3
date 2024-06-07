@@ -51,6 +51,8 @@ VTokenStream VTokenizer::Tokenize(VSource* source) {
 	toke_map[")"] = TokenType::T_RightPara;
 	toke_map["return"] = TokenType::T_Return;
 	toke_map["ret"] = TokenType::T_Return;
+	toke_map["["] = TokenType::T_LeftBracket;
+	toke_map["]"] = TokenType::T_RightBracket;
 
 	m_Source = source;
 
@@ -63,6 +65,15 @@ VTokenStream VTokenizer::Tokenize(VSource* source) {
 		if (std::isspace(ch)) {
 			
 			continue;
+		}
+
+		std::string test = "";
+
+		test += ch;
+
+		if (test == "\"")
+		{
+			TokenizeString();
 		}
 
 		if (std::isalpha(ch)) {
@@ -123,6 +134,30 @@ VTokenStream VTokenizer::Tokenize(VSource* source) {
 
 }
 
+void VTokenizer::TokenizeString() {
+
+	std::string res = "";
+
+	while (true) {
+		auto ch = m_Source->GetNext();
+
+		std::string test = "";
+		test += ch;
+		if (test == "\"")
+		{
+			VToken token(TokenType::T_String, res);
+
+			m_TokenStream.AddToken(token);
+
+			//m_Source->Back();
+			return;
+		}
+		res += ch;
+
+	}
+
+}
+
 void VTokenizer::TokenizeWord() {
 
 	std::string word = "";
@@ -165,7 +200,10 @@ void VTokenizer::TokenizeNumber() {
 			number += ch;
 			continue;
 		}
-		else if (intToCharString((int)ch) == ".")
+		std::string base = "";
+		base += ch;
+		
+		if (intToCharString((int)ch) == ".")
 		{
 			number += ch;
 			is_float = true;

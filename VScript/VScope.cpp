@@ -51,3 +51,8 @@ VFunction* VScope::FindFunc(std::string name) {
 	//return nullptr;
 }
 
+void VScope::SetContext(VContext* context) {
+
+	m_Context = context;
+
+}

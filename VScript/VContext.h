@@ -79,8 +79,17 @@ public:
                 break;
             }
             
-            auto pres= params->GetParams()[ii]->Express();
+            params->GetParams()[ii]->m_Context = this;
+           auto pres= params->GetParams()[ii]->Express();
+
             switch (v->m_Type) {
+            case T_String:
+            {
+                int a = 5;
+                v->m_StrValue = pres->m_StrValue;
+                
+            }
+                break;
             case T_Int:
             {
                 int a = 5;
@@ -91,7 +100,7 @@ public:
                 case T_FloatNumber:
                     v->m_IntValue = (int)pres->m_FloatValue;
                     break;
-
+              
                 }
             }
             break;
@@ -109,6 +118,10 @@ public:
                 int b = 5;
             }
             break;
+              case T_Class:
+                    v->m_ClsValue = pres->m_ClsValue;
+                    v->m_ClassType = pres->m_ClassType;
+                    break;
             }
             ii++;
         }
@@ -124,6 +137,7 @@ public:
         if (m_ScopeStack.size() > 0) {
            root = m_ScopeStack.top();
         }
+        scope->SetContext(this);
         m_ScopeStack.push(scope);
         if (root != nullptr) {
             scope->SetRoot(root);

@@ -12,6 +12,8 @@
 #include "VClassAssign.h"
 #include "VReturn.h"
 #include "VClassCall.h"
+#include "VDeclareArray.h"
+#include "VAssignArray.h"
 
 VParser::VParser() {
 
@@ -307,6 +309,9 @@ PredictType VParser::PredictNext(VTokenStream stream)
 		stream.GetNext();
 	}
 
+	//if(stream.Match({TokenType::}))
+
+
 	if (stream.Match({ TokenType::T_Return }))
 	{
 
@@ -341,6 +346,14 @@ PredictType VParser::PredictNext(VTokenStream stream)
 		}
 	}
 
+	if (stream.Match({ TokenType::T_Ident,TokenType::T_LeftBracket }))
+	{
+
+		int a = 5;
+		return P_AssignArray;
+
+	}
+
 	//if(m_Stream.Match({TokenType::T_Access}))
 
 
@@ -354,6 +367,12 @@ PredictType VParser::PredictNext(VTokenStream stream)
 		case T_Bool:
 		case T_String:
 		
+			tok = stream.Peek(0);
+
+			if (tok.GetLex() == "[")
+			{
+				return P_DeclareArray;
+			}
 
 			return P_DeclareVar;
 
@@ -481,9 +500,27 @@ VCodeBody* VParser::ParseCodeBody() {
 
 	while (!m_Stream.End()) {
 
+		if (m_Stream.Peek(0).GetType() == T_EOL)
+		{
+			m_Stream.GetNext();
+		}
+
 		PredictType pt = PredictNext(m_Stream);
 
 		switch (pt) {
+		case P_AssignArray:
+		{
+			auto ret = ParseAssignArray();
+			body->AddCode(ret);
+		}
+			break;
+		case P_DeclareArray:
+		{
+			auto ret = ParseDeclareArray();
+			body->AddCode(ret);
+		}
+
+			break;
 		case P_Return:
 		{
 
@@ -559,6 +596,51 @@ VCodeBody* VParser::ParseCodeBody() {
 	int b = 5;
 
 	return nullptr;
+}
+
+VAssignArray* VParser::ParseAssignArray() {
+
+	auto name = ParseName();
+
+	VAssignArray* ass = new VAssignArray();
+	
+	auto n = m_Stream.GetNext();
+
+	if (n.GetLex() != "[")
+	{
+		Err("Expecting '['");
+	}
+
+	ass->SetTarget(name);
+
+	ass->SetIndexExpression(ParseExpression());
+	
+	n = m_Stream.GetNext();
+	
+	ass->SetExpression(ParseExpression());
+
+
+	return ass;
+
+}
+
+VDeclareArray* VParser::ParseDeclareArray() {
+
+	auto token = m_Stream.GetNext();
+
+	VDeclareArray* res = new VDeclareArray();
+
+	res->SetType(token.GetType());
+
+	m_Stream.GetNext();
+
+	res->SetSizeExpression(ParseExpression());
+
+	auto name = ParseName();
+
+	res->SetName(name);
+
+	return res;
 }
 
 VReturn* VParser::ParseReturn() {
@@ -675,6 +757,13 @@ VStatementCall* VParser::ParseStatement() {
 		tok = m_Stream.GetNext();
 	}
 
+	if (tok.GetLex() == "(")
+	{
+		//m_Stream.Back();
+		//m_Stream.Back();
+		//tok = m_Stream.GetNext();
+	}
+
 	VStatementCall* call = new VStatementCall;
 	call->SetName(tok.GetLex());
 
@@ -690,6 +779,12 @@ VStatementCall* VParser::ParseStatement() {
 		if (el.GetLex() == ")")
 		{
 			el = m_Stream.Peek(1);
+		}
+		if (el.GetType() == T_RightBracket) {
+			m_Stream.GetNext();
+			m_Stream.GetNext();
+			return call;
+
 		}
 
 		if (el.GetType() == T_EOL)
@@ -769,6 +864,10 @@ VExpression* VParser::ParseExpression() {
 	while (!m_Stream.End()) {
 
 		auto toke = m_Stream.GetNext();
+		if (toke.GetLex() == "]")
+		{
+			return expr;
+		}
 		if (toke.GetLex() == ",")
 		{
 			return expr;
@@ -850,7 +949,7 @@ VExpression* VParser::ParseExpression() {
 			VName qname = ParseName();
 
 			auto next = m_Stream.GetNext();
-
+			
 			if (next.GetLex() == "(")
 			{
 				if (qname.GetNames().size() == 1) {
@@ -882,7 +981,13 @@ VExpression* VParser::ParseExpression() {
 
 				//qname.Add(toke.GetLex());
 				var_ele.VarName = qname;
-
+				if (next.GetLex() == "[")
+				{
+					int b = 5;
+					var_ele.IndexExpression = ParseExpression();
+					var_ele.IsArray = true;
+					//next = m_Stream.GetNext();
+				}
 
 				var_ele.EleType = T_Ident;
 				m_Stream.Back();
@@ -901,7 +1006,7 @@ VExpression* VParser::ParseExpression() {
 			num_ele.IntValue = std::stoi(toke.GetLex());
 
 			expr->Elements.push_back(num_ele);
-
+			 
 		}
 
 			break;
@@ -913,6 +1018,15 @@ VExpression* VParser::ParseExpression() {
 			num_ele.EleType = T_FloatNumber;
 
 			expr->Elements.push_back(num_ele);
+		}
+			break;
+		case T_String:
+		{
+			ExpElement str_ele;
+			str_ele.StringValue = toke.GetLex();
+			str_ele.EleType = T_String;
+			expr->Elements.push_back(str_ele);
+			int bb = 5;
 		}
 			break;
 		default:
@@ -955,16 +1069,31 @@ VDefineParams* VParser::ParseParameters() {
 		{
 			return params;
 		}
-		auto name = ParseName();
+		bool cls = false;
 		VParameter* new_param = new VParameter;
+		if (token.GetType() == T_Ident) {
+
+			cls = true;
+			int b = 5;
+		}
+		auto name = ParseName();
+		
 		if (m_Stream.Peek(0).GetLex() == "=")
 		{
 
 		}
 
 	
-		new_param->SetType(token.GetType());
+		if (cls) {
+			new_param->SetType(T_Class);
+			new_param->SetClassType(token.GetLex());
+
+		}
+		else {
+			new_param->SetType(token.GetType());
+		}
 		new_param->SetName(name);
+
 
 
 		params->AddParam(new_param);

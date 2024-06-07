@@ -5,7 +5,9 @@
 
 
 enum PredictType {
-	P_Statement, P_ClassCall,P_Unknown,P_End,P_DeclareVar,P_New,P_Assign,P_DeclareObject,P_ClassAssign,P_Return
+	P_Statement, P_ClassCall,P_Unknown,P_End,P_DeclareVar,P_New,P_Assign,P_DeclareObject,P_ClassAssign,P_Return,
+	P_DeclareArray,P_AssignArray
+
 };
 
 
@@ -21,6 +23,8 @@ class VVarAssign;
 class VClassAssign;
 class VClassCall;
 class VReturn;
+class VDeclareArray;
+class VAssignArray;
 
 class VParser
 {
@@ -45,6 +49,8 @@ public:
 	VClassAssign* ParseClassAssign();
 	VClassCall* ParseClassCall();
 	VReturn* ParseReturn();
+	VDeclareArray* ParseDeclareArray();
+	VAssignArray* ParseAssignArray();
 
 private:
 

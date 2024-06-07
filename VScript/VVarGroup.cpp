@@ -40,6 +40,8 @@ VVar* VVarGroup::Exec() {
 			nv->m_IntValue = res->m_IntValue;
 			nv->m_FloatValue = res->m_FloatValue;
 			nv->m_ClassType = res->m_ClassType;
+			nv->m_StrValue = res->m_StrValue;
+			nv->m_Type = res->m_Type;
 			if (nv->m_ClsValue != nullptr) {
 				nv->m_Type = TokenType::T_Class;
 			}

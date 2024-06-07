@@ -111,6 +111,12 @@
     <ClInclude Include="VReturn.h">
       <Filter>Actions</Filter>
     </ClInclude>
+    <ClInclude Include="VDeclareArray.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="VAssignArray.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VScript.cpp">
@@ -192,6 +198,12 @@
       <Filter>Actions</Filter>
     </ClCompile>
     <ClCompile Include="VReturn.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="VDeclareArray.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="VAssignArray.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
   </ItemGroup>

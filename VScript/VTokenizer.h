@@ -10,7 +10,7 @@ public:
 	VTokenStream Tokenize(VSource* source);
 	void TokenizeWord();
 	void TokenizeNumber();
-	
+	void TokenizeString();
 
 private:
 
