@@ -17,6 +17,8 @@
 #include "VIf.h"
 #include "VWhile.h"
 #include "VFor.h"
+#include "VLambda.h"
+#include "VInvoke.h"
 
 VParser::VParser() {
 
@@ -365,6 +367,9 @@ PredictType VParser::PredictNext(VTokenStream stream)
 		auto tok = stream.GetNext();
 
 		switch (tok.GetType()) {
+		case T_Invoke:
+			return P_Invoke;
+			break;
 		case T_For:
 			return P_For;
 			break;
@@ -378,6 +383,7 @@ PredictType VParser::PredictNext(VTokenStream stream)
 		case T_Float:
 		case T_Bool:
 		case T_String:
+		case T_Lambda:
 		
 			tok = stream.Peek(0);
 
@@ -520,6 +526,18 @@ VCodeBody* VParser::ParseCodeBody() {
 		PredictType pt = PredictNext(m_Stream);
 
 		switch (pt) {
+		case P_Invoke:
+		{
+			auto ret = ParseInvoke();
+			body->AddCode(ret);
+		}
+			break;
+		case P_Lambda:
+		{
+			auto ret = ParseLambda();
+			body->AddCode(ret);
+		}
+			break;
 		case P_For:
 		{
 			auto ret = ParseFor();
@@ -629,6 +647,31 @@ VCodeBody* VParser::ParseCodeBody() {
 	int b = 5;
 
 	return nullptr;
+}
+
+VInvoke* VParser::ParseInvoke()
+{
+
+	auto token = m_Stream.GetNext();
+
+	VInvoke* invoke = new VInvoke;
+	invoke->SetTarget(ParseName());
+
+	return invoke;
+
+}
+
+VLambda* VParser::ParseLambda() {
+
+	//auto token = m_Stream.GetNext();
+
+	VLambda* lam = new VLambda;
+	
+	auto body = ParseCodeBody();
+	lam->SetBody(body);
+
+	return lam;
+
 }
 
 VFor* VParser::ParseFor() {
@@ -817,6 +860,8 @@ VVarGroup* VParser::ParseDeclare() {
 
 	VVarGroup* group = new VVarGroup(m_Stream.GetNext().GetType());
 
+	auto type = group->GetType();
+
 	while (!m_Stream.End()) {
 
 		auto tok = m_Stream.GetNext();
@@ -828,23 +873,36 @@ VVarGroup* VParser::ParseDeclare() {
 		{
 			return group;
 		}
+		if (tok.GetLex() == "end")
+		{
+			return group;
+		}
 
 		auto name = VName();
 		name.Add(tok.GetLex());
 	
 		tok = m_Stream.Peek(0);
 
-		VExpression* exp = nullptr;
+		if (type == T_Lambda) {
 
-		if (tok.GetLex() == "=")
-		{
-			m_Stream.GetNext();
-			exp = ParseExpression();
+			group->SetLambda(ParseLambda());
+			group->AddName(name, nullptr);
+
 		}
-		
-		group->AddName(name,exp);
-		int b = 5;
+		else {
 
+			VExpression* exp = nullptr;
+
+			if (tok.GetLex() == "=")
+			{
+				m_Stream.GetNext();
+				exp = ParseExpression();
+			}
+
+			group->AddName(name, exp);
+			int b = 5;
+
+		}
 	}
 
 	return group;

@@ -14,6 +14,8 @@ C:\Dev\Vivid3D\VScript\VExpression.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VExpress
 C:\Dev\Vivid3D\VScript\VFor.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VFor.obj
 C:\Dev\Vivid3D\VScript\VFunction.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VFunction.obj
 C:\Dev\Vivid3D\VScript\VIf.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VIf.obj
+C:\Dev\Vivid3D\VScript\VInvoke.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VInvoke.obj
+C:\Dev\Vivid3D\VScript\VLambda.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VLambda.obj
 C:\Dev\Vivid3D\VScript\VModule.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VModule.obj
 C:\Dev\Vivid3D\VScript\VName.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VName.obj
 C:\Dev\Vivid3D\VScript\VParameter.cpp;C:\Dev\Vivid3D\VScript\x64\Debug\VParameter.obj

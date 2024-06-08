@@ -2,6 +2,7 @@
 #include "VVarGroup.h"
 #include "VContext.h"
 #include "VName.h"
+#include "VLambda.h"
 
 VVarGroup::VVarGroup(TokenType type) {
 
@@ -22,7 +23,7 @@ VVar* VVarGroup::Exec() {
 	auto con = GetContext();
 
 	auto top_scope = con->GetTopScope();
-
+	
 	int idx = 0;
 	for (auto name : m_Names) {
 		VVar* nv = new VVar;
@@ -30,6 +31,8 @@ VVar* VVarGroup::Exec() {
 		nv->SetType(m_Type);
 		nv->SetClassType(m_ClassType);
 		nv->SetName(name.GetNames()[0]);
+		nv->SetLambda(m_Lambda);
+		m_Lambda->SetScope(GetContext()->GetTopScope());
 		auto def = m_Defaults[idx];
 
 		if (def != nullptr) {

@@ -81,7 +81,10 @@ public:
             
             params->GetParams()[ii]->m_Context = this;
            auto pres= params->GetParams()[ii]->Express();
+           auto pn = v->GetName();
+
            v->Transfer(pres);
+           v->SetName(pn);
 
            /*
             switch (v->m_Type) {

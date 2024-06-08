@@ -71,6 +71,16 @@ public:
 	{
 		return m_Type;
 	}
+	void SetLambda(VLambda* lambda) {
+		m_Lambda = lambda;
+	}
+	VLambda* GetLambda() {
+		return m_Lambda;
+	}
+	std::string GetName() {
+		return m_Name;
+	}
+
 private:
 
 	std::string m_Name = "";
@@ -82,6 +92,7 @@ private:
 	std::vector<VVar*> m_ArrValues;
 	TokenType m_Type;
 	std::string m_ClassType = "";
+	VLambda* m_Lambda;
 	
 
 };

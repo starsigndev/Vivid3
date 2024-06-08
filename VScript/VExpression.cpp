@@ -362,7 +362,19 @@ VVar* VExpression::Express() {
 	auto v = new VVar;
 
 	if (Elements.size() == 1)
+
 	{
+		if (Elements[0].VarName.GetNames().size() > 0) {
+			auto fv = m_Context->FindVar(Elements[0].VarName.GetNames());
+
+			if (fv->GetType() == T_Lambda) {
+
+				return fv;
+
+				int b = 5;
+			}
+
+		}
 
 		if (Elements[0].IsNew) {
 

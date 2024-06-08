@@ -126,6 +126,12 @@
     <ClInclude Include="VFor.h">
       <Filter>Actions</Filter>
     </ClInclude>
+    <ClInclude Include="VLambda.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="VInvoke.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VScript.cpp">
@@ -222,6 +228,12 @@
       <Filter>Actions</Filter>
     </ClCompile>
     <ClCompile Include="VFor.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="VLambda.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="VInvoke.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
   </ItemGroup>

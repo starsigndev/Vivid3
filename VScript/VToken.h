@@ -5,7 +5,7 @@ enum TokenType {
 	T_Ident, T_Number, T_If, T_Else, T_End, T_Then, T_While, T_For, T_Func, T_Meth, T_Operator, T_None, T_Class, T_Module, T_Access,
 	T_Int, T_Float, T_String, T_Bool, T_EOL,
 	T_Plus,T_Minus,T_Times,T_Divide,T_FloatNumber,T_New,T_Equal,T_LeftPara,T_RightPara,T_Return,T_LeftBracket,T_RightBracket,
-	T_ElseIf,T_GreaterThan,T_LessThan,
+	T_ElseIf,T_GreaterThan,T_LessThan,T_Lambda,T_Invoke,
 };
 
 class VToken

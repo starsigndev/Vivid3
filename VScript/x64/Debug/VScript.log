@@ -1,3 +1,2 @@
-﻿  VVarGroup.cpp
-C:\Dev\Vivid3D\VScript\VContext.h(75,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+﻿  VVar.cpp
   VScript.vcxproj -> C:\Dev\Vivid3D\Vivid3D\x64\Debug\VScript.lib

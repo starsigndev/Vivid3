@@ -156,6 +156,8 @@
     <ClInclude Include="VFor.h" />
     <ClInclude Include="VFunction.h" />
     <ClInclude Include="VIf.h" />
+    <ClInclude Include="VInvoke.h" />
+    <ClInclude Include="VLambda.h" />
     <ClInclude Include="VModule.h" />
     <ClInclude Include="VName.h" />
     <ClInclude Include="VParameter.h" />
@@ -194,6 +196,8 @@
     <ClCompile Include="VFor.cpp" />
     <ClCompile Include="VFunction.cpp" />
     <ClCompile Include="VIf.cpp" />
+    <ClCompile Include="VInvoke.cpp" />
+    <ClCompile Include="VLambda.cpp" />
     <ClCompile Include="VModule.cpp" />
     <ClCompile Include="VName.cpp" />
     <ClCompile Include="VParameter.cpp" />

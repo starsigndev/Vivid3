@@ -3,17 +3,24 @@ module Vivid.Test
 
 class TestClass
 
-  
+    func other(lambda t)
+   
+        debug("other!");
+   
+        invoke t;
+
+    end
+
 
     func TestClass()
 
-        int a=0;
+       lambda test
 
-        for(a=0;a<50;a=a+1)
+            debug("It works");
 
-            debug(a);
+       end 
 
-        end 
+        other(test);
 
     end 
 

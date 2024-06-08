@@ -57,6 +57,8 @@ VTokenStream VTokenizer::Tokenize(VSource* source) {
 	toke_map["elseif"] = TokenType::T_ElseIf;
 	toke_map["while"] = TokenType::T_While;
 	toke_map["for"] = TokenType::T_For;
+	toke_map["lambda"] = TokenType::T_Lambda;
+	toke_map["invoke"] = TokenType::T_Invoke;
 
 	m_Source = source;
 

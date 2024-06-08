@@ -18,6 +18,7 @@ void VVar::Transfer(VVar* r) {
 	this->m_Name = r->m_Name;
 	this->m_StrValue = r->m_StrValue;
 	this->m_Type = r->m_Type;
+	this->m_Lambda = r->m_Lambda;
 
 }
 

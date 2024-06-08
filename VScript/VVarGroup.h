@@ -6,6 +6,7 @@
 #include "VAction.h"
 
 class VExpression;
+class VLambda;
 
 class VVarGroup : public VAction
 {
@@ -29,6 +30,13 @@ public:
 		return m_ClassType;
 	}
 	VVar* Exec();
+	VLambda* GetLambda() {
+		return m_Lambda;
+	}
+	void SetLambda(VLambda* lam)
+	{
+		m_Lambda = lam;
+	}
 
 private:
 
@@ -36,6 +44,7 @@ private:
 	std::vector<VName> m_Names;
 	std::vector<VExpression*> m_Defaults;
 	std::string m_ClassType = "";
+	VLambda* m_Lambda;
 
 };
 

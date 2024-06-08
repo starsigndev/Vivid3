@@ -16,6 +16,7 @@
 VVar* TestDebug(std::initializer_list<VVar*> args)
 {
     int b = 5;
+
     std::vector<VVar*> vec(args);
 
     printf("DebugS:");
