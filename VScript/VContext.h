@@ -16,6 +16,7 @@ class VContext
 {
 public:
 
+    VContext();
 	void AddModule(VModule* module);
     
     VModule* GetModule() {
@@ -182,5 +183,6 @@ private:
 	std::vector<VModule*> m_Modules;
     std::map < std::string, std::function<VVar* (std::initializer_list<VVar*>)>> m_CFuncMap;
     std::stack<VScope*> m_ScopeStack;
+    VScope* m_StaticScope;
 };
 

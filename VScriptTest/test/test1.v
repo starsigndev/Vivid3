@@ -3,24 +3,21 @@ module Vivid.Test
 
 class TestClass
 
-    func other(lambda t)
-   
-        debug("other!");
-   
-        invoke t;
+    static int test=25;
 
-    end
+    static func Other(int a)
 
+        debug(a);
+
+    end 
 
     func TestClass()
 
-       lambda test
+        TestClass.test = 85;
 
-            debug("It works");
+        TestClass.Other(20);
 
-       end 
 
-        other(test);
 
     end 
 

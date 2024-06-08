@@ -555,10 +555,10 @@ std::vector<std::string> VExpression::ToVector() {
 				fv = m_Context->FindVar(e.VarName.GetNames());
 				e.IndexExpression->m_Context = m_Context;
 				int idx = e.IndexExpression->Express()->ToInt();
-				if (fv->IsType(T_Number)) {
+				if (fv->IsType(T_Number) || fv->IsType(T_Int)) {
 					stack.push_back(std::to_string(fv->GetArray(idx)->ToInt()));
 				}
-				else if(fv->IsType(T_FloatNumber)) {
+				else if(fv->IsType(T_FloatNumber) || fv->IsType(T_Float)) {
 
 					stack.push_back(std::to_string(fv->GetArray(idx)->ToFloat()));
 
@@ -572,14 +572,14 @@ std::vector<std::string> VExpression::ToVector() {
 			}
 
 			fv = m_Context->FindVar(e.VarName.GetNames());
-			if (fv->IsType(T_FloatNumber))
+			if (fv->IsType(T_FloatNumber) || fv->IsType(T_Float))
 			{
 				stack.push_back(std::to_string(fv->ToFloat()));
 				//is_float = true;
 				//is_int = false;
 
 			}
-			else if (fv->IsType(T_Number))
+			else if (fv->IsType(T_Number) || fv->IsType(T_Int))
 			{
 				stack.push_back(std::to_string(fv->ToInt()));
 				//is_int = true;

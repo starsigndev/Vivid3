@@ -10,7 +10,7 @@ public:
 	VVar();
 	void Transfer(VVar* other);
 	float ToFloat() {
-		if (m_Type == T_FloatNumber) {
+		if (m_Type == T_FloatNumber || m_Type == T_Float) {
 			return m_FloatValue;
 		}
 		else {
@@ -18,7 +18,7 @@ public:
 		}
 	}
 	int ToInt() {
-		if (m_Type == T_Number) {
+		if (m_Type == T_Number || m_Type==T_Int) {
 			return m_IntValue;
 		}
 		return (int)m_FloatValue;
@@ -79,6 +79,13 @@ public:
 	}
 	std::string GetName() {
 		return m_Name;
+	}
+	void CreateArray(int size) {
+
+		for (int i = 0; i < size; i++) {
+			m_ArrValues.push_back(new VVar);
+		}
+
 	}
 
 private:

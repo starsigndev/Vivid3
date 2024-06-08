@@ -25,7 +25,22 @@ VVar* VClassAssign::Exec() {
 //	auto var = cls->m_ClsValue->FindVar(m_Name.GetNames()[1]);
 	m_Expression->m_Context = GetContext();
 	auto res = m_Expression->Express();
-	res->Transfer(res);
+	//res->Transfer(res);
+	switch (final->GetType()) {
+	case T_Number:
+	case T_Int:
+		final->SetInt(res->ToInt());
+		break;
+	case T_FloatNumber:
+	case T_Float:
+		final->SetFloat(res->ToFloat());
+		break;
+	default:
+		auto name = final->GetName();
+		final->Transfer(res);
+		final->SetName(name);
+
+	}
 
 //	final->m_IntValue = res->m_IntValue;
 //	final->m_FloatValue = res->m_FloatValue;

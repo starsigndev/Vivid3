@@ -1,0 +1,39 @@
+classes---
+
+class <name>
+
+	<fields> int a,b,c;
+	<fields with defaults> int a= 25+40;
+
+end 
+
+funcs---
+
+class test
+
+	func myTest(int a,int b)
+
+	end 
+
+end 
+
+---
+lambdas.
+
+	lambda test
+
+		debug("Hi I'm a lambda!")		
+
+	end 
+
+--
+
+--arrays
+
+int[255] myArray;
+
+myArray[0] = 25;
+
+debug(myArray[0]);
+
+

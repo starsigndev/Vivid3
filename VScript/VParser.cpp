@@ -122,12 +122,24 @@ VClass* VParser::ParseClass() {
 
  		auto token = m_Stream.GetNext();
 
+		bool is_static = false;
+		if (token.GetLex() == "static")
+		{
+			is_static = true;
+			token = m_Stream.GetNext();
+		}
+
 		switch (token.GetType()) {
 		case T_Func:
 		{ 
 			int bb = 5;
 			VFunction* func = ParseFunction();
-			n_cls->AddFunction(func);
+			if (is_static) {
+				n_cls->AddStaticFunction(func);
+			}
+			else {
+				n_cls->AddFunction(func);
+			}
 		}
 			break;
 		case T_End:
@@ -186,13 +198,47 @@ VClass* VParser::ParseClass() {
 		case T_String:
 		case T_Bool:
 
-			VVarGroup* group = new VVarGroup(token.GetType());
-			n_cls->AddVarGroup(group);
+			auto next = m_Stream.Peek(0);
 
+			bool is_array = false;
+			if (next.GetLex()=="[") {
+
+				is_array = true;
+
+
+				//auto siz_ex = ParseExpression();
+
+				int b = 5;
+
+			}
+
+			VVarGroup* group = new VVarGroup(token.GetType());
+			
+			if (is_static) {
+				n_cls->AddStaticVarGroup(group);
+			}
+			else {
+				n_cls->AddVarGroup(group);
+			}
+			if (next.GetLex() == "[")
+			{
+				group->SetSizeExpression(ParseExpression());
+			}
 
 			while (!m_Stream.End()) {
 
 				auto peek = m_Stream.Peek(0);
+
+				if (is_array) {
+
+					auto v_name = ParseName();
+					group->AddName(v_name, nullptr);
+					group->SetArray(true);
+	
+					break;
+
+
+				}
 
 				if (peek.GetLex() == ",")
 				{

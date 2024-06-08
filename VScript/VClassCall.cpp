@@ -16,7 +16,7 @@ VVar* VClassCall::Exec() {
 		p->m_Context = GetContext();
 
 	}
-
+	func->SetContext(GetContext());
 
 	return func->Call(m_Params);
 

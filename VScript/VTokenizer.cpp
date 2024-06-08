@@ -59,6 +59,7 @@ VTokenStream VTokenizer::Tokenize(VSource* source) {
 	toke_map["for"] = TokenType::T_For;
 	toke_map["lambda"] = TokenType::T_Lambda;
 	toke_map["invoke"] = TokenType::T_Invoke;
+	toke_map["static"] = TokenType::T_Static;
 
 	m_Source = source;
 

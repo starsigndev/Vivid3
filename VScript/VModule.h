@@ -11,7 +11,9 @@ public:
 	VName GetName();
 	VModule* Clone();
 	VClass* FindClass(std::string name);
-
+	std::vector<VClass*> GetClasses() {
+		return m_Classes;
+	}
 private:
 
 	VName m_Name;

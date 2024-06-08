@@ -14,7 +14,12 @@ public:
 
 	void SetName(VName name);
 	void AddVarGroup(VVarGroup* group);
+	void AddStaticVarGroup(VVarGroup* group);
 	void AddFunction(VFunction* func);
+	void AddStaticFunction(VFunction* func)
+	{
+		m_StaticFuncs.push_back(func);
+	}
 	VFunction* FindFunction(VName name);
 	void SetContext(VContext* context);
 	VClass* Clone();
@@ -29,12 +34,21 @@ public:
 		m_InstanceScope = scope;
 	}
 	void CreateScope();
+	void SetStatic(bool stat) {
+		m_Static = stat;
+	}
+	std::vector<VFunction*> GetStaticFuncs() {
+		return m_StaticFuncs;
+	}
+
 
 private:
 
-
+	bool m_Static = false;
 	VContext* m_Context;
 	VName m_Name;
+	std::vector<VVarGroup*> m_StaticGroups;
+	std::vector<VFunction*> m_StaticFuncs;
 	std::vector<VVarGroup*> m_Groups;
 	std::vector<VFunction*> m_Funcs;
 	VScope* m_InstanceScope = nullptr;

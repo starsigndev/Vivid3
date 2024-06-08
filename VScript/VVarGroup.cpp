@@ -66,3 +66,9 @@ VVar* VVarGroup::Exec() {
 
 	return nullptr;
 }
+
+void VVarGroup::SetSizeExpression(VExpression* expression) {
+
+	m_SizeExpression = expression;
+
+}

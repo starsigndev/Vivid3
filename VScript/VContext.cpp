@@ -2,11 +2,36 @@
 #include "VContext.h"
 #include "VScope.h"
 
+VContext::VContext() {
+
+	VScope* static_scope = new VScope;
+
+	m_StaticScope = static_scope;
+
+}
+
 void VContext::AddModule(VModule* module) {
 
 	auto mod = module->Clone();
 	
 	m_Modules.push_back(mod);
+	for (auto cls : mod->GetClasses()) {
+		
+		VVar* sv = new VVar;
+		cls->SetStatic(true);
+		sv->SetName(cls->GetName().GetNames()[0]);
+		sv->SetClassValue(cls);
+		cls->CreateScope();
+		m_StaticScope->RegisterVar(sv);
+		for (auto func : cls->GetStaticFuncs()) {
+			cls->AddFunction(func);
+		}
+	
+
+	}
+
+	PushScope(m_StaticScope);
+
 
 
 }

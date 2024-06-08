@@ -38,11 +38,13 @@ VVar* VDeclareArray::Exec() {
 
 	int size = m_SizeExp->Express()->ToInt();
 
+	nv->CreateArray(size);
+
 	for (int i = 0; i < size; i++) {
 		VVar* ave = new VVar;
 	//	ave->m_Type = m_Type;
 		ave->SetType(m_Type);
-		ave->SetArray(i, ave);
+		nv->SetArray(i, ave);
 
 		//nv->m_ArrValues.push_back(ave);
 

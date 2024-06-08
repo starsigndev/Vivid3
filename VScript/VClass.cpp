@@ -29,6 +29,8 @@ void VClass::AddFunction(VFunction* func)
 
 }
 
+
+
 VFunction* VClass::FindFunction(VName name) {
 
 	for (auto func : m_Funcs) {
@@ -66,9 +68,18 @@ VClass* VClass::Clone() {
 
 	}
 
+	for (auto func : m_StaticFuncs) {
+		auto f3 = func->Clone();
+		f3->SetOwner(clone);
+		clone->AddStaticFunction(f3);
+	}
+
 	for (auto g : m_Groups)
 	{
 		clone->AddVarGroup(g);
+	}
+	for (auto sg : m_StaticGroups) {
+		clone->AddStaticVarGroup(sg);
 	}
 
 	return clone;
@@ -101,7 +112,48 @@ void VClass::CreateScope() {
 	m_InstanceScope = new VScope;
 	m_InstanceScope->NoRoot();
 
-	for (auto g : m_Groups) {
+	std::vector<VVarGroup*> groups = m_Groups;
+
+	if (m_Static) {
+		groups = m_StaticGroups;
+	}
+
+	for (auto g : groups) {
+
+		if (g->GetArray()) {
+			auto con = m_Context;
+
+		//	auto top_scope = con->GetTopScope();
+
+			auto nv = new VVar;
+			//	nv->m_Type = m_Type;
+			//	nv->m_Name = m_Name.GetNames()[0];
+			nv->SetType(g->GetType());
+			
+			auto names = g->GetNames()[0];
+
+			nv->SetName(names.GetNames()[0]);
+
+
+
+			int size = g->GetSizeExpression()->Express()->ToInt();
+
+			nv->CreateArray(size);
+
+			for (int i = 0; i < size; i++) {
+				VVar* ave = new VVar;
+				//	ave->m_Type = m_Type;
+				ave->SetType(g->GetType());
+				nv->SetArray(i, ave);
+
+				//nv->m_ArrValues.push_back(ave);
+
+			}
+
+			 m_InstanceScope->RegisterVar(nv);
+			return;
+			int b = 5;
+		}
 
 		int ii = 0;
 		if (g->GetType() != T_Ident) {
@@ -119,10 +171,12 @@ void VClass::CreateScope() {
 
 					switch (g->GetType()) {
 					case T_Number:
+					case T_Int:
 						nv->SetInt(res->ToInt());
 						//nv->m_IntValue = res->ToInt();
 						break;
 					case T_Float:
+					case T_FloatNumber:
 						nv->SetFloat(res->ToFloat());
 						//nv->m_FloatValue = res->ToFloat();
 						break;
@@ -171,6 +225,7 @@ void VClass::CreateScope() {
 
 	}
 
+
 	m_InstanceScope->SetClass(this);
 	m_InstanceScope->NoRoot();
 
@@ -178,6 +233,7 @@ void VClass::CreateScope() {
 
 VVar* VClass::FindVar(std::string name) {
 
+	
 	for (auto v : m_InstanceScope->GetVars()) {
 		if (v->IsName(name)) {
 			return v;
@@ -223,4 +279,10 @@ VFunction* VClass::FindFunctionBySig(std::string name,std::vector<TokenType> sig
 
 	}
 	return nullptr;
+}
+
+void VClass::AddStaticVarGroup(VVarGroup* group) {
+
+	m_StaticGroups.push_back(group);
+
 }
