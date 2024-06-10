@@ -7,7 +7,7 @@ VVar::VVar() {
 
 }
 
-void VVar::Transfer(VVar* r) {
+void VVar::Transfer1(VVar* r) {
 
 	this->m_ArrValues = r->m_ArrValues;
 	this->m_BoolValue = r->m_BoolValue;
@@ -19,6 +19,7 @@ void VVar::Transfer(VVar* r) {
 	this->m_StrValue = r->m_StrValue;
 	this->m_Type = r->m_Type;
 	this->m_Lambda = r->m_Lambda;
+
 
 }
 

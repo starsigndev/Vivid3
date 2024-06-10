@@ -10,6 +10,7 @@ class VCodeBody;
 class VClass;
 class VScope;
 class VCallParameters;
+class VExpression;
 
 class VFunction
 {
@@ -26,6 +27,7 @@ public:
 	void SetBody(VCodeBody* code);
 	void SetOwner(VClass* cls);
 	VScope* GetScope();
+	void SetGuard(VExpression* expression);
 
 private:
 
@@ -34,6 +36,7 @@ private:
 	VContext* m_Context;
 	VCodeBody* m_Code;
 	VClass* m_ClassOwner = nullptr;
+	VExpression* m_Guard = nullptr;
 
 };
 

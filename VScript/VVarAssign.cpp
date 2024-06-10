@@ -15,9 +15,11 @@ VVar* VVarAssign::Exec() {
 
 	switch (fv->GetType()) {
 	case T_Number:
+	case T_Int:
 		fv->SetInt(m_Expr->Express()->ToInt());
 		break;
 	case T_FloatNumber:
+	case T_Float:
 		fv->SetFloat(m_Expr->Express()->ToFloat());
 		break;
 	case T_Class:

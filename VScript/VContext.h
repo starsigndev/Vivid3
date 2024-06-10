@@ -84,10 +84,18 @@ public:
            auto pres= params->GetParams()[ii]->Express();
            auto pn = v->GetName();
 
-           v->Transfer(pres);
+
+           //v->Transfer(pres);
+           v->SetInt(pres->ToInt());
+           v->SetFloat(pres->ToFloat());
+           v->SetString(pres->ToString());
+           v->SetArrayData(pres->GetArrayData());
+           v->SetLambda(pres->GetLambda());
+           
            v->SetName(pn);
 
            /*
+           * 
             switch (v->m_Type) {
             case T_String:
             {

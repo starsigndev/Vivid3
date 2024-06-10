@@ -21,6 +21,7 @@ void VContext::AddModule(VModule* module) {
 		cls->SetStatic(true);
 		sv->SetName(cls->GetName().GetNames()[0]);
 		sv->SetClassValue(cls);
+		cls->SetContext(this);
 		cls->CreateScope();
 		m_StaticScope->RegisterVar(sv);
 		for (auto func : cls->GetStaticFuncs()) {
@@ -56,6 +57,10 @@ VClass* VContext::CreateInstance(std::string name) {
 
 VVar* VContext::FindVar(std::vector<std::string> names) {
 
+	if (this == nullptr) {
+		printf("Context not assigned.\n");
+		exit(1);
+	}
 	if (names.size() == 1)
 	{
 		return FindVar(names[0]);

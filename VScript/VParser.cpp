@@ -305,7 +305,21 @@ VFunction* VParser::ParseFunction() {
 		}
 
 		if (next.GetLex() == ")") {
+			
+			if (m_Stream.Peek(0).GetLex() == ":")
+			{
+				m_Stream.GetNext();
+				auto guard = ParseExpression();
+				func->SetGuard(guard);
+				int b = 5;
+				//auto tok = m_Stream.Peek(0);
+				m_Stream.GetNext();
+				int v = 5;
+			}
+			
 			m_Stream.Back();
+
+
 			auto body = ParseCodeBody();
 			func->SetBody(body);
 			auto nx = m_Stream.Peek(0);
@@ -686,6 +700,17 @@ VCodeBody* VParser::ParseCodeBody() {
 			break;
 		}
 
+		if (!m_Stream.End()) {
+			auto t = m_Stream.Peek(1);
+			if (t.GetLex() == ":")
+			{
+				m_Stream.GetNext();
+				m_Stream.GetNext();
+				auto action = body->GetCode()[body->GetCode().size() - 1];
+				action->SetGuard(ParseExpression());
+			}
+ 			int a = 5;
+		}
 
 		int a = 5;
 

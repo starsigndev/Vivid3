@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Dev\Vivid3D\Vivid3D\x64\Debug\VScriptTest.exe</FullPath>
+      <FullPath>C:\dev\Vivid3D\Vivid3D\x64\Debug\VScriptTest.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

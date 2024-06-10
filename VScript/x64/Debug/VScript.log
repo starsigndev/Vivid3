@@ -1,3 +1,8 @@
-﻿  VClassCall.cpp
-C:\Dev\Vivid3D\VScript\VContext.h(76,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  VScript.vcxproj -> C:\Dev\Vivid3D\Vivid3D\x64\Debug\VScript.lib
+﻿  VExpression.cpp
+C:\dev\Vivid3D\VScript\VContext.h(76,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VScript\VExpression.cpp(42,26): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+C:\dev\Vivid3D\VScript\VExpression.cpp(43,26): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+C:\dev\Vivid3D\VScript\VExpression.cpp(44,26): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+C:\dev\Vivid3D\VScript\VExpression.cpp(61,32): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+C:\dev\Vivid3D\VScript\VExpression.cpp(513,23): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  VScript.vcxproj -> C:\dev\Vivid3D\Vivid3D\x64\Debug\VScript.lib

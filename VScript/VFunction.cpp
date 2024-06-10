@@ -48,6 +48,7 @@ VFunction* VFunction::Clone() {
 	clone->SetParams(m_Params);
 	clone->SetBody(m_Code);
 	clone->SetContext(m_Context);
+	clone->SetGuard(m_Guard);
 	return clone;
 
 }
@@ -62,8 +63,19 @@ VVar* VFunction::Call(VCallParameters* params) {
 	else {
 		m_Context->PushScope(GetScope());
 	}
+	
+	m_Code->SetContext(m_Context);
+	VVar* res = nullptr;
+	if (m_Guard != nullptr) {
+		m_Guard->m_Context = m_Context;
+		if (m_Guard->Express()->ToInt() == 1) {
+			res = m_Code->Exec();
+		}
+	}
+	else {
+		res = m_Code->Exec();
+	}
 
-	auto res = m_Code->Exec();
 
 	m_Context->PopScope();
 
@@ -115,5 +127,11 @@ VScope* VFunction::GetScope() {
 	return r;
 	
 
+
+}
+
+void VFunction::SetGuard(VExpression* expression) {
+
+	m_Guard = expression;
 
 }

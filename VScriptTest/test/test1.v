@@ -3,21 +3,16 @@ module Vivid.Test
 
 class TestClass
 
-    static int test=25;
+  
+    func TestClass() 
 
-    static func Other(int a)
+      float a = 7;
 
-        debug(a);
+       for(a=0;a<100;a=a+0.1)
 
-    end 
+            debug(a); : a<40;
 
-    func TestClass()
-
-        TestClass.test = 85;
-
-        TestClass.Other(20);
-
-
+        end 
 
     end 
 

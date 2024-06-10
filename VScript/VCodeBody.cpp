@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "VCodeBody.h"
+#include "VExpression.h"
 
 void VCodeBody::AddCode(VAction* action) {
 
@@ -11,9 +12,21 @@ VVar* VCodeBody::Exec() {
 
 	for (auto code : m_Code) {
 
-		//code->SetContext(GetContext());
+		
 
-		auto res = code->Exec();
+		VVar* res = nullptr;
+		//code->SetContext(GetContext());
+		if (code->GetGuard() != nullptr) {
+			auto guard = code->GetGuard();
+			guard->m_Context = code->GetContext();
+			if (guard->Express()->ToInt() == 1) {
+				res = code->Exec();
+			}
+
+		}
+		else {
+			res = code->Exec();
+		}
 		if (res != nullptr) {
 			return res;
 		}
@@ -24,6 +37,8 @@ VVar* VCodeBody::Exec() {
 
 void VCodeBody::SetContext(VContext* context) {
 
+	
+	m_Context = context;
 	for (auto code : m_Code) {
 		
 		code->SetContext(context);

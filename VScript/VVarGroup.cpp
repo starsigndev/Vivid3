@@ -32,14 +32,23 @@ VVar* VVarGroup::Exec() {
 		nv->SetClassType(m_ClassType);
 		nv->SetName(name.GetNames()[0]);
 		nv->SetLambda(m_Lambda);
-		m_Lambda->SetScope(GetContext()->GetTopScope());
+		if (m_Lambda != nullptr) {
+			m_Lambda->SetScope(GetContext()->GetTopScope());
+		}
 		auto def = m_Defaults[idx];
+
 
 		if (def != nullptr) {
 
 			def->m_Context = GetContext();
 			VVar* res = def->Express();
-			nv->Transfer(res);
+		//	nv->Transfer(res);
+			nv->SetInt(res->ToInt());
+			nv->SetFloat(res->ToFloat());
+			nv->SetString(res->ToString());
+			nv->SetArrayData(res->GetArrayData());
+			nv->SetLambda(res->GetLambda());
+
 			nv->SetName(name.GetNames()[0]);
 			//nv->m_ClsValue = res->m_ClsValue;
 		//	nv->m_IntValue = res->m_IntValue;

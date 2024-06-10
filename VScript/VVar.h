@@ -8,7 +8,7 @@ class VVar
 public:
 	
 	VVar();
-	void Transfer(VVar* other);
+	void Transfer1(VVar* other);
 	float ToFloat() {
 		if (m_Type == T_FloatNumber || m_Type == T_Float) {
 			return m_FloatValue;
@@ -86,6 +86,13 @@ public:
 			m_ArrValues.push_back(new VVar);
 		}
 
+	}
+	std::vector<VVar*> GetArrayData() {
+		return m_ArrValues;
+	}
+
+	void SetArrayData(std::vector<VVar*> data) {
+		m_ArrValues = data;
 	}
 
 private:

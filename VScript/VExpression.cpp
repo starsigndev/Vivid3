@@ -309,12 +309,12 @@ bool VExpression::Is_Float() {
 
 			fv = m_Context->FindVar(ele.VarName.GetNames());
 
-			if (fv->IsType(T_FloatNumber))
+			if (fv->IsType(T_FloatNumber) || fv->IsType(T_Float))
 			{
 				is_float = true;
 				is_int = false;
 			}
-			else if (fv->IsType(T_Number))
+			else if (fv->IsType(T_Number) || fv->IsType(T_Int))
 			{
 				is_int = true;
 			}
@@ -358,6 +358,10 @@ bool VExpression::Is_Float() {
 VVar* VExpression::Express() {
 
 	auto con1 = m_Context;
+	if (m_Context == nullptr) {
+		printf("Expression has no context.\n");
+		exit(1);
+	}
 
 	auto v = new VVar;
 

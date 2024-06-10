@@ -37,7 +37,13 @@ VVar* VClassAssign::Exec() {
 		break;
 	default:
 		auto name = final->GetName();
-		final->Transfer(res);
+		//final->Transfer(res);
+		final->SetInt(res->ToInt());
+		final->SetFloat(res->ToFloat());
+		final->SetString(res->ToString());
+		final->SetArrayData(res->GetArrayData());
+		final->SetLambda(res->GetLambda());
+
 		final->SetName(name);
 
 	}
