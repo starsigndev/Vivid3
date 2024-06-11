@@ -88,6 +88,12 @@ VVar* performOperationOp(VVar* a, VVar* b, const std::string& op) {
 		params->AddParam(op_ex);
 
 		func = cls->FindFunction(_op);
+		if (func == nullptr) {
+			printf("Function operator overload not found:");
+			printf(op.c_str());
+			printf("\n");
+			exit(1);
+		}
 		return func->Call(params);
 		//return new VVar;
 	
