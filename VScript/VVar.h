@@ -28,6 +28,10 @@ public:
 		return m_StrValue;
 	}
 	void SetName(std::string name) {
+		if (name == "r")
+		{
+			int bb = 5;
+		}
 		m_Name = name;
 	}
 	void SetInt(int value) {

@@ -177,6 +177,10 @@ void VTokenizer::TokenizeWord() {
 			word += ch;
 			continue;
 		}
+		if (std::isdigit(ch)) {
+			word += ch;
+			continue;
+		}
 
 		VToken token(TokenType::T_Ident, word);
 

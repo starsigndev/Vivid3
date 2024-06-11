@@ -38,8 +38,10 @@ public:
 	VContext* m_Context;
 	bool Is_Float();
 	bool Is_Int();
+	bool Is_Object();
 	bool Is_String();
 	std::vector<std::string> ToVector();
+	std::vector<std::string> ToOpVector();
 	VVar* Express();
 };
 

@@ -91,7 +91,7 @@ public:
            v->SetString(pres->ToString());
            v->SetArrayData(pres->GetArrayData());
            v->SetLambda(pres->GetLambda());
-           
+           v->SetClassValue(pres->GetClassValue());
            v->SetName(pn);
 
            /*

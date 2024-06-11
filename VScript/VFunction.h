@@ -24,6 +24,7 @@ public:
 	void SetContext(VContext* context);
 	VFunction* Clone();
 	VVar* Call(VCallParameters* params);
+
 	void SetBody(VCodeBody* code);
 	void SetOwner(VClass* cls);
 	VScope* GetScope();

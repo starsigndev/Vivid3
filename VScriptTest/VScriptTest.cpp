@@ -25,7 +25,7 @@ VVar* TestDebug(std::initializer_list<VVar*> args)
 
     printf("Debug1:%d\n",vec[0]->ToInt());
 
-    printf("Debug2:%f\n", vec[0]->ToFloat());
+ //   printf("Debug2:%f\n", vec[0]->ToFloat());
 
     return nullptr;
 }

@@ -9,6 +9,7 @@
 #include <stdexcept>
 #include "VStatementCall.h"
 #include "VClassCall.h"
+#include "VVar.h"
 // INT EVAL
 bool isOperator(const std::string& token) {
 	return token == "+" || token == "-" || token == "*" || token == "/" ||
@@ -44,6 +45,73 @@ float performOperationFLOAT(float a, float b, const std::string& op) {
 	if (op == ">") return a > b ? 1 : 0;
 	throw std::invalid_argument("Invalid operator");
 }
+
+
+VVar* performOperationOp(VVar* a, VVar* b, const std::string& op) {
+
+	std::string _op = "";
+	if (op == "+")
+	{
+		_op = "Plus";
+
+	}
+	else if (op == "*")
+	{
+		_op = "Times";
+	}
+	else if (op == "/")
+	{
+		_op = "Divide";
+	}
+	else if (op == "-")
+	{
+		_op = "Minus";
+	}
+		//auto op_type = Elements[1].OpType;
+
+		
+		auto cls = a->GetClassValue();
+
+		VFunction* func = nullptr;
+
+		VCallParameters* params = new VCallParameters;
+
+		ExpElement e1;
+
+		e1.EleType = T_Class;
+		e1.VarName.Add(b->GetName());
+
+		VExpression* op_ex = new VExpression;
+
+		op_ex->Elements.push_back(e1);
+
+		params->AddParam(op_ex);
+
+		func = cls->FindFunction(_op);
+		return func->Call(params);
+		//return new VVar;
+	
+	/*
+	if (op == "+") return a + b;
+	if (op == "-") return a - b;
+	if (op == "*") return a * b;
+
+	if (op == "/") {
+		if (b == 0) throw std::runtime_error("Division by zero");
+		return a / b;
+	}
+	if (op == "%") {
+		if (b == 0) throw std::runtime_error("Modulo by zero");
+		return a % b;
+	}
+	if (op == "^") return std::pow(a, b);
+	if (op == "=") return a == b ? 1 : 0;
+	if (op == "<") return a < b ? 1 : 0;
+	if (op == ">") return a > b ? 1 : 0;
+	throw std::invalid_argument("Invalid operator");
+	*/
+}
+
 
 // Helper function to perform an operation
 int performOperationINT(int a, int b, const std::string& op) {
@@ -127,6 +195,40 @@ float evaluateFLOAT(const std::vector<std::string>& tokens) {
 	if (stack.size() != 1) throw std::runtime_error("Invalid expression");
 	return stack.top();
 }
+
+
+
+// Function to evaluate an RPN expression
+VVar* evaluateOp(VContext* con,const std::vector<std::string>& tokens) {
+	std::stack<VVar*> stack;
+
+	for (const std::string& token : tokens) {
+		if (isOperator(token)) {
+			if (stack.size() < 2) throw std::runtime_error("Invalid expression");
+			VVar* b = stack.top();
+			stack.pop();
+			VVar* a = stack.top();
+			stack.pop();
+			VVar* result = performOperationOp(a, b, token);
+			stack.push(result);
+		}
+		else {
+			try {
+
+				//int value = std::stoi(token);
+				stack.push(con->FindVar(token));
+			}
+			catch (const std::invalid_argument&) {
+				throw std::invalid_argument("Invalid token: " + token);
+			}
+		}
+	}
+
+	if (stack.size() != 1) throw std::runtime_error("Invalid expression");
+	return stack.top();
+}
+
+
 // Function to evaluate an RPN expression
 int evaluateINT(const std::vector<std::string>& tokens) {
 	std::stack<int> stack;
@@ -158,11 +260,13 @@ int evaluateINT(const std::vector<std::string>& tokens) {
 
 bool VExpression::Is_String() {
 
-	bool is_string = true;
+	bool is_string = false;
 
 	for (auto ele : Elements) {
 
 		if (ele.EleType == T_String) {
+
+			is_string = true;
 
 		}
 		else {
@@ -177,20 +281,21 @@ bool VExpression::Is_String() {
 			}
 			VVar* fv = nullptr;
 
+			if (ele.VarName.GetNames().size() > 0) {
+				fv = m_Context->FindVar(ele.VarName.GetNames());
 
-			fv = m_Context->FindVar(ele.VarName.GetNames());
+				if (fv->IsType(T_String)) {
 
-			if (fv->IsType(T_String)) {
+					is_string = true;
+					int aa = 5;
+				}
+				else {
 
-				is_string = true;
-				int aa = 5;
+					is_string = false;
+				}
 			}
-			else {
 
-				is_string = false;
-			}
 		}
-
 
 	}
 
@@ -355,6 +460,30 @@ bool VExpression::Is_Float() {
 
 }
 
+bool VExpression::Is_Object() {
+
+	bool is_obj = false;
+
+	for (auto e : Elements) {
+
+		if (e.EleType == T_Ident) {
+
+			is_obj = true;
+			auto nv = m_Context->FindVar(e.VarName.GetNames());
+			if (nv->GetClassValue() == nullptr)
+			{
+				return false;
+			}
+
+
+		}
+
+	}
+
+	return is_obj;
+
+}
+
 VVar* VExpression::Express() {
 
 	auto con1 = m_Context;
@@ -368,6 +497,31 @@ VVar* VExpression::Express() {
 	if (Elements.size() == 1)
 
 	{
+
+		if (Elements[0].ClassCall != nullptr) {
+
+			ExpElement e = Elements[0];
+
+			if (e.EleType == T_Func) {
+
+				if (e.Statement != nullptr) {
+					e.Statement->SetContext(m_Context);
+					auto res = e.Statement->Exec();
+					return res;
+					//stack.push_back(std::to_string(res->ToFloat()));
+				}
+				else {
+					e.ClassCall->SetContext(m_Context);
+					auto res = e.ClassCall->Exec();
+					int bb = 5;
+					return res;
+					//stack.push_back(std::to_string(res->ToFloat()));
+				}
+			}
+
+			int aa = 5;
+		}
+
 		if (Elements[0].VarName.GetNames().size() > 0) {
 			auto fv = m_Context->FindVar(Elements[0].VarName.GetNames());
 
@@ -377,7 +531,7 @@ VVar* VExpression::Express() {
 
 				int b = 5;
 			}
-
+			return fv;
 		}
 
 		if (Elements[0].IsNew) {
@@ -421,6 +575,74 @@ VVar* VExpression::Express() {
 		}
 
 	}
+
+	if (Is_Object()) {
+
+
+		auto op_vector = ToOpVector();
+		auto tvec = infixToPostfix(op_vector);
+
+		auto res = evaluateOp(m_Context,tvec);
+		return res;
+		int b = 5;
+		
+		/*
+		auto v1 = m_Context->FindVar(Elements[0].VarName.GetNames());
+		auto v2 = m_Context->FindVar(Elements[2].VarName.GetNames());
+
+		auto op_type = Elements[1].OpType;
+
+		auto cls = v1->GetClassValue();
+
+		VFunction* func = nullptr;
+
+		VCallParameters* params = new VCallParameters;
+
+		ExpElement e1;
+
+		e1.EleType = T_Class;
+		e1.VarName.Add(v2->GetName());
+
+		VExpression* op_ex = new VExpression;
+
+		op_ex->Elements.push_back(e1);
+
+		params->AddParam(op_ex);
+
+		switch (op_type) {
+		case T_Plus:
+		{
+			func = cls->FindFunction("Plus");
+			return func->Call(params);
+		}
+			break;
+		case T_Minus:
+		{
+			func = cls->FindFunction("Minus");
+			return func->Call(params);
+		}
+			break;
+		case T_Divide:
+		{
+			func = cls->FindFunction("Divide");
+			return func->Call(params);
+		}
+			break;
+		case T_Times:
+		{
+			func = cls->FindFunction("Times");
+			return func->Call(params);
+
+		}
+			break;
+		}
+
+
+
+		int b = 5;
+		*/
+
+	}else 
 
 	if (Is_String()) {
 
@@ -512,6 +734,44 @@ VVar* VExpression::Express() {
 	}
 	v->SetInt(Elements[0].IntValue);
 	return v;
+}
+
+std::vector<std::string> VExpression::ToOpVector() {
+
+	std::vector<std::string> stack;
+
+	for (auto e : Elements) {
+
+		int bb = 5;
+		if (e.EleType == T_Ident) {
+			stack.push_back(e.VarName.GetNames()[0]);
+		}
+		else if (e.EleType == T_Operator)
+		{
+			switch (e.OpType)
+			{
+			case T_Times:
+
+				stack.push_back("*");
+				break;
+			case T_Divide:
+				stack.push_back("/");
+				break;
+			case T_Minus:
+				stack.push_back("-");
+
+			case T_Plus:
+				
+				stack.push_back("+");
+
+
+
+				break;
+			}
+		}
+	}
+
+	return stack;
 }
 
 std::vector<std::string> VExpression::ToVector() {

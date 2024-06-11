@@ -180,6 +180,11 @@ void VClass::CreateScope() {
 						nv->SetFloat(res->ToFloat());
 						//nv->m_FloatValue = res->ToFloat();
 						break;
+					case T_Class:
+
+
+						int c = 5;
+						break;
 					}
 
 				}

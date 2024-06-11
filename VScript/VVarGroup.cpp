@@ -48,6 +48,8 @@ VVar* VVarGroup::Exec() {
 			nv->SetString(res->ToString());
 			nv->SetArrayData(res->GetArrayData());
 			nv->SetLambda(res->GetLambda());
+			nv->SetClassType(res->GetClassType());
+			nv->SetClassValue(res->GetClassValue());
 
 			nv->SetName(name.GetNames()[0]);
 			//nv->m_ClsValue = res->m_ClsValue;
