@@ -11,6 +11,15 @@ public:
     NodeLight();
     float3 GetDiffuse();
     float3 GetSpecular();
+    void SetDiffuse(float3 diff) {
+        m_Diffuse = diff;
+    }
+    void SetSpecular(float3 spec) {
+        m_Specular = spec;
+    }
+    void SetRange(float range) {
+        m_Range = range;
+    }
     float GetRange();
     RenderTargetCube* GetShadowMap() {
         return m_ShadowMap;

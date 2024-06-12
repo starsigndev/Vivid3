@@ -10,6 +10,13 @@ float4x4 NodeCamera::GetProjection() {
 
 }
 
+float4x4 NodeCamera::GetProjection2D() {
+
+	return float4x4::OrthoOffCenter(0, Engine::GetFrameWidth(), Engine::GetFrameHeight(), 0, 0.01f, 10.0f,false);// Projection(FOVRadians, (float)Engine::GetFrameWidth() / (float)Engine::GetFrameHeight(), m_NearZ, m_FarZ, true);
+
+
+}
+
 float4x4 NodeCamera::GetWorldMatrix() {
 
 	return Node::GetWorldMatrix().Inverse();

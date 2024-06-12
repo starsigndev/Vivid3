@@ -52,6 +52,9 @@
     <Filter Include="Maths">
       <UniqueIdentifier>{2671fc73-f4ac-45a2-8c39-385ae557d772}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Draw">
+      <UniqueIdentifier>{79435846-f932-4f10-960d-8edeb8600a6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -126,6 +129,12 @@
     <ClInclude Include="Quat.h">
       <Filter>Maths</Filter>
     </ClInclude>
+    <ClInclude Include="Draw2D.h">
+      <Filter>Draw</Filter>
+    </ClInclude>
+    <ClInclude Include="Material2D.h">
+      <Filter>Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VividEngine.cpp">
@@ -196,6 +205,12 @@
     </ClCompile>
     <ClCompile Include="Quat.cpp">
       <Filter>Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw2D.cpp">
+      <Filter>Draw</Filter>
+    </ClCompile>
+    <ClCompile Include="Material2D.cpp">
+      <Filter>Material</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

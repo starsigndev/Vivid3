@@ -8,6 +8,11 @@
 #include <QColor>
 #include <qcolordialog.h>
 #include <qtimer.h>
+#include "Editor.h"
+#include "NodeLight.h"
+#include "VSceneGraph.h"
+//#include <qcheckbox.h>
+
 
 VPropEditor::VPropEditor(QWidget *parent)
 	: QWidget(parent)
@@ -16,7 +21,7 @@ VPropEditor::VPropEditor(QWidget *parent)
 	m_LO = new QVBoxLayout(this);
 	m_LO->setAlignment(Qt::AlignTop);
 	m_LO->setSpacing(15);
-	setLayout(m_LO);
+	//setLayout(m_LO);
 
 	QTimer* timer = new QTimer(this);
 	QObject::connect(timer, &QTimer::timeout, [&]() {
@@ -51,14 +56,68 @@ VPropEditor::VPropEditor(QWidget *parent)
 
 void VPropEditor::UpdateNode() {
 
+	if (m_Node == nullptr) return;
 	m_BlockRot = true;
 	auto rot = m_Node->GetRotationEU();
 	m_NodeRotX->setValue(360-rot.x);
 	m_NodeRotY->setValue(360-rot.y);
 	m_NodeRotZ->setValue(360-rot.z);
+	auto pos = m_Node->GetPosition();
+	m_NodePosX->setValue(pos.x);
+	m_NodePosY->setValue(pos.y);
+	m_NodePosZ->setValue(pos.z);
+	auto scale = m_Node->GetScale();
+	m_NodeScaleX->setValue(scale.x);
+	m_NodeScaleY->setValue(scale.y);
+	m_NodeScaleZ->setValue(scale.z);
+
+	if (dynamic_cast<NodeLight*>(m_Node) != nullptr) {
+
+		auto light = (NodeLight*)m_Node;
+
+		auto diff = light->GetDiffuse();
+		auto spec = light->GetSpecular();
+
+		m_LightDiffR->setValue(diff.x);
+		m_LightDiffG->setValue(diff.y);
+		m_LightDiffB->setValue(diff.z);
+		
+		m_LightSpecR->setValue(spec.x);
+		m_LightSpecG->setValue(spec.y);
+		m_LightSpecB->setValue(spec.z);
+
+		if (m_DiffCol != nullptr) {
+			m_DiffCol->SetColor(float4(diff, 1.0));
+			m_SpecCol->SetColor(float4(spec, 1.0));
+		}
+		m_LightRange->setValue(light->GetRange());
+	}
 
 
 	m_BlockRot = false;
+}
+
+void ne_clearLayout(QLayout* layout)
+{
+	if (layout) {
+		while (layout->count() > 0) {
+			QLayoutItem* item = layout->takeAt(0);
+			QWidget* widget = item->widget();
+			QLayout* childLayout = item->layout(); // Check if the item is a layout
+
+			// If the item is a widget, delete it
+			if (widget) {
+				widget->setParent(nullptr);
+				delete widget;
+			}
+			// If the item is a layout, recursively clear it
+			else if (childLayout) {
+				ne_clearLayout(childLayout);
+			}
+
+			delete item;
+		}
+	}
 }
 
 void VPropEditor::SetMaterial(MaterialBase* material) {
@@ -274,13 +333,90 @@ void VPropEditor::SetMaterial(MaterialBase* material) {
 
 void VPropEditor::SetNode(Node* node) {
 
+	if (layout() != nullptr) {
+
+		ne_clearLayout(layout());
+		//	return;
+		m_LO = (QVBoxLayout*)layout();
+
+	}
+	else {
+		m_LO = new QVBoxLayout(this);
+		m_LO->setAlignment(Qt::AlignTop);
+		m_LO->setSpacing(15);
+	//	setLayout(m_LO);
+
+	}
+	if (node == nullptr) {
+		m_Node = nullptr;
+		ne_clearLayout(layout());
+		return;
+	}
+
 	int b = 5;
 
 	m_Node = node;
 
-	QLabel* node_edit_lab = new QLabel(std::string("Node : " + node->GetName()).c_str());
+	QHBoxLayout* enable_box = new QHBoxLayout(this);
 
-	m_LO->addWidget(node_edit_lab);
+
+
+	m_NodeEnabled = new QCheckBox("Enabled");
+
+	if (m_Node->GetEnabled()) {
+		m_NodeEnabled->setChecked(true);
+	}
+	else {
+		m_NodeEnabled->setChecked(false);
+	}
+
+	QObject::connect(m_NodeEnabled, &QCheckBox::stateChanged, [&](int state) {
+		//		qDebug() << "Checkbox state changed to:" << state;
+		if (m_NodeEnabled->isChecked()) {
+			m_Node->SetEnable(true);
+		}
+		else {
+			m_Node->SetEnable(false);
+		}
+
+		});
+
+
+	enable_box->setAlignment(Qt::AlignLeft);
+	enable_box->setSpacing(5);
+
+
+	m_LO->addWidget(m_NodeEnabled);
+
+	QHBoxLayout* name_lo = new QHBoxLayout(this);
+
+	QLabel* node_edit_lab = new QLabel("Node  ");
+
+	m_NodeName = new QLineEdit(this);
+
+	m_NodeName->setText(m_Node->GetName().c_str());
+
+	m_NodeName->setMinimumWidth(120);
+	m_NodeName->setMaximumWidth(280);
+	node_edit_lab->setMaximumWidth(50);
+
+	QObject::connect(m_NodeName, &QLineEdit::textChanged, [&](const QString& text) {
+	//	qDebug() << "Text changed:" << text;
+		m_Node->SetName(text.toStdString());
+		Editor::m_SceneGraph->UpdateGraph();
+		});
+
+
+	name_lo->addWidget(node_edit_lab);
+	name_lo->addWidget(m_NodeName);
+	name_lo->setAlignment(Qt::AlignLeft);
+	name_lo->setSpacing(5);
+	
+
+	m_LO->addLayout(name_lo);
+
+	
+
 
 	//Node::Position
 
@@ -468,6 +604,268 @@ void VPropEditor::SetNode(Node* node) {
 
 	m_LO->addLayout(rot_box);
 
+	//Scale
+
+	QHBoxLayout* scale_box = new QHBoxLayout(this);
+
+	auto scale_lab = new QLabel("Scale    ");
+
+	xlab = new QLabel("X");
+	ylab = new QLabel("Y");
+	zlab = new QLabel("Z");
+
+
+	m_NodeScaleX = new QDoubleSpinBox(this);
+	m_NodeScaleY = new QDoubleSpinBox(this);
+	m_NodeScaleZ = new QDoubleSpinBox(this);
+	m_NodeScaleX->setSingleStep(0.1f);
+	m_NodeScaleY->setSingleStep(0.1f);
+	m_NodeScaleZ->setSingleStep(0.1f);
+	m_NodeScaleX->setMinimumWidth(100);
+	m_NodeScaleY->setMinimumWidth(100);
+	m_NodeScaleZ->setMinimumWidth(100);
+
+
+	float3 scale = node->GetScale();
+	m_NodeScaleX->setValue(scale.x);
+	m_NodeScaleY->setValue(scale.y);
+	m_NodeScaleZ->setValue(scale.z);
+
+	m_NodeScaleX->setDecimals(3);
+	m_NodeScaleX->setRange(-1000, 1000);
+
+	m_NodeScaleY->setDecimals(3);
+	m_NodeScaleY->setRange(-1000, 1000);
+
+	m_NodeScaleZ->setDecimals(3);
+	m_NodeScaleZ->setRange(-1000, 10000);
+
+	// Position
+	scale_box->addWidget(scale_lab);
+	scale_box->addWidget(xlab);
+	scale_box->addWidget(m_NodeScaleX);
+	scale_box->addWidget(ylab);
+	scale_box->addWidget(m_NodeScaleY);
+	scale_box->addWidget(zlab);
+	scale_box->addWidget(m_NodeScaleZ);
+
+
+	QObject::connect(m_NodeScaleX, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+		[&](double value) {
+			m_BlockTimer = true;
+			if (m_BlockRot) return;
+			auto scale = m_Node->GetScale();
+			scale.x = value;
+		//	scale.y = m_NodeRotY->value();
+			//rot.z = m_NodeRotZ->value();
+
+
+			m_Node->SetScale(scale);
+			//m_BlockTimer = false;
+
+			//label->setText(QString("Value: %1").arg(value, 0, 'f', 2));
+		});
+
+
+	QObject::connect(m_NodeScaleY, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+		[&](double value) {
+
+			auto scale = m_Node->GetScale();
+			scale.y = value;
+			//	scale.y = m_NodeRotY->value();
+				//rot.z = m_NodeRotZ->value();
+
+
+			m_Node->SetScale(scale);
+			m_BlockTimer = false;
+
+			//label->setText(QString("Value: %1").arg(value, 0, 'f', 2));
+		});
+
+
+	QObject::connect(m_NodeScaleZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+		[&](double value) {
+			auto scale = m_Node->GetScale();
+			scale.z = value;
+			//	scale.y = m_NodeRotY->value();
+				//rot.z = m_NodeRotZ->value();
+
+
+			m_Node->SetScale(scale);
+
+			//m_Node->SetRotation(rot.x, rot.y, rot.z);
+
+
+			//label->setText(QString("Value: %1").arg(value, 0, 'f', 2));
+		});
+
+
+	scale_box->setAlignment(Qt::AlignLeft);
+	scale_box->setSpacing(5);
+
+	m_LO->addLayout(scale_box);
+
+	if (dynamic_cast<NodeLight*>(m_Node) != nullptr) {
+
+
+		auto light = (NodeLight*)m_Node;
+
+		auto l_diff_box = new QHBoxLayout();
+
+		auto ldif_lab = new QLabel("Diffuse ");
+		l_diff_box->addWidget(ldif_lab);
+		xlab = new QLabel("R");
+		ylab = new QLabel("G");
+		zlab = new QLabel("B");
+
+
+		m_LightDiffR = new QDoubleSpinBox(this);
+		m_LightDiffG = new QDoubleSpinBox(this);
+		m_LightDiffB = new QDoubleSpinBox(this);
+		m_LightDiffR->setSingleStep(0.05f);
+		m_LightDiffG->setSingleStep(0.05f);
+		m_LightDiffB->setSingleStep(0.05f);
+		m_LightDiffR->setMinimumWidth(90);
+		m_LightDiffG->setMinimumWidth(90);
+		m_LightDiffB->setMinimumWidth(90);
+
+		l_diff_box->addWidget(xlab);
+		l_diff_box->addWidget(m_LightDiffR);
+		l_diff_box->addWidget(ylab);
+		l_diff_box->addWidget(m_LightDiffG);
+		l_diff_box->addWidget(zlab);
+		l_diff_box->addWidget(m_LightDiffB);
+
+
+
+		m_LightDiff = new VColorPreview;
+		m_LightDiff->SetColor(float4(1, 1, 1, 1));
+
+
+
+		//l_diff_box->addWidget(m_LightDiff);
+
+
+		l_diff_box->setAlignment(Qt::AlignLeft);
+		l_diff_box->setSpacing(5);
+
+		l_diff_box->addWidget(m_LightDiff);
+
+		m_LO->addLayout(l_diff_box);
+
+		auto l_spec_box = new QHBoxLayout();
+
+		auto lspec_lab = new QLabel("Specular");
+		l_spec_box->addWidget(lspec_lab);
+		xlab = new QLabel("R");
+		ylab = new QLabel("G");
+		zlab = new QLabel("B");
+
+
+		m_LightSpecR = new QDoubleSpinBox(this);
+		m_LightSpecG = new QDoubleSpinBox(this);
+		m_LightSpecB = new QDoubleSpinBox(this);
+		m_LightSpecR->setSingleStep(0.05f);
+		m_LightSpecG->setSingleStep(0.05f);
+		m_LightSpecB->setSingleStep(0.05f);
+		m_LightSpecR->setMinimumWidth(90);
+		m_LightSpecG->setMinimumWidth(90);
+		m_LightSpecB->setMinimumWidth(90);
+
+		l_spec_box->addWidget(xlab);
+		l_spec_box->addWidget(m_LightSpecR);
+		l_spec_box->addWidget(ylab);
+		l_spec_box->addWidget(m_LightSpecG);
+		l_spec_box->addWidget(zlab);
+		l_spec_box->addWidget(m_LightSpecB);
+
+
+		m_LightSpec = new VColorPreview;
+		m_LightSpec->SetColor(float4(1, 1, 1, 1));
+
+		//l_diff_box->addWidget(m_LightDiff);
+
+
+		l_spec_box->setAlignment(Qt::AlignLeft);
+		l_spec_box->setSpacing(5);
+
+		l_spec_box->addWidget(m_LightSpec);
+
+		m_LO->addLayout(l_spec_box);
+
+		//connects
+
+		QObject::connect(m_LightDiffR, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+			[&](double value) {
+
+				auto l = (NodeLight*)m_Node;
+				auto dif = l->GetDiffuse();
+				dif.x = value;
+				l->SetDiffuse(dif);
+				//label->setText(QString("Value: %1").arg(value, 0, 'f', 2));
+			});
+
+		QObject::connect(m_LightDiffG, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+			[&](double value) {
+
+				auto l = (NodeLight*)m_Node;
+				auto dif = l->GetDiffuse();
+				dif.y = value;
+				l->SetDiffuse(dif);
+				//label->setText(QString("Value: %1").arg(value, 0, 'f', 2));
+			});
+
+
+		QObject::connect(m_LightDiffB, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+			[&](double value) {
+
+				auto l = (NodeLight*)m_Node;
+				auto dif = l->GetDiffuse();
+				dif.z = value;
+				l->SetDiffuse(dif);
+				//label->setText(QString("Value: %1").arg(value, 0, 'f', 2));
+			});
+
+		auto range_box = new QHBoxLayout();
+
+		auto range_lab = new QLabel("Range");
+
+		m_LightRange = new QDoubleSpinBox();
+
+		range_box->addWidget(range_lab);
+		range_box->addWidget(m_LightRange);
+
+		range_box->setAlignment(Qt::AlignLeft);
+		range_box->setSpacing(5);
+
+	//	l_spec_box->addWidget(m_LightSpec);
+
+		m_LO->addLayout(range_box);
+
+		m_LightRange->setMinimumWidth(120);
+		m_LightRange->setMaximumWidth(180);
+
+		QObject::connect(m_LightRange, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+			[&](double value) {
+
+				auto l = (NodeLight*)m_Node;
+				l->SetRange(value);
+				//	auto dif = l->GetDiffuse();
+			//	dif.z = value;
+				//l->SetDiffuse(dif);
+
+				//label->setText(QString("Value: %1").arg(value, 0, 'f', 2));
+			});
+
+	}
+
+	UpdateNode();
+
+	m_LO->addSpacing(32);
+
+	setLayout(m_LO);
+
+	
 
 }
 

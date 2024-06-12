@@ -2,6 +2,7 @@
 #include <QPainter>
 #include "Node.h"
 #include "Editor.h"
+#include "VPropertyEditor.h"
 
 VTreeView::VTreeView(QWidget *parent)
 	: QWidget(parent)
@@ -64,9 +65,10 @@ void VTreeView::mousePressEvent(QMouseEvent* event)
             else {
                 auto node = (Node*)m_OverItem->m_Data;
                 if (node != nullptr) {
-                    Editor::m_CurrentNode = (NodeEntity*)node;
+                    Editor::m_CurrentNode = (Node*)node;
+                    Editor::m_PropEditor->SetNode(node);
                     
-                }
+                }   
                 m_ActiveItem = m_OverItem;
             }
         }

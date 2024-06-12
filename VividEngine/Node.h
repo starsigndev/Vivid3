@@ -59,9 +59,17 @@ public:
 	void SetName(std::string name) {
 		m_Name = name;
 	}
+	float3 GetScale() {
+		return m_Scale;
+	}
+	void SetEnable(bool enable) {
+		m_Enabled = enable;
+	}
+	bool GetEnabled() {
+		return m_Enabled;
+	}
 
-
-private:
+protected:
 
 	std::string m_Name;
 
@@ -73,6 +81,7 @@ private:
 	//hierarchy. 
 	Node* m_Root;
 	std::vector<Node*> m_Nodes;
+	bool m_Enabled = true;
 
 };
 

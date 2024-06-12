@@ -6,6 +6,7 @@ class NodeCamera :
 public:
 
     float4x4 GetProjection();
+    float4x4 GetProjection2D();
     float4x4 GetWorldMatrix();
     float4x4 GetInverseViewProjectionMatrix() {
 

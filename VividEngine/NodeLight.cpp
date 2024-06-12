@@ -8,6 +8,7 @@ NodeLight::NodeLight() {
 	m_Specular = float3(1, 1, 1);
 	m_Range = 40.0f;
 	m_ShadowMap = new RenderTargetCube(1024, 1024);
+	m_Name = "Light";
 }
 
 float3 NodeLight::GetDiffuse()

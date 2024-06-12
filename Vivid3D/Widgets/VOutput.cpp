@@ -12,6 +12,9 @@
 #include "MeshLines.h"
 #include "MathsHelp.h"
 #include "VPropertyEditor.h"
+#include "Draw2D.h"
+#include "Texture2D.h"
+
 VOutput::VOutput(QWidget *parent)
 	: QWidget(parent)
 {
@@ -171,7 +174,9 @@ VOutput::VOutput(QWidget *parent)
     m_SceneGrid->CreateBuffer();
     m_Graph1->AddLines(m_SceneGrid);
 
-
+    m_Draw = new Draw2D;
+    m_Tex1 = new Texture2D("test/test1.png");
+    m_LightIcon = new Texture2D("edit/icons/lighticon.png");
 }
 
 
@@ -226,6 +231,27 @@ void VOutput::mousePressEvent(QMouseEvent* event)
 {
     if (event->button() == Qt::LeftButton)
     {
+
+
+        for (auto l : m_Graph1->GetLights()) {
+
+            auto sp = m_Graph1->ToScreenSpace(l->GetPosition());
+
+
+//            m_Draw->Rect(m_LightIcon, float2(sp.x - 32, sp.y - 32), float2(64, 64), float4(1, 1, 1, 1));
+            if (m_MousePosition.x() >= sp.x - 32 && m_MousePosition.x() <= sp.x + 32)
+            {
+                if (m_MousePosition.y() >= sp.y - 32 && m_MousePosition.y() <= sp.y + 32)
+                {
+                    Editor::m_CurrentNode = (Node*)l;// m_Entity;
+                    Editor::m_SceneGraph->SetNode((Node*)l);
+                    Editor::m_PropEditor->SetNode((Node*)l);
+                    return;
+                }
+            }
+
+        }
+
 
         //m_Graph1->MousePick(m_MousePosition.x(), m_MousePosition.y());
         // Handle left mouse button press
@@ -299,6 +325,7 @@ void VOutput::mousePressEvent(QMouseEvent* event)
         else {
             Editor::m_SceneGraph->SetNode(nullptr);
             Editor::m_CurrentNode = nullptr;
+            Editor::m_PropEditor->SetNode(nullptr);
         }
 
     }
@@ -907,6 +934,18 @@ void VOutput::paintEvent(QPaintEvent* event)
 
         m_Gizmo->Render();
     }
+
+    for (auto l : m_Graph1->GetLights()) {
+
+        auto sp = m_Graph1->ToScreenSpace(l->GetPosition());
+
+
+        m_Draw->Rect(m_LightIcon, float2(sp.x - 32, sp.y - 32), float2(64, 64), float4(1, 1, 1, 1));
+
+
+    }
+
+    //m_Draw->Rect(m_LightIcon, float2(20, 20), float2(256, 256), float4(1, 1, 1, 1));
 
     pContext->Flush();
  

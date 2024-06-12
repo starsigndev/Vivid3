@@ -46,6 +46,9 @@ public:
 	HitResult MousePick(int x, int y, NodeEntity* entity);
 	HitResult RayCast(float3 pos, float3 dir);
 	float2 ToScreenSpace(float3 position);
+	std::vector<NodeLight*> GetLights() {
+		return m_Lights;
+	}
 private:
 
 	NodeCamera* m_Camera;

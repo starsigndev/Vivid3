@@ -59,16 +59,17 @@ void NodeEntity::Render() {
 	Engine::m_Node = this;
 
 
-	for (auto light : Engine::m_Lights) {
-		for (auto mesh : m_Meshes) {
-			mesh->GetMaterial()->Bind();
-			mesh->Render();
+	if (m_Enabled) {
+		for (auto light : Engine::m_Lights) {
+			for (auto mesh : m_Meshes) {
+				mesh->GetMaterial()->Bind();
+				mesh->Render();
 
+			}
 		}
+
+		RenderChildren();
 	}
-
-	RenderChildren();
-
 }
 
 void NodeEntity::SetMaterial(MaterialBase* material) {

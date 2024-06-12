@@ -79,6 +79,8 @@
 using namespace Diligent;
 
 class MeshLines;
+class Draw2D;
+class Texture2D;
 
 class VOutput : public QWidget
 {
@@ -131,5 +133,7 @@ private:
 	NodeEntity* m_GizRotate;
 	bool m_LockX, m_LockY, m_LockZ;
 	MeshLines* m_SceneGrid;
-
+	Draw2D* m_Draw;
+	Texture2D* m_Tex1;
+	Texture2D* m_LightIcon;
 };

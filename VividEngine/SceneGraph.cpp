@@ -26,6 +26,7 @@ void SceneGraph::AddNode(Node* node) {
 void SceneGraph::AddLight(NodeLight* light) {
 
 	m_Lights.push_back(light);
+    m_RootNode->AddNode(light);
 
 }
 

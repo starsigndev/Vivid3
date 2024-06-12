@@ -7,6 +7,8 @@
 #include "VImagePreview.h"
 #include "VColorPreview.h"
 #include "qspinbox.h"
+#include "qcheckbox.h"
+#include <qlineedit.h>
 class MaterialBase;
 class Node;
 
@@ -35,13 +37,27 @@ private:
 	VColorPreview* m_DiffCol;
 	VColorPreview* m_SpecCol;
 	//Node
+	QCheckBox* m_NodeEnabled;
+	QLineEdit* m_NodeName;
 	QDoubleSpinBox* m_NodePosX;
 	QDoubleSpinBox* m_NodePosY;
 	QDoubleSpinBox* m_NodePosZ;
 	QDoubleSpinBox* m_NodeRotX;
 	QDoubleSpinBox* m_NodeRotY;
 	QDoubleSpinBox* m_NodeRotZ;
+	QDoubleSpinBox* m_NodeScaleX;
+	QDoubleSpinBox* m_NodeScaleY;
+	QDoubleSpinBox* m_NodeScaleZ;
 	bool m_BlockRot = false;
 	bool m_BlockTimer = false;
-
+	//Light
+	VColorPreview* m_LightDiff;
+	VColorPreview* m_LightSpec;
+	QDoubleSpinBox* m_LightDiffR;
+	QDoubleSpinBox* m_LightDiffG;
+	QDoubleSpinBox* m_LightDiffB;
+	QDoubleSpinBox* m_LightSpecR;
+	QDoubleSpinBox* m_LightSpecG;
+	QDoubleSpinBox* m_LightSpecB;
+	QDoubleSpinBox* m_LightRange;
 };
