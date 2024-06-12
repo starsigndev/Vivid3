@@ -78,6 +78,7 @@
 
 using namespace Diligent;
 
+class MeshLines;
 
 class VOutput : public QWidget
 {
@@ -129,5 +130,6 @@ private:
 	NodeEntity* m_GizTranslate;
 	NodeEntity* m_GizRotate;
 	bool m_LockX, m_LockY, m_LockZ;
+	MeshLines* m_SceneGrid;
 
 };

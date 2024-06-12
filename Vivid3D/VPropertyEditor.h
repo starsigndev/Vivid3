@@ -6,6 +6,7 @@
 #include "QVBoxLayout"
 class MaterialBase;
 class VPropEditor;
+class Node;
 
 class VPropertyEditor : public QWidget
 {
@@ -16,6 +17,8 @@ public:
 	~VPropertyEditor();
 
 	void SetMaterial(MaterialBase* material);
+	void SetNode(Node* node);
+	void UpdateNode();
 
 private:
 	Ui::VPropertyEditorClass ui;

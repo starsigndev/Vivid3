@@ -39,5 +39,15 @@ void VPropertyEditor::SetMaterial(MaterialBase* material) {
 
 }
 
+void VPropertyEditor::SetNode(Node* node) {
+
+	m_PropEdit->SetNode(node);
+
+}
+
+void VPropertyEditor::UpdateNode() {
+	m_PropEdit->UpdateNode();
+}
+
 VPropertyEditor::~VPropertyEditor()
 {}

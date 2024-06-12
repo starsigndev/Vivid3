@@ -40,7 +40,7 @@ public:
 private:
 
     float m_NearZ = 0.1f;
-    float m_FarZ = 30.0f;
+    float m_FarZ = 100.0f;
     float m_FOV = 45.0f;
 
 

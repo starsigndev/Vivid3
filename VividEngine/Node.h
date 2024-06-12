@@ -21,7 +21,9 @@ public:
 
 	//Transform
 	void SetPosition(float3 position);
-	void SetRotation(float pitch, float yaw, float roll);
+	void SetRotation(float pitch, float yaw, float roll,bool edit = false);
+	void SetScale(float3 scale);
+	float3 GetRotationEU();
 	float3 GetPosition();
 	void Move(float3 delta);
 	void Translate(float3 delta);
@@ -67,7 +69,7 @@ private:
 	float4x4 m_Rotation;
 	float3 m_Position;
 	float3 m_Scale;
-
+	float3 m_ERotation;
 	//hierarchy. 
 	Node* m_Root;
 	std::vector<Node*> m_Nodes;

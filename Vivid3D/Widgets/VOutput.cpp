@@ -9,7 +9,9 @@
 #include "MaterialBase.h"
 #include "Mesh3D.h"
 #include "VSceneGraph.h"
-
+#include "MeshLines.h"
+#include "MathsHelp.h"
+#include "VPropertyEditor.h"
 VOutput::VOutput(QWidget *parent)
 	: QWidget(parent)
 {
@@ -89,6 +91,86 @@ VOutput::VOutput(QWidget *parent)
 
 
     m_Gizmo = m_GizRotate;
+
+    m_SceneGrid = new MeshLines;
+
+    float grid_size = 80;
+
+    int li = 0;
+
+    for (float x = -grid_size; x < grid_size; x+=2) {
+
+        LineVertex v1, v2;
+
+        v1.position = float3(x, 0, -grid_size);
+        v2.position = float3(x, 0, grid_size);
+        v1.color = float4(0.4f,0.4f,0.4f, 1);
+        v2.color = float4(0.4f,0.4f,0.4f, 1);
+
+        Line l1;
+        l1.V0 = li;
+        l1.V1 = li+1;
+
+        li += 2;
+
+        m_SceneGrid->AddVertex(v1);
+        m_SceneGrid->AddVertex(v2);
+
+        m_SceneGrid->AddLine(l1);
+
+        //
+
+        v1.position = float3(-grid_size, 0, x);
+        v2.position = float3(grid_size, 0, x);
+        
+        l1.V0 = li;
+        l1.V1 = li + 1;
+        li += 2;
+
+        m_SceneGrid->AddVertex(v1);
+        m_SceneGrid->AddVertex(v2);
+
+        m_SceneGrid->AddLine(l1);
+    }
+
+    for (float x = -grid_size; x < grid_size; x+=4) {
+
+        LineVertex v1, v2;
+
+        v1.position = float3(x, 0, -grid_size);
+        v2.position = float3(x, 0, grid_size);
+        v1.color = float4(1, 1, 1, 1);
+        v2.color = float4(1, 1, 1, 1);
+
+        Line l1;
+        l1.V0 = li;
+        l1.V1 = li + 1;
+
+        li += 2;
+
+        m_SceneGrid->AddVertex(v1);
+        m_SceneGrid->AddVertex(v2);
+
+        m_SceneGrid->AddLine(l1);
+
+        //
+
+        v1.position = float3(-grid_size, 0, x);
+        v2.position = float3(grid_size, 0, x);
+
+        l1.V0 = li;
+        l1.V1 = li + 1;
+        li += 2;
+
+        m_SceneGrid->AddVertex(v1);
+        m_SceneGrid->AddVertex(v2);
+
+        m_SceneGrid->AddLine(l1);
+    }
+
+    m_SceneGrid->CreateBuffer();
+    m_Graph1->AddLines(m_SceneGrid);
+
 
 }
 
@@ -212,6 +294,7 @@ void VOutput::mousePressEvent(QMouseEvent* event)
         if (res1.m_Hit) {
             Editor::m_CurrentNode = res1.m_Entity;
             Editor::m_SceneGraph->SetNode((Node*)res1.m_Entity);
+            Editor::m_PropEditor->SetNode((Node*)res1.m_Entity);
         }
         else {
             Editor::m_SceneGraph->SetNode(nullptr);
@@ -243,6 +326,7 @@ void VOutput::mouseReleaseEvent(QMouseEvent* event)
         m_LockX = false;
         m_LockY = false;
         m_LockZ = false;
+        Editor::m_PropEditor->UpdateNode();
       
         // Handle left mouse button release
     }
@@ -490,7 +574,7 @@ void VOutput::mouseMoveEvent(QMouseEvent* event)
                 if (m_LockY) {
 
                     Editor::m_CurrentNode->Turn(0, delta.x() * 0.1f, 0, false);
-
+                    //Editor::m_PropEditor->UpdateNode();
 
                 }
                 //Pitch
@@ -516,6 +600,7 @@ void VOutput::mouseMoveEvent(QMouseEvent* event)
                             s = 1.0f;
                         }
                         Editor::m_CurrentNode->Turn(delta.y() * 0.1f * s, 0, 0, true);
+                     //   Editor::m_PropEditor->UpdateNode();
 
                     }
                     else {
@@ -526,6 +611,7 @@ void VOutput::mouseMoveEvent(QMouseEvent* event)
                         }
 
                         Editor::m_CurrentNode->Turn(delta.x() * 0.1f * s, 0, 0, true);
+                       // Editor::m_PropEditor->UpdateNode();
 
                     }
 
@@ -557,6 +643,7 @@ void VOutput::mouseMoveEvent(QMouseEvent* event)
                         }
 
                         Editor::m_CurrentNode->Turn(0, 0, delta.y() * 0.1f * s, true);
+                        //Editor::m_PropEditor->UpdateNode();
                     }
                     else {
 
@@ -567,6 +654,7 @@ void VOutput::mouseMoveEvent(QMouseEvent* event)
 
 
                         Editor::m_CurrentNode->Turn(0, 0, delta.x() * 0.1f * s, true);
+                        //Editor::m_PropEditor->UpdateNode();
                     }
 
 
@@ -602,7 +690,7 @@ void VOutput::mouseMoveEvent(QMouseEvent* event)
                             s = 1.0f;
                         }
                         Editor::m_CurrentNode->Turn(delta.y() * 0.1f * s, 0, 0, false);
-
+                    //    Editor::m_PropEditor->UpdateNode();
                     }
                     else {
 
@@ -612,7 +700,7 @@ void VOutput::mouseMoveEvent(QMouseEvent* event)
                         }
 
                         Editor::m_CurrentNode->Turn(delta.x() * 0.1f * s, 0, 0, false);
-
+                      //  Editor::m_PropEditor->UpdateNode();
                     }
 
 
@@ -642,6 +730,7 @@ void VOutput::mouseMoveEvent(QMouseEvent* event)
                         }
 
                         Editor::m_CurrentNode->Turn(0, 0, delta.x() * 0.1f * s, false);
+                       // Editor::m_PropEditor->UpdateNode();
                     }
                     else {
 
@@ -652,6 +741,7 @@ void VOutput::mouseMoveEvent(QMouseEvent* event)
 
 
                         Editor::m_CurrentNode->Turn(0, 0, delta.y() * 0.1f * s, false);
+                        //Editor::m_PropEditor->UpdateNode();
                     }
 
 
@@ -769,7 +859,7 @@ void VOutput::paintEvent(QPaintEvent* event)
 
     pContext->SetRenderTargets(1, &pRTV,pSwapchain->GetDepthBufferDSV(), RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
 
-    const float ClearColor[4] = { 0.3f,0.1f,0.1f,1.0 };
+    const float ClearColor[4] = { 0.02f,0.02f,0.02f,1.0 };
     pContext->ClearRenderTarget(pRTV, ClearColor, RESOURCE_STATE_TRANSITION_MODE_VERIFY);
     pContext->ClearDepthStencil(pSwapchain->GetDepthBufferDSV(), CLEAR_DEPTH_FLAG, 1.0f, 0, RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
     
@@ -780,7 +870,9 @@ void VOutput::paintEvent(QPaintEvent* event)
     
     cam->SetRotation(m_ViewPitch, m_ViewYaw, 0);
     m_Graph1->RenderShadows();
+ 
     m_Graph1->Render();
+
 
     Engine::ClearZ();
 
@@ -801,6 +893,18 @@ void VOutput::paintEvent(QPaintEvent* event)
         else {
             m_Gizmo->SetRotation(0, 0, 0);
         }
+
+        float dis = MathsHelp::Distance(m_EditCamera->GetPosition(), m_Gizmo->GetPosition());
+
+         dis = dis / 10.0f;
+
+         if (dis < 0.65f) dis = 0.65f;
+
+         if (dis > 6.0f) dis = 6.0f;
+
+
+        m_Gizmo->SetScale(float3(dis, dis, dis));
+
         m_Gizmo->Render();
     }
 

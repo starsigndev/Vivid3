@@ -7,6 +7,8 @@
 #include "qmimedata.h"
 #include <QColor>
 #include <qcolordialog.h>
+#include <qtimer.h>
+
 VPropEditor::VPropEditor(QWidget *parent)
 	: QWidget(parent)
 {
@@ -15,6 +17,48 @@ VPropEditor::VPropEditor(QWidget *parent)
 	m_LO->setAlignment(Qt::AlignTop);
 	m_LO->setSpacing(15);
 	setLayout(m_LO);
+
+	QTimer* timer = new QTimer(this);
+	QObject::connect(timer, &QTimer::timeout, [&]() {
+			
+		if (m_Node != nullptr) {
+
+			if (m_BlockTimer) return;
+			m_BlockRot = true;
+			//update pos
+			auto pos = m_Node->GetPosition();
+			m_NodePosX->setValue(pos.x);
+			m_NodePosY->setValue(pos.y);
+			m_NodePosZ->setValue(pos.z);
+			//update rot
+			//return;
+			auto rot = m_Node->GetRotationEU();
+		//	m_NodeRotX->setValue(rot.y);
+	//		m_NodeRotY->setValue(rot.x);
+			//m_NodeRotZ->setValue(rot.z);
+			m_BlockRot = false;
+
+
+			
+		}
+
+
+		});
+
+	// Start the timer with an interval of 1000 milliseconds (1 second)
+	timer->start(1000);
+}
+
+void VPropEditor::UpdateNode() {
+
+	m_BlockRot = true;
+	auto rot = m_Node->GetRotationEU();
+	m_NodeRotX->setValue(360-rot.x);
+	m_NodeRotY->setValue(360-rot.y);
+	m_NodeRotZ->setValue(360-rot.z);
+
+
+	m_BlockRot = false;
 }
 
 void VPropEditor::SetMaterial(MaterialBase* material) {
@@ -224,6 +268,205 @@ void VPropEditor::SetMaterial(MaterialBase* material) {
 	m_LO->addLayout(col_diff_box);
 	m_LO->addLayout(col_spec_box);
 	m_LO->addWidget(save);
+
+
+}
+
+void VPropEditor::SetNode(Node* node) {
+
+	int b = 5;
+
+	m_Node = node;
+
+	QLabel* node_edit_lab = new QLabel(std::string("Node : " + node->GetName()).c_str());
+
+	m_LO->addWidget(node_edit_lab);
+
+	//Node::Position
+
+	QHBoxLayout* pos_box = new QHBoxLayout(this);
+
+	auto pos_lab = new QLabel("Position");
+
+	auto xlab = new QLabel("X");
+	auto ylab = new QLabel("Y");
+	auto zlab = new QLabel("Z");
+
+	m_NodePosX = new QDoubleSpinBox(this);
+	m_NodePosY = new QDoubleSpinBox(this);
+	m_NodePosZ = new QDoubleSpinBox(this);
+	m_NodePosX->setSingleStep(0.1f);
+	m_NodePosY->setSingleStep(0.1f);
+	m_NodePosZ->setSingleStep(0.1f);
+	m_NodePosX->setMinimumWidth(100);
+	m_NodePosY->setMinimumWidth(100);
+	m_NodePosZ->setMinimumWidth(100);
+
+
+	float3 pos = node->GetPosition();
+	m_NodePosX->setValue(pos.x);
+	m_NodePosY->setValue(pos.y);
+	m_NodePosZ->setValue(pos.z);
+
+	m_NodePosX->setDecimals(2);
+	m_NodePosX->setRange(-10000, 10000);
+
+	m_NodePosY->setDecimals(2);
+	m_NodePosY->setRange(-10000, 10000);
+
+	m_NodePosZ->setDecimals(2);
+	m_NodePosZ->setRange(-10000, 10000);
+
+	// Position
+	pos_box->addWidget(pos_lab);
+	pos_box->addWidget(xlab);
+	pos_box->addWidget(m_NodePosX);
+	pos_box->addWidget(ylab);
+	pos_box->addWidget(m_NodePosY);
+	pos_box->addWidget(zlab);
+	pos_box->addWidget(m_NodePosZ);
+
+	//position events
+
+	QObject::connect(m_NodePosX, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+		[&](double value) {
+			auto pos = m_Node->GetPosition();
+			pos.x = value;
+			m_Node->SetPosition(pos);
+
+			//label->setText(QString("Value: %1").arg(value, 0, 'f', 2));
+		});
+
+
+	QObject::connect(m_NodePosY, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+		[&](double value) {
+			auto pos = m_Node->GetPosition();
+			pos.y = value;
+			m_Node->SetPosition(pos);
+
+			//label->setText(QString("Value: %1").arg(value, 0, 'f', 2));
+		});
+
+
+	QObject::connect(m_NodePosZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+		[&](double value) {
+			auto pos = m_Node->GetPosition();
+			pos.z = value;
+			m_Node->SetPosition(pos);
+
+			//label->setText(QString("Value: %1").arg(value, 0, 'f', 2));
+		});
+
+	pos_box->setAlignment(Qt::AlignLeft);
+	pos_box->setSpacing(5);
+
+	m_LO->addLayout(pos_box);
+
+	//Rotation
+
+
+	QHBoxLayout* rot_box = new QHBoxLayout(this);
+
+	auto rot_lab = new QLabel("Rotation");
+
+	xlab = new QLabel("P");
+	ylab = new QLabel("Y");
+	zlab = new QLabel("R");
+
+
+	m_NodeRotX = new QDoubleSpinBox(this);
+	m_NodeRotY = new QDoubleSpinBox(this);
+	m_NodeRotZ = new QDoubleSpinBox(this);
+	m_NodeRotX->setSingleStep(5);
+	m_NodeRotY->setSingleStep(5);
+	m_NodeRotZ->setSingleStep(5);
+	m_NodeRotX->setMinimumWidth(100);
+	m_NodeRotY->setMinimumWidth(100);
+	m_NodeRotZ->setMinimumWidth(100);
+
+
+	float3 rot = float3(0, 0, 0);// node->GetRotationEU();
+	m_NodeRotX->setValue(rot.x);
+	m_NodeRotY->setValue(rot.y);
+	m_NodeRotZ->setValue(rot.z);
+
+	m_NodeRotX->setDecimals(3);
+	m_NodeRotX->setRange(-1000,1000);
+
+	m_NodeRotY->setDecimals(3);
+	m_NodeRotY->setRange(-1000,1000);
+
+	m_NodeRotZ->setDecimals(3);
+	m_NodeRotZ->setRange(-1000,10000);
+
+	// Position
+	rot_box->addWidget(rot_lab);
+	rot_box->addWidget(xlab);
+	rot_box->addWidget(m_NodeRotX);
+	rot_box->addWidget(ylab);
+	rot_box->addWidget(m_NodeRotY);
+	rot_box->addWidget(zlab);
+	rot_box->addWidget(m_NodeRotZ);
+
+	QObject::connect(m_NodeRotX, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+		[&](double value) {
+			m_BlockTimer = true;
+			if (m_BlockRot) return;
+			auto rot = m_Node->GetRotationEU();
+			rot.x = value;
+			rot.y = m_NodeRotY->value();
+			rot.z = m_NodeRotZ->value();
+			
+			m_Node->SetRotation(rot.x, rot.y, rot.z,true);
+			m_BlockTimer = false;
+			//label->setText(QString("Value: %1").arg(value, 0, 'f', 2));
+		});
+
+
+	QObject::connect(m_NodeRotY, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+		[&](double value) {
+
+			m_BlockTimer = true;
+			if (m_BlockRot) return;
+			auto rot = m_Node->GetRotationEU();
+			rot.x = m_NodeRotX->value();
+			rot.y = value;
+			rot.z = m_NodeRotZ->value();
+
+
+			m_Node->SetRotation(rot.x, rot.y, rot.z,true);
+			m_BlockTimer = false;
+
+			//label->setText(QString("Value: %1").arg(value, 0, 'f', 2));
+		});
+
+
+	QObject::connect(m_NodeRotZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+		[&](double value) {
+			if (m_BlockRot) return;
+			auto rot = m_Node->GetRotationEU();
+			rot.z = value;
+
+
+			//auto rot = m_Node->GetRotationEU();
+			rot.x = m_NodeRotX->value();
+			rot.z = value;
+			rot.y = m_NodeRotY->value();
+
+
+			m_Node->SetRotation(rot.x, rot.y, rot.z, true);
+
+			//m_Node->SetRotation(rot.x, rot.y, rot.z);
+
+
+			//label->setText(QString("Value: %1").arg(value, 0, 'f', 2));
+		});
+
+
+	rot_box->setAlignment(Qt::AlignLeft);
+	rot_box->setSpacing(5);
+
+	m_LO->addLayout(rot_box);
 
 
 }

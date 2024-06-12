@@ -155,14 +155,18 @@
     <ClInclude Include="MaterialBase.h" />
     <ClInclude Include="MaterialDepth.h" />
     <ClInclude Include="MaterialMeshLight.h" />
+    <ClInclude Include="MaterialMeshLines.h" />
     <ClInclude Include="MathsHelp.h" />
     <ClInclude Include="Mesh3D.h" />
     <ClInclude Include="MeshBuffer.h" />
+    <ClInclude Include="MeshLines.h" />
+    <ClInclude Include="MeshLinesBuffer.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="NodeCamera.h" />
     <ClInclude Include="NodeEntity.h" />
     <ClInclude Include="NodeLight.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Quat.h" />
     <ClInclude Include="RenderTargetCube.h" />
     <ClInclude Include="SceneGraph.h" />
     <ClInclude Include="data.h" />
@@ -176,9 +180,12 @@
     <ClCompile Include="MaterialBase.cpp" />
     <ClCompile Include="MaterialDepth.cpp" />
     <ClCompile Include="MaterialMeshLight.cpp" />
+    <ClCompile Include="MaterialMeshLines.cpp" />
     <ClCompile Include="MathsHelp.cpp" />
     <ClCompile Include="Mesh3D.cpp" />
     <ClCompile Include="MeshBuffer.cpp" />
+    <ClCompile Include="MeshLines.cpp" />
+    <ClCompile Include="MeshLinesBuffer.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="NodeCamera.cpp" />
     <ClCompile Include="NodeEntity.cpp" />
@@ -189,6 +196,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Quat.cpp" />
     <ClCompile Include="RenderTargetCube.cpp" />
     <ClCompile Include="SceneGraph.cpp" />
     <ClCompile Include="Texture2D.cpp" />

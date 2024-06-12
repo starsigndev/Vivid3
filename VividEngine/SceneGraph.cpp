@@ -6,6 +6,7 @@
 #include "Engine.h"
 #include "Mesh3D.h"
 #include "CubeRenderer.h"
+#include "MeshLines.h"
 
 SceneGraph::SceneGraph() {
 
@@ -52,7 +53,15 @@ void SceneGraph::Render() {
 	Engine::m_Camera = m_Camera;
 	Engine::m_Lights = m_Lights;
     Engine::m_Light = m_Lights[0];
-	m_RootNode->Render();
+	
+    for (auto lines : m_Lines) {
+
+        lines->Render();
+
+    }
+    
+    m_RootNode->Render();
+
 	
 
 }
@@ -370,5 +379,11 @@ float2 SceneGraph::ToScreenSpace(float3 position) {
    
     
 
+
+}
+
+void SceneGraph::AddLines(MeshLines* lines) {
+
+    m_Lines.push_back(lines);
 
 }

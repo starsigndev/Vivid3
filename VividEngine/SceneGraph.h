@@ -10,6 +10,7 @@ class NodeCamera;
 class NodeLight;
 class Mesh3D;
 class CubeRenderer;
+class MeshLines;
 
 struct HitResult {
 
@@ -40,7 +41,7 @@ public:
 	Node* GetRoot() {
 		return m_RootNode;
 	}
-
+	void AddLines(MeshLines* line);
 	HitResult MousePick(int x, int y);
 	HitResult MousePick(int x, int y, NodeEntity* entity);
 	HitResult RayCast(float3 pos, float3 dir);
@@ -51,6 +52,7 @@ private:
 	Node* m_RootNode = nullptr;
 	std::vector<NodeLight*> m_Lights;
 	CubeRenderer* m_CubeRenderer;
+	std::vector<MeshLines*> m_Lines;
 
 };
 

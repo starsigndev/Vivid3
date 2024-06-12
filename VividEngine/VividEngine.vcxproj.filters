@@ -49,6 +49,9 @@
     <Filter Include="File">
       <UniqueIdentifier>{fadcb192-64eb-4fc3-b953-e8eba2a26640}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Maths">
+      <UniqueIdentifier>{2671fc73-f4ac-45a2-8c39-385ae557d772}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -111,6 +114,18 @@
     <ClInclude Include="VFile.h">
       <Filter>File</Filter>
     </ClInclude>
+    <ClInclude Include="MeshLines.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshLinesBuffer.h">
+      <Filter>Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialMeshLines.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Quat.h">
+      <Filter>Maths</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VividEngine.cpp">
@@ -169,6 +184,18 @@
     </ClCompile>
     <ClCompile Include="VFile.cpp">
       <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshLines.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshLinesBuffer.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialMeshLines.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Quat.cpp">
+      <Filter>Maths</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

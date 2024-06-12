@@ -39,7 +39,7 @@ Vivid3D::Vivid3D(QWidget *parent)
     m_PropEditor->setWidget(new VPropertyEditor);
     SetDockWidget(m_PropEditor);
     addDockWidget(Qt::RightDockWidgetArea, m_PropEditor);
-    m_PropEditor->setMinimumWidth(300);
+    m_PropEditor->setMinimumWidth(380);
     m_PropEditor->setMinimumHeight(250);
 
 
