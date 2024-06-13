@@ -43,7 +43,7 @@ Node* Importer::ImportNode(std::string path) {
     Assimp::Importer importer;
 
     // Define import flags (e.g., to triangulate polygons)
-    unsigned int flags = aiProcess_CalcTangentSpace | aiProcess_Triangulate;
+    unsigned int flags = aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_GenNormals;
 
     // Load the scene from the file
     const aiScene* scene = importer.ReadFile(path, flags);

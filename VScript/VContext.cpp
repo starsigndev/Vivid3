@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "VContext.h"
 #include "VScope.h"
+#include "VFunction.h"
 
 VContext::VContext() {
 
@@ -13,10 +14,10 @@ VContext::VContext() {
 void VContext::AddModule(VModule* module) {
 
 	auto mod = module->Clone();
-	
+
 	m_Modules.push_back(mod);
 	for (auto cls : mod->GetClasses()) {
-		
+
 		VVar* sv = new VVar;
 		cls->SetStatic(true);
 		sv->SetName(cls->GetName().GetNames()[0]);
@@ -27,11 +28,12 @@ void VContext::AddModule(VModule* module) {
 		for (auto func : cls->GetStaticFuncs()) {
 			cls->AddFunction(func);
 		}
-	
+
 
 	}
 
-	PushScope(m_StaticScope);
+	//PushScope(m_StaticScope);
+
 
 
 
@@ -46,6 +48,21 @@ VClass* VContext::CreateInstance(std::string name) {
 			auto i_class = c_class->Clone();
 			i_class->SetContext(this);
 			i_class->CreateScope();
+			if (i_class->GetSubClass() != "")
+			{
+
+				auto ih = CreateInstance(i_class->GetSubClass());
+				auto ic = ih->GetScope();
+				auto vars = ic->GetVars();
+				for (auto v : vars) {
+					i_class->GetScope()->RegisterVar(v);
+				}
+				for (auto f : ih->GetFunctions()) {
+					i_class->AddFunction(f);
+				}
+
+			}
+			i_class->FindFunction(name)->Call(nullptr);
 			return i_class;
 		}
 
@@ -67,12 +84,20 @@ VVar* VContext::FindVar(std::vector<std::string> names) {
 	}
 	else {
 
+		auto check = FindVar(names[0]);
+
+		if (check->GetClassType() == "List"){
+			return check;
+		}
+
 		VVar* cur = FindVar(names[0]);
 		if (cur->GetClassValue() == nullptr) {
 			printf("Runtime error:");
 			printf(names[0].c_str());
 			printf(" is null.\n");
+			
 			exit(1);
+
 		}
 		int ii = 1;
 		while (true) {

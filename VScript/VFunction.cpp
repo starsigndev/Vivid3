@@ -116,7 +116,8 @@ VScope* VFunction::GetScope() {
 				f_var->SetType(p->GetType());
 				f_var->SetClassType(p->GetClassType());
 				f_var->SetClassValue(nullptr);
-				
+		
+
 				r->RegisterVar(f_var);
 
 			}

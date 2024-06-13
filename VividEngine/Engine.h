@@ -36,6 +36,7 @@
 using namespace Diligent;
 
 class RenderTargetCube;
+class ScriptHost;
 class MaterialBase;
 
 class Engine
@@ -61,6 +62,7 @@ public:
 	static RenderTargetCube* m_BoundRTC;
 	static std::vector<MaterialBase*> m_ActiveMaterials;
 	static MaterialBase* FindActiveMaterial(std::string path);
+	static ScriptHost* m_ScriptHost;
 
 private:
 

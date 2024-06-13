@@ -49,6 +49,7 @@ public:
 	std::vector<NodeLight*> GetLights() {
 		return m_Lights;
 	}
+	void Update();
 private:
 
 	NodeCamera* m_Camera;

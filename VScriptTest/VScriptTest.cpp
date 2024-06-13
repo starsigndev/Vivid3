@@ -13,17 +13,17 @@
 #include "VVar.h"
 #include <vector>
 
-VVar* TestDebug(std::initializer_list<VVar*> args)
+VVar* TestDebug(const std::vector<VVar*>& args)
 {
     int b = 5;
 
     std::vector<VVar*> vec(args);
 
     printf("DebugS:");
-    printf(vec[0]->ToString().c_str());
+    printf("%f",vec[0]->ToFloat());
     printf("\n");
 
-    printf("Debug1:%d\n",vec[0]->ToInt());
+    //printf("Debug1:%d\n",vec[0]->ToInt());
 
  //   printf("Debug2:%f\n", vec[0]->ToFloat());
 
@@ -56,11 +56,18 @@ int main()
     
     VContext* con1 = new VContext;
     con1->AddModule(test_mod);
+    con1->RegisterCFunc("debug", TestDebug);
     auto i1 = con1->CreateInstance("TestClass");
     auto f1 = i1->FindFunction("TestClass");
-    con1->RegisterCFunc("debug",TestDebug);
 
-    f1->Call(nullptr);
+
+    auto v1 = i1->FindVar("C");
+
+    auto t1 = new VVar;
+
+//e    v1->SetC((void*)t1);
+
+  //  f1->Call(nullptr);
 
     auto mod1 = con1->GetModule("Vivid", "Test");
 

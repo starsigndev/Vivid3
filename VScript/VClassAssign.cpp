@@ -43,8 +43,9 @@ VVar* VClassAssign::Exec() {
 		final->SetString(res->ToString());
 		final->SetArrayData(res->GetArrayData());
 		final->SetLambda(res->GetLambda());
-
+		final->SetC(res->ToC());
 		final->SetName(name);
+		final->SetClassValue(res->GetClassValue());
 
 	}
 

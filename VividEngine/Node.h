@@ -5,6 +5,10 @@
 
 using namespace Diligent;
 
+class VClass;
+
+
+
 class Node
 {
 public:
@@ -68,6 +72,7 @@ public:
 	bool GetEnabled() {
 		return m_Enabled;
 	}
+	void Update();
 
 protected:
 
@@ -82,6 +87,8 @@ protected:
 	Node* m_Root;
 	std::vector<Node*> m_Nodes;
 	bool m_Enabled = true;
+	VClass* m_NodeClass;
+	std::vector<VClass*> m_Scripts;
 
 };
 

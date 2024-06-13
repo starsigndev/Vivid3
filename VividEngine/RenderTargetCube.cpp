@@ -14,7 +14,7 @@ RenderTargetCube::RenderTargetCube(int width, int height) {
 	tex.MipLevels = 1;
 	tex.ArraySize = 6;
 	tex.Usage = USAGE_DEFAULT;
-	tex.Format = Engine::m_pSwapChain->GetCurrentBackBufferRTV()->GetDesc().Format;
+	tex.Format = TEX_FORMAT_R32_FLOAT;//  Engine::m_pSwapChain->GetCurrentBackBufferRTV()->GetDesc().Format;
 	tex.BindFlags = BIND_FLAGS::BIND_SHADER_RESOURCE | BIND_FLAGS::BIND_RENDER_TARGET;
 	tex.ClearValue.Format = tex.Format;
 	tex.ClearValue.Color[0] = 0;

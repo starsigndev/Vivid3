@@ -2,11 +2,15 @@
 #include "Engine.h"
 #include "RenderTargetCube.h"
 #include "MaterialBase.h"
+#include "ScriptHost.h"
 
 RefCntAutoPtr<IRenderDevice>  Engine::m_pDevice;
 RefCntAutoPtr<IDeviceContext> Engine::m_pImmediateContext;
 RefCntAutoPtr<ISwapChain>     Engine::m_pSwapChain;
 RefCntAutoPtr<IShaderSourceInputStreamFactory> Engine::m_pShaderFactory;
+
+ScriptHost* Engine::m_ScriptHost = nullptr;
+
 NodeCamera* Engine::m_Camera = nullptr;
 Node* Engine::m_Node = nullptr;
 std::vector<NodeLight*> Engine::m_Lights;

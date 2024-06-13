@@ -9,13 +9,34 @@ VVar* VClassCall::Exec() {
 
 	int a = 5;
 	auto cv = GetContext()->FindVar(m_Name.GetNames());
-	auto func = cv->GetClassValue()->FindFunction(m_Name.GetNames()[m_Name.GetNames().size() - 1]);
-	
+
 	for (auto p : m_Params->GetParams()) {
 
 		p->m_Context = GetContext();
 
 	}
+
+	if (cv->GetClassType() == "List")
+	{
+		std::string meth = m_Name.GetNames()[1];
+
+		if (meth == "Add")
+		{
+
+			auto val = m_Params->GetParams()[0];
+
+			cv->ListAdd(val->Express());
+
+			return nullptr;
+
+		}
+
+		int b = 5;
+	}
+
+	auto func = cv->GetClassValue()->FindFunction(m_Name.GetNames()[m_Name.GetNames().size() - 1]);
+	
+
 	func->SetContext(GetContext());
 
 	return func->Call(m_Params);

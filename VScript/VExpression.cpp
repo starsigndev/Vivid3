@@ -480,6 +480,12 @@ bool VExpression::Is_Object() {
 			{
 				return false;
 			}
+			else {
+				if (nv->GetType() == T_Int || nv->GetType() == T_Number || nv->GetType() == T_FloatNumber || nv->GetType() == T_Float)
+				{
+					return false;
+				}
+			}
 
 
 		}
@@ -504,7 +510,7 @@ VVar* VExpression::Express() {
 
 	{
 
-		if (Elements[0].ClassCall != nullptr) {
+		if (Elements[0].ClassCall != nullptr || Elements[0].Statement!=nullptr) {
 
 			ExpElement e = Elements[0];
 

@@ -32,6 +32,7 @@ VVar* VVarGroup::Exec() {
 		nv->SetClassType(m_ClassType);
 		nv->SetName(name.GetNames()[0]);
 		nv->SetLambda(m_Lambda);
+		
 		if (m_Lambda != nullptr) {
 			m_Lambda->SetScope(GetContext()->GetTopScope());
 		}
@@ -50,7 +51,7 @@ VVar* VVarGroup::Exec() {
 			nv->SetLambda(res->GetLambda());
 			nv->SetClassType(res->GetClassType());
 			nv->SetClassValue(res->GetClassValue());
-
+			nv->SetC(res->ToC());
 			nv->SetName(name.GetNames()[0]);
 			//nv->m_ClsValue = res->m_ClsValue;
 		//	nv->m_IntValue = res->m_IntValue;

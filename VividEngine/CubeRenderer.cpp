@@ -6,6 +6,9 @@
 #include "Node.h"
 #include <math.h>
 
+
+NodeCamera* new_cam;
+
 CubeRenderer::CubeRenderer(SceneGraph* graph, RenderTargetCube* target)
 {
 
@@ -17,7 +20,12 @@ CubeRenderer::CubeRenderer(SceneGraph* graph, RenderTargetCube* target)
 void CubeRenderer::RenderDepth(float3 pos, float maxZ) {
 
 	auto prev_cam = m_Graph->GetCamera();
-	auto new_cam = new NodeCamera;
+	if (new_cam == nullptr) {
+		new_cam = new NodeCamera;
+	}
+	else {
+
+	}
 	m_Graph->SetCamera(new_cam);
 	new_cam->SetPosition(pos);
 	new_cam->SetNearZ(prev_cam->GetNearZ());

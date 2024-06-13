@@ -132,6 +132,9 @@
     <ClInclude Include="VInvoke.h">
       <Filter>Actions</Filter>
     </ClInclude>
+    <ClInclude Include="VForEach.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VScript.cpp">
@@ -234,6 +237,9 @@
       <Filter>Actions</Filter>
     </ClCompile>
     <ClCompile Include="VInvoke.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="VForEach.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
   </ItemGroup>

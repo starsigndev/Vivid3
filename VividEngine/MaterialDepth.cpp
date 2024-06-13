@@ -153,7 +153,7 @@ void MaterialDepth::Create() {
     //gp.NumRenderTargets = 0;
 
     gp.BlendDesc = b_desc;
-    gp.RTVFormats[0] = Engine::m_pSwapChain->GetDesc().ColorBufferFormat;
+    gp.RTVFormats[0] = TEX_FORMAT_R32_FLOAT;//  Engine::m_pSwapChain->GetDesc().ColorBufferFormat;
     gp.DSVFormat = Engine::m_pSwapChain->GetDesc().DepthBufferFormat;
     gp.InputLayout = in_desc;
     //gp.NumViewports = 1;

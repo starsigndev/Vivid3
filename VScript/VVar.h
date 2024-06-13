@@ -98,6 +98,22 @@ public:
 	void SetArrayData(std::vector<VVar*> data) {
 		m_ArrValues = data;
 	}
+	void* ToC() {
+		return m_CValue;
+	}
+
+	void SetC(void* obj)
+	{
+		m_CValue = obj;
+	}
+	void ListAdd(VVar* val)
+	{
+		m_List.push_back(val);
+	}
+	std::vector<VVar*> GetList() {
+		return m_List;
+	}
+
 
 private:
 
@@ -111,6 +127,8 @@ private:
 	TokenType m_Type;
 	std::string m_ClassType = "";
 	VLambda* m_Lambda;
+	void* m_CValue = nullptr;
+	std::vector<VVar*> m_List;
 	
 
 };

@@ -55,6 +55,9 @@
     <Filter Include="Draw">
       <UniqueIdentifier>{79435846-f932-4f10-960d-8edeb8600a6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Script">
+      <UniqueIdentifier>{a08544c0-7e3a-443c-8a51-3c03b4643b9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -135,6 +138,9 @@
     <ClInclude Include="Material2D.h">
       <Filter>Material</Filter>
     </ClInclude>
+    <ClInclude Include="ScriptHost.h">
+      <Filter>Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VividEngine.cpp">
@@ -211,6 +217,9 @@
     </ClCompile>
     <ClCompile Include="Material2D.cpp">
       <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptHost.cpp">
+      <Filter>Script</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

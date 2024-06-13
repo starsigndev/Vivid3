@@ -14,6 +14,7 @@
 #include "VPropertyEditor.h"
 #include "Draw2D.h"
 #include "Texture2D.h"
+#include "ScriptHost.h"
 
 VOutput::VOutput(QWidget *parent)
 	: QWidget(parent)
@@ -29,6 +30,8 @@ VOutput::VOutput(QWidget *parent)
     Engine::m_pImmediateContext = m_pImmediateContext;
     Engine::m_pShaderFactory = m_pShaderFactory;
     
+    Engine::m_ScriptHost = new ScriptHost;
+
     setFocusPolicy(Qt::StrongFocus);
     m_Import = new Importer;
     m_Graph1 = new SceneGraph;
@@ -896,6 +899,8 @@ void VOutput::paintEvent(QPaintEvent* event)
   //  m_Node1->SetRotation(0, ay, 0);
     
     cam->SetRotation(m_ViewPitch, m_ViewYaw, 0);
+    m_Graph1->Update();
+
     m_Graph1->RenderShadows();
  
     m_Graph1->Render();

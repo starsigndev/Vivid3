@@ -19,6 +19,8 @@
 #include "VFor.h"
 #include "VLambda.h"
 #include "VInvoke.h"
+#include "VForEach.h"
+
 
 VParser::VParser() {
 
@@ -118,6 +120,20 @@ VClass* VParser::ParseClass() {
 
 	}
 
+	auto sub = m_Stream.Peek(0);
+
+	std::string sub_class = "";
+
+	if (sub.GetLex() == ":")
+	{
+		m_Stream.GetNext();
+		sub_class = m_Stream.GetNext().GetLex();
+	}
+
+	int bbb = 5;
+	n_cls->SetSubClass(sub_class);
+
+
 	while (!m_Stream.End()) {
 
  		auto token = m_Stream.GetNext();
@@ -197,6 +213,7 @@ VClass* VParser::ParseClass() {
 		case T_Float:
 		case T_String:
 		case T_Bool:
+		case T_CObject:
 
 			auto next = m_Stream.Peek(0);
 
@@ -374,6 +391,10 @@ PredictType VParser::PredictNext(VTokenStream stream)
 		stream.GetNext();
 	}
 
+	auto st = stream.Peek(0);
+
+	int bb = 5;
+
 	//if(stream.Match({TokenType::}))
 
 
@@ -427,6 +448,9 @@ PredictType VParser::PredictNext(VTokenStream stream)
 		auto tok = stream.GetNext();
 
 		switch (tok.GetType()) {
+		case T_ForEach:
+			return P_ForEach;
+			break;
 		case T_Invoke:
 			return P_Invoke;
 			break;
@@ -444,6 +468,8 @@ PredictType VParser::PredictNext(VTokenStream stream)
 		case T_Bool:
 		case T_String:
 		case T_Lambda:
+		case T_CObject:
+		case T_List:
 		
 			tok = stream.Peek(0);
 
@@ -586,6 +612,14 @@ VCodeBody* VParser::ParseCodeBody() {
 		PredictType pt = PredictNext(m_Stream);
 
 		switch (pt) {
+		case P_ForEach:
+		{
+
+			auto ret = ParseForEach();
+			body->AddCode(ret);
+		}
+
+			break;
 		case P_Invoke:
 		{
 			auto ret = ParseInvoke();
@@ -718,6 +752,34 @@ VCodeBody* VParser::ParseCodeBody() {
 	int b = 5;
 
 	return nullptr;
+}
+
+VForEach* VParser::ParseForEach() {
+
+	auto tok = m_Stream.GetNext();
+
+	tok = m_Stream.GetNext();
+
+	auto name = ParseName();
+
+	if (m_Stream.GetNext().GetLex() != "in")
+	{
+		printf("Expected 'in'\n");
+	}
+
+	auto list_name = ParseName();
+
+	VForEach* fe = new VForEach();
+
+	fe->SetTarget(name);
+	fe->SetList(list_name);
+	fe->SetCode(ParseCodeBody());
+
+	//tok = m_Stream.GetNext();
+
+
+	return fe;
+
 }
 
 VInvoke* VParser::ParseInvoke()

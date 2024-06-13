@@ -6,7 +6,7 @@
 
 enum PredictType {
 	P_Statement, P_ClassCall,P_Unknown,P_End,P_DeclareVar,P_New,P_Assign,P_DeclareObject,P_ClassAssign,P_Return,
-	P_DeclareArray,P_AssignArray,P_If,P_While,P_For,P_Lambda,P_Invoke
+	P_DeclareArray,P_AssignArray,P_If,P_While,P_For,P_Lambda,P_Invoke,P_ForEach
 
 };
 
@@ -30,6 +30,7 @@ class VWhile;
 class VFor;
 class VLambda;
 class VInvoke;
+class VForEach;
 
 class VParser
 {
@@ -61,6 +62,7 @@ public:
 	VFor* ParseFor();
 	VLambda* ParseLambda();
 	VInvoke* ParseInvoke();
+	VForEach* ParseForEach();
 
 private:
 

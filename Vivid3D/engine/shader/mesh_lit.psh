@@ -147,18 +147,23 @@ float light_GetShadow(float3 fragPos,float3 lightPos,float lightRange){
 
     for(int i=0;i<samples;i++){
 
-        float closestDepth = v_Shadow.Sample(v_Shadow_sampler,normalize(fragToLight)+sampleOffsetDirections[i] * diskRadius).r;
+        float closestDepth = v_Shadow.Sample(v_Shadow_sampler,normalize(fragToLight)).r;
 
 
-        if( (currentDepth-0.005)>closestDepth)
+        if(closestDepth>currentDepth-0.0015 && closestDepth<currentDepth+0.0015)
+        {
+            shadowVal += 0;
+        }else
+        if( (currentDepth-0.0003)>closestDepth)
         {
 
          shadowVal +=1.0f;
         
 
         }
-    
+
     }
+
 
     shadowVal = shadowVal / (float)samples;
    

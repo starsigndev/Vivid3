@@ -30,6 +30,7 @@ public:
 	VScope* GetScope() {
 		return m_InstanceScope;
 	}
+	std::vector<VFunction*> GetFunctions();
 	void SetScope(VScope* scope) {
 		m_InstanceScope = scope;
 	}
@@ -40,7 +41,8 @@ public:
 	std::vector<VFunction*> GetStaticFuncs() {
 		return m_StaticFuncs;
 	}
-
+	void SetSubClass(std::string name);
+	std::string GetSubClass();
 
 private:
 
@@ -52,6 +54,6 @@ private:
 	std::vector<VVarGroup*> m_Groups;
 	std::vector<VFunction*> m_Funcs;
 	VScope* m_InstanceScope = nullptr;
-
+	std::string m_SubClass = "";
 };
 

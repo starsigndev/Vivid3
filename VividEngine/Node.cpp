@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "Node.h"
+#include "Engine.h"
 #include "MathsHelp.h"
 #ifndef M_PI_2
 
@@ -8,7 +9,11 @@
 #endif
 
 #include "BasicMath.hpp"
-
+#include "ScriptHost.h"
+#include "VClass.h"
+#include "VVar.h"
+#include "VFunction.h"
+bool first_node = true;
 using namespace Diligent;
 
 float4x4 CreateRotationMatrix(float pitch, float yaw, float roll)
@@ -74,12 +79,132 @@ void RotationMatrixToEulerAngles(const float4x4& rotationMatrix, float& pitch, f
 }
 
 
+VVar* CF_Debug(const std::vector<VVar*>& args)
+{
+	int b = 5;
+
+	std::vector<VVar*> vec(args);
+
+	printf("Debug:");
+	printf(vec[0]->ToString().c_str());
+	printf("\n");
+
+	//printf("Debug1:%d\n",vec[0]->ToInt());
+
+ //   printf("Debug2:%f\n", vec[0]->ToFloat());
+
+	return nullptr;
+}
+
+VVar* CF_NodeGetPosition(const std::vector<VVar*>& args)
+{
+	auto c = (Node*)args[0]->ToC();
+	int b = 5;
+
+	auto pos = c->GetPosition();
+
+	VVar* res = Engine::m_ScriptHost->CRVec3(pos.x, pos.y, pos.z);
+
+	return res;
+}
+
+VVar* CF_NodeSetPosition(const std::vector<VVar*>& args)
+{
+	auto c = (Node*)args[0]->ToC();
+
+	float3 v;
+
+	v.x= args[1]->GetClassValue()->FindVar("X")->ToFloat();
+	v.y = args[1]->GetClassValue()->FindVar("Y")->ToFloat();
+	v.z = args[1]->GetClassValue()->FindVar("Z")->ToFloat();
+
+
+
+
+
+	c->SetPosition(v);
+
+	return nullptr;
+}
+
+
+VVar* CF_TurnNode(const std::vector<VVar*>& args)
+{
+	int b = 5;
+
+	std::vector<VVar*> vec(args);
+	
+	//printf("Turn Node!\n");
+	auto node = (Node*)vec[0]->ToC();
+
+	node->Turn(vec[1]->ToFloat(), vec[2]->ToFloat(), vec[3]->ToFloat(),false);
+
+	//printf("Debug1:%d\n",vec[0]->ToInt());
+
+ //   printf("Debug2:%f\n", vec[0]->ToFloat());
+
+	return nullptr;
+}
+
+
 Node::Node() {
 
+	if (first_node) {
+
+		Engine::m_ScriptHost->AddCFunction("TurnNode", CF_TurnNode);
+		Engine::m_ScriptHost->AddCFunction("Debug", CF_Debug);
+		Engine::m_ScriptHost->AddCFunction("GetPositionNode", CF_NodeGetPosition);
+		Engine::m_ScriptHost->AddCFunction("SetPositionNode", CF_NodeSetPosition);
+		first_node = false;
+	}
 	m_Rotation = float4x4::Identity();
 	m_Position = float3(0, 0, 0);
 	m_Scale = float3(1, 1, 1);
 
+
+	Engine::m_ScriptHost->LoadModule("c:/content/game/testNode.v");
+
+	auto test_i = Engine::m_ScriptHost->CreateInstance("Test");
+
+	m_Scripts.push_back(test_i);
+
+
+	//m_NodeClass = Engine::m_ScriptHost->CreateInstance("Node");
+
+
+	VVar* node_v = test_i->FindVar("node");
+
+	m_NodeClass = node_v->GetClassValue();
+	
+	auto obj = m_NodeClass->FindVar("C");
+
+
+
+	//auto f1 = m_NodeClass->FindFunction("Node");
+
+	//f1->Call(nullptr);
+
+
+	//auto obj = m_NodeClass->FindVar("C");
+//	auto pos = m_NodeClass->FindVar("Position");
+//	auto scale = m_NodeClass->FindVar("Scale");
+//	auto rot = m_NodeClass->FindVar("Rotation");
+//
+//	auto p_c = pos->GetClassValue()->FindVar("C");
+//	auto s_c = scale->GetClassValue()->FindVar("C");
+//	auto r_c = rot->GetClassValue()->FindVar("C");
+
+//	p_c->SetC(&m_Position);
+//	s_c->SetC(&m_Scale);
+//	rot->SetC(&m_Rotation);
+
+	obj->SetC((void*)this);
+	
+
+
+	
+
+	int b = 5;
 }
 
 void Node::AddNode(Node* node) {
@@ -226,5 +351,25 @@ float4x4 Node::GetWorldMatrix() {
 	float4x4 worldMatrix = scaleMatrix * rotationMatrix * translationMatrix;
 
 	return worldMatrix;
+
+}
+
+void Node::Update() {
+
+	//Turn(0, 0.1f, 0, false);
+
+	for (auto gs : m_Scripts) {
+
+		auto up_func = gs->FindFunction("Update");
+		up_func->Call(nullptr);
+
+	}
+
+
+	for (auto n : m_Nodes) {
+
+		n->Update();
+
+	}
 
 }

@@ -26,6 +26,7 @@ void VClass::AddFunction(VFunction* func)
 {
 
 	m_Funcs.push_back(func);
+	func->SetOwner(this);
 
 }
 
@@ -60,6 +61,7 @@ VClass* VClass::Clone() {
 
 	VClass* clone = new VClass;
 	clone->SetName(m_Name);
+	clone->SetSubClass(m_SubClass);
 	for (auto func : m_Funcs) {
 
 		auto f2 = func->Clone();
@@ -169,9 +171,12 @@ void VClass::CreateScope() {
 					g->GetExpressions()[ii]->m_Context = this->m_Context;
 					auto res = g->GetExpressions()[ii]->Express();
 
+					nv->SetC(res->ToC());
+
 					switch (g->GetType()) {
 					case T_Number:
 					case T_Int:
+						
 						nv->SetInt(res->ToInt());
 						//nv->m_IntValue = res->ToInt();
 						break;
@@ -289,5 +294,23 @@ VFunction* VClass::FindFunctionBySig(std::string name,std::vector<TokenType> sig
 void VClass::AddStaticVarGroup(VVarGroup* group) {
 
 	m_StaticGroups.push_back(group);
+
+}
+
+void VClass::SetSubClass(std::string cls) {
+
+	m_SubClass = cls;
+
+}
+
+std::string VClass::GetSubClass() {
+
+	return m_SubClass;
+
+}
+
+std::vector<VFunction*> VClass::GetFunctions() {
+
+	return m_Funcs;
 
 }

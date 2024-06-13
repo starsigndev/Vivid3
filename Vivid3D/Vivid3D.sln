@@ -9,6 +9,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Vivid3D", "Vivid3D.vcxproj"
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VividEngine", "..\VividEngine\VividEngine.vcxproj", "{890CA403-5FF8-4B45-98A1-A5B204770902}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3C0FA7EB-8330-428F-903A-2D8E27E69411} = {3C0FA7EB-8330-428F-903A-2D8E27E69411}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VScript", "..\VScript\VScript.vcxproj", "{3C0FA7EB-8330-428F-903A-2D8E27E69411}"
 EndProject

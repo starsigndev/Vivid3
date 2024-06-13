@@ -388,3 +388,9 @@ void SceneGraph::AddLines(MeshLines* lines) {
     m_Lines.push_back(lines);
 
 }
+
+void SceneGraph::Update() {
+
+    m_RootNode->Update();
+
+}

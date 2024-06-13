@@ -15,10 +15,15 @@ void VVar::Transfer1(VVar* r) {
 	this->m_ClsValue = r->m_ClsValue;
 	this->m_FloatValue = r->m_FloatValue;
 	this->m_IntValue = r->m_IntValue;
-	this->m_Name = r->m_Name;
+	//this->m_Name = r->m_Name;
 	this->m_StrValue = r->m_StrValue;
 	this->m_Type = r->m_Type;
 	this->m_Lambda = r->m_Lambda;
+	this->m_ClassType = r->GetClassType();
+	this->m_CValue = r->ToC();
+	this->m_Lambda = r->GetLambda();
+	this->m_List = r->GetList();
+	
 
 
 }

@@ -154,6 +154,7 @@
     <ClInclude Include="VDefineParams.h" />
     <ClInclude Include="VExpression.h" />
     <ClInclude Include="VFor.h" />
+    <ClInclude Include="VForEach.h" />
     <ClInclude Include="VFunction.h" />
     <ClInclude Include="VIf.h" />
     <ClInclude Include="VInvoke.h" />
@@ -194,6 +195,7 @@
     <ClCompile Include="VDefineParams.cpp" />
     <ClCompile Include="VExpression.cpp" />
     <ClCompile Include="VFor.cpp" />
+    <ClCompile Include="VForEach.cpp" />
     <ClCompile Include="VFunction.cpp" />
     <ClCompile Include="VIf.cpp" />
     <ClCompile Include="VInvoke.cpp" />

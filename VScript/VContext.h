@@ -46,14 +46,14 @@ public:
     }
 
     VClass* CreateInstance(std::string name);
-    void RegisterCFunc(std::string name, std::function<VVar* (std::initializer_list<VVar*>)> func)
+    void RegisterCFunc(std::string name, std::function<VVar* (const std::vector<VVar*>& args)> func)
     {
 
         m_CFuncMap[name] = func;
 
     }
 
-    std::function<VVar* (std::initializer_list<VVar*>)> FindCFunc(std::string name) {
+    std::function<VVar* (const std::vector<VVar*>& args)> FindCFunc(std::string name) {
 
         auto it = m_CFuncMap.find(name);
         if (it != m_CFuncMap.end()) {
@@ -93,6 +93,7 @@ public:
            v->SetLambda(pres->GetLambda());
            v->SetClassValue(pres->GetClassValue());
            v->SetName(pn);
+           v->SetC(pres->ToC());
 
            /*
            * 
@@ -189,7 +190,7 @@ private:
     VName m_Check;
     VModule* m_Return = nullptr;
 	std::vector<VModule*> m_Modules;
-    std::map < std::string, std::function<VVar* (std::initializer_list<VVar*>)>> m_CFuncMap;
+    std::map < std::string, std::function<VVar* (const std::vector<VVar*>& args)>> m_CFuncMap;
     std::stack<VScope*> m_ScopeStack;
     VScope* m_StaticScope;
 };
