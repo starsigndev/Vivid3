@@ -73,6 +73,12 @@ public:
 		return m_Enabled;
 	}
 	void Update();
+	void AddScript(std::string path);
+	void BeginPlay();
+	void Stop();
+	virtual void Push();
+	virtual void Pop();
+
 
 protected:
 
@@ -89,6 +95,15 @@ protected:
 	bool m_Enabled = true;
 	VClass* m_NodeClass;
 	std::vector<VClass*> m_Scripts;
+	bool m_IsPlaying = false;
+
+	//
+	float4x4 m_PushedRotation;
+	float3 m_PushedPosition;
+	float3 m_PushedScale; 
+
 
 };
+
+
 

@@ -21,12 +21,13 @@ public:
 	void UpdateGraph();
 	void SetNode(Node* node);
 	void AddNode(TreeItem* item, Node* node);
+	
 
 private:
 	Ui::VSceneGraphClass ui;
 	VTreeView* m_Tree;
 	Node* m_CurrentNode = nullptr;
 	std::map<Node*, TreeItem*> m_NodeMap;
-
+	bool m_IsPlaying = false;
 
 };

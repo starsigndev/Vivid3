@@ -1,1 +1,11 @@
-﻿  Vivid3D.vcxproj -> C:\dev\Vivid3D\Vivid3D\x64\Debug\Vivid3D.exe
+﻿  Editor.cpp
+  VContentView.cpp
+  VPropEditor.cpp
+  VSceneGraph.cpp
+  VTreeView.cpp
+  Vivid3D.cpp
+  VOutput.cpp
+  main.cpp
+  moc_VOutput.cpp
+  moc_Vivid3D.cpp
+  Vivid3D.vcxproj -> C:\dev\Vivid3D\Vivid3D\x64\Debug\Vivid3D.exe

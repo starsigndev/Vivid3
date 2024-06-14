@@ -38,6 +38,7 @@ using namespace Diligent;
 class RenderTargetCube;
 class ScriptHost;
 class MaterialBase;
+class SceneGraph;
 
 class Engine
 {
@@ -63,7 +64,7 @@ public:
 	static std::vector<MaterialBase*> m_ActiveMaterials;
 	static MaterialBase* FindActiveMaterial(std::string path);
 	static ScriptHost* m_ScriptHost;
-
+	static SceneGraph* m_ActiveGraph;
 private:
 
 	static int m_FrameWidth;

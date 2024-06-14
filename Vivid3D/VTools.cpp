@@ -47,7 +47,21 @@ VTools::VTools(QWidget* parent)
 		});
 
 		//&MainWindow::onComboBoxIndexChanged);
+	QAction* run = addAction(QIcon("edit/icons/runicon.png"), "ActRun");
+	QAction* stop = addAction(QIcon("edit/icons/stopicon.png"), "ActStop");
 
+
+	connect(run, &QAction::triggered, [this]() {
+
+		Editor::BeginPlay();
+
+		});
+
+	connect(stop, &QAction::triggered, [this]() {
+
+		Editor::Stop();
+
+		});
 }
 
 VTools::~VTools()

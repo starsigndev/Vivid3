@@ -1,6 +1,7 @@
 C:\dev\Vivid3D\VividEngine\CubeRenderer.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\CubeRenderer.obj
 C:\dev\Vivid3D\VividEngine\Draw2D.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Draw2D.obj
 C:\dev\Vivid3D\VividEngine\Engine.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Engine.obj
+C:\dev\Vivid3D\VividEngine\FileHelp.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\FileHelp.obj
 C:\dev\Vivid3D\VividEngine\Importer.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Importer.obj
 C:\dev\Vivid3D\VividEngine\Material2D.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Material2D.obj
 C:\dev\Vivid3D\VividEngine\MaterialBase.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialBase.obj
@@ -16,6 +17,7 @@ C:\dev\Vivid3D\VividEngine\Node.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Node.ob
 C:\dev\Vivid3D\VividEngine\NodeCamera.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\NodeCamera.obj
 C:\dev\Vivid3D\VividEngine\NodeEntity.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\NodeEntity.obj
 C:\dev\Vivid3D\VividEngine\NodeLight.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\NodeLight.obj
+C:\dev\Vivid3D\VividEngine\ParticleEffector.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\ParticleEffector.obj
 C:\dev\Vivid3D\VividEngine\pch.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\pch.obj
 C:\dev\Vivid3D\VividEngine\Quat.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Quat.obj
 C:\dev\Vivid3D\VividEngine\RenderTargetCube.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\RenderTargetCube.obj

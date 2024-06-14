@@ -12,6 +12,7 @@
 #include "ScriptHost.h"
 #include "VClass.h"
 #include "VVar.h"
+#include "FileHelp.h"
 #include "VFunction.h"
 bool first_node = true;
 using namespace Diligent;
@@ -161,45 +162,6 @@ Node::Node() {
 	m_Position = float3(0, 0, 0);
 	m_Scale = float3(1, 1, 1);
 
-
-	Engine::m_ScriptHost->LoadModule("c:/content/game/testNode.v");
-
-	auto test_i = Engine::m_ScriptHost->CreateInstance("Test");
-
-	m_Scripts.push_back(test_i);
-
-
-	//m_NodeClass = Engine::m_ScriptHost->CreateInstance("Node");
-
-
-	VVar* node_v = test_i->FindVar("node");
-
-	m_NodeClass = node_v->GetClassValue();
-	
-	auto obj = m_NodeClass->FindVar("C");
-
-
-
-	//auto f1 = m_NodeClass->FindFunction("Node");
-
-	//f1->Call(nullptr);
-
-
-	//auto obj = m_NodeClass->FindVar("C");
-//	auto pos = m_NodeClass->FindVar("Position");
-//	auto scale = m_NodeClass->FindVar("Scale");
-//	auto rot = m_NodeClass->FindVar("Rotation");
-//
-//	auto p_c = pos->GetClassValue()->FindVar("C");
-//	auto s_c = scale->GetClassValue()->FindVar("C");
-//	auto r_c = rot->GetClassValue()->FindVar("C");
-
-//	p_c->SetC(&m_Position);
-//	s_c->SetC(&m_Scale);
-//	rot->SetC(&m_Rotation);
-
-	obj->SetC((void*)this);
-	
 
 
 	
@@ -358,11 +320,13 @@ void Node::Update() {
 
 	//Turn(0, 0.1f, 0, false);
 
-	for (auto gs : m_Scripts) {
+	if (m_IsPlaying) {
+		for (auto gs : m_Scripts) {
 
-		auto up_func = gs->FindFunction("Update");
-		up_func->Call(nullptr);
+			auto up_func = gs->FindFunction("Update");
+			up_func->Call(nullptr);
 
+		}
 	}
 
 
@@ -371,5 +335,89 @@ void Node::Update() {
 		n->Update();
 
 	}
+
+}
+
+void Node::AddScript(std::string path) {
+
+
+	auto name = FileHelp::GetFileName(path);
+
+	Engine::m_ScriptHost->LoadModule(path);
+
+	auto test_i = Engine::m_ScriptHost->CreateInstance(name);
+
+	m_Scripts.push_back(test_i);
+
+
+	//m_NodeClass = Engine::m_ScriptHost->CreateInstance("Node");
+
+
+	VVar* node_v = test_i->FindVar("node");
+
+	m_NodeClass = node_v->GetClassValue();
+	auto obj = m_NodeClass->FindVar("C");
+
+
+
+	//auto f1 = m_NodeClass->FindFunction("Node");
+
+	//f1->Call(nullptr);
+
+
+	//auto obj = m_NodeClass->FindVar("C");
+//	auto pos = m_NodeClass->FindVar("Position");
+//	auto scale = m_NodeClass->FindVar("Scale");
+//	auto rot = m_NodeClass->FindVar("Rotation");
+//
+//	auto p_c = pos->GetClassValue()->FindVar("C");
+//	auto s_c = scale->GetClassValue()->FindVar("C");
+//	auto r_c = rot->GetClassValue()->FindVar("C");
+
+//	p_c->SetC(&m_Position);
+//	s_c->SetC(&m_Scale);
+//	rot->SetC(&m_Rotation);
+
+	obj->SetC((void*)this);
+
+
+
+
+}
+
+void Node::BeginPlay() {
+
+	Push();
+
+
+	m_IsPlaying = true;
+	for (auto node : m_Nodes)
+	{
+		node->BeginPlay();
+	}
+
+}
+
+void Node::Stop() {
+	Pop();
+	
+	m_IsPlaying = false;
+
+	for (auto node : m_Nodes) {
+		node->Stop();
+	}
+
+}
+
+void Node::Push() {
+	m_PushedPosition = m_Position;
+	m_PushedRotation = m_Rotation;
+	m_PushedScale = m_Scale;
+}
+
+void Node::Pop() {
+	m_Position = m_PushedPosition;
+	m_Rotation = m_PushedRotation;
+	m_Scale = m_PushedScale;
 
 }

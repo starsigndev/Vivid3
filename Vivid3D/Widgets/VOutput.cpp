@@ -52,6 +52,7 @@ VOutput::VOutput(QWidget *parent)
     m_MoveTimer->start();
 
     Editor::m_Graph = m_Graph1;
+    Engine::m_ActiveGraph = m_Graph1;
 
    
 

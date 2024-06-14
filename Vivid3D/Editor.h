@@ -7,6 +7,10 @@ enum SpaceMode {
 	SM_Local,SM_Global
 };
 
+enum RunMode {
+	RM_Playing,RM_Stopped,RM_Paused,
+};
+
 class SceneGraph;
 class NodeEntity;
 class VSceneGraph;
@@ -17,7 +21,7 @@ class Node;
 class Editor
 {
 public:
-
+	static RunMode m_RunMode;
 	static SceneGraph* m_Graph;
 	static GizmoMode m_GizmoMode;
 	static Node* m_CurrentNode;
@@ -25,5 +29,7 @@ public:
 	static VSceneGraph* m_SceneGraph;
 	static VContentBrowser* m_ContentBrowser;
 	static VPropertyEditor* m_PropEditor;
+	static void BeginPlay();
+	static void Stop();
 };
 

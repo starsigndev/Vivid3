@@ -394,3 +394,17 @@ void SceneGraph::Update() {
     m_RootNode->Update();
 
 }
+
+void SceneGraph::BeginPlay() {
+
+    m_IsPlaying = true;
+    m_RootNode->BeginPlay();
+    
+}
+
+void SceneGraph::Stop() {
+
+    m_IsPlaying = false;
+    m_RootNode->Stop();
+
+}

@@ -22,7 +22,9 @@ VTreeView::VTreeView(QWidget *parent)
     }
     m_Root->AddItem("Done");
 
-   
+    
+   setAcceptDrops(true);
+  
 
 }
 
@@ -208,3 +210,53 @@ int VTreeView::RenderItem(TreeItem* item, int x, int y) {
 
 VTreeView::~VTreeView()
 {}
+
+
+void VTreeView::dragEnterEvent(QDragEnterEvent* event) {
+    if (event->mimeData()->hasUrls()) {
+        event->acceptProposedAction();
+       
+
+    }
+    
+}
+
+void VTreeView::dropEvent(QDropEvent* event) {
+    if (event->mimeData()->hasUrls()) {
+        QList<QUrl> urls = event->mimeData()->urls();
+        QString filePath;
+        if (!urls.isEmpty() && urls.first().isLocalFile()) {
+            filePath = urls.first().toLocalFile();
+            if (m_OverItem != nullptr) {
+                auto node = (Node*)m_OverItem->m_Data;
+                node->AddScript(filePath.toStdString());
+            }
+
+            int bb = 5;
+            //setPixmap(QPixmap(filePath));
+            //SetImage(filePath.toStdString());
+            //emit dropped(filePath); // Emit the custom dropped sig
+        }
+        event->acceptProposedAction();
+    }
+}
+
+void VTreeView::dragMoveEvent(QDragMoveEvent* event) 
+{
+//    QPoint localPos = event->pos();
+//    qDebug() << "Drag Move at: " << localPos;
+
+    m_OverItem = nullptr;
+    QPoint globalPos = QCursor::pos();
+    QPoint localPos = mapFromGlobal(globalPos);
+    auto pos = QPointF(localPos.x(), localPos.y());// event->position();
+    printf("PX:%d PY:%d \n", (int)pos.x(), (int)pos.y());
+    int y = CheckItem(m_Root, 25, 5, (int)pos.x(), (int)pos.y());
+    update();
+    setMinimumSize(width(), y + 40);
+    update();
+    update();
+
+    event->acceptProposedAction();
+}
+

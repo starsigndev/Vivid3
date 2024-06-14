@@ -58,6 +58,9 @@
     <Filter Include="Script">
       <UniqueIdentifier>{a08544c0-7e3a-443c-8a51-3c03b4643b9d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Particles">
+      <UniqueIdentifier>{cb7cd783-2876-4842-a65e-c0094a8ccbfb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -141,6 +144,12 @@
     <ClInclude Include="ScriptHost.h">
       <Filter>Script</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleEffector.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="FileHelp.h">
+      <Filter>Helper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VividEngine.cpp">
@@ -220,6 +229,12 @@
     </ClCompile>
     <ClCompile Include="ScriptHost.cpp">
       <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEffector.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="FileHelp.cpp">
+      <Filter>Helper</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

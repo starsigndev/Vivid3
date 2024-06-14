@@ -6,6 +6,9 @@
 #include <vector>
 #include <QResizeEvent>
 #include <QDebug>
+#include <qmimedata.h>
+#include <QDragEnterEvent>
+
 class TreeItem {
 public:
 	std::string m_Text;
@@ -42,6 +45,11 @@ protected:
 	void mousePressEvent(QMouseEvent* event) override;
 	void paintEvent(QPaintEvent* event) override;
 	void mouseMoveEvent(QMouseEvent* event) override;
+//protected:
+
+	void dragEnterEvent(QDragEnterEvent* event) override;
+	void dropEvent(QDropEvent* event) override;
+	void dragMoveEvent(QDragMoveEvent* event) override;
 
 private:
 	Ui::VTreeViewClass ui;

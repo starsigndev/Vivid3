@@ -50,12 +50,15 @@ public:
 		return m_Lights;
 	}
 	void Update();
+	void BeginPlay();
+	void Stop();
 private:
 
 	NodeCamera* m_Camera;
 	Node* m_RootNode = nullptr;
 	std::vector<NodeLight*> m_Lights;
 	CubeRenderer* m_CubeRenderer;
+	bool m_IsPlaying = false;
 	std::vector<MeshLines*> m_Lines;
 
 };
