@@ -169,13 +169,15 @@ Node* Importer::ImportNode(std::string path) {
         }
 
         mesh->Build();
-
+        
         mesh->SetMaterial(materials[aMesh->mMaterialIndex]);
         
         mesh->SetDepthMaterial(new MaterialDepth);
 
 
         root->AddMesh(mesh);
+        mesh->BuildGeo();
+
 
     }
 

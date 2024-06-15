@@ -1,9 +1,5 @@
-﻿  Intersections.cpp
+﻿  SceneGraph.cpp
   opencl.hpp: CL_HPP_TARGET_OPENCL_VERSION is not defined. It will default to 300 (OpenCL 3.0)
-C:\dev\Vivid3D\VividEngine\Intersections.cpp(26,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  SceneGraph.cpp
-  opencl.hpp: CL_HPP_TARGET_OPENCL_VERSION is not defined. It will default to 300 (OpenCL 3.0)
-  Generating Code...
   Replacing x64\Debug\pch.obj
 cuda.lib(nvcuda.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 cudart.lib(cudart64_12.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored

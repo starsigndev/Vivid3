@@ -19,10 +19,12 @@ public:
 	void RenderDepth();
 	void SetMaterial(MaterialBase* material);
 	bool IsMeshIndex(Mesh3D* mesh, int index);
+	void BuildGeo();
 
 private:
 
 	std::vector<Mesh3D*> m_Meshes;
+
 
 
 };

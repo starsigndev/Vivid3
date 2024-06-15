@@ -99,3 +99,18 @@ bool NodeEntity::IsMeshIndex(Mesh3D* mesh, int idx)
 	return false;
 
 }
+
+void NodeEntity::BuildGeo() {
+
+	
+
+
+
+	int b = 5;
+	for (auto m : m_Meshes) {
+
+		m->BuildGeo();
+		
+	}
+
+}

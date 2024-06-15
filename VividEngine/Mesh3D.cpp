@@ -5,6 +5,7 @@
 #include "MaterialBase.h"
 #include "MaterialMeshLight.h"
 #include "MaterialDepth.h"
+#include "NodeEntity.h"
 Mesh3D::Mesh3D() {
 	//m_Material = new MaterialBase;
 
@@ -97,5 +98,27 @@ void Mesh3D::SetOwner(NodeEntity* entity) {
 NodeEntity* Mesh3D::GetOwner() {
 
 	return m_Owner;
+
+}
+
+void Mesh3D::BuildGeo() {
+
+	auto world = m_Owner->GetWorldMatrix();
+
+	auto tris = GetTris();
+	auto verts = GetVertices();
+	m_Build.clear();
+
+	for (auto t : tris) {
+
+		float3 v0 = verts[t.v0].position * world;
+		float3 v1 = verts[t.v1].position * world;
+		float3 v2 = verts[t.v2].position * world;
+		m_Build.push_back(v0);
+		m_Build.push_back(v1);
+		m_Build.push_back(v2);
+
+
+	}
 
 }

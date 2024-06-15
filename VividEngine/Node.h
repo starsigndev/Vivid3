@@ -38,6 +38,8 @@ public:
 	}
 	void SetRotation(float4x4 rotation) {
 		m_Rotation = rotation;
+		BuildGeo();
+
 	}
 	float3 TransformVector(float3 vector);
 	virtual float4x4 GetWorldMatrix();
@@ -78,7 +80,7 @@ public:
 	void Stop();
 	virtual void Push();
 	virtual void Pop();
-
+	virtual void BuildGeo(){};
 
 protected:
 

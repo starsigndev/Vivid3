@@ -38,7 +38,10 @@ public:
 	NodeEntity* GetOwner();
 	void Render();
 	void RenderDepth();
-
+	void BuildGeo();
+	std::vector<float3> GetGeo() {
+		return m_Build;
+	}
 private:
 
 	std::vector<Vertex> m_Vertices;
@@ -48,5 +51,6 @@ private:
 	MaterialBase* m_Material;
 	MaterialDepth* m_DepthMaterial;
 	NodeEntity* m_Owner;
+	std::vector<float3> m_Build;
 };
 

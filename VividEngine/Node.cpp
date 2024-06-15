@@ -197,6 +197,7 @@ std::vector<Node*> Node::GetNodes()
 void Node::SetPosition(float3 position) {
 
 	m_Position = position;
+	BuildGeo();
 
 }
 
@@ -211,6 +212,7 @@ void Node::SetRotation(float pitch, float yaw, float roll,bool edit) {
 	yaw = MathsHelp::Deg2Rad(yaw);
 	pitch = MathsHelp::Deg2Rad(pitch);
 	roll = MathsHelp::Deg2Rad(roll);
+	BuildGeo();
 
 	//m_Rotation = CreateRotationMatrix(pitch, yaw, roll);
 
@@ -226,18 +228,21 @@ void Node::SetRotation(float pitch, float yaw, float roll,bool edit) {
 void Node::SetScale(float3 scale) {
 
 	m_Scale = scale;
+	BuildGeo();
 
 }
 
 void Node::Move(float3 delta) {
 
 	m_Position = m_Position + (delta * m_Rotation);
+	BuildGeo();
 
 }
 
 void Node::Translate(float3 delta) {
 
 	m_Position = m_Position + delta;
+	BuildGeo();
 
 }
 
@@ -300,6 +305,7 @@ void Node::Turn(float pitch, float yaw, float roll,bool local) {
 		m_Rotation = m_Rotation * turn;
 
 	}
+	BuildGeo();
 
 }
 

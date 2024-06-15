@@ -9,6 +9,32 @@
 #include "MeshLines.h"
 #include "Intersections.h"
 
+std::vector<Mesh3D*> GetMeshes(Node* node, std::vector<Mesh3D*> meshes)
+{
+
+    NodeEntity* pEntity = dynamic_cast<NodeEntity*>(node);
+
+    if (pEntity) {
+        // Casting successful, pNode is a nodeEntity
+        //pEntity->entityFunction();
+
+        for (auto mesh : pEntity->GetMeshes()) {
+
+            meshes.push_back(mesh);
+
+        }
+    }
+
+    for (auto sub : node->GetNodes()) {
+        meshes = GetMeshes(sub, meshes);
+
+    }
+
+    return meshes;
+
+}
+
+
 SceneGraph::SceneGraph() {
 
 	m_Camera = new NodeCamera;
@@ -97,7 +123,7 @@ constexpr float EPSILON = 1e-6f;
 
 HitResult RayToTri(float3 pos,float3 end, float3 v0, float3 v1, float3 v2)
 {
-
+    return HitResult();
     float3 edge1, edge2, h, s, q;
     float a, f, u, v;
     HitResult res = HitResult();
@@ -223,9 +249,30 @@ HitResult SceneGraph::MousePick(int x, int y, NodeEntity* entity) {
     float cd = 10000.0f;
     HitResult close;
     close.m_Hit = false;
+    std::vector<Mesh3D*> meshes;
+    meshes = GetMeshes(entity, meshes);
 
-    for (auto mesh : entity->GetMeshes()) {
 
+    for (auto mesh : meshes) {
+
+        CastResult res = m_RayTester->CastMesh(m_Camera->GetPosition(), ray_dir, mesh);
+        if (res.Hit) {
+
+
+
+            if (res.Distance < cd) {
+                HitResult nres;
+                nres.m_Hit = true;
+                nres.m_Distance = res.Distance;
+                nres.m_Mesh = mesh;
+                nres.m_Node = mesh->GetOwner();
+                nres.m_Entity = (NodeEntity*)mesh->GetOwner();
+                close = nres;
+
+            }
+        }
+
+        /*
         HitResult res = RayCastMesh(m_Camera->GetPosition(), ray_dir,mesh);
         if (res.m_Hit) {
             if (res.m_Distance < cd) {
@@ -233,7 +280,7 @@ HitResult SceneGraph::MousePick(int x, int y, NodeEntity* entity) {
                 close = res;
             }
         }
-
+        */
     }
 
     return close;
@@ -300,32 +347,6 @@ HitResult RayCastNode(Node* node) {
     
     return HitResult();
 }
-
-std::vector<Mesh3D*> GetMeshes(Node* node, std::vector<Mesh3D*> meshes)
-{
-
-    NodeEntity* pEntity = dynamic_cast<NodeEntity*>(node);
-
-    if (pEntity) {
-        // Casting successful, pNode is a nodeEntity
-        //pEntity->entityFunction();
-
-        for (auto mesh : pEntity->GetMeshes()) {
-
-            meshes.push_back(mesh);
-
-        }
-    }
-
-    for (auto sub : node->GetNodes()) {
-        meshes = GetMeshes(sub, meshes);
-
-    }
-
-    return meshes;
-
-}
-
 
 HitResult SceneGraph::RayCast(float3 pos, float3 end) {
 

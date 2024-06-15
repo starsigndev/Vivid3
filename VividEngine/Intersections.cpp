@@ -25,29 +25,10 @@ CastResult Intersections::CastMesh(float3 pos, float3 dir, Mesh3D* mesh) {
  
     int num_tris = mesh->GetTris().size();
    std::vector<float3> tri_data;
-    
-    std::vector<Vertex> vertices = mesh->GetVertices();
-
-    //float* tri_data = new float[num_tris * 9];
 
 
-    int i = 0;
+    tri_data = mesh->GetGeo();
 
-    for (auto t : mesh->GetTris()) {
-
-
-   
-        auto v0 = vertices[t.v0].position;
-        auto v1 = vertices[t.v1].position;
-        auto v2 = vertices[t.v2].position;
-
-   
-        tri_data.push_back(v0);
-        tri_data.push_back(v1);
-        tri_data.push_back(v2);
-
-
-    }
 
     int byte_size = (sizeof(float3) * 3);
 
