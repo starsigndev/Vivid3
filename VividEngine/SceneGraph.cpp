@@ -7,11 +7,13 @@
 #include "Mesh3D.h"
 #include "CubeRenderer.h"
 #include "MeshLines.h"
+#include "Intersections.h"
 
 SceneGraph::SceneGraph() {
 
 	m_Camera = new NodeCamera;
 	m_RootNode = new Node();
+    m_RayTester = new Intersections();
 	m_RootNode->SetName("Graph Root");
 //    m_CubeRenderer = new CubeRenderer()
 
@@ -333,20 +335,38 @@ HitResult SceneGraph::RayCast(float3 pos, float3 end) {
     std::vector<Mesh3D*> meshes;
     float cd = 10000;
     HitResult close;
+    close.m_Hit = false;
 
     meshes = GetMeshes(m_RootNode,meshes);
 
     for (auto mesh : meshes) {
 
-        auto res = RayCastMesh(pos, end, mesh);
-        if (res.m_Hit) {
-            if (res.m_Distance < cd) {
-                close = res;
-                res.m_Entity = res.m_Mesh->GetOwner();
-                
+        CastResult res = m_RayTester->CastMesh(pos, end, mesh);
+        if (res.Hit) {
+
+
+
+            if (res.Distance < cd) {
+                HitResult nres;
+                nres.m_Hit = true;
+                nres.m_Distance = res.Distance;
+                nres.m_Mesh = mesh;
+                nres.m_Node = mesh->GetOwner();
+                nres.m_Entity = (NodeEntity*)mesh->GetOwner();
+                close = nres;
+          
             }
         }
+        
 
+
+    }
+
+    if (close.m_Hit) {
+
+        printf("Hit Entity:");
+        printf(close.m_Node->GetName().c_str());
+        printf("\n");
     }
 
     int b = 5;

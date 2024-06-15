@@ -2,8 +2,10 @@
 #include <vector>
 #include <string>
 #include "BasicMath.hpp"
+
 using namespace Diligent;
 
+class Intersections;
 class Node;
 class NodeEntity;
 class NodeCamera;
@@ -60,6 +62,6 @@ private:
 	CubeRenderer* m_CubeRenderer;
 	bool m_IsPlaying = false;
 	std::vector<MeshLines*> m_Lines;
-
+	Intersections* m_RayTester;
 };
 

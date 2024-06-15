@@ -61,6 +61,9 @@
     <Filter Include="Particles">
       <UniqueIdentifier>{cb7cd783-2876-4842-a65e-c0094a8ccbfb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cuda">
+      <UniqueIdentifier>{3c140935-ca68-4228-80b0-10ed87f87b3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -150,6 +153,12 @@
     <ClInclude Include="FileHelp.h">
       <Filter>Helper</Filter>
     </ClInclude>
+    <ClInclude Include="Intersections.h">
+      <Filter>Cuda</Filter>
+    </ClInclude>
+    <ClInclude Include="CLBase.h">
+      <Filter>Cuda</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VividEngine.cpp">
@@ -235,6 +244,12 @@
     </ClCompile>
     <ClCompile Include="FileHelp.cpp">
       <Filter>Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="Intersections.cpp">
+      <Filter>Cuda</Filter>
+    </ClCompile>
+    <ClCompile Include="CLBase.cpp">
+      <Filter>Cuda</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

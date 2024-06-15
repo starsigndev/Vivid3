@@ -112,7 +112,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\dev\Vivid3D\VScript;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsTools\interface;C:\Dev\git\DE\DiligentEngine\DiligentCore;C:\Dev\git\DE\DiligentEngine\DiligentTools\TextureLoader\interface;C:\Dev\git\DE\DiligentEngine\DiligentTools\TextureLoader\include;C:\Dev\Assimp\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsEngine\interface;C:\Dev\git\DE\DiligentEngine\DiligentCore\Common\interface;C:\Dev\git\DE\DiligentEngine\DiligentCore\ThirdParty\SPIRV-Cross\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Platforms\Basic\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\ShaderTools\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\HLSL2GLSLConverterLib\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsEngineD3D12\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsEngine\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Common\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.5\include;C:\dev\Vivid3D\VScript;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsTools\interface;C:\Dev\git\DE\DiligentEngine\DiligentCore;C:\Dev\git\DE\DiligentEngine\DiligentTools\TextureLoader\interface;C:\Dev\git\DE\DiligentEngine\DiligentTools\TextureLoader\include;C:\Dev\Assimp\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsEngine\interface;C:\Dev\git\DE\DiligentEngine\DiligentCore\Common\interface;C:\Dev\git\DE\DiligentEngine\DiligentCore\ThirdParty\SPIRV-Cross\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Platforms\Basic\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\ShaderTools\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\HLSL2GLSLConverterLib\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsEngineD3D12\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsEngine\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Common\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -122,10 +122,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>assimp-vc143-mt.lib;VScript.lib</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc143-mt.lib;VScript.lib;cuda.lib;cudart.lib;OpenCL.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>C:\dev\Vivid3D\Vivid3D\x64\Debug;C:\Dev\Assimp\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.5\lib\x64;C:\dev\Vivid3D\Vivid3D\x64\Debug;C:\Dev\Assimp\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -148,12 +148,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CLBase.h" />
     <ClInclude Include="CubeRenderer.h" />
     <ClInclude Include="Draw2D.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="FileHelp.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Importer.h" />
+    <ClInclude Include="Intersections.h" />
     <ClInclude Include="Material2D.h" />
     <ClInclude Include="MaterialBase.h" />
     <ClInclude Include="MaterialDepth.h" />
@@ -179,11 +181,13 @@
     <ClInclude Include="VFile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CLBase.cpp" />
     <ClCompile Include="CubeRenderer.cpp" />
     <ClCompile Include="Draw2D.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="FileHelp.cpp" />
     <ClCompile Include="Importer.cpp" />
+    <ClCompile Include="Intersections.cpp" />
     <ClCompile Include="Material2D.cpp" />
     <ClCompile Include="MaterialBase.cpp" />
     <ClCompile Include="MaterialDepth.cpp" />
