@@ -1,9 +1,6 @@
-﻿  OctNode.cpp
-C:\dev\Vivid3D\VividEngine\MathsHelp.h(16,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+﻿  NodeEntity.cpp
 C:\dev\Vivid3D\VividEngine\Node.h(84,17): warning C4042: 'unnamed-parameter': has bad storage class
-  SceneOctree.cpp
-C:\dev\Vivid3D\VividEngine\MathsHelp.h(16,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-C:\dev\Vivid3D\VividEngine\Node.h(84,17): warning C4042: 'unnamed-parameter': has bad storage class
+C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(24,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
   Replacing x64\Release\pch.obj
 cuda.lib(nvcuda.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 cudart.lib(cudart64_12.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored

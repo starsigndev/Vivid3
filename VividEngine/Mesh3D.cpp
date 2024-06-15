@@ -47,7 +47,7 @@ void Mesh3D::Build() {
 
 }
 
-void Mesh3D::Render() {
+void Mesh3D::Render(bool sp) {
 
 	
 
@@ -59,8 +59,12 @@ void Mesh3D::Render() {
 	Engine::m_pImmediateContext->SetVertexBuffers(0, 1, pBuffs, &offsets, RESOURCE_STATE_TRANSITION_MODE_TRANSITION, SET_VERTEX_BUFFERS_FLAG_RESET);
 	Engine::m_pImmediateContext->SetIndexBuffer(m_Buffer->GetIndexBuffer(), 0, RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
 
-	Engine::m_pImmediateContext->CommitShaderResources(m_Material->GetSRB(), RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
-
+	if (sp) {
+		Engine::m_pImmediateContext->CommitShaderResources(m_Material->GetSecondPassSRB(), RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
+	}
+	else {
+		Engine::m_pImmediateContext->CommitShaderResources(m_Material->GetSRB(), RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
+	}
 	DrawIndexedAttribs attrib;
 	attrib.IndexType = VALUE_TYPE::VT_UINT32;
 	attrib.NumIndices = m_Tris.size() * 3;

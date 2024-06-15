@@ -12,7 +12,7 @@ SceneOctree::SceneOctree(SceneGraph *graph) {
 	m_Root = new OctNode(graph,size.Centre, size.Size());
 	//m_Root->subdivide();
 	m_Root->Process(graph);
-
+	m_Graph = graph;
 	
 	//m_Root->subdivide(0);
 
@@ -48,7 +48,11 @@ int SceneOctree::LeafCount() {
 void SceneOctree::RenderBF() {
 
 	OctNode::m_NodesRendered = 0;
-	m_Root->RenderBF();
+
+
+
+		m_Root->RenderBF(false);
+	
 
 	printf("Nodes Rendered:%d\n", OctNode::m_NodesRendered);
 }

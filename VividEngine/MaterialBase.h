@@ -20,9 +20,12 @@ public:
 	void SetVertexShader(std::string path);
 	void SetPixelShader(std::string path);
 	RefCntAutoPtr<IBuffer> CreateUniform(int size, std::string name);
-	virtual void Bind();
+	virtual void Bind(bool sp);
 	RefCntAutoPtr<IShaderResourceBinding> GetSRB() {
 		return m_SRB;
+	}
+	RefCntAutoPtr<IShaderResourceBinding> GetSecondPassSRB() {
+		return m_SecondPassSRB;
 	}
 	void SetDiffuse(Texture2D* texture);
 	void SetSpecular(Texture2D* texture);
@@ -69,7 +72,7 @@ protected:
 
 	//Basic
 	RefCntAutoPtr<IBuffer> BasicUniform;
-
+	RefCntAutoPtr<IBuffer> BasicUniform2;
 	//
 	RefCntAutoPtr<IShader> m_VS;
 	RefCntAutoPtr<IShader> m_PS;

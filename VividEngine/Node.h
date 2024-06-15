@@ -43,8 +43,8 @@ public:
 	}
 	float3 TransformVector(float3 vector);
 	virtual float4x4 GetWorldMatrix();
-	virtual void Render() {
-		RenderChildren();
+	virtual void Render(bool sp) {
+		RenderChildren(sp);
 	};
 	virtual void RenderDepth() {
 		RenderDepthChildren();
@@ -54,9 +54,9 @@ public:
 			node->RenderDepth();
 		}
 	}
-	void RenderChildren() {
+	void RenderChildren(bool sp) {
 		for (auto node : m_Nodes) {
-			node->Render();
+			node->Render(sp);
 		}
 	}
 	std::string GetName() {

@@ -40,7 +40,7 @@ void MeshLines::Render() {
 
 	Uint64 offsets = 0;
 
-	m_Material->Bind();
+	m_Material->Bind(false);
 
 	IBuffer* pBuffs[] = { m_Buffer->GetVertexBuffer() };
 

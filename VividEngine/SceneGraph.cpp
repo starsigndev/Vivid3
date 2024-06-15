@@ -90,7 +90,12 @@ void SceneGraph::Render() {
 
     }
     
-    m_RootNode->Render();
+    bool sp = false;
+    for (auto l : m_Lights) {
+        Engine::m_Light = l;
+        m_RootNode->Render(sp);
+        sp = true;
+    }
 
 	
 

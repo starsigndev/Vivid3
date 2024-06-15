@@ -41,6 +41,11 @@ VOutput::VOutput(QWidget *parent)
     m_Light1 = new NodeLight;
     m_Light1->SetPosition(float3(0, 8,0));
     m_Graph1->AddLight(m_Light1);
+
+    auto l2 = new NodeLight;
+    l2->SetPosition(float3(0, 12, 10));
+    l2->SetDiffuse(float3(0, 2, 2));
+    m_Graph1->AddLight(l2);
     
     auto cam = m_Graph1->GetCamera();
     cam->SetPosition(float3(0, 8,0));
@@ -184,7 +189,7 @@ VOutput::VOutput(QWidget *parent)
     m_LightIcon = new Texture2D("edit/icons/lighticon.png");
 
     m_Oct1 = new SceneOctree(m_Graph1);
-    int leafs = m_Oct1->LeafCount();
+    //int leafs = m_Oct1->LeafCount();
     int bb = 5;
 
 }
@@ -920,6 +925,9 @@ void VOutput::paintEvent(QPaintEvent* event)
     m_Oct1->RenderBF();
 
 
+
+
+
     Engine::ClearZ();
 
     switch (Editor::m_GizmoMode) {
@@ -951,7 +959,7 @@ void VOutput::paintEvent(QPaintEvent* event)
 
         m_Gizmo->SetScale(float3(dis, dis, dis));
 
-        m_Gizmo->Render();
+        m_Gizmo->Render(false);
     }
 
     for (auto l : m_Graph1->GetLights()) {

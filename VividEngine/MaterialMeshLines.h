@@ -7,7 +7,7 @@ public:
 
     MaterialMeshLines();
     void Create();
-    void Bind();
+    void Bind(bool sp);
 private:
 
 };

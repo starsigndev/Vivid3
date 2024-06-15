@@ -42,7 +42,7 @@ void NodeEntity::RenderDepth() {
 	Engine::m_Node = this;
 	for (auto mesh : m_Meshes) {
 	
-		mesh->GetDepthMaterial()->Bind();
+		mesh->GetDepthMaterial()->Bind(false);
 		mesh->RenderDepth();
 
 	}
@@ -51,7 +51,7 @@ void NodeEntity::RenderDepth() {
 
 }
 
-void NodeEntity::Render() {
+void NodeEntity::Render(bool sp) {
 
 //	printf("Rendering NodeEntity.\n");
 	//OutputDebugStringA("Rendering NodeEntity.\n");
@@ -60,15 +60,16 @@ void NodeEntity::Render() {
 
 
 	if (m_Enabled) {
-		for (auto light : Engine::m_Lights) {
+	
 			for (auto mesh : m_Meshes) {
-				mesh->GetMaterial()->Bind();
-				mesh->Render();
+				mesh->GetMaterial()->Bind(sp);
+				mesh->Render(sp);
+				
 
 			}
-		}
 
-		RenderChildren();
+
+		RenderChildren(sp);
 	}
 }
 

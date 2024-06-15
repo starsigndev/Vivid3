@@ -250,7 +250,7 @@ void MaterialMeshLines::Create() {
 
 }
 
-void MaterialMeshLines::Bind() {
+void MaterialMeshLines::Bind(bool sp) {
 
  
     //  m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureSpec")->Set(m_Specular->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);

@@ -1,1 +1,3 @@
-﻿  Vivid3D.vcxproj -> C:\dev\Vivid3D\Vivid3D\x64\Debug\Vivid3D.exe
+﻿  VOutput.cpp
+C:\Dev\Vivid3D\VividEngine\Node.h(84,17): warning C4042: 'unnamed-parameter': has bad storage class
+  Vivid3D.vcxproj -> C:\dev\Vivid3D\Vivid3D\x64\Debug\Vivid3D.exe

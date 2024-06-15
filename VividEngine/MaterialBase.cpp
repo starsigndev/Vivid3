@@ -287,7 +287,7 @@ void MaterialBase::SetPixelShader(std::string path) {
 
 }
 
-void MaterialBase::Bind() {
+void MaterialBase::Bind(bool sp) {
 
     m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "v_Texture")->Set(m_Diffuse->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
     //Engine::m_pImmediateContext->MapBuffer(BasicUniform, MAP_TYPE::MAP_WRITE, MAP_FLAGS::MAP_FLAG_DISCARD);

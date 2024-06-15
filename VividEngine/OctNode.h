@@ -108,22 +108,34 @@ public:
         return m_children;
     }
 
-    void RenderBF() {
+    void RenderBF(bool sp) {
         auto cam = Engine::m_Camera;
 
         if (cam->InView(m_center,m_size))
         {
             if (m_Leaf) {
 
-                m_NodesRendered++;
+             
 
-                Engine::m_Light = m_Graph->GetLights()[0];
+ 
                 Engine::m_Lights = m_Graph->GetLights();
                 Engine::m_Camera = m_Graph->GetCamera();
 
-                for (auto mesh : m_renderMeshes) {
-                    mesh->GetMaterial()->Bind();
-                    mesh->Render();
+                bool sp2 = false;
+
+                Engine::m_Lights = m_Graph->GetLights();
+                //bool sp = false;
+                for (int l = 0; l < m_Graph->GetLights().size(); l++)
+                {
+                    auto al = m_Graph->GetLights()[l];
+
+                    Engine::m_Light = al;
+                    for (auto mesh : m_renderMeshes) {
+                        mesh->GetMaterial()->Bind(sp2);
+                        mesh->Render(sp2);
+                    }
+                    m_NodesRendered++;
+                    sp2 = true;
                 }
 
             }
@@ -135,7 +147,7 @@ public:
                     if (m_children[i] != nullptr) {
 
 
-                        m_children[i]->RenderBF();
+                        m_children[i]->RenderBF(sp);
                     }
 
                 }

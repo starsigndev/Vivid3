@@ -16,7 +16,7 @@ public:
 	int MeshesCount();
 	Mesh3D* GetMesh(int index);
 	std::vector<Mesh3D*> GetMeshes();
-	void Render();
+	void Render(bool sp);
 	void RenderDepth();
 	void SetMaterial(MaterialBase* material);
 	bool IsMeshIndex(Mesh3D* mesh, int index);

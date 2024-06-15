@@ -36,7 +36,7 @@ public:
 	}
 	void SetOwner(NodeEntity* entity);
 	NodeEntity* GetOwner();
-	void Render();
+	void Render(bool sp);
 	void RenderDepth();
 	void BuildGeo();
 	std::vector<float3> GetGeo() {

@@ -256,7 +256,7 @@ void MaterialDepth::Create() {
     m_Pipeline->CreateShaderResourceBinding(&m_SRB, true);
 }
 
-void MaterialDepth::Bind() {
+void MaterialDepth::Bind(bool sp) {
 
 
     //m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_Texture")->Set(m_Diffuse->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);

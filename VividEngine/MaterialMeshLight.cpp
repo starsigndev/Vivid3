@@ -52,7 +52,7 @@ void MaterialMeshLight::Create() {
     SetPixelShader("mesh_lit.psh");
 
     BasicUniform = CreateUniform(sizeof(Constants), "Constants Uniform Buffer - MVP");
-
+    BasicUniform2 = CreateUniform(sizeof(Constants), "Constants Uniform Buffer - MVP");
     GraphicsPipelineDesc gp;
 
 
@@ -79,52 +79,6 @@ void MaterialMeshLight::Create() {
     b_desc.RenderTargets[0].DestBlend = BLEND_FACTOR::BLEND_FACTOR_ZERO;
 
 
-    LayoutElement pos;
-    LayoutElement color;
-    LayoutElement tex;
-    LayoutElement norm;
-    LayoutElement binorm;
-    LayoutElement tangent;
-
-    std::vector<LayoutElement> elements;
-
-    pos.InputIndex = 0;
-    pos.NumComponents = 3;
-    pos.ValueType = VALUE_TYPE::VT_FLOAT32;
-    pos.IsNormalized = false;
-
-    color.InputIndex = 1;
-    color.NumComponents = 4;
-    color.ValueType = VALUE_TYPE::VT_FLOAT32;
-    color.IsNormalized = false;
-
-    tex.InputIndex = 2;
-    tex.NumComponents = 3;
-    tex.ValueType = VALUE_TYPE::VT_FLOAT32;
-    tex.IsNormalized = false;
-
-    norm.InputIndex = 3;
-    norm.NumComponents = 3;
-    norm.ValueType = VALUE_TYPE::VT_FLOAT32;
-    norm.IsNormalized = false;
-
-    binorm.InputIndex = 4;
-    binorm.NumComponents = 3;
-    binorm.ValueType = VALUE_TYPE::VT_FLOAT32;
-    binorm.IsNormalized = false;
-
-    tangent.InputIndex = 5;
-    tangent.NumComponents = 3;
-    tangent.ValueType = VALUE_TYPE::VT_FLOAT32;
-    tangent.IsNormalized = false;
-
-
-    elements.push_back(pos);
-    elements.push_back(color);
-    elements.push_back(tex);
-    elements.push_back(norm);
-    elements.push_back(binorm);
-    elements.push_back(tangent);
 
     InputLayoutDesc in_desc;
 
@@ -270,59 +224,130 @@ void MaterialMeshLight::Create() {
     m_Pipeline = ps;
     m_Pipeline->GetStaticVariableByName(SHADER_TYPE_VERTEX, "Constants")->Set(BasicUniform);
     m_Pipeline->CreateShaderResourceBinding(&m_SRB, true);
+
+
+    
+
+    b_desc.RenderTargets[0].BlendEnable = true;
+    b_desc.RenderTargets[0].SrcBlend = BLEND_FACTOR::BLEND_FACTOR_ONE;
+    b_desc.RenderTargets[0].DestBlend = BLEND_FACTOR::BLEND_FACTOR_ONE;
+    gp.BlendDesc = b_desc;
+    gp_desc.GraphicsPipeline = gp;
+
+
+    RefCntAutoPtr<IPipelineState> ps2;
+
+
+    Engine::m_pDevice->CreateGraphicsPipelineState(gp_desc, &ps2);
+
+    m_SecondPassPipeline = ps2;
+    m_SecondPassPipeline->GetStaticVariableByName(SHADER_TYPE_VERTEX, "Constants")->Set(BasicUniform2);
+    m_SecondPassPipeline->CreateShaderResourceBinding(&m_SecondPassSRB, true);
+
+
 }
 
-void MaterialMeshLight::Bind() {
+void MaterialMeshLight::Bind(bool sp) {
 
-    m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_Texture")->Set(m_Diffuse->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
-   m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureNorm")->Set(m_Normal->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
-   m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "v_Shadow")->Set(Engine::m_Light->GetShadowMap()->GetTexView(), SET_SHADER_RESOURCE_FLAG_NONE);
-
+    if (sp) {
+        m_SecondPassSRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_Texture")->Set(m_Diffuse->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
+        m_SecondPassSRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureNorm")->Set(m_Normal->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
+        m_SecondPassSRB->GetVariableByName(SHADER_TYPE_PIXEL, "v_Shadow")->Set(Engine::m_Light->GetShadowMap()->GetTexView(), SET_SHADER_RESOURCE_FLAG_NONE);
+    }
+    else {
+        m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_Texture")->Set(m_Diffuse->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
+        m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureNorm")->Set(m_Normal->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
+        m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "v_Shadow")->Set(Engine::m_Light->GetShadowMap()->GetTexView(), SET_SHADER_RESOURCE_FLAG_NONE);
+    }
   //  m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureSpec")->Set(m_Specular->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
     //Engine::m_pImmediateContext->MapBuffer(BasicUniform, MAP_TYPE::MAP_WRITE, MAP_FLAGS::MAP_FLAG_DISCARD);
 
 
-    MapHelper<Constants> map_data(Engine::m_pImmediateContext, BasicUniform, MAP_WRITE, MAP_FLAG_DISCARD);
-    float FOVRadians = 45.0f * (3.14159265358979323846f / 180.0f);
+
+   if (sp) {
+
+       MapHelper<Constants> map_data(Engine::m_pImmediateContext, BasicUniform2, MAP_WRITE, MAP_FLAG_DISCARD);
+       float FOVRadians = 45.0f * (3.14159265358979323846f / 180.0f);
 
 
-    auto light = Engine::m_Lights[0];
+       auto light = Engine::m_Light;
 
-    float4x4 mvp = Engine::m_Camera->GetProjection(); //float4x4::Projection(FOVRadians, 1024.0f / 760.0f,0.01,1001,false);
-
-
-    float4x4 view = Engine::m_Camera->GetWorldMatrix();  //float4x4::Translation(float3(0,1.0f,-5)).Inverse();
-
-    float4x4 model = Engine::m_Node->GetWorldMatrix();
-
-    float4x4 id = float4x4::Identity().Inverse();
-
-    //mvp = mvp*id;
-
-    //mvp.Transpose();
+       float4x4 mvp = Engine::m_Camera->GetProjection(); //float4x4::Projection(FOVRadians, 1024.0f / 760.0f,0.01,1001,false);
 
 
-    mvp = model * view * mvp;
+       float4x4 view = Engine::m_Camera->GetWorldMatrix();  //float4x4::Translation(float3(0,1.0f,-5)).Inverse();
+
+       float4x4 model = Engine::m_Node->GetWorldMatrix();
+
+       float4x4 id = float4x4::Identity().Inverse();
+
+       //mvp = mvp*id;
+
+       //mvp.Transpose();
 
 
-    map_data[0].g_MVP = mvp.Transpose();
-    map_data[0].g_Model = model.Transpose();
-    map_data[0].g_ModelInv = model.Inverse().Transpose();
-    map_data[0].g_Proj = Engine::m_Camera->GetProjection().Transpose();
-    map_data[0].g_View = view.Transpose();
-    map_data[0].lightDiff = light->GetDiffuse();
-    map_data[0].lightPos = float4(light->GetPosition(), 1.0f);
-    map_data[0].lightSpec = float4(light->GetSpecular(),1.0f);
-    map_data[0].matDiff = float4(1, 1, 1, 1);
-    map_data[0].matSpec = float4(1, 1, 1, 1);
-    map_data[0].viewPos = float4(Engine::m_Camera->GetPosition(), 1.0);
-    map_data[0].lightProp = float4(light->GetRange(), 0, 0, 0);
+       mvp = model * view * mvp;
 
 
+       map_data[0].g_MVP = mvp.Transpose();
+       map_data[0].g_Model = model.Transpose();
+       map_data[0].g_ModelInv = model.Inverse().Transpose();
+       map_data[0].g_Proj = Engine::m_Camera->GetProjection().Transpose();
+       map_data[0].g_View = view.Transpose();
+       map_data[0].lightDiff = light->GetDiffuse();
+       map_data[0].lightPos = float4(light->GetPosition(), 1.0f);
+       map_data[0].lightSpec = float4(light->GetSpecular(), 1.0f);
+       map_data[0].matDiff = float4(1, 1, 1, 1);
+       map_data[0].matSpec = float4(1, 1, 1, 1);
+       map_data[0].viewPos = float4(Engine::m_Camera->GetPosition(), 1.0);
+       map_data[0].lightProp = float4(light->GetRange(), 0, 0, 0);
+   }
+   else {
+       MapHelper<Constants> map_data(Engine::m_pImmediateContext, BasicUniform, MAP_WRITE, MAP_FLAG_DISCARD);
+       float FOVRadians = 45.0f * (3.14159265358979323846f / 180.0f);
+
+
+       auto light = Engine::m_Light;
+
+       float4x4 mvp = Engine::m_Camera->GetProjection(); //float4x4::Projection(FOVRadians, 1024.0f / 760.0f,0.01,1001,false);
+
+
+       float4x4 view = Engine::m_Camera->GetWorldMatrix();  //float4x4::Translation(float3(0,1.0f,-5)).Inverse();
+
+       float4x4 model = Engine::m_Node->GetWorldMatrix();
+
+       float4x4 id = float4x4::Identity().Inverse();
+
+       //mvp = mvp*id;
+
+       //mvp.Transpose();
+
+
+       mvp = model * view * mvp;
+
+
+       map_data[0].g_MVP = mvp.Transpose();
+       map_data[0].g_Model = model.Transpose();
+       map_data[0].g_ModelInv = model.Inverse().Transpose();
+       map_data[0].g_Proj = Engine::m_Camera->GetProjection().Transpose();
+       map_data[0].g_View = view.Transpose();
+       map_data[0].lightDiff = light->GetDiffuse();
+       map_data[0].lightPos = float4(light->GetPosition(), 1.0f);
+       map_data[0].lightSpec = float4(light->GetSpecular(), 1.0f);
+       map_data[0].matDiff = float4(1, 1, 1, 1);
+       map_data[0].matSpec = float4(1, 1, 1, 1);
+       map_data[0].viewPos = float4(Engine::m_Camera->GetPosition(), 1.0);
+       map_data[0].lightProp = float4(light->GetRange(), 0, 0, 0);
+
+   }
 
 
     //map_data.Unmap();
 
-    Engine::m_pImmediateContext->SetPipelineState(m_Pipeline);
-
+    if (sp) {
+        Engine::m_pImmediateContext->SetPipelineState(m_SecondPassPipeline);
+    }
+    else {
+        Engine::m_pImmediateContext->SetPipelineState(m_Pipeline);
+    }
 }

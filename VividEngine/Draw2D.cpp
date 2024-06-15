@@ -53,7 +53,7 @@ void Draw2D::Rect(Texture2D* image, float2 pos, float2 size, float4 color) {
 
 	mesh->SetMaterial(m_Material);
 
-	mesh->Render();
+	mesh->Render(false);
 
 
 }
