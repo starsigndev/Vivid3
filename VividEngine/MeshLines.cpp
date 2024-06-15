@@ -4,9 +4,16 @@
 #include "Engine.h"
 #include "MaterialMeshLines.h"
 
+MaterialMeshLines* m_LUTMat = nullptr;
+
 MeshLines::MeshLines() {
 
-	m_Material = new MaterialMeshLines;
+	if (m_LUTMat == nullptr) {
+
+		m_LUTMat = new MaterialMeshLines;
+
+	}
+	m_Material = m_LUTMat;
 
 }
 

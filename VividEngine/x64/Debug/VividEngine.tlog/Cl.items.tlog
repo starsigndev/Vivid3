@@ -1,3 +1,4 @@
+C:\dev\Vivid3D\VividEngine\Bounds.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Bounds.obj
 C:\dev\Vivid3D\VividEngine\CLBase.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\CLBase.obj
 C:\dev\Vivid3D\VividEngine\CubeRenderer.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\CubeRenderer.obj
 C:\dev\Vivid3D\VividEngine\Draw2D.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Draw2D.obj
@@ -19,11 +20,13 @@ C:\dev\Vivid3D\VividEngine\Node.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Node.ob
 C:\dev\Vivid3D\VividEngine\NodeCamera.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\NodeCamera.obj
 C:\dev\Vivid3D\VividEngine\NodeEntity.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\NodeEntity.obj
 C:\dev\Vivid3D\VividEngine\NodeLight.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\NodeLight.obj
+C:\dev\Vivid3D\VividEngine\OctNode.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\OctNode.obj
 C:\dev\Vivid3D\VividEngine\ParticleEffector.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\ParticleEffector.obj
 C:\dev\Vivid3D\VividEngine\pch.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\pch.obj
 C:\dev\Vivid3D\VividEngine\Quat.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Quat.obj
 C:\dev\Vivid3D\VividEngine\RenderTargetCube.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\RenderTargetCube.obj
 C:\dev\Vivid3D\VividEngine\SceneGraph.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\SceneGraph.obj
+C:\dev\Vivid3D\VividEngine\SceneOctree.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\SceneOctree.obj
 C:\dev\Vivid3D\VividEngine\ScriptHost.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\ScriptHost.obj
 C:\dev\Vivid3D\VividEngine\Texture2D.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Texture2D.obj
 C:\dev\Vivid3D\VividEngine\VFile.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\VFile.obj

@@ -3,6 +3,7 @@
 #include "Node.h"
 
 
+class Bounds;
 class MaterialBase;
 class Mesh3D;
 
@@ -20,6 +21,8 @@ public:
 	void SetMaterial(MaterialBase* material);
 	bool IsMeshIndex(Mesh3D* mesh, int index);
 	void BuildGeo();
+	void ForceRebuild();
+	Bounds GetBounds();
 
 private:
 

@@ -13,6 +13,19 @@ class NodeLight;
 class Mesh3D;
 class CubeRenderer;
 class MeshLines;
+class Bounds;
+
+
+struct SceneInfo {
+
+	bool m_Empty = false;
+	int m_TriCount = 0;
+	int m_VertCount = 0;
+	std::vector<Node*> m_Nodes;
+	std::vector<Mesh3D*> m_Meshes;
+	std::vector<Mesh3D*> m_LocalMeshes;
+
+};
 
 struct HitResult {
 
@@ -54,6 +67,10 @@ public:
 	void Update();
 	void BeginPlay();
 	void Stop();
+	SceneInfo GetInfo(float3 centre, float3 size, bool include_local = false);
+
+	Bounds GetBounds();
+
 private:
 
 	NodeCamera* m_Camera;

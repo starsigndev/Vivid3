@@ -42,6 +42,13 @@ public:
 	std::vector<float3> GetGeo() {
 		return m_Build;
 	}
+	void NeedsRebuild() {
+		n_NeedsRebuild = true;
+	}
+	bool RebuildIf() {
+		return n_NeedsRebuild;
+	}
+	
 private:
 
 	std::vector<Vertex> m_Vertices;
@@ -52,5 +59,6 @@ private:
 	MaterialDepth* m_DepthMaterial;
 	NodeEntity* m_Owner;
 	std::vector<float3> m_Build;
+	bool n_NeedsRebuild = true;
 };
 

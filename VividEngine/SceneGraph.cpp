@@ -8,7 +8,8 @@
 #include "CubeRenderer.h"
 #include "MeshLines.h"
 #include "Intersections.h"
-
+#include "Bounds.h"
+#include "MathsHelp.h"
 std::vector<Mesh3D*> GetMeshes(Node* node, std::vector<Mesh3D*> meshes)
 {
 
@@ -440,12 +441,177 @@ void SceneGraph::BeginPlay() {
 
     m_IsPlaying = true;
     m_RootNode->BeginPlay();
-    
+
 }
 
 void SceneGraph::Stop() {
 
     m_IsPlaying = false;
     m_RootNode->Stop();
+
+}
+
+Bounds SceneGraph::GetBounds() {
+
+    Bounds res;
+    res.Min = float3(10000, 10000, 10000);
+    res.Max = float3(-10000, -10000, -10000);
+
+
+
+    std::vector<Mesh3D*> meshes;
+
+    meshes = GetMeshes(m_RootNode, meshes);
+
+    for (auto m : meshes) {
+
+        auto world = m->GetOwner()->GetWorldMatrix();
+
+        auto tris = m->GetTris();
+        auto verts = m->GetVertices();
+
+        for (auto v : verts) {
+
+            float3 npos = v.position * world;
+            if (npos.x < res.Min.x) res.Min.x = npos.x;
+            if (npos.x > res.Max.x) res.Max.x = npos.x;
+            if (npos.y < res.Min.y) res.Min.y = npos.y;
+            if (npos.y > res.Max.y) res.Max.y = npos.y;
+            if (npos.z < res.Min.z) res.Min.z = npos.z;
+            if (npos.z > res.Max.z) res.Max.z = npos.z;
+
+        }
+
+
+    }
+
+    res.Centre.x = res.Min.x + (res.Max.x - res.Min.x) / 2.0f;
+    res.Centre.y = res.Min.y + (res.Max.y - res.Min.y) / 2.0f;
+    res.Centre.z = res.Min.z + (res.Max.z - res.Min.z) / 2.0f;
+
+    return res;
+
+}
+
+
+
+
+SceneInfo InfoProcessNode(Node* node, float3 centre, float3 size, SceneInfo info)
+{
+
+    auto pos = node->GetPosition();
+
+    if (MathsHelp::IsPositionInsideBounds(centre, size, pos)) {
+        info.m_Nodes.push_back(node);
+    }
+
+    if (dynamic_cast<NodeEntity*>(node) != nullptr) {
+
+        auto ent = (NodeEntity*)node;
+        bool any = false;
+        for (auto mesh : ent->GetMeshes()) {
+
+            auto tris = mesh->GetTris();
+            auto verts = mesh->GetVertices();
+
+            for (auto t : tris) {
+
+                auto v0 = verts[t.v0];
+                auto v1 = verts[t.v1];
+                auto v2 = verts[t.v2];
+
+                if (MathsHelp::IsPositionInsideBounds(centre, size, v0.position) || MathsHelp::IsPositionInsideBounds(centre, size, v1.position) || MathsHelp::IsPositionInsideBounds(centre, size, v2.position))
+                {
+
+                    if (std::find(info.m_Meshes.begin(), info.m_Meshes.end(), mesh) != info.m_Meshes.end()) {
+
+                    }
+                    else {
+                        info.m_Meshes.push_back(mesh);
+                    }
+
+
+                    info.m_TriCount++;
+                    info.m_VertCount += 3;
+
+                };
+
+
+
+            };
+
+        }
+
+
+    }
+    for (auto sub : node->GetNodes()) {
+
+        info = InfoProcessNode(sub, centre, size, info);
+
+    }
+
+    return info;
+}
+
+SceneInfo SceneGraph::GetInfo(float3 centre, float3 size,bool inc_local) {
+
+    SceneInfo info;
+
+    info = InfoProcessNode(m_RootNode, centre, size, info);
+
+    if (inc_local) {
+        for (auto mesh : info.m_Meshes) {
+
+            auto tris = mesh->GetTris();
+            auto verts = mesh->GetVertices();
+
+            Mesh3D* new_mesh = nullptr;
+            int vi = 0;
+
+            for (auto t : tris) {
+
+                auto v0 = verts[t.v0];
+                auto v1 = verts[t.v1];
+                auto v2 = verts[t.v2];
+
+                if (MathsHelp::IsPositionInsideBounds(centre, size, v0.position) || MathsHelp::IsPositionInsideBounds(centre, size, v1.position) || MathsHelp::IsPositionInsideBounds(centre, size, v2.position))
+                {
+
+              
+                        if (new_mesh == nullptr) {
+
+                            new_mesh = new Mesh3D;
+                            info.m_LocalMeshes.push_back(new_mesh);
+                            new_mesh->SetMaterial(mesh->GetMaterial());
+                            vi = 0;
+                        }
+
+                        new_mesh->AddVertex(v0, false);
+                        new_mesh->AddVertex(v1, false);
+                        new_mesh->AddVertex(v2, false);
+                        Triangle t1, t2;
+                        t1.v0 = vi;
+                        t1.v1 = vi + 1;
+                        t1.v2 = vi + 2;
+                        new_mesh->AddTri(t1);
+                        new_mesh->AddTri(t2);
+                        vi = vi + 3;
+
+                    
+                    //info.m_Meshes.push_back(mesh);
+                }
+                //info.m_TriCount++;
+                //info.m_VertCount += 3;
+
+
+            };
+
+
+
+        };
+    }
+
+
+    return info;
 
 }

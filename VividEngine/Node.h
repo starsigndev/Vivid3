@@ -81,7 +81,8 @@ public:
 	virtual void Push();
 	virtual void Pop();
 	virtual void BuildGeo(){};
-
+	void SetStatic(bool static);
+	bool GetStatic();
 protected:
 
 	std::string m_Name;
@@ -103,7 +104,7 @@ protected:
 	float4x4 m_PushedRotation;
 	float3 m_PushedPosition;
 	float3 m_PushedScale; 
-
+	bool m_Static = true;
 
 };
 

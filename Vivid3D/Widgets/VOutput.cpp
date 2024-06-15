@@ -14,6 +14,7 @@
 #include "VPropertyEditor.h"
 #include "Draw2D.h"
 #include "Texture2D.h"
+#include "SceneOctree.h"
 #include "ScriptHost.h"
 
 VOutput::VOutput(QWidget *parent)
@@ -181,6 +182,11 @@ VOutput::VOutput(QWidget *parent)
     m_Draw = new Draw2D;
     m_Tex1 = new Texture2D("test/test1.png");
     m_LightIcon = new Texture2D("edit/icons/lighticon.png");
+
+    m_Oct1 = new SceneOctree(m_Graph1);
+    int leafs = m_Oct1->LeafCount();
+    int bb = 5;
+
 }
 
 
@@ -320,7 +326,12 @@ void VOutput::mousePressEvent(QMouseEvent* event)
             break;
         }
 
+        int ts = clock();
+
         auto res1 = m_Graph1->MousePick(m_MousePosition.x(), m_MousePosition.y());
+        int fs = clock() - ts;
+        printf("Pick Time:%d\n", fs);
+        
         if (res1.m_Hit) {
             Editor::m_CurrentNode = res1.m_Entity;
             Editor::m_SceneGraph->SetNode((Node*)res1.m_Entity);
@@ -354,6 +365,7 @@ void VOutput::mouseReleaseEvent(QMouseEvent* event)
 {
     if (event->button() == Qt::LeftButton)
     {
+      
         m_LockX = false;
         m_LockY = false;
         m_LockZ = false;
@@ -904,7 +916,8 @@ void VOutput::paintEvent(QPaintEvent* event)
 
     m_Graph1->RenderShadows();
  
-    m_Graph1->Render();
+    //m_Graph1->Render();
+    m_Oct1->RenderBF();
 
 
     Engine::ClearZ();

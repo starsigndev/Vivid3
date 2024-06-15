@@ -3,6 +3,8 @@
 #include <QWidget>
 #include "ui_VOutput.h"
 
+class SceneOctree;
+
 #ifndef ENGINE_DLL
 #    define ENGINE_DLL 1
 #endif
@@ -136,4 +138,5 @@ private:
 	Draw2D* m_Draw;
 	Texture2D* m_Tex1;
 	Texture2D* m_LightIcon;
+	SceneOctree* m_Oct1;
 };

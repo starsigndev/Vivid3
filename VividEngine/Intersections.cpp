@@ -23,8 +23,11 @@ void CL_CALLBACK errorCallback(cl_int err, const char* msg, void* data) {
 CastResult Intersections::CastMesh(float3 pos, float3 dir, Mesh3D* mesh) {
 
  
+    if (mesh->RebuildIf()) {
+        mesh->BuildGeo();
+    }
     int num_tris = mesh->GetTris().size();
-   std::vector<float3> tri_data;
+    std::vector<float3> tri_data(num_tris * 3);
 
 
     tri_data = mesh->GetGeo();

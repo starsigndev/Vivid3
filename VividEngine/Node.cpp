@@ -196,8 +196,15 @@ std::vector<Node*> Node::GetNodes()
 
 void Node::SetPosition(float3 position) {
 
+	if (position.x == m_Position.x && position.y == m_Position.y && position.z == m_Position.z)
+	{
+		return;
+	}
 	m_Position = position;
+	
+	
 	BuildGeo();
+
 
 }
 
@@ -425,5 +432,17 @@ void Node::Pop() {
 	m_Position = m_PushedPosition;
 	m_Rotation = m_PushedRotation;
 	m_Scale = m_PushedScale;
+
+}
+
+void Node::SetStatic(bool static) {
+
+	m_Static;
+	
+}
+
+bool Node::GetStatic() {
+
+	return m_Static;
 
 }

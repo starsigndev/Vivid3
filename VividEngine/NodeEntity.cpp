@@ -109,8 +109,22 @@ void NodeEntity::BuildGeo() {
 	int b = 5;
 	for (auto m : m_Meshes) {
 
-		m->BuildGeo();
+		//m->BuildGeo();
+		m->NeedsRebuild();
 		
+	}
+
+}
+
+void NodeEntity::ForceRebuild() {
+
+	//BuildGeo();
+
+	for (auto m : m_Meshes) {
+
+	
+		m->BuildGeo();
+
 	}
 
 }

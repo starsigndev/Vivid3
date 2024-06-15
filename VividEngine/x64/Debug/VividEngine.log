@@ -1,9 +1,15 @@
-﻿  SceneGraph.cpp
-  opencl.hpp: CL_HPP_TARGET_OPENCL_VERSION is not defined. It will default to 300 (OpenCL 3.0)
+﻿  OctNode.cpp
+C:\dev\Vivid3D\VividEngine\MathsHelp.h(16,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\dev\Vivid3D\VividEngine\Node.h(84,17): warning C4042: 'unnamed-parameter': has bad storage class
+  SceneOctree.cpp
+C:\dev\Vivid3D\VividEngine\MathsHelp.h(16,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\dev\Vivid3D\VividEngine\Node.h(84,17): warning C4042: 'unnamed-parameter': has bad storage class
+  Generating Code...
   Replacing x64\Debug\pch.obj
 cuda.lib(nvcuda.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 cudart.lib(cudart64_12.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 OpenCL.lib(OpenCL.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
+OctNode.obj : warning LNK4006: "int subs" (?subs@@3HA) already defined in SceneOctree.obj; second definition ignored
 Importer.obj : warning LNK4006: "public: struct aiScene const * __cdecl Assimp::Importer::ReadFile(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,unsigned int)" (?ReadFile@Importer@Assimp@@QEAAPEBUaiScene@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@I@Z) already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 Importer.obj : warning LNK4006: "public: unsigned int __cdecl aiMaterial::GetTextureCount(enum aiTextureType)const " (?GetTextureCount@aiMaterial@@QEBAIW4aiTextureType@@@Z) already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 Importer.obj : warning LNK4006: "public: enum aiReturn __cdecl aiMaterial::GetTexture(enum aiTextureType,unsigned int,struct aiString *,enum aiTextureMapping *,unsigned int *,float *,enum aiTextureOp *,enum aiTextureMapMode *)const " (?GetTexture@aiMaterial@@QEBA?AW4aiReturn@@W4aiTextureType@@IPEAUaiString@@PEAW4aiTextureMapping@@PEAIPEAMPEAW4aiTextureOp@@PEAW4aiTextureMapMode@@@Z) already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored

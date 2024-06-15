@@ -64,6 +64,9 @@
     <Filter Include="Cuda">
       <UniqueIdentifier>{3c140935-ca68-4228-80b0-10ed87f87b3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Octree">
+      <UniqueIdentifier>{f5ef9e20-1b22-453f-b016-ae862e0fa933}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -159,6 +162,15 @@
     <ClInclude Include="CLBase.h">
       <Filter>Cuda</Filter>
     </ClInclude>
+    <ClInclude Include="SceneOctree.h">
+      <Filter>Octree</Filter>
+    </ClInclude>
+    <ClInclude Include="OctNode.h">
+      <Filter>Octree</Filter>
+    </ClInclude>
+    <ClInclude Include="Bounds.h">
+      <Filter>Maths</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VividEngine.cpp">
@@ -250,6 +262,15 @@
     </ClCompile>
     <ClCompile Include="CLBase.cpp">
       <Filter>Cuda</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneOctree.cpp">
+      <Filter>Octree</Filter>
+    </ClCompile>
+    <ClCompile Include="OctNode.cpp">
+      <Filter>Octree</Filter>
+    </ClCompile>
+    <ClCompile Include="Bounds.cpp">
+      <Filter>Maths</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
