@@ -24,7 +24,7 @@ public:
 	void ForceRebuild();
 	Bounds GetBounds();
 
-private:
+protected:
 
 	std::vector<Mesh3D*> m_Meshes;
 

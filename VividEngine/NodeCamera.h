@@ -37,7 +37,7 @@ public:
     void SetFov(float fov) {
         m_FOV = fov;
     }
-    bool InView(float3 centre, float3 size);
+    int InView(float3 centre, float3 size);
 private:
 
     float m_NearZ = 0.1f;

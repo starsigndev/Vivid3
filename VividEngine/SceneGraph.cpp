@@ -74,6 +74,8 @@ void SceneGraph::RenderShadows() {
 void SceneGraph::RenderDepth() {
 
     Engine::m_Camera = m_Camera;
+    Engine::m_Light = m_Lights[0];
+    Engine::m_Lights = m_Lights;
     m_RootNode->RenderDepth();
 
 }

@@ -67,6 +67,9 @@
     <Filter Include="Octree">
       <UniqueIdentifier>{f5ef9e20-1b22-453f-b016-ae862e0fa933}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Anim">
+      <UniqueIdentifier>{32cb1ba0-b3be-4e4c-94d7-4d945bea737a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -171,6 +174,27 @@
     <ClInclude Include="Bounds.h">
       <Filter>Maths</Filter>
     </ClInclude>
+    <ClInclude Include="NodeActor.h">
+      <Filter>Scene\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneInfo.h">
+      <Filter>Anim</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Anim</Filter>
+    </ClInclude>
+    <ClInclude Include="Bone.h">
+      <Filter>Anim</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Anim</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialActorLight.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialActorDepth.h">
+      <Filter>Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VividEngine.cpp">
@@ -271,6 +295,27 @@
     </ClCompile>
     <ClCompile Include="Bounds.cpp">
       <Filter>Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeActor.cpp">
+      <Filter>Scene\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="BoneInfo.cpp">
+      <Filter>Anim</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Anim</Filter>
+    </ClCompile>
+    <ClCompile Include="Bone.cpp">
+      <Filter>Anim</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Anim</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialActorLight.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialActorDepth.cpp">
+      <Filter>Material</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

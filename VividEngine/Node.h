@@ -74,7 +74,7 @@ public:
 	bool GetEnabled() {
 		return m_Enabled;
 	}
-	void Update();
+	virtual void Update();
 	void AddScript(std::string path);
 	void BeginPlay();
 	void Stop();

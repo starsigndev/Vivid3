@@ -108,10 +108,18 @@ public:
         return m_children;
     }
 
-    void RenderBF(bool sp) {
+    void RenderBF(bool sp,int in) {
         auto cam = Engine::m_Camera;
 
-        if (cam->InView(m_center,m_size))
+        //in = 0;
+
+        if (in == 2) {
+//            int b = 5;
+        }
+        else {
+            in = cam->InView(m_center, m_size);
+        }
+        if(in>0)
         {
             if (m_Leaf) {
 
@@ -146,8 +154,8 @@ public:
                 for (int i = 0; i < 8; i++) {
                     if (m_children[i] != nullptr) {
 
-
-                        m_children[i]->RenderBF(sp);
+                        
+                        m_children[i]->RenderBF(sp,in);
                     }
 
                 }
@@ -166,7 +174,7 @@ private:
 	std::vector<OctNode*> m_children;  // Children nodes
     std::vector<Mesh3D*> m_renderMeshes;
     int m_totalTris;
-    int m_TriTH = 30000;
+    int m_TriTH = 90000;
     SceneGraph* m_Graph;
     bool m_Leaf = false;
     SceneInfo m_NodeInfo;

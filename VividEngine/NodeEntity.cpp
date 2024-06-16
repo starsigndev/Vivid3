@@ -42,6 +42,7 @@ void NodeEntity::RenderDepth() {
 	Engine::m_Node = this;
 	for (auto mesh : m_Meshes) {
 	
+		if (mesh->GetDepthMaterial() == nullptr) continue;
 		mesh->GetDepthMaterial()->Bind(false);
 		mesh->RenderDepth();
 

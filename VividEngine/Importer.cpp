@@ -13,8 +13,25 @@
 #include "MaterialDepth.h"
 #include <filesystem>
 #include "Texture2D.h"
+#include "NodeActor.h"
+#include "Animator.h"
+#include "Animation.h"
+#include "MaterialActorLight.h"
+#include "MaterialActorDepth.h"
 namespace fs = std::filesystem;
 using namespace Diligent;
+std::string ExtractFilename(const std::string& path) {
+    // Find the last occurrence of the directory separator
+    size_t lastSlash = path.find_last_of("/\\");
+    if (lastSlash == std::string::npos) {
+        // No directory separator found, return the entire path
+        return path;
+    }
+    else {
+        // Extract the substring after the last directory separator
+        return path.substr(lastSlash + 1);
+    }
+}
 
 std::string getDirectoryPath(const std::string& fullPath) {
     size_t lastSlashPos = fullPath.find_last_of("/\\");
@@ -184,4 +201,123 @@ Node* Importer::ImportNode(std::string path) {
     return (Node*)root;
 
 
+}
+
+Node* Importer::ImportActor(std::string path) {
+
+
+    Assimp::Importer importer;
+
+    // Define import flags (e.g., to triangulate polygons)
+    unsigned int flags = aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_GenNormals;
+
+    // Load the scene from the file
+    const aiScene* scene = importer.ReadFile(path, flags);
+
+    if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+    {
+        std::cerr << "Error: " << importer.GetErrorString() << std::endl;
+        return nullptr;
+    }
+
+    NodeActor* result = new NodeActor;
+
+    std::string path_alone = getDirectoryPath(path);
+
+    std::string mat_path = path_alone + "Material/";
+
+    int b = 6;
+    fs::create_directory(mat_path);
+
+
+    std::vector<MaterialBase*> materials;
+
+    for (int i = 0; i < scene->mNumMaterials; i++) {
+
+        auto mat = scene->mMaterials[i];
+        auto name = std::string(mat->GetName().C_Str());
+
+        auto v_mat = new MaterialActorLight;
+
+        std::string check = mat_path + name + ".material";
+
+        auto lmat = Engine::FindActiveMaterial(check);
+
+        if (lmat != nullptr) {
+            materials.push_back(lmat);
+            continue;
+        }
+
+        if (VFile::Exists(check.c_str())) {
+
+            v_mat->LoadMaterial(check);
+            materials.push_back(v_mat);
+            Engine::m_ActiveMaterials.push_back(v_mat);
+            continue;
+
+        }
+
+        Engine::m_ActiveMaterials.push_back(v_mat);
+        materials.push_back(v_mat);
+
+        for (unsigned int j = 0; j < mat->GetTextureCount(aiTextureType_DIFFUSE); ++j) {
+            aiString str;
+           
+            mat->GetTexture(aiTextureType_DIFFUSE, j, &str);
+            str = ExtractFilename(str.C_Str()).c_str();
+            v_mat->SetDiffuse(new Texture2D(path_alone + getFilename(std::string(str.C_Str()))));
+            //GLuint textureID = LoadTextureFromFile(directory + '/' + str.C_Str());
+            std::cout << "Loaded diffuse texture ID:  for texture " << str.C_Str() << std::endl;
+        }
+
+        // Load specular textures
+        for (unsigned int j = 0; j < mat->GetTextureCount(aiTextureType_SPECULAR); ++j) {
+            aiString str;
+            mat->GetTexture(aiTextureType_SPECULAR, j, &str);
+            str = ExtractFilename(str.C_Str()).c_str();
+            v_mat->SetSpecular(new Texture2D(path_alone + std::string(str.C_Str())));
+            //GLuint textureID = LoadTextureFromFile(directory + '/' + str.C_Str());
+            std::cout << "Loaded specular texture ID: for texture " << str.C_Str() << std::endl;
+        }
+
+        // Load normal textures (height maps in Assimp terminology)
+        for (unsigned int j = 0; j < mat->GetTextureCount(aiTextureType_NORMALS); ++j) {
+            aiString str;
+
+            mat->GetTexture(aiTextureType_NORMALS, j, &str);
+            str = ExtractFilename(str.C_Str()).c_str();
+            v_mat->SetNormals(new Texture2D(path_alone + std::string(str.C_Str())));
+            //GLuint textureID = LoadTextureFromFile(directory + '/' + str.C_Str());
+            std::cout << "Loaded normal texture ID: for texture " << str.C_Str() << std::endl;
+        }
+
+        int b = 5;
+        v_mat->SaveMaterial(mat_path + name + ".material");
+
+    }
+
+
+    for (int i = 0; i < scene->mNumMeshes;i++) {
+
+        //Mesh3D* mesh = new Mesh3D((NodeEntity*)result);
+        auto mesh = result->ProcessMesh(scene->mMeshes[i],(aiScene*)scene,false);
+
+        mesh->Build();
+
+
+        mesh->SetMaterial(materials[scene->mMeshes[i]->mMaterialIndex]);
+
+        mesh->SetDepthMaterial(new MaterialActorDepth);
+
+    }
+
+
+    auto anim = new Animation((aiScene*)scene, scene->mAnimations[0], result);
+    auto animator = new Animator(anim);
+    result->SetAnimator(animator);
+
+
+
+
+    return result;
 }

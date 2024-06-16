@@ -35,6 +35,7 @@ c:\dev\vivid3d\vscript\x64\debug\vscript.obj
 c:\dev\vivid3d\vscript\x64\debug\vscope.obj
 c:\dev\vivid3d\vscript\x64\debug\vreturn.obj
 c:\dev\vivid3d\vscript\x64\debug\vparser.obj
+c:\dev\vivid3d\vscript\x64\debug\vforeach.obj
 c:\dev\vivid3d\vivid3d\x64\debug\vscript.lib
 c:\dev\vivid3d\vscript\x64\debug\vscript.tlog\cl.command.1.tlog
 c:\dev\vivid3d\vscript\x64\debug\vscript.tlog\cl.items.tlog

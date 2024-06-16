@@ -9,6 +9,7 @@
 #include "MaterialBase.h"
 #include "Mesh3D.h"
 #include "VSceneGraph.h"
+#include "NodeActor.h"
 #include "MeshLines.h"
 #include "MathsHelp.h"
 #include "VPropertyEditor.h"
@@ -37,15 +38,18 @@ VOutput::VOutput(QWidget *parent)
     m_Import = new Importer;
     m_Graph1 = new SceneGraph;
     m_Node1 = (NodeEntity*)m_Import->ImportNode("test/mesh1.fbx");
+    m_Act1 = (NodeActor*)m_Import->ImportActor("test/act2.fbx");
+    m_Act1->SetScale(float3(0.1, 0.1, 0.1));
     m_Graph1->AddNode((Node*)m_Node1);
     m_Light1 = new NodeLight;
     m_Light1->SetPosition(float3(0, 8,0));
     m_Graph1->AddLight(m_Light1);
+    m_Graph1->AddNode((Node*)m_Act1);
 
     auto l2 = new NodeLight;
     l2->SetPosition(float3(0, 12, 10));
     l2->SetDiffuse(float3(0, 2, 2));
-    m_Graph1->AddLight(l2);
+  //  m_Graph1->AddLight(l2);
     
     auto cam = m_Graph1->GetCamera();
     cam->SetPosition(float3(0, 8,0));
@@ -188,10 +192,10 @@ VOutput::VOutput(QWidget *parent)
     m_Tex1 = new Texture2D("test/test1.png");
     m_LightIcon = new Texture2D("edit/icons/lighticon.png");
 
-    m_Oct1 = new SceneOctree(m_Graph1);
+   // m_Oct1 = new SceneOctree(m_Graph1);
     //int leafs = m_Oct1->LeafCount();
     int bb = 5;
-
+   
 }
 
 
@@ -921,10 +925,17 @@ void VOutput::paintEvent(QPaintEvent* event)
 
     m_Graph1->RenderShadows();
  
-    //m_Graph1->Render();
-    m_Oct1->RenderBF();
+    int ss = clock();
+
+    m_Act1->Update();
+
+    m_Graph1->Render();
+    //m_Oct1->RenderBF();
 
 
+    int ts = clock() - ss;
+
+    printf("RenderTime:%d\n", ts);
 
 
 

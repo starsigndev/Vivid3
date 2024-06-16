@@ -17,6 +17,8 @@ void Mesh3D::AddVertex(Vertex vertex,bool reset) {
 	if (reset) {
 		//vertex.bone_ids = float4(-1, -1, -1, -1);
 		//vertex.bone_weights = float4(0, 0, 0, 0);
+		vertex.bone_ids = float4(-1, -1, -1, -1);
+		vertex.bone_weights = float4(0, 0, 0, 0);
 	}
 	m_Vertices.push_back(vertex);
 }

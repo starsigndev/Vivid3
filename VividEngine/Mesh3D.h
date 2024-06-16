@@ -25,12 +25,12 @@ public:
 	void SetMaterial(MaterialBase* material) {
 		m_Material = material;
 	}
-	MaterialDepth* GetDepthMaterial()
+	MaterialBase* GetDepthMaterial()
 	{
 		return m_DepthMaterial;
 	}
 
-	void SetDepthMaterial(MaterialDepth* depth)
+	void SetDepthMaterial(MaterialBase* depth)
 	{
 		m_DepthMaterial = depth;
 	}
@@ -48,7 +48,12 @@ public:
 	bool RebuildIf() {
 		return n_NeedsRebuild;
 	}
-	
+	Vertex GetVertex(int num) {
+		return m_Vertices[num];
+	}
+	void SetVertex(int index,Vertex vertex) {
+		m_Vertices[index] = vertex;
+	}
 private:
 
 	std::vector<Vertex> m_Vertices;
@@ -56,7 +61,7 @@ private:
 	//
 	MeshBuffer* m_Buffer;
 	MaterialBase* m_Material;
-	MaterialDepth* m_DepthMaterial;
+	MaterialBase* m_DepthMaterial;
 	NodeEntity* m_Owner;
 	std::vector<float3> m_Build;
 	bool n_NeedsRebuild = true;

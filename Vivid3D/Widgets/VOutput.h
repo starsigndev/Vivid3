@@ -83,6 +83,7 @@ using namespace Diligent;
 class MeshLines;
 class Draw2D;
 class Texture2D;
+class NodeActor;
 
 class VOutput : public QWidget
 {
@@ -122,6 +123,7 @@ private:
 	NodeEntity* m_Node1;
 	NodeCamera* m_EditCamera;
 	NodeLight* m_Light1;
+	NodeActor* m_Act1;
 	float m_ViewPitch = 0;
 	float m_ViewYaw = 0;
 	bool m_CamRotate = false;

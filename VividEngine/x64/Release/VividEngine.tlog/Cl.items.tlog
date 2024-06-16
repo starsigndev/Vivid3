@@ -1,3 +1,4 @@
+C:\dev\Vivid3D\VividEngine\BoneInfo.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\BoneInfo.obj
 C:\dev\Vivid3D\VividEngine\Bounds.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\Bounds.obj
 C:\dev\Vivid3D\VividEngine\CLBase.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\CLBase.obj
 C:\dev\Vivid3D\VividEngine\CubeRenderer.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\CubeRenderer.obj
@@ -17,6 +18,7 @@ C:\dev\Vivid3D\VividEngine\MeshBuffer.cpp;C:\dev\Vivid3D\VividEngine\x64\Release
 C:\dev\Vivid3D\VividEngine\MeshLines.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MeshLines.obj
 C:\dev\Vivid3D\VividEngine\MeshLinesBuffer.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MeshLinesBuffer.obj
 C:\dev\Vivid3D\VividEngine\Node.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\Node.obj
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\NodeActor.obj
 C:\dev\Vivid3D\VividEngine\NodeCamera.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\NodeCamera.obj
 C:\dev\Vivid3D\VividEngine\NodeEntity.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\NodeEntity.obj
 C:\dev\Vivid3D\VividEngine\NodeLight.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\NodeLight.obj

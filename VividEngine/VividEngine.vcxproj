@@ -155,6 +155,10 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="Animator.h" />
+    <ClInclude Include="Bone.h" />
+    <ClInclude Include="BoneInfo.h" />
     <ClInclude Include="Bounds.h" />
     <ClInclude Include="CLBase.h" />
     <ClInclude Include="CubeRenderer.h" />
@@ -165,6 +169,8 @@
     <ClInclude Include="Importer.h" />
     <ClInclude Include="Intersections.h" />
     <ClInclude Include="Material2D.h" />
+    <ClInclude Include="MaterialActorDepth.h" />
+    <ClInclude Include="MaterialActorLight.h" />
     <ClInclude Include="MaterialBase.h" />
     <ClInclude Include="MaterialDepth.h" />
     <ClInclude Include="MaterialMeshLight.h" />
@@ -175,6 +181,7 @@
     <ClInclude Include="MeshLines.h" />
     <ClInclude Include="MeshLinesBuffer.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="NodeActor.h" />
     <ClInclude Include="NodeCamera.h" />
     <ClInclude Include="NodeEntity.h" />
     <ClInclude Include="NodeLight.h" />
@@ -191,6 +198,10 @@
     <ClInclude Include="VFile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="Bone.cpp" />
+    <ClCompile Include="BoneInfo.cpp" />
     <ClCompile Include="Bounds.cpp" />
     <ClCompile Include="CLBase.cpp" />
     <ClCompile Include="CubeRenderer.cpp" />
@@ -200,6 +211,8 @@
     <ClCompile Include="Importer.cpp" />
     <ClCompile Include="Intersections.cpp" />
     <ClCompile Include="Material2D.cpp" />
+    <ClCompile Include="MaterialActorDepth.cpp" />
+    <ClCompile Include="MaterialActorLight.cpp" />
     <ClCompile Include="MaterialBase.cpp" />
     <ClCompile Include="MaterialDepth.cpp" />
     <ClCompile Include="MaterialMeshLight.cpp" />
@@ -210,6 +223,7 @@
     <ClCompile Include="MeshLines.cpp" />
     <ClCompile Include="MeshLinesBuffer.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="NodeActor.cpp" />
     <ClCompile Include="NodeCamera.cpp" />
     <ClCompile Include="NodeEntity.cpp" />
     <ClCompile Include="NodeLight.cpp" />

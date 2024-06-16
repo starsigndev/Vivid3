@@ -1,3 +1,7 @@
+C:\dev\Vivid3D\VividEngine\Animation.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Animation.obj
+C:\dev\Vivid3D\VividEngine\Animator.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Animator.obj
+C:\dev\Vivid3D\VividEngine\Bone.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Bone.obj
+C:\dev\Vivid3D\VividEngine\BoneInfo.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\BoneInfo.obj
 C:\dev\Vivid3D\VividEngine\Bounds.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Bounds.obj
 C:\dev\Vivid3D\VividEngine\CLBase.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\CLBase.obj
 C:\dev\Vivid3D\VividEngine\CubeRenderer.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\CubeRenderer.obj
@@ -7,6 +11,8 @@ C:\dev\Vivid3D\VividEngine\FileHelp.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Fil
 C:\dev\Vivid3D\VividEngine\Importer.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Importer.obj
 C:\dev\Vivid3D\VividEngine\Intersections.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Intersections.obj
 C:\dev\Vivid3D\VividEngine\Material2D.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Material2D.obj
+C:\dev\Vivid3D\VividEngine\MaterialActorDepth.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialActorDepth.obj
+C:\dev\Vivid3D\VividEngine\MaterialActorLight.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialActorLight.obj
 C:\dev\Vivid3D\VividEngine\MaterialBase.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialBase.obj
 C:\dev\Vivid3D\VividEngine\MaterialDepth.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialDepth.obj
 C:\dev\Vivid3D\VividEngine\MaterialMeshLight.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialMeshLight.obj
@@ -17,6 +23,7 @@ C:\dev\Vivid3D\VividEngine\MeshBuffer.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\M
 C:\dev\Vivid3D\VividEngine\MeshLines.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MeshLines.obj
 C:\dev\Vivid3D\VividEngine\MeshLinesBuffer.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MeshLinesBuffer.obj
 C:\dev\Vivid3D\VividEngine\Node.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Node.obj
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\NodeActor.obj
 C:\dev\Vivid3D\VividEngine\NodeCamera.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\NodeCamera.obj
 C:\dev\Vivid3D\VividEngine\NodeEntity.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\NodeEntity.obj
 C:\dev\Vivid3D\VividEngine\NodeLight.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\NodeLight.obj

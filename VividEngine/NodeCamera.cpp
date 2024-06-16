@@ -23,7 +23,7 @@ float4x4 NodeCamera::GetWorldMatrix() {
 
 }
 
-bool NodeCamera::InView(float3 centre, float3 size) {
+int NodeCamera::InView(float3 centre, float3 size) {
     float4x4 viewProjMatrix = GetWorldMatrix() * GetProjection();
     float4x4 vpMatrix = viewProjMatrix;
     // Frustum planes from view-projection matrix
@@ -61,19 +61,23 @@ bool NodeCamera::InView(float3 centre, float3 size) {
         { centre.x + halfSize.x, centre.y + halfSize.y, centre.z + halfSize.z }
     };
 
+    bool fullyInside = true;
     for (int i = 0; i < 6; ++i) {
-        bool outside = true;
+        int insideCount = 0;
         for (const auto& corner : corners) {
             float distance = planes[i].x * corner.x + planes[i].y * corner.y + planes[i].z * corner.z + planes[i].w;
             if (distance >= 0) {
-                outside = false;
-                break;
+                insideCount++;
             }
         }
-        if (outside) {
-            return false;
+        if (insideCount == 0) {
+            // All corners are outside this plane
+            return 0; // Fully hidden
+        }
+        else if (insideCount != 8) {
+            fullyInside = false;
         }
     }
 
-    return true;
+    return fullyInside ? 2 : 1;
 }
