@@ -18,6 +18,7 @@
 #include "Animation.h"
 #include "MaterialActorLight.h"
 #include "MaterialActorDepth.h"
+#include "MaterialMeshPBR.h"
 namespace fs = std::filesystem;
 using namespace Diligent;
 std::string ExtractFilename(const std::string& path) {
@@ -60,7 +61,7 @@ Node* Importer::ImportNode(std::string path) {
     Assimp::Importer importer;
 
     // Define import flags (e.g., to triangulate polygons)
-    unsigned int flags = aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_GenNormals;
+    unsigned int flags = aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_GenSmoothNormals;
 
     // Load the scene from the file
     const aiScene* scene = importer.ReadFile(path, flags);
@@ -90,7 +91,7 @@ Node* Importer::ImportNode(std::string path) {
         auto mat = scene->mMaterials[i];
         auto name = std::string(mat->GetName().C_Str());
 
-        auto v_mat = new MaterialMeshLight;
+        auto v_mat = new MaterialMeshPBR;
 
         std::string check = mat_path + name + ".material";
 
@@ -103,7 +104,7 @@ Node* Importer::ImportNode(std::string path) {
 
         if (VFile::Exists(check.c_str())) {
 
-            v_mat->LoadMaterial(check);
+            v_mat = (MaterialMeshPBR*)MaterialBase::LoadMaterial(check);
             materials.push_back(v_mat);
             Engine::m_ActiveMaterials.push_back(v_mat);
             continue;
@@ -132,10 +133,27 @@ Node* Importer::ImportNode(std::string path) {
         }
 
         // Load normal textures (height maps in Assimp terminology)
-        for (unsigned int j = 0; j < mat->GetTextureCount(aiTextureType_HEIGHT); ++j) {
+        for (unsigned int j = 0; j < mat->GetTextureCount(aiTextureType_NORMALS); ++j) {
             aiString str;
 
-            mat->GetTexture(aiTextureType_HEIGHT, j, &str);
+            mat->GetTexture(aiTextureType_NORMALS, j, &str);
+            v_mat->SetNormals(new Texture2D(path_alone + std::string(str.C_Str())));
+            //GLuint textureID = LoadTextureFromFile(directory + '/' + str.C_Str());
+            std::cout << "Loaded normal texture ID: for texture " << str.C_Str() << std::endl;
+        }
+        for (unsigned int j = 0; j < mat->GetTextureCount(aiTextureType_METALNESS); ++j) {
+            aiString str;
+
+            mat->GetTexture(aiTextureType_METALNESS, j, &str);
+            v_mat->SetMetal(new Texture2D(path_alone + std::string(str.C_Str())));
+            //GLuint textureID = LoadTextureFromFile(directory + '/' + str.C_Str());
+            std::cout << "Loaded normal texture ID: for texture " << str.C_Str() << std::endl;
+        }
+
+        for (unsigned int j = 0; j < mat->GetTextureCount(aiTextureType_DIFFUSE_ROUGHNESS); ++j) {
+            aiString str;
+
+            mat->GetTexture(aiTextureType_DIFFUSE_ROUGHNESS, j, &str);
             v_mat->SetNormals(new Texture2D(path_alone + std::string(str.C_Str())));
             //GLuint textureID = LoadTextureFromFile(directory + '/' + str.C_Str());
             std::cout << "Loaded normal texture ID: for texture " << str.C_Str() << std::endl;

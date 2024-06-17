@@ -5,9 +5,11 @@
 #include <windows.h>
 #include "Mesh3D.h"
 #include "Engine.h"
+#include "Bounds.h"
 
 NodeEntity::NodeEntity() {
 
+	m_Static = true;
 	
 
 }
@@ -129,4 +131,41 @@ void NodeEntity::ForceRebuild() {
 
 	}
 
+}
+
+Bounds* NodeEntity::GetBounds() {
+
+	Bounds* res = new Bounds;
+	res->Min = float3(10000, 10000, 10000);
+	res->Max = float3(-10000, -10000, -10000);
+	res->Centre = float3(0, 0, 0);
+
+	for (auto m : m_Meshes) {
+
+
+		auto world = float4x4::Identity();
+
+		auto tris = m->GetTris();
+		auto verts = m->GetVertices();
+
+		for (auto v : verts) {
+
+			float3 npos = v.position * world;
+			if (npos.x < res->Min.x) res->Min.x = npos.x;
+			if (npos.x > res->Max.x) res->Max.x = npos.x;
+			if (npos.y < res->Min.y) res->Min.y = npos.y;
+			if (npos.y > res->Max.y) res->Max.y = npos.y;
+			if (npos.z < res->Min.z) res->Min.z = npos.z;
+			if (npos.z > res->Max.z) res->Max.z = npos.z;
+
+		}
+
+
+	}
+
+	res->Centre.x = res->Min.x + (res->Max.x - res->Min.x) / 2.0f;
+	res->Centre.y = res->Min.y + (res->Max.y - res->Min.y) / 2.0f;
+	res->Centre.z = res->Min.z + (res->Max.z - res->Min.z) / 2.0f;
+
+	return res;
 }

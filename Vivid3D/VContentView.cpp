@@ -375,8 +375,8 @@ void VContentView::mouseDoubleClickEvent(QMouseEvent* event)
                             return;
                         }
 
-                        MaterialMeshLight* mat = new MaterialMeshLight;
-                        mat->LoadMaterial(m_OverItem->m_FullPath);
+                        MaterialBase* mat;// = new MaterialMeshLight;
+                        mat = MaterialBase::LoadMaterial(m_OverItem->m_FullPath);
                         int b = 5;
                         Editor::m_PropEditor->SetMaterial(mat);
                     }

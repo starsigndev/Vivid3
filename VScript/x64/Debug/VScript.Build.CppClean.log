@@ -2,13 +2,13 @@ c:\dev\vivid3d\vscript\x64\debug\vscript.pch
 c:\dev\vivid3d\vivid3d\x64\debug\vscript.pdb
 c:\dev\vivid3d\vivid3d\x64\debug\vscript.idb
 c:\dev\vivid3d\vscript\x64\debug\pch.obj
-c:\dev\vivid3d\vscript\x64\debug\vparameter.obj
 c:\dev\vivid3d\vscript\x64\debug\vname.obj
 c:\dev\vivid3d\vscript\x64\debug\vmodule.obj
 c:\dev\vivid3d\vscript\x64\debug\vlambda.obj
 c:\dev\vivid3d\vscript\x64\debug\vinvoke.obj
 c:\dev\vivid3d\vscript\x64\debug\vif.obj
 c:\dev\vivid3d\vscript\x64\debug\vfunction.obj
+c:\dev\vivid3d\vscript\x64\debug\vforeach.obj
 c:\dev\vivid3d\vscript\x64\debug\vfor.obj
 c:\dev\vivid3d\vscript\x64\debug\vexpression.obj
 c:\dev\vivid3d\vscript\x64\debug\vdefineparams.obj
@@ -35,7 +35,7 @@ c:\dev\vivid3d\vscript\x64\debug\vscript.obj
 c:\dev\vivid3d\vscript\x64\debug\vscope.obj
 c:\dev\vivid3d\vscript\x64\debug\vreturn.obj
 c:\dev\vivid3d\vscript\x64\debug\vparser.obj
-c:\dev\vivid3d\vscript\x64\debug\vforeach.obj
+c:\dev\vivid3d\vscript\x64\debug\vparameter.obj
 c:\dev\vivid3d\vivid3d\x64\debug\vscript.lib
 c:\dev\vivid3d\vscript\x64\debug\vscript.tlog\cl.command.1.tlog
 c:\dev\vivid3d\vscript\x64\debug\vscript.tlog\cl.items.tlog

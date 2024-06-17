@@ -10,6 +10,7 @@
 using namespace Diligent;
 
 class Texture2D;
+class RenderTargetCube;
 
 class MaterialBase
 {
@@ -30,6 +31,16 @@ public:
 	void SetDiffuse(Texture2D* texture);
 	void SetSpecular(Texture2D* texture);
 	void SetNormals(Texture2D* texture);
+	void SetRough(Texture2D* texture) {
+		m_Roughness = texture;
+	}
+	void SetMetal(Texture2D* metal) {
+		m_Metal = metal;
+	}
+	void SetAmbient(Texture2D* ambient) {
+		m_Ambient = ambient;
+	}
+	void SetEnvironment(RenderTargetCube* env);
 	Texture2D* GetDiffuse() {
 		return m_Diffuse;
 	}
@@ -39,10 +50,23 @@ public:
 	Texture2D* GetNormal() {
 		return m_Normal;
 	}
+	Texture2D* GetRough() {
+		return m_Roughness;
+	}
+	Texture2D* GetMetal() {
+		return m_Metal;
+	}
+	Texture2D* GetAmbient() {
+		return m_Ambient;
+	}
+	
 	virtual void SaveMaterial(std::string path);
-	virtual void LoadMaterial(std::string path);
+	static MaterialBase* LoadMaterial(std::string path);
 	std::string GetPath() {
 		return m_FullPath;
+	}
+	void SetPath(std::string path) {
+		m_FullPath = path;
 	}
 	float4 GetDiffuseColor() {
 		return m_DiffuseColor;
@@ -63,6 +87,12 @@ protected:
 	Texture2D* m_Diffuse;
 	Texture2D* m_Normal;
 	Texture2D* m_Specular;
+	RenderTargetCube* m_Environment;
+
+	//PBR
+	Texture2D* m_Roughness;
+	Texture2D* m_Metal;
+	Texture2D* m_Ambient;
 
 	float4 m_DiffuseColor;
 	float4 m_SpecularColor;

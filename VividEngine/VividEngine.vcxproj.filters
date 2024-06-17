@@ -195,6 +195,9 @@
     <ClInclude Include="MaterialActorDepth.h">
       <Filter>Material</Filter>
     </ClInclude>
+    <ClInclude Include="MaterialMeshPBR.h">
+      <Filter>Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VividEngine.cpp">
@@ -315,6 +318,9 @@
       <Filter>Material</Filter>
     </ClCompile>
     <ClCompile Include="MaterialActorDepth.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialMeshPBR.cpp">
       <Filter>Material</Filter>
     </ClCompile>
   </ItemGroup>

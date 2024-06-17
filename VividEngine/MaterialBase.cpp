@@ -11,6 +11,8 @@
 #include <Common/interface/RefCntAutoPtr.hpp>
 #include <MapHelper.hpp> // Add this line
 #include "VFile.h"
+#include "MaterialMeshPBR.h"
+#include "MaterialMeshLight.h"
 
 using namespace Diligent;
 MaterialBase::MaterialBase() {
@@ -341,36 +343,94 @@ void MaterialBase::SetNormals(Texture2D* texture) {
 
 }
 
-void MaterialBase::SaveMaterial(std::string path) {
+void MaterialBase::SetEnvironment(RenderTargetCube* env) {
 
-    VFile* out = new VFile(path.c_str(), FileMode::Write);
-
-    out->WriteString(m_Diffuse->GetPath().c_str());
-    out->WriteString(m_Specular->GetPath().c_str());
-    out->WriteString(m_Normal->GetPath().c_str());
-    out->WriteVec4(m_DiffuseColor);
-    out->WriteVec4(m_SpecularColor);
-
-
-    out->Close();
-    m_FullPath = path;
+    m_Environment = env;
 
 }
 
-void MaterialBase::LoadMaterial(std::string path) {
+void MaterialBase::SaveMaterial(std::string path) {
 
 
+
+    if (dynamic_cast<MaterialMeshPBR*>(this) != nullptr) {
+    
+        
+        auto pbr = (MaterialMeshPBR*)this;
+
+        VFile* out = new VFile(path.c_str(), FileMode::Write);
+
+        out->WriteInt(1);
+        out->WriteString(m_Diffuse->GetPath().c_str());
+        out->WriteString(m_Normal->GetPath().c_str());
+        out->WriteString(m_Roughness->GetPath().c_str());
+        out->WriteString(m_Metal->GetPath().c_str());
+        out->WriteVec4(m_DiffuseColor);
+        out->WriteVec4(m_SpecularColor);
+        out->WriteFloat(pbr->GetRoughOverdrive());
+        out->WriteFloat(pbr->GetMetalOverdrive());
+        out->Close();
+        m_FullPath = path;
+    }
+    else {
+
+        VFile* out = new VFile(path.c_str(), FileMode::Write);
+        out->WriteInt(0);
+        out->WriteString(m_Diffuse->GetPath().c_str());
+        out->WriteString(m_Specular->GetPath().c_str());
+        out->WriteString(m_Normal->GetPath().c_str());
+        out->WriteVec4(m_DiffuseColor);
+        out->WriteVec4(m_SpecularColor);
+        out->Close();
+        m_FullPath = path;
+    }
+}
+
+MaterialBase* MaterialBase::LoadMaterial(std::string path) {
+
+    MaterialBase* res = nullptr;
     VFile* in = new VFile(path.c_str(), FileMode::Read);
 
-    m_Diffuse = new Texture2D(in->ReadString());
-    m_Specular = new Texture2D(in->ReadString());
-    m_Normal = new Texture2D(in->ReadString());
+    int type = in->ReadInt();
 
-    m_DiffuseColor = in->ReadVec4();
-    m_SpecularColor = in->ReadVec4();
+    if (type == 0) {
+
+        res = (MaterialMeshLight*)new MaterialMeshLight;
+
+        res->SetDiffuse(new Texture2D(in->ReadString()));
+        res->SetSpecular(new Texture2D(in->ReadString()));
+        res->SetNormals(new Texture2D(in->ReadString()));
+
+
+
+        res->SetDiffuseColor(in->ReadVec4());
+        res->SetSpecularColor(in->ReadVec4());
+
+
+    }
+    else if (type == 1) {
+
+        auto res2 = (MaterialMeshPBR*)new MaterialMeshPBR;
+        res = res2;
+
+
+        res2->SetDiffuse(new Texture2D(in->ReadString(),true));
+        res2->SetNormals(new Texture2D(in->ReadString(),true));
+        res2->SetRough(new Texture2D(in->ReadString(),true));
+        res2->SetMetal(new Texture2D(in->ReadString(),true));
+        res2->SetDiffuseColor(in->ReadVec4());
+        res2->SetSpecularColor(in->ReadVec4());
+        res2->SetRoughOverdrive(in->ReadFloat());
+        res2->SetMetalOverdrive(in->ReadFloat());
+        res = res2;
+
+    }
 
     in->Close();
+
     
-    m_FullPath = path;
+    res->SetPath(path);
+
+    return res;
 
 }

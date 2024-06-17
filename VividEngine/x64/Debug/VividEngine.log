@@ -1,5 +1,4 @@
-﻿  MaterialActorDepth.cpp
-C:\dev\Vivid3D\VividEngine\Node.h(84,17): warning C4042: 'unnamed-parameter': has bad storage class
+﻿  Texture2D.cpp
   Replacing x64\Debug\pch.obj
 cuda.lib(nvcuda.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 cudart.lib(cudart64_12.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored

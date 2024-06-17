@@ -139,6 +139,8 @@ public:
 
                     Engine::m_Light = al;
                     for (auto mesh : m_renderMeshes) {
+                        Engine::m_Node = (Node*)mesh->GetOwner();
+
                         mesh->GetMaterial()->Bind(sp2);
                         mesh->Render(sp2);
                     }

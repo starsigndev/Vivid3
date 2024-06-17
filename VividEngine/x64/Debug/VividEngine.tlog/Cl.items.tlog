@@ -17,6 +17,7 @@ C:\dev\Vivid3D\VividEngine\MaterialBase.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug
 C:\dev\Vivid3D\VividEngine\MaterialDepth.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialDepth.obj
 C:\dev\Vivid3D\VividEngine\MaterialMeshLight.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialMeshLight.obj
 C:\dev\Vivid3D\VividEngine\MaterialMeshLines.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialMeshLines.obj
+C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialMeshPBR.obj
 C:\dev\Vivid3D\VividEngine\MathsHelp.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MathsHelp.obj
 C:\dev\Vivid3D\VividEngine\Mesh3D.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Mesh3D.obj
 C:\dev\Vivid3D\VividEngine\MeshBuffer.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MeshBuffer.obj

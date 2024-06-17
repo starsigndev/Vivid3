@@ -11,6 +11,10 @@ public:
 
 	CubeRenderer(SceneGraph* graph, RenderTargetCube* target);
 	void RenderDepth(float3 position, float maxZ);
+	void RenderEnvironment(float3 position);
+	RenderTargetCube* GetTarget() {
+		return m_Target;
+	}
 
 private:
 

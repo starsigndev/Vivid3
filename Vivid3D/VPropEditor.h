@@ -34,8 +34,14 @@ private:
 	VImagePreview* m_DiffuseImg;
 	VImagePreview* m_SpecImg;
 	VImagePreview* m_NormImg;
+	VImagePreview* m_RoughImg;
+	VImagePreview* m_MetalImg;
 	VColorPreview* m_DiffCol;
 	VColorPreview* m_SpecCol;
+	QDoubleSpinBox* m_RoughOD;
+	QDoubleSpinBox* m_MetalOD;
+	
+
 	//Node
 	QCheckBox* m_NodeEnabled;
 	QLineEdit* m_NodeName;

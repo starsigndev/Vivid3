@@ -175,6 +175,7 @@
     <ClInclude Include="MaterialDepth.h" />
     <ClInclude Include="MaterialMeshLight.h" />
     <ClInclude Include="MaterialMeshLines.h" />
+    <ClInclude Include="MaterialMeshPBR.h" />
     <ClInclude Include="MathsHelp.h" />
     <ClInclude Include="Mesh3D.h" />
     <ClInclude Include="MeshBuffer.h" />
@@ -217,6 +218,7 @@
     <ClCompile Include="MaterialDepth.cpp" />
     <ClCompile Include="MaterialMeshLight.cpp" />
     <ClCompile Include="MaterialMeshLines.cpp" />
+    <ClCompile Include="MaterialMeshPBR.cpp" />
     <ClCompile Include="MathsHelp.cpp" />
     <ClCompile Include="Mesh3D.cpp" />
     <ClCompile Include="MeshBuffer.cpp" />

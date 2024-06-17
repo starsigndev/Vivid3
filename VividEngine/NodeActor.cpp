@@ -5,7 +5,10 @@
 #include "MaterialActorDepth.h"
 #include "BasicMath.hpp"
 #include "Animator.h"
+#include "Engine.h"
+#include "Bounds.h"
 using namespace Diligent;
+
 
 
 float3 atov(aiVector3D v)
@@ -157,5 +160,42 @@ void NodeActor::Update() {
 		md->SetBones(bones);
 
 	}
+
+}
+
+void NodeActor::Render(bool sp) {
+
+	//	printf("Rendering NodeEntity.\n");
+		//OutputDebugStringA("Rendering NodeEntity.\n");
+
+	Engine::m_Node = this;
+	if (m_Bounds == nullptr) {
+		m_Bounds = GetBounds();
+	}
+
+	auto world = GetWorldMatrix();
+
+	auto center = m_Bounds->Centre * world;
+	auto size = m_Bounds->Size() * GetScale();
+
+
+	if (Engine::m_Camera->InView(center, size) > 0) {
+
+		if (m_Enabled) {
+
+			for (auto mesh : m_Meshes) {
+				mesh->GetMaterial()->Bind(sp);
+				mesh->Render(sp);
+
+
+			}
+
+		}
+	}
+	else {
+		printf("Culled Actor\n");
+	}
+	RenderChildren(sp);
+
 
 }

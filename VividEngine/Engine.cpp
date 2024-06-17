@@ -78,9 +78,11 @@ MaterialBase* Engine::FindActiveMaterial(std::string path) {
 		{
 			return mat;
 		}
-		if (containsSubstring(path, mat->GetPath()))
-		{
-			return mat;
+		if (mat->GetPath().length() > 0) {
+			if (containsSubstring(path, mat->GetPath()))
+			{
+				return mat;
+			}
 		}
 
 	}

@@ -1,3 +1,6 @@
+C:\dev\Vivid3D\VividEngine\Animation.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\Animation.obj
+C:\dev\Vivid3D\VividEngine\Animator.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\Animator.obj
+C:\dev\Vivid3D\VividEngine\Bone.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\Bone.obj
 C:\dev\Vivid3D\VividEngine\BoneInfo.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\BoneInfo.obj
 C:\dev\Vivid3D\VividEngine\Bounds.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\Bounds.obj
 C:\dev\Vivid3D\VividEngine\CLBase.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\CLBase.obj
@@ -8,10 +11,13 @@ C:\dev\Vivid3D\VividEngine\FileHelp.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\F
 C:\dev\Vivid3D\VividEngine\Importer.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\Importer.obj
 C:\dev\Vivid3D\VividEngine\Intersections.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\Intersections.obj
 C:\dev\Vivid3D\VividEngine\Material2D.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\Material2D.obj
+C:\dev\Vivid3D\VividEngine\MaterialActorDepth.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MaterialActorDepth.obj
+C:\dev\Vivid3D\VividEngine\MaterialActorLight.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MaterialActorLight.obj
 C:\dev\Vivid3D\VividEngine\MaterialBase.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MaterialBase.obj
 C:\dev\Vivid3D\VividEngine\MaterialDepth.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MaterialDepth.obj
 C:\dev\Vivid3D\VividEngine\MaterialMeshLight.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MaterialMeshLight.obj
 C:\dev\Vivid3D\VividEngine\MaterialMeshLines.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MaterialMeshLines.obj
+C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MaterialMeshPBR.obj
 C:\dev\Vivid3D\VividEngine\MathsHelp.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MathsHelp.obj
 C:\dev\Vivid3D\VividEngine\Mesh3D.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\Mesh3D.obj
 C:\dev\Vivid3D\VividEngine\MeshBuffer.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MeshBuffer.obj

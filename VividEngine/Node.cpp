@@ -435,9 +435,9 @@ void Node::Pop() {
 
 }
 
-void Node::SetStatic(bool static) {
+void Node::SetStatic(bool stat) {
 
-	m_Static;
+	m_Static = stat;
 	
 }
 

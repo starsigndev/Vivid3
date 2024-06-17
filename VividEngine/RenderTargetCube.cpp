@@ -1,12 +1,14 @@
 #include "pch.h"
 #include "RenderTargetCube.h"
 
-RenderTargetCube::RenderTargetCube(int width, int height) {
+RenderTargetCube::RenderTargetCube(int width, int height,bool depth) {
 
 	m_Width = width;
 	m_Height = height;
 
 	TextureDesc tex;
+
+	m_Depth = depth;
 
 	tex.Width = width;
 	tex.Height = height;
@@ -14,7 +16,12 @@ RenderTargetCube::RenderTargetCube(int width, int height) {
 	tex.MipLevels = 1;
 	tex.ArraySize = 6;
 	tex.Usage = USAGE_DEFAULT;
-	tex.Format = TEX_FORMAT_R32_FLOAT;//  Engine::m_pSwapChain->GetCurrentBackBufferRTV()->GetDesc().Format;
+	if (depth) {
+		tex.Format = TEX_FORMAT_R32_FLOAT;
+	}
+	else {
+		tex.Format = Engine::m_pSwapChain->GetCurrentBackBufferRTV()->GetDesc().Format;
+	}
 	tex.BindFlags = BIND_FLAGS::BIND_SHADER_RESOURCE | BIND_FLAGS::BIND_RENDER_TARGET;
 	tex.ClearValue.Format = tex.Format;
 	tex.ClearValue.Color[0] = 0;
@@ -58,8 +65,14 @@ void RenderTargetCube::Bind(int face) {
 	//views[0] = m_DepthTexView;
 
 	ITextureView* tv =m_DepthTexView;
-	const float ClearColor[4] = { 1,1,1,1.0 };
+	float ClearColor[4] = { 1,1,1,1.0 };
+	if (!m_Depth) {
+		ClearColor[0] = 0;
+		ClearColor[1] = 0;
+		ClearColor[2] = 0;
+	}
 	Engine::SetBoundRTC(this);
+
 	Engine::m_pImmediateContext->SetRenderTargets(1, &m_FaceView[face], m_DepthTexView, RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
 	Engine::m_pImmediateContext->ClearRenderTarget(m_FaceView[face], ClearColor, RESOURCE_STATE_TRANSITION_MODE_VERIFY);
 	Engine::m_pImmediateContext->ClearDepthStencil(m_DepthTexView, CLEAR_DEPTH_FLAG, 1.0f, 0, RESOURCE_STATE_TRANSITION_MODE_TRANSITION);

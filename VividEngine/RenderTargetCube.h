@@ -16,7 +16,7 @@ class RenderTargetCube
 {
 public:
 
-	RenderTargetCube(int width, int height);
+	RenderTargetCube(int width, int height,bool depth);
 	void Bind(int face);
 	void Release(int face);
 	int GetWidth() {
@@ -37,6 +37,7 @@ private:
 	RefCntAutoPtr<ITexture> m_DepthTex;
 	RefCntAutoPtr<ITextureView> m_DepthTexView;
 	RefCntAutoPtr<ITextureView> m_TexView;
+	bool m_Depth = false;
 
 };
 

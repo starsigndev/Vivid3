@@ -2,9 +2,10 @@
 #include <vector>
 #include <string>
 #include "BasicMath.hpp"
-
+#include "Bounds.h"
 using namespace Diligent;
 
+class Bounds;
 class VClass;
 
 
@@ -81,8 +82,10 @@ public:
 	virtual void Push();
 	virtual void Pop();
 	virtual void BuildGeo(){};
-	void SetStatic(bool static);
+	void SetStatic(bool stat);
 	bool GetStatic();
+	virtual Bounds* GetBounds() { return new Bounds(); };
+
 protected:
 
 	std::string m_Name;

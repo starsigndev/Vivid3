@@ -1,0 +1,5 @@
+(Inputs) = All vertex shader inputs, like view position, Light position etc. + Texture Inputs.
+
+(Into) functions such as Calculate Lighting, Calculate environtment map.
+
+Output = Choosen function output.

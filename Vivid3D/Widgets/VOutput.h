@@ -121,6 +121,7 @@ private:
 	Importer* m_Import;
 	SceneGraph* m_Graph1;
 	NodeEntity* m_Node1;
+	NodeEntity* m_Node2;
 	NodeCamera* m_EditCamera;
 	NodeLight* m_Light1;
 	NodeActor* m_Act1;
@@ -141,4 +142,5 @@ private:
 	Texture2D* m_Tex1;
 	Texture2D* m_LightIcon;
 	SceneOctree* m_Oct1;
+	CubeRenderer* m_CubeRen;
 };

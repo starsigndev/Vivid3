@@ -472,6 +472,7 @@ Bounds SceneGraph::GetBounds() {
 
     for (auto m : meshes) {
 
+        if (m->GetOwner()->GetStatic() == false) continue;
         auto world = m->GetOwner()->GetWorldMatrix();
 
         auto tris = m->GetTris();
@@ -506,50 +507,56 @@ Bounds SceneGraph::GetBounds() {
 SceneInfo InfoProcessNode(Node* node, float3 centre, float3 size, SceneInfo info)
 {
 
-    auto pos = node->GetPosition();
+    if (node->GetStatic()) {
+        auto pos = node->GetPosition();
 
-    if (MathsHelp::IsPositionInsideBounds(centre, size, pos)) {
-        info.m_Nodes.push_back(node);
-    }
+        if (MathsHelp::IsPositionInsideBounds(centre, size, pos)) {
+            info.m_Nodes.push_back(node);
+        }
 
-    if (dynamic_cast<NodeEntity*>(node) != nullptr) {
+        if (dynamic_cast<NodeEntity*>(node) != nullptr) {
 
-        auto ent = (NodeEntity*)node;
-        bool any = false;
-        for (auto mesh : ent->GetMeshes()) {
+            auto ent = (NodeEntity*)node;
+            bool any = false;
+            for (auto mesh : ent->GetMeshes()) {
 
-            auto tris = mesh->GetTris();
-            auto verts = mesh->GetVertices();
+                auto tris = mesh->GetTris();
+                auto verts = mesh->GetVertices();
 
-            for (auto t : tris) {
+                for (auto t : tris) {
 
-                auto v0 = verts[t.v0];
-                auto v1 = verts[t.v1];
-                auto v2 = verts[t.v2];
+                    auto v0 = verts[t.v0];
+                    auto v1 = verts[t.v1];
+                    auto v2 = verts[t.v2];
 
-                if (MathsHelp::IsPositionInsideBounds(centre, size, v0.position) || MathsHelp::IsPositionInsideBounds(centre, size, v1.position) || MathsHelp::IsPositionInsideBounds(centre, size, v2.position))
-                {
+                    if (MathsHelp::IsPositionInsideBounds(centre, size, v0.position) || MathsHelp::IsPositionInsideBounds(centre, size, v1.position) || MathsHelp::IsPositionInsideBounds(centre, size, v2.position))
+                    {
 
-                    if (std::find(info.m_Meshes.begin(), info.m_Meshes.end(), mesh) != info.m_Meshes.end()) {
+                        if (std::find(info.m_Meshes.begin(), info.m_Meshes.end(), mesh) != info.m_Meshes.end()) {
 
-                    }
-                    else {
-                        info.m_Meshes.push_back(mesh);
-                    }
+                        }
+                        else {
+                            info.m_Meshes.push_back(mesh);
+                        }
 
 
-                    info.m_TriCount++;
-                    info.m_VertCount += 3;
+                        info.m_TriCount++;
+                        info.m_VertCount += 3;
+
+                    };
+
+
 
                 };
 
+            }
 
-
-            };
 
         }
+    }
+    else {
 
-
+        int bb = 5;
     }
     for (auto sub : node->GetNodes()) {
 
@@ -590,6 +597,7 @@ SceneInfo SceneGraph::GetInfo(float3 centre, float3 size,bool inc_local) {
                             new_mesh = new Mesh3D;
                             info.m_LocalMeshes.push_back(new_mesh);
                             new_mesh->SetMaterial(mesh->GetMaterial());
+                            new_mesh->SetOwner(mesh->GetOwner());
                             vi = 0;
                         }
 

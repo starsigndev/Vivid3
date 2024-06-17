@@ -22,7 +22,7 @@ public:
 	bool IsMeshIndex(Mesh3D* mesh, int index);
 	void BuildGeo();
 	void ForceRebuild();
-	Bounds GetBounds();
+	Bounds* GetBounds();
 
 protected:
 

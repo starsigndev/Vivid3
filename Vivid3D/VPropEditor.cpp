@@ -11,6 +11,7 @@
 #include "Editor.h"
 #include "NodeLight.h"
 #include "VSceneGraph.h"
+#include "MaterialMeshPBR.h"
 //#include <qcheckbox.h>
 
 
@@ -124,210 +125,463 @@ void VPropEditor::SetMaterial(MaterialBase* material) {
 
 	m_Material = material;
 
-	QLabel* mat_edit_lab = new QLabel(std::string("Material:" + material->GetPath()).c_str());
-
-	m_LO->addWidget(mat_edit_lab);
-
-	QHBoxLayout* dif_box = new QHBoxLayout(this);
-
-	auto dif_lab = new QLabel("Diffuse");
-
-	m_DiffuseImg = new VImagePreview(this);
-//	QPixmap pix = QPixmap(material->GetDiffuse()->GetPath().c_str());
-	//QPixmap scaledPixmap = pix.scaled(64,64, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-
-	m_DiffuseImg->SetSize(64, 64);
-	m_DiffuseImg->SetImage(material->GetDiffuse()->GetPath().c_str());
-	QObject::connect(m_DiffuseImg, &VImagePreview::dropped, [&](const QString& filePath) {
-		//qDebug() << "File dropped:" << filePath;
-		m_Material->SetDiffuse(new Texture2D(filePath.toStdString()));
-		});
-	//m_DiffuseImg->setPixmap(scaledPixmap);
-//	m_DiffuseImg->setFixedSize(64, 64);
-	//m_DiffuseImg->setAcceptDrops(true);
-
-	
-	dif_box->addWidget(dif_lab);
-	dif_box->addWidget(m_DiffuseImg);
-
-	dif_box->setAlignment(Qt::AlignLeft);
-	dif_box->setSpacing(15);
-
-	auto dif_browse = new QPushButton("Browse");
-
-	dif_box->addWidget(dif_browse);
-
-	m_LO->addLayout(dif_box);
-
-	auto spec_box = new QHBoxLayout(this);
-
-	auto spec_lab = new QLabel("Spcular");
-
-	m_SpecImg = new VImagePreview(this);
-	//	QPixmap pix = QPixmap(material->GetDiffuse()->GetPath().c_str());
-		//QPixmap scaledPixmap = pix.scaled(64,64, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-
-	m_SpecImg->SetSize(64, 64);
-	m_SpecImg->SetImage(material->GetSpecular()->GetPath().c_str());
-	QObject::connect(m_SpecImg, &VImagePreview::dropped, [&](const QString& filePath) {
-		//qDebug() << "File dropped:" << filePath;
-		m_Material->SetSpecular(new Texture2D(filePath.toStdString()));
-		});
 
 
+	if (dynamic_cast<MaterialMeshPBR*>(material) != nullptr) {
 
-	spec_box->addWidget(spec_lab);
-	spec_box->addWidget(m_SpecImg);
+		auto pbr = (MaterialMeshPBR*)material;
 
-	spec_box->setAlignment(Qt::AlignLeft);
-	spec_box->setSpacing(15);
+		QLabel* mat_edit_lab = new QLabel(std::string("Material PBR:" + material->GetPath()).c_str());
 
-	auto spec_browse = new QPushButton("Browse");
+		m_LO->addWidget(mat_edit_lab);
+		QHBoxLayout* dif_box = new QHBoxLayout(this);
 
-	spec_box->addWidget(spec_browse);
+		auto dif_lab = new QLabel("Albedo");
 
-	m_LO->addLayout(spec_box);
+		m_DiffuseImg = new VImagePreview(this);
+		//	QPixmap pix = QPixmap(material->GetDiffuse()->GetPath().c_str());
+			//QPixmap scaledPixmap = pix.scaled(64,64, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+		m_DiffuseImg->SetSize(64, 64);
+		m_DiffuseImg->SetImage(material->GetDiffuse()->GetPath().c_str());
+		QObject::connect(m_DiffuseImg, &VImagePreview::dropped, [&](const QString& filePath) {
+			//qDebug() << "File dropped:" << filePath;
+			m_Material->SetDiffuse(new Texture2D(filePath.toStdString()));
+			});
+		//m_DiffuseImg->setPixmap(scaledPixmap);
+	//	m_DiffuseImg->setFixedSize(64, 64);
+		//m_DiffuseImg->setAcceptDrops(true);
 
 
-	//---
+		dif_box->addWidget(dif_lab);
+		dif_box->addWidget(m_DiffuseImg);
 
-	auto norm_box = new QHBoxLayout(this);
+		dif_box->setAlignment(Qt::AlignLeft);
+		dif_box->setSpacing(15);
 
-	auto norm_lab = new QLabel("Normals");
+		auto dif_browse = new QPushButton("Browse");
 
-	m_NormImg = new VImagePreview(this);
-	//	QPixmap pix = QPixmap(material->GetDiffuse()->GetPath().c_str());
-		//QPixmap scaledPixmap = pix.scaled(64,64, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+		dif_box->addWidget(dif_browse);
 
-	m_NormImg->SetSize(64, 64);
-	m_NormImg->SetImage(material->GetNormal()->GetPath().c_str());
-	QObject::connect(m_NormImg, &VImagePreview::dropped, [&](const QString& filePath) {
-		//qDebug() << "File dropped:" << filePath;
-		m_Material->SetNormals(new Texture2D(filePath.toStdString()));
-		});
-	
+		m_LO->addLayout(dif_box);
 
-	norm_box->addWidget(norm_lab);
-	norm_box->addWidget(m_NormImg);
+		auto norm_box = new QHBoxLayout(this);
 
-	norm_box->setAlignment(Qt::AlignLeft);
-	norm_box->setSpacing(15);
+		auto norm_lab = new QLabel("Normals");
 
-	auto norm_browse = new QPushButton("Browse");
+		m_NormImg = new VImagePreview(this);
+		//	QPixmap pix = QPixmap(material->GetDiffuse()->GetPath().c_str());
+			//QPixmap scaledPixmap = pix.scaled(64,64, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
-	norm_box->addWidget(norm_browse);
-
-	dif_lab->setMinimumWidth(55);
-	spec_lab->setMinimumWidth(55);
-	norm_lab->setMinimumWidth(55);
-	dif_lab->setAlignment(Qt::AlignTop);
-	spec_lab->setAlignment(Qt::AlignTop);
-	norm_lab->setAlignment(Qt::AlignTop);
-
-	m_LO->addLayout(norm_box);
-
-	auto col_diff_box = new QHBoxLayout(this);
-
-	auto col_dif_lab = new QLabel("Diffuse");
-
-	col_dif_lab->setMinimumWidth(55);
-
-	
-	
-	/*
-	auto diff_lab = new QLabel();
-	diff_lab->setAutoFillBackground(true);
-	
-	
-	QColor dif_col;
-
-	
-	float4 col = m_Material->GetDiffuseColor();
-	dif_col.setRgb(col.x * 255.0f, col.y * 255.0f, col.z * 255.05, 255);
-	QPalette pal = diff_lab->palette();
-	pal.setColor(QPalette::Window, dif_col);
-	diff_lab->setPalette(pal);
-
-	col_diff_box->addWidget(col_dif_lab);
-	col_diff_box->addWidget(diff_lab);
-	col_dif_lab->setAlignment(Qt::AlignTop);
-	
-	diff_lab->setMinimumWidth(16);
-	diff_lab->setMinimumHeight(12);
-	*/
-	m_DiffCol = new VColorPreview;
-
-	col_diff_box->addWidget(col_dif_lab);
-	col_diff_box->addWidget(m_DiffCol);
-	m_DiffCol->SetColor(m_Material->GetDiffuseColor());
-	//diff_prev->setAcceptDrops()
-	col_diff_box->setAlignment(Qt::AlignLeft);
-
-	QPushButton* pick_diff = new QPushButton("Pick Color");
-	col_diff_box->addWidget(pick_diff);
-	pick_diff->setMinimumWidth(50);
-
-	QObject::connect(pick_diff, &QPushButton::clicked, [&]() {
-		//	qDebug() << "Button clicked!";
-	//	m_Material->SaveMaterial(m_Material->GetPath());
-		QColor color = QColorDialog::getColor(Qt::white, this, "Select Diffuse Color");
-		if (color.isValid()) {
-			//updateColor(color);
-			m_DiffCol->SetColor(float4(color.redF(), color.greenF(), color.blueF(), 1.0));
-			m_Material->SetDiffuseColor(float4(color.redF(), color.greenF(), color.blueF(), 1.0f));
-		}
-		});
+		m_NormImg->SetSize(64, 64);
+		m_NormImg->SetImage(material->GetNormal()->GetPath().c_str());
+		QObject::connect(m_NormImg, &VImagePreview::dropped, [&](const QString& filePath) {
+			//qDebug() << "File dropped:" << filePath;
+			m_Material->SetNormals(new Texture2D(filePath.toStdString()));
+			});
 
 
 
-	//------
+		norm_box->addWidget(norm_lab);
+		norm_box->addWidget(m_NormImg);
 
-	auto col_spec_box = new QHBoxLayout(this);
 
-	auto col_spec_lab = new QLabel("Specular");
+		norm_box->setAlignment(Qt::AlignLeft);
+		norm_box->setSpacing(15);
 
-	col_spec_lab->setMinimumWidth(55);
+
+		auto norm_browse = new QPushButton("Browse");
+
+		norm_box->addWidget(norm_browse);
+
+		m_LO->addLayout(norm_box);
+
+
+		//---
+
+		auto rough_box = new QHBoxLayout(this);
+
+		auto rough_lab = new QLabel("Roughness");
+
+		m_RoughImg = new VImagePreview(this);
+		//	QPixmap pix = QPixmap(material->GetDiffuse()->GetPath().c_str());
+			//QPixmap scaledPixmap = pix.scaled(64,64, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+		m_RoughImg->SetSize(64, 64);
+		m_RoughImg->SetImage(material->GetRough()->GetPath().c_str());
+		QObject::connect(m_RoughImg, &VImagePreview::dropped, [&](const QString& filePath) {
+			//qDebug() << "File dropped:" << filePath;
+			m_Material->SetRough(new Texture2D(filePath.toStdString()));
+			});
+
+
+		rough_box->addWidget(rough_lab);
+		rough_box->addWidget(m_RoughImg);
+
+		rough_box->setAlignment(Qt::AlignLeft);
+		rough_box->setSpacing(15);
+
+		auto rough_browse = new QPushButton("Browse");
+
+		rough_box->addWidget(rough_browse);
+
 		
-	m_SpecCol = new VColorPreview;
-
-	col_spec_box->addWidget(col_spec_lab);
-	col_spec_box->addWidget(m_SpecCol);
-	m_SpecCol->SetColor(m_Material->GetSpecularColor());
-	//diff_prev->setAcceptDrops()
-	col_spec_box->setAlignment(Qt::AlignLeft);
-
-	QPushButton* pick_spec = new QPushButton("Pick Color");
-	col_spec_box->addWidget(pick_spec);
-	pick_spec->setMinimumWidth(50);
-	//---------
-
-	QObject::connect(pick_spec, &QPushButton::clicked, [&]() {
-		//	qDebug() << "Button clicked!";
-	//	m_Material->SaveMaterial(m_Material->GetPath());
-		QColor color = QColorDialog::getColor(Qt::white, this, "Select Specular Color");
-		if (color.isValid()) {
-			//updateColor(color);
-			m_SpecCol->SetColor(float4(color.redF(), color.greenF(), color.blueF(), 1.0));
-			m_Material->SetSpecularColor(float4(color.redF(), color.greenF(), color.blueF(), 1.0f));
-		}
-		});
-
-	
+	//	spec_lab->setAlignment(Qt::AlignTop);
+	//	norm_lab->setAlignment(Qt::AlignTop);
 
 
-	QPushButton* save = new QPushButton("Apply");
+		m_LO->addLayout(rough_box);
+		//
+		auto metal_box = new QHBoxLayout(this);
 
-	save->setMaximumWidth(80);
+		auto metal_lab = new QLabel("Metalic");
 
-	QObject::connect(save, &QPushButton::clicked, [&]() {
-	//	qDebug() << "Button clicked!";
-		m_Material->SaveMaterial(m_Material->GetPath());
-		});
+		m_MetalImg = new VImagePreview(this);
+		//	QPixmap pix = QPixmap(material->GetDiffuse()->GetPath().c_str());
+			//QPixmap scaledPixmap = pix.scaled(64,64, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
-	m_LO->addLayout(col_diff_box);
-	m_LO->addLayout(col_spec_box);
-	m_LO->addWidget(save);
+		m_MetalImg->SetSize(64, 64);
+		m_MetalImg->SetImage(material->GetMetal()->GetPath().c_str());
+		QObject::connect(m_MetalImg, &VImagePreview::dropped, [&](const QString& filePath) {
+			//qDebug() << "File dropped:" << filePath;
+			m_Material->SetMetal(new Texture2D(filePath.toStdString()));
+			});
 
+
+		metal_box->addWidget(metal_lab);
+		metal_box->addWidget(m_MetalImg);
+
+		metal_box->setAlignment(Qt::AlignLeft);
+		metal_box->setSpacing(15);
+
+		auto metal_browse = new QPushButton("Browse");
+
+		metal_box->addWidget(metal_browse);
+
+		m_LO->addLayout(metal_box);
+
+
+		dif_lab->setMinimumWidth(55);
+		norm_lab->setMinimumWidth(55);
+		rough_lab->setMinimumWidth(55);
+		metal_lab->setMinimumWidth(55);
+		dif_lab->setAlignment(Qt::AlignTop);
+		norm_lab->setAlignment(Qt::AlignTop);
+		rough_lab->setAlignment(Qt::AlignTop);
+		metal_lab->setAlignment(Qt::AlignTop);
+
+		auto rod_box = new QHBoxLayout(this);
+
+		auto rod_lab = new QLabel("Rough Overdrive");
+
+		rod_lab->setMinimumWidth(55);
+
+
+
+		/*
+		auto diff_lab = new QLabel();
+		diff_lab->setAutoFillBackground(true);
+
+
+		QColor dif_col;
+
+
+		float4 col = m_Material->GetDiffuseColor();
+		dif_col.setRgb(col.x * 255.0f, col.y * 255.0f, col.z * 255.05, 255);
+		QPalette pal = diff_lab->palette();
+		pal.setColor(QPalette::Window, dif_col);
+		diff_lab->setPalette(pal);
+
+		col_diff_box->addWidget(col_dif_lab);
+		col_diff_box->addWidget(diff_lab);
+		col_dif_lab->setAlignment(Qt::AlignTop);
+
+		diff_lab->setMinimumWidth(16);
+		diff_lab->setMinimumHeight(12);
+		*/
+		//m_DiffCol = new VColorPreview;
+		m_RoughOD = new QDoubleSpinBox();
+		m_RoughOD->setSingleStep(0.01f);
+		m_RoughOD->setRange(-2.0f, 16.0f);
+		m_RoughOD->setValue(pbr->GetRoughOverdrive());
+
+		QObject::connect(m_RoughOD, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+			[&](double newValue) {
+				//qDebug() << "New value:" << newValue;
+				auto pbr = (MaterialMeshPBR*)m_Material;
+				pbr->SetRoughOverdrive(newValue);
+				// Do something with newValue...
+			});
+
+
+		m_RoughOD->setMinimumWidth(120);
+
+		rod_box->addWidget(rod_lab);
+		rod_box->addWidget(m_RoughOD);
+		//m_DiffCol->SetColor(m_Material->GetDiffuseColor());
+		//diff_prev->setAcceptDrops()
+		rod_box->setAlignment(Qt::AlignLeft);
+
+
+		
+
+
+
+
+		//------
+
+		auto mod_box = new QHBoxLayout(this);
+
+		auto mod_lab = new QLabel("Metal Overdrive");
+
+		mod_lab->setMinimumWidth(55);
+
+
+		//m_SpecCol = new VColorPreview;
+		m_MetalOD = new QDoubleSpinBox();
+
+		m_MetalOD->setMinimumWidth(120);
+
+		m_MetalOD->setValue(pbr->GetMetalOverdrive());
+		m_MetalOD->setSingleStep(0.01f);
+		m_MetalOD->setRange(-2.0f, 16.0f);
+
+		QObject::connect(m_MetalOD, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+			[&](double newValue) {
+				//qDebug() << "New value:" << newValue;
+				auto pbr = (MaterialMeshPBR*)m_Material;
+				pbr->SetMetalOverdrive(newValue);
+				// Do something with newValue...
+			});
+		mod_box->addWidget(mod_lab);
+		mod_box->addWidget(m_MetalOD);
+
+		//m_SpecCol->SetColor(m_Material->GetSpecularColor());
+		//diff_prev->setAcceptDrops()
+		mod_box->setAlignment(Qt::AlignLeft);
+
+		
+
+
+		QPushButton* save = new QPushButton("Apply");
+
+		save->setMaximumWidth(80);
+
+		QObject::connect(save, &QPushButton::clicked, [&]() {
+			//	qDebug() << "Button clicked!";
+			m_Material->SaveMaterial(m_Material->GetPath());
+			});
+
+		m_LO->addLayout(rod_box);
+		m_LO->addLayout(mod_box);
+		m_LO->addWidget(save);
+
+	}
+	else {
+		QLabel* mat_edit_lab = new QLabel(std::string("Material:" + material->GetPath()).c_str());
+
+		m_LO->addWidget(mat_edit_lab);
+		QHBoxLayout* dif_box = new QHBoxLayout(this);
+
+		auto dif_lab = new QLabel("Diffuse");
+
+		m_DiffuseImg = new VImagePreview(this);
+		//	QPixmap pix = QPixmap(material->GetDiffuse()->GetPath().c_str());
+			//QPixmap scaledPixmap = pix.scaled(64,64, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+		m_DiffuseImg->SetSize(64, 64);
+		m_DiffuseImg->SetImage(material->GetDiffuse()->GetPath().c_str());
+		QObject::connect(m_DiffuseImg, &VImagePreview::dropped, [&](const QString& filePath) {
+			//qDebug() << "File dropped:" << filePath;
+			m_Material->SetDiffuse(new Texture2D(filePath.toStdString()));
+			});
+		//m_DiffuseImg->setPixmap(scaledPixmap);
+	//	m_DiffuseImg->setFixedSize(64, 64);
+		//m_DiffuseImg->setAcceptDrops(true);
+
+
+		dif_box->addWidget(dif_lab);
+		dif_box->addWidget(m_DiffuseImg);
+
+		dif_box->setAlignment(Qt::AlignLeft);
+		dif_box->setSpacing(15);
+
+		auto dif_browse = new QPushButton("Browse");
+
+		dif_box->addWidget(dif_browse);
+
+		m_LO->addLayout(dif_box);
+
+		auto spec_box = new QHBoxLayout(this);
+
+		auto spec_lab = new QLabel("Spcular");
+
+		m_SpecImg = new VImagePreview(this);
+		//	QPixmap pix = QPixmap(material->GetDiffuse()->GetPath().c_str());
+			//QPixmap scaledPixmap = pix.scaled(64,64, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+		m_SpecImg->SetSize(64, 64);
+		m_SpecImg->SetImage(material->GetSpecular()->GetPath().c_str());
+		QObject::connect(m_SpecImg, &VImagePreview::dropped, [&](const QString& filePath) {
+			//qDebug() << "File dropped:" << filePath;
+			m_Material->SetSpecular(new Texture2D(filePath.toStdString()));
+			});
+
+
+
+		spec_box->addWidget(spec_lab);
+		spec_box->addWidget(m_SpecImg);
+
+		spec_box->setAlignment(Qt::AlignLeft);
+		spec_box->setSpacing(15);
+
+		auto spec_browse = new QPushButton("Browse");
+
+		spec_box->addWidget(spec_browse);
+
+		m_LO->addLayout(spec_box);
+
+
+		//---
+
+		auto norm_box = new QHBoxLayout(this);
+
+		auto norm_lab = new QLabel("Normals");
+
+		m_NormImg = new VImagePreview(this);
+		//	QPixmap pix = QPixmap(material->GetDiffuse()->GetPath().c_str());
+			//QPixmap scaledPixmap = pix.scaled(64,64, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+		m_NormImg->SetSize(64, 64);
+		m_NormImg->SetImage(material->GetNormal()->GetPath().c_str());
+		QObject::connect(m_NormImg, &VImagePreview::dropped, [&](const QString& filePath) {
+			//qDebug() << "File dropped:" << filePath;
+			m_Material->SetNormals(new Texture2D(filePath.toStdString()));
+			});
+
+
+		norm_box->addWidget(norm_lab);
+		norm_box->addWidget(m_NormImg);
+
+		norm_box->setAlignment(Qt::AlignLeft);
+		norm_box->setSpacing(15);
+
+		auto norm_browse = new QPushButton("Browse");
+
+		norm_box->addWidget(norm_browse);
+
+		dif_lab->setMinimumWidth(55);
+		spec_lab->setMinimumWidth(55);
+		norm_lab->setMinimumWidth(55);
+		dif_lab->setAlignment(Qt::AlignTop);
+		spec_lab->setAlignment(Qt::AlignTop);
+		norm_lab->setAlignment(Qt::AlignTop);
+
+		m_LO->addLayout(norm_box);
+
+		auto col_diff_box = new QHBoxLayout(this);
+
+		auto col_dif_lab = new QLabel("Diffuse");
+
+		col_dif_lab->setMinimumWidth(55);
+
+
+
+		/*
+		auto diff_lab = new QLabel();
+		diff_lab->setAutoFillBackground(true);
+
+
+		QColor dif_col;
+
+
+		float4 col = m_Material->GetDiffuseColor();
+		dif_col.setRgb(col.x * 255.0f, col.y * 255.0f, col.z * 255.05, 255);
+		QPalette pal = diff_lab->palette();
+		pal.setColor(QPalette::Window, dif_col);
+		diff_lab->setPalette(pal);
+
+		col_diff_box->addWidget(col_dif_lab);
+		col_diff_box->addWidget(diff_lab);
+		col_dif_lab->setAlignment(Qt::AlignTop);
+
+		diff_lab->setMinimumWidth(16);
+		diff_lab->setMinimumHeight(12);
+		*/
+		m_DiffCol = new VColorPreview;
+
+		col_diff_box->addWidget(col_dif_lab);
+		col_diff_box->addWidget(m_DiffCol);
+		m_DiffCol->SetColor(m_Material->GetDiffuseColor());
+		//diff_prev->setAcceptDrops()
+		col_diff_box->setAlignment(Qt::AlignLeft);
+
+		QPushButton* pick_diff = new QPushButton("Pick Color");
+		col_diff_box->addWidget(pick_diff);
+		pick_diff->setMinimumWidth(50);
+
+		QObject::connect(pick_diff, &QPushButton::clicked, [&]() {
+			//	qDebug() << "Button clicked!";
+		//	m_Material->SaveMaterial(m_Material->GetPath());
+			QColor color = QColorDialog::getColor(Qt::white, this, "Select Diffuse Color");
+			if (color.isValid()) {
+				//updateColor(color);
+				m_DiffCol->SetColor(float4(color.redF(), color.greenF(), color.blueF(), 1.0));
+				m_Material->SetDiffuseColor(float4(color.redF(), color.greenF(), color.blueF(), 1.0f));
+			}
+			});
+
+
+
+		//------
+
+		auto col_spec_box = new QHBoxLayout(this);
+
+		auto col_spec_lab = new QLabel("Specular");
+
+		col_spec_lab->setMinimumWidth(55);
+
+		m_SpecCol = new VColorPreview;
+
+		col_spec_box->addWidget(col_spec_lab);
+		col_spec_box->addWidget(m_SpecCol);
+		m_SpecCol->SetColor(m_Material->GetSpecularColor());
+		//diff_prev->setAcceptDrops()
+		col_spec_box->setAlignment(Qt::AlignLeft);
+
+		QPushButton* pick_spec = new QPushButton("Pick Color");
+		col_spec_box->addWidget(pick_spec);
+		pick_spec->setMinimumWidth(50);
+		//---------
+
+		QObject::connect(pick_spec, &QPushButton::clicked, [&]() {
+			//	qDebug() << "Button clicked!";
+		//	m_Material->SaveMaterial(m_Material->GetPath());
+			QColor color = QColorDialog::getColor(Qt::white, this, "Select Specular Color");
+			if (color.isValid()) {
+				//updateColor(color);
+				m_SpecCol->SetColor(float4(color.redF(), color.greenF(), color.blueF(), 1.0));
+				m_Material->SetSpecularColor(float4(color.redF(), color.greenF(), color.blueF(), 1.0f));
+			}
+			});
+
+
+
+
+		QPushButton* save = new QPushButton("Apply");
+
+		save->setMaximumWidth(80);
+
+		QObject::connect(save, &QPushButton::clicked, [&]() {
+			//	qDebug() << "Button clicked!";
+			m_Material->SaveMaterial(m_Material->GetPath());
+			});
+
+		m_LO->addLayout(col_diff_box);
+		m_LO->addLayout(col_spec_box);
+		m_LO->addWidget(save);
+
+	}
 
 }
 

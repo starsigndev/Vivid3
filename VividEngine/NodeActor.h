@@ -17,7 +17,7 @@ public:
 
 
 	NodeActor() {
-
+		m_Static = false;
 	};
 
 	Mesh3D* ProcessMesh(aiMesh* mesh, aiScene* scene, bool cre_buf = true);
@@ -40,7 +40,7 @@ public:
 		m_Animator = animator;
 	}
 
-
+	void Render(bool sp);
 	void Update();
 
 	float dt = 0.0f;
@@ -50,7 +50,7 @@ private:
 	Animator* m_Animator = nullptr;
 	std::map<std::string, BoneInfo*> m_BoneInfoMap;
 	int m_BoneCounter = 0;
-
+	Bounds* m_Bounds = nullptr;
 
 };
 

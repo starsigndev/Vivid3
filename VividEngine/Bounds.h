@@ -6,6 +6,9 @@ class Bounds
 {
 public:
 
+	Bounds() {
+
+	};
 	float3 Min;
 	float3 Max;
 	float3 Centre;
