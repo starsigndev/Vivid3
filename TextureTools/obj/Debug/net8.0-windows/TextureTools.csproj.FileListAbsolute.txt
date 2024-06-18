@@ -1,0 +1,16 @@
+C:\dev\Vivid3D\TextureTools\bin\Debug\net8.0-windows\TextureTools.exe
+C:\dev\Vivid3D\TextureTools\bin\Debug\net8.0-windows\TextureTools.deps.json
+C:\dev\Vivid3D\TextureTools\bin\Debug\net8.0-windows\TextureTools.runtimeconfig.json
+C:\dev\Vivid3D\TextureTools\bin\Debug\net8.0-windows\TextureTools.dll
+C:\dev\Vivid3D\TextureTools\bin\Debug\net8.0-windows\TextureTools.pdb
+C:\dev\Vivid3D\TextureTools\obj\Debug\net8.0-windows\TextureTools.Form1.resources
+C:\dev\Vivid3D\TextureTools\obj\Debug\net8.0-windows\TextureTools.csproj.GenerateResource.cache
+C:\dev\Vivid3D\TextureTools\obj\Debug\net8.0-windows\TextureTools.GeneratedMSBuildEditorConfig.editorconfig
+C:\dev\Vivid3D\TextureTools\obj\Debug\net8.0-windows\TextureTools.AssemblyInfoInputs.cache
+C:\dev\Vivid3D\TextureTools\obj\Debug\net8.0-windows\TextureTools.AssemblyInfo.cs
+C:\dev\Vivid3D\TextureTools\obj\Debug\net8.0-windows\TextureTools.csproj.CoreCompileInputs.cache
+C:\dev\Vivid3D\TextureTools\obj\Debug\net8.0-windows\TextureTools.dll
+C:\dev\Vivid3D\TextureTools\obj\Debug\net8.0-windows\refint\TextureTools.dll
+C:\dev\Vivid3D\TextureTools\obj\Debug\net8.0-windows\TextureTools.pdb
+C:\dev\Vivid3D\TextureTools\obj\Debug\net8.0-windows\TextureTools.genruntimeconfig.cache
+C:\dev\Vivid3D\TextureTools\obj\Debug\net8.0-windows\ref\TextureTools.dll

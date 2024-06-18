@@ -11,6 +11,7 @@ using namespace Diligent;
 
 class Texture2D;
 class RenderTargetCube;
+class TextureCube;
 
 class MaterialBase
 {
@@ -41,6 +42,12 @@ public:
 		m_Ambient = ambient;
 	}
 	void SetEnvironment(RenderTargetCube* env);
+	void SetEnvironmentTex(TextureCube* map) {
+		m_EnvironmentTex = map;
+	}
+	TextureCube* GetEnvironmentTex() {
+		return m_EnvironmentTex;
+	}
 	Texture2D* GetDiffuse() {
 		return m_Diffuse;
 	}
@@ -84,10 +91,11 @@ public:
 protected:
 
 	//Textures
-	Texture2D* m_Diffuse;
-	Texture2D* m_Normal;
-	Texture2D* m_Specular;
-	RenderTargetCube* m_Environment;
+	Texture2D* m_Diffuse = nullptr;
+	Texture2D* m_Normal = nullptr;
+	Texture2D* m_Specular = nullptr;
+	RenderTargetCube* m_Environment = nullptr;
+	TextureCube* m_EnvironmentTex = nullptr;
 
 	//PBR
 	Texture2D* m_Roughness;

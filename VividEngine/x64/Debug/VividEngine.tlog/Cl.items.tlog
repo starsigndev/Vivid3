@@ -37,5 +37,6 @@ C:\dev\Vivid3D\VividEngine\SceneGraph.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\S
 C:\dev\Vivid3D\VividEngine\SceneOctree.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\SceneOctree.obj
 C:\dev\Vivid3D\VividEngine\ScriptHost.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\ScriptHost.obj
 C:\dev\Vivid3D\VividEngine\Texture2D.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Texture2D.obj
+C:\dev\Vivid3D\VividEngine\TextureCube.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\TextureCube.obj
 C:\dev\Vivid3D\VividEngine\VFile.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\VFile.obj
 C:\dev\Vivid3D\VividEngine\VividEngine.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\VividEngine.obj

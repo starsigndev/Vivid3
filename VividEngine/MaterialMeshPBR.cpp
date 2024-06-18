@@ -12,6 +12,7 @@
 #include <Graphics/GraphicsEngine/interface/SwapChain.h>
 #include <Common/interface/RefCntAutoPtr.hpp>
 #include <MapHelper.hpp> // Add this line
+#include "TextureCube.h"
 using namespace Diligent;
 
 
@@ -297,9 +298,13 @@ void MaterialMeshPBR::Bind(bool sp) {
         m_SecondPassSRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureMetal")->Set(m_Metal->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
         m_SecondPassSRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureAmbient")->Set(m_Ambient->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
         m_SecondPassSRB->GetVariableByName(SHADER_TYPE_PIXEL, "v_Shadow")->Set(Engine::m_Light->GetShadowMap()->GetTexView(), SET_SHADER_RESOURCE_FLAG_NONE);
-        if (m_Environment != nullptr) {
-            m_SecondPassSRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_Environment")->Set(m_Environment->GetTexView(), SET_SHADER_RESOURCE_FLAG_NONE);
+        if (m_EnvironmentTex != nullptr) {
+            m_SecondPassSRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_Environment")->Set(m_EnvironmentTex->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
         }
+        else
+            if (m_Environment != nullptr) {
+                m_SecondPassSRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_Environment")->Set(m_Environment->GetTexView(), SET_SHADER_RESOURCE_FLAG_NONE);
+            }
     }
     else {
         m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_Texture")->Set(m_Diffuse->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
@@ -308,6 +313,9 @@ void MaterialMeshPBR::Bind(bool sp) {
         m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureMetal")->Set(m_Metal->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
         m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureAmbient")->Set(m_Ambient->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
         m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "v_Shadow")->Set(Engine::m_Light->GetShadowMap()->GetTexView(), SET_SHADER_RESOURCE_FLAG_NONE);
+        if (m_EnvironmentTex != nullptr) {
+            m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_Environment")->Set(m_EnvironmentTex->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
+        }else 
         if (m_Environment != nullptr) {
             m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_Environment")->Set(m_Environment->GetTexView(), SET_SHADER_RESOURCE_FLAG_NONE);
         }
@@ -354,12 +362,12 @@ void MaterialMeshPBR::Bind(bool sp) {
 
 
         int env = 0;
-        if (m_Environment != nullptr) {
+        if (m_Environment != nullptr || m_EnvironmentTex!=nullptr) {
             env = 1.0;
         }
 
         map_data[0].v_ExtraProp = float4(light->GetRange(), env, m_RoughnessOverdrive, m_MetalOverdrive);
-        map_data[0].v_ViewDir = float4(Engine::m_Camera->TransformVector(float3(0, 0, 1.0)), 1.0);
+        map_data[0].v_ViewDir = float4(Engine::m_Camera->TransformVector(float3(0, 0, -1.0)), 1.0);
         
     }
     else {
@@ -399,12 +407,12 @@ void MaterialMeshPBR::Bind(bool sp) {
         
 
         int env = 0;
-        if (m_Environment != nullptr) {
+        if (m_Environment != nullptr || m_EnvironmentTex != nullptr) {
             env = 1.0;
         }
         
         map_data[0].v_ExtraProp = float4(light->GetRange(), env, m_RoughnessOverdrive, m_MetalOverdrive);
-        map_data[0].v_ViewDir = float4(Engine::m_Camera->TransformVector(float3(0, 0, 1.0)), 1.0);
+        map_data[0].v_ViewDir = float4(Engine::m_Camera->TransformVector(float3(0, 0, -1.0)), 1.0);
 
 
     }

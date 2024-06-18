@@ -36,6 +36,7 @@ private:
 	VImagePreview* m_NormImg;
 	VImagePreview* m_RoughImg;
 	VImagePreview* m_MetalImg;
+	VImagePreview* m_EnvImg;
 	VColorPreview* m_DiffCol;
 	VColorPreview* m_SpecCol;
 	QDoubleSpinBox* m_RoughOD;
@@ -66,4 +67,7 @@ private:
 	QDoubleSpinBox* m_LightSpecG;
 	QDoubleSpinBox* m_LightSpecB;
 	QDoubleSpinBox* m_LightRange;
+
+	std::vector<QWidget*> m_ScriptWidgets;
+
 };

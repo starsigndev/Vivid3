@@ -19,6 +19,7 @@
 #include "ScriptHost.h"
 #include "CubeRenderer.h"
 #include "MaterialMeshPBR.h"
+#include "TextureCube.h"
 
 VOutput::VOutput(QWidget *parent)
 	: QWidget(parent)
@@ -54,7 +55,7 @@ VOutput::VOutput(QWidget *parent)
     auto l2 = new NodeLight;
     l2->SetPosition(float3(0, 12, 10));
     l2->SetDiffuse(float3(0, 2, 2));
-    m_Graph1->AddLight(l2);
+    //m_Graph1->AddLight(l2);
     
     auto cam = m_Graph1->GetCamera();
     cam->SetPosition(float3(0, 8,0));
@@ -201,7 +202,11 @@ VOutput::VOutput(QWidget *parent)
     //m_Oct1 = new SceneOctree(m_Graph1);
     //int leafs = m_Oct1->LeafCount();
     int bb = 5;
-   
+    auto cm1 = new TextureCube("test/test");
+    auto t1 = (NodeEntity*)m_Import->ImportNode("test/mesh2.fbx");
+    m_Graph1->AddNode(t1);
+    t1->GetMeshes()[0]->GetMaterial()->SetEnvironmentTex(cm1);
+    
 }
 
 

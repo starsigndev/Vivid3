@@ -77,6 +77,7 @@ public:
 	}
 	virtual void Update();
 	void AddScript(std::string path);
+	std::vector<VClass*> GetScripts();
 	void BeginPlay();
 	void Stop();
 	virtual void Push();

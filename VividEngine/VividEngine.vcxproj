@@ -122,10 +122,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>assimp-vc143-mt.lib;VScript.lib;cuda.lib;cudart.lib;OpenCL.lib</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc143-mt.lib;VScript.lib;cuda.lib;cudart.lib;OpenCL.lib;Half.lib;Iex-2_2.lib;IexMath-2_2.lib;IlmImf-2_2.lib;IlmImfUtil-2_2.lib;IlmThread-2_2.lib;Imath-2_2.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.5\lib\x64;C:\dev\Vivid3D\Vivid3D\x64\Debug;C:\Dev\Assimp\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\dev\Vivid3D\Vivid3D\packages\opencv.win.native.320.1.1-vs141\build\native\lib\x64\v141\Debug;C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\lib_debug;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.5\lib\x64;C:\dev\Vivid3D\Vivid3D\x64\Debug;C:\Dev\Assimp\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -196,6 +196,7 @@
     <ClInclude Include="SceneOctree.h" />
     <ClInclude Include="ScriptHost.h" />
     <ClInclude Include="Texture2D.h" />
+    <ClInclude Include="TextureCube.h" />
     <ClInclude Include="VFile.h" />
   </ItemGroup>
   <ItemGroup>
@@ -243,10 +244,21 @@
     <ClCompile Include="SceneOctree.cpp" />
     <ClCompile Include="ScriptHost.cpp" />
     <ClCompile Include="Texture2D.cpp" />
+    <ClCompile Include="TextureCube.cpp" />
     <ClCompile Include="VFile.cpp" />
     <ClCompile Include="VividEngine.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\OpenEXR-msvc14-x64.targets" Condition="Exists('..\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\OpenEXR-msvc14-x64.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\OpenEXR-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\OpenEXR-msvc14-x64.targets'))" />
+  </Target>
 </Project>

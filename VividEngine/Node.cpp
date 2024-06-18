@@ -446,3 +446,9 @@ bool Node::GetStatic() {
 	return m_Static;
 
 }
+
+std::vector<VClass*> Node::GetScripts() {
+
+	return m_Scripts;
+
+}

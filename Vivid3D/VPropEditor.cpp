@@ -12,6 +12,12 @@
 #include "NodeLight.h"
 #include "VSceneGraph.h"
 #include "MaterialMeshPBR.h"
+#include "VClass.h"
+#include "VVar.h"
+#include "VScope.h"
+#include "VName.h"
+#include "TextureCube.h"
+
 //#include <qcheckbox.h>
 
 
@@ -124,6 +130,20 @@ void ne_clearLayout(QLayout* layout)
 void VPropEditor::SetMaterial(MaterialBase* material) {
 
 	m_Material = material;
+	if (layout() != nullptr) {
+
+		ne_clearLayout(layout());
+		//	return;
+		m_LO = (QVBoxLayout*)layout();
+
+	}
+	else {
+		m_LO = new QVBoxLayout(this);
+		m_LO->setAlignment(Qt::AlignTop);
+		m_LO->setSpacing(15);
+		//	setLayout(m_LO);
+
+	}
 
 
 
@@ -360,6 +380,38 @@ void VPropEditor::SetMaterial(MaterialBase* material) {
 		//diff_prev->setAcceptDrops()
 		mod_box->setAlignment(Qt::AlignLeft);
 
+
+		auto env_box = new QHBoxLayout();
+
+		auto env_lab = new QLabel("Cube Map");
+
+		env_box->addWidget(env_lab);
+		m_EnvImg = new VImagePreview(this);
+		//	QPixmap pix = QPixmap(material->GetDiffuse()->GetPath().c_str());
+			//QPixmap scaledPixmap = pix.scaled(64,64, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+
+		m_EnvImg->SetSize(64, 64);
+		if (m_Material->GetEnvironmentTex() != nullptr) {
+			m_EnvImg->SetImage(m_Material->GetEnvironmentTex()->GetPath());
+		}
+		QObject::connect(m_EnvImg, &VImagePreview::dropped, [&](const QString& filePath) {
+			//qDebug() << "File dropped:" << filePath;
+			m_Material->SetEnvironmentTex(new TextureCube(filePath.toStdString()));
+			});
+
+
+		
+		env_box->addWidget(m_EnvImg);
+
+		env_box->setAlignment(Qt::AlignLeft);
+		env_box->setSpacing(15);
+
+		auto env_browse = new QPushButton("Browse");
+
+		env_box->addWidget(env_browse);
+
+		m_LO->addLayout(env_box);
 		
 
 
@@ -1110,6 +1162,133 @@ void VPropEditor::SetNode(Node* node) {
 
 				//label->setText(QString("Value: %1").arg(value, 0, 'f', 2));
 			});
+
+	}
+
+	auto scripts = m_Node->GetScripts();
+
+	for (auto script : scripts) {
+
+		//auto vars = script-
+
+		auto info_box = new QHBoxLayout();
+
+		auto name = script->GetName().GetNames()[0];
+
+		auto script_lab = new QLabel(std::string("Script:" + name).c_str());
+
+		info_box->addWidget(script_lab);
+
+		m_LO->addLayout(info_box);
+
+		int vv = 0;
+		for (auto var : script->GetScope()->GetVars())
+		{
+			auto vbox = new QHBoxLayout();
+			vbox->setAlignment(Qt::AlignLeft);
+			auto name_lab = new QLabel(var->GetName().c_str());
+
+			vbox->addWidget(name_lab);
+			name_lab->setMinimumWidth(50);
+			name_lab->setMaximumWidth(50);
+
+
+			switch (var->GetType()) {
+			case T_Number:
+			case T_Int:
+			{
+				QSpinBox* var_edit = new QSpinBox();
+				vbox->addWidget(var_edit);
+				var_edit->setValue(var->ToInt());
+				var_edit->setMinimumWidth(120);
+				var_edit->setRange(-100000, 100000);
+				var_edit->setProperty("Script", QVariant::fromValue(reinterpret_cast<quintptr>(var)));
+				QObject::connect(var_edit, QOverload<int>::of(&QSpinBox::valueChanged),
+					[var_edit](int value) {
+
+						//	QDoubleSpinBox* senderSpinBox = qobject_cast<QDoubleSpinBox*>(sender());
+						QVariant customData = var_edit->property("Script");
+						if (customData.isValid()) {
+
+							void* retrievedPointer = reinterpret_cast<void*>(customData.toULongLong());
+							auto vv = (VVar*)retrievedPointer;
+							vv->SetInt(value);
+							// Use retrievedPointer as needed
+						}
+
+						//int b = vv;
+						//int aa = 5;
+
+						//var->SetFloat(value);
+
+						//auto l = (NodeLight*)m_Node;
+						//l->SetRange(value);
+						//	auto dif = l->GetDiffuse();
+					//	dif.z = value;
+						//l->SetDiffuse(dif);
+
+						//label->setText(QString("Value: %1").arg(value, 0, 'f', 2));
+					});
+			}
+			break;
+			case T_Float:
+			case T_FloatNumber:
+
+			{
+				QDoubleSpinBox* var_edit = new QDoubleSpinBox();
+				vbox->addWidget(var_edit);
+				var_edit->setValue(var->ToFloat());
+				var_edit->setMinimumWidth(120);
+				var_edit->setRange(-100000, 100000);
+				m_ScriptWidgets.push_back(var_edit);
+				var_edit->setProperty("Script", QVariant::fromValue(reinterpret_cast<quintptr>(var)));
+
+				//
+				QObject::connect(var_edit, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+					[var_edit](double value) {
+
+					//	QDoubleSpinBox* senderSpinBox = qobject_cast<QDoubleSpinBox*>(sender());
+						QVariant customData = var_edit->property("Script");
+						if (customData.isValid()) {
+
+							void* retrievedPointer = reinterpret_cast<void*>(customData.toULongLong());
+							auto vv = (VVar*)retrievedPointer;
+							vv->SetFloat(value);
+							// Use retrievedPointer as needed
+						}
+
+						//int b = vv;
+						//int aa = 5;
+
+						//var->SetFloat(value);
+
+						//auto l = (NodeLight*)m_Node;
+						//l->SetRange(value);
+						//	auto dif = l->GetDiffuse();
+					//	dif.z = value;
+						//l->SetDiffuse(dif);
+
+						//label->setText(QString("Value: %1").arg(value, 0, 'f', 2));
+					});
+
+				
+			}
+			break;
+			case T_String:
+			{
+				QLineEdit* var_edit = new QLineEdit();
+				vbox->addWidget(var_edit);
+				var_edit->setText(var->ToString().c_str());
+				var_edit->setMinimumWidth(200);
+				var_edit->setMaximumWidth(250);
+			}
+			break;
+			}
+			vv++;
+			m_LO->addLayout(vbox);
+
+		}
+
 
 	}
 

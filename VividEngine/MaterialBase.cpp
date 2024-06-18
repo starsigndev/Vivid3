@@ -13,6 +13,7 @@
 #include "VFile.h"
 #include "MaterialMeshPBR.h"
 #include "MaterialMeshLight.h"
+#include "TextureCube.h"
 
 using namespace Diligent;
 MaterialBase::MaterialBase() {
@@ -365,6 +366,14 @@ void MaterialBase::SaveMaterial(std::string path) {
         out->WriteString(m_Normal->GetPath().c_str());
         out->WriteString(m_Roughness->GetPath().c_str());
         out->WriteString(m_Metal->GetPath().c_str());
+        if (m_EnvironmentTex != nullptr) {
+            out->WriteInt(1);
+
+            out->WriteString(m_EnvironmentTex->GetPath().c_str());
+        }
+        else {
+            out->WriteInt(0);
+        }
         out->WriteVec4(m_DiffuseColor);
         out->WriteVec4(m_SpecularColor);
         out->WriteFloat(pbr->GetRoughOverdrive());
@@ -400,8 +409,7 @@ MaterialBase* MaterialBase::LoadMaterial(std::string path) {
         res->SetDiffuse(new Texture2D(in->ReadString()));
         res->SetSpecular(new Texture2D(in->ReadString()));
         res->SetNormals(new Texture2D(in->ReadString()));
-
-
+  
 
         res->SetDiffuseColor(in->ReadVec4());
         res->SetSpecularColor(in->ReadVec4());
@@ -418,6 +426,12 @@ MaterialBase* MaterialBase::LoadMaterial(std::string path) {
         res2->SetNormals(new Texture2D(in->ReadString(),true));
         res2->SetRough(new Texture2D(in->ReadString(),true));
         res2->SetMetal(new Texture2D(in->ReadString(),true));
+        if (in->ReadInt() == 1)
+        {
+            res->SetEnvironmentTex(new TextureCube(in->ReadString()));
+        }
+
+
         res2->SetDiffuseColor(in->ReadVec4());
         res2->SetSpecularColor(in->ReadVec4());
         res2->SetRoughOverdrive(in->ReadFloat());
