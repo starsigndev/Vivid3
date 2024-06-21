@@ -211,7 +211,7 @@ Node* Importer::ImportNode(std::string path) {
 
 
         root->AddMesh(mesh);
-        mesh->BuildGeo();
+        //mesh->BuildGeo();
 
 
     }

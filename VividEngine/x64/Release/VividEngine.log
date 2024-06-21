@@ -1,4 +1,10 @@
-﻿  MaterialMeshPBR.cpp
+﻿  Intersections.cpp
+  opencl.hpp: CL_HPP_TARGET_OPENCL_VERSION is not defined. It will default to 300 (OpenCL 3.0)
+C:\dev\Vivid3D\VividEngine\Intersections.cpp(38,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\Intersections.cpp(110,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  SceneGraph.cpp
+C:\dev\Vivid3D\VividEngine\MathsHelp.h(18,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  opencl.hpp: CL_HPP_TARGET_OPENCL_VERSION is not defined. It will default to 300 (OpenCL 3.0)
   Replacing x64\Release\pch.obj
 cuda.lib(nvcuda.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 cudart.lib(cudart64_12.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored

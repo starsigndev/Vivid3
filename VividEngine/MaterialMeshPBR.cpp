@@ -307,7 +307,7 @@ void MaterialMeshPBR::Bind(bool sp) {
             }
     }
     else {
-        m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_Texture")->Set(m_Diffuse->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
+            m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_Texture")->Set(m_Diffuse->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
         m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureNorm")->Set(m_Normal->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
         m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureRough")->Set(m_Roughness->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
         m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureMetal")->Set(m_Metal->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);

@@ -25,6 +25,7 @@ public:
 
 	static Texture2D* WhiteTex;
 	Texture2D(std::string path,bool threaded = false);
+	Texture2D(int w, int h, float* data, int bpp);
 	RefCntAutoPtr<ITextureView> GetView() {
 		if (m_Loading) {
 			return WhiteTex->GetView();
@@ -55,6 +56,8 @@ private:
 	RefCntAutoPtr<ITextureView> m_pTextureView;
 	std::string m_Path;
 	bool m_Loading = false;
+	int m_Width;
+	int m_Height;
 	std::thread load;
 };
 

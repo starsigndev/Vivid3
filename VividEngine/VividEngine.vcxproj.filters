@@ -70,6 +70,12 @@
     <Filter Include="Anim">
       <UniqueIdentifier>{32cb1ba0-b3be-4e4c-94d7-4d945bea737a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\Nodes\Terrain">
+      <UniqueIdentifier>{cb4fc86b-d0fc-436e-961c-7d3704075cc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pixels">
+      <UniqueIdentifier>{c9910251-fa08-4f57-ab66-6cbe0243d2f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -201,6 +207,24 @@
     <ClInclude Include="TextureCube.h">
       <Filter>Texture2D</Filter>
     </ClInclude>
+    <ClInclude Include="NodeTerrain.h">
+      <Filter>Scene\Nodes\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainLayer.h">
+      <Filter>Scene\Nodes\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelMap.h">
+      <Filter>Pixels</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainMesh.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainMeshBuffer.h">
+      <Filter>Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialTerrain.h">
+      <Filter>Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VividEngine.cpp">
@@ -328,6 +352,24 @@
     </ClCompile>
     <ClCompile Include="TextureCube.cpp">
       <Filter>Texture2D</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeTerrain.cpp">
+      <Filter>Scene\Nodes\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainLayer.cpp">
+      <Filter>Scene\Nodes\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelMap.cpp">
+      <Filter>Pixels</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainMesh.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainMeshBuffer.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialTerrain.cpp">
+      <Filter>Material</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

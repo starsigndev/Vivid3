@@ -53,9 +53,9 @@ void MaterialBase::Create() {
 
     BlendStateDesc b_desc;
 
-    b_desc.RenderTargets[0].BlendEnable = false;
-    b_desc.RenderTargets[0].SrcBlend = BLEND_FACTOR::BLEND_FACTOR_ONE;
-    b_desc.RenderTargets[0].DestBlend = BLEND_FACTOR::BLEND_FACTOR_ZERO;
+    b_desc.RenderTargets[0].BlendEnable = true;
+    b_desc.RenderTargets[0].SrcBlend = BLEND_FACTOR::BLEND_FACTOR_SRC_ALPHA;
+    b_desc.RenderTargets[0].DestBlend = BLEND_FACTOR::BLEND_FACTOR_INV_SRC_ALPHA;
 
 
     LayoutElement pos;

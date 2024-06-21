@@ -98,6 +98,7 @@ public:
 	IRenderDevice* GetDevice() { return m_pDevice; }
 	IDeviceContext* GetContext() { return m_pImmediateContext; }
 	ISwapChain* GetSwapChain() { return m_pSwapChain; }
+	void TerrainPlot();
 
 protected:
 	void resizeEvent(QResizeEvent* event) override;
@@ -143,4 +144,6 @@ private:
 	Texture2D* m_LightIcon;
 	SceneOctree* m_Oct1;
 	CubeRenderer* m_CubeRen;
+	NodeEntity* m_TerrainBrush = nullptr;
+	MaterialBase* m_BrushMaterial = nullptr;
 };

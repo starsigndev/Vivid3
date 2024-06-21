@@ -176,6 +176,7 @@
     <ClInclude Include="MaterialMeshLight.h" />
     <ClInclude Include="MaterialMeshLines.h" />
     <ClInclude Include="MaterialMeshPBR.h" />
+    <ClInclude Include="MaterialTerrain.h" />
     <ClInclude Include="MathsHelp.h" />
     <ClInclude Include="Mesh3D.h" />
     <ClInclude Include="MeshBuffer.h" />
@@ -186,15 +187,20 @@
     <ClInclude Include="NodeCamera.h" />
     <ClInclude Include="NodeEntity.h" />
     <ClInclude Include="NodeLight.h" />
+    <ClInclude Include="NodeTerrain.h" />
     <ClInclude Include="OctNode.h" />
     <ClInclude Include="ParticleEffector.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PixelMap.h" />
     <ClInclude Include="Quat.h" />
     <ClInclude Include="RenderTargetCube.h" />
     <ClInclude Include="SceneGraph.h" />
     <ClInclude Include="data.h" />
     <ClInclude Include="SceneOctree.h" />
     <ClInclude Include="ScriptHost.h" />
+    <ClInclude Include="TerrainLayer.h" />
+    <ClInclude Include="TerrainMesh.h" />
+    <ClInclude Include="TerrainMeshBuffer.h" />
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="TextureCube.h" />
     <ClInclude Include="VFile.h" />
@@ -220,6 +226,7 @@
     <ClCompile Include="MaterialMeshLight.cpp" />
     <ClCompile Include="MaterialMeshLines.cpp" />
     <ClCompile Include="MaterialMeshPBR.cpp" />
+    <ClCompile Include="MaterialTerrain.cpp" />
     <ClCompile Include="MathsHelp.cpp" />
     <ClCompile Include="Mesh3D.cpp" />
     <ClCompile Include="MeshBuffer.cpp" />
@@ -230,6 +237,7 @@
     <ClCompile Include="NodeCamera.cpp" />
     <ClCompile Include="NodeEntity.cpp" />
     <ClCompile Include="NodeLight.cpp" />
+    <ClCompile Include="NodeTerrain.cpp" />
     <ClCompile Include="OctNode.cpp" />
     <ClCompile Include="ParticleEffector.cpp" />
     <ClCompile Include="pch.cpp">
@@ -238,11 +246,15 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PixelMap.cpp" />
     <ClCompile Include="Quat.cpp" />
     <ClCompile Include="RenderTargetCube.cpp" />
     <ClCompile Include="SceneGraph.cpp" />
     <ClCompile Include="SceneOctree.cpp" />
     <ClCompile Include="ScriptHost.cpp" />
+    <ClCompile Include="TerrainLayer.cpp" />
+    <ClCompile Include="TerrainMesh.cpp" />
+    <ClCompile Include="TerrainMeshBuffer.cpp" />
     <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="TextureCube.cpp" />
     <ClCompile Include="VFile.cpp" />

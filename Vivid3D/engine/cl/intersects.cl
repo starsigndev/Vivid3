@@ -63,7 +63,13 @@ __kernel void findClosestIntersection(
     //float3 v2 = points[tid + 2]; // Third vertex of the triangle
   float res = rayTri(origin[0],dir[0],v0,v1,v2);
 
-    minResult[gid] =res;
+   if(res>-1){
+    
+   if(res<minResult[0]){
+      minResult[0] =res;
+   }
+   }
+   
 
 
 

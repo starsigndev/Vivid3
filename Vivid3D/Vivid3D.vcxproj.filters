@@ -27,6 +27,9 @@
     <Filter Include="Editor">
       <UniqueIdentifier>{198d5620-0501-4fdf-8721-f5d01db25d48}</UniqueIdentifier>
     </Filter>
+    <Filter Include="EditHelp">
+      <UniqueIdentifier>{238aa0a1-f237-40f4-8a62-a9323c041672}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Vivid3D.qrc">
@@ -84,6 +87,9 @@
     </ClCompile>
     <ClCompile Include="VColorPreview.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditHelp.cpp">
+      <Filter>EditHelp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +162,9 @@
   <ItemGroup>
     <ClInclude Include="Editor.h">
       <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="EditHelp.h">
+      <Filter>EditHelp</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

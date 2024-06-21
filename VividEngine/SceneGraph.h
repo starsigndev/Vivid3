@@ -14,6 +14,7 @@ class Mesh3D;
 class CubeRenderer;
 class MeshLines;
 class Bounds;
+class NodeTerrain;
 
 
 struct SceneInfo {
@@ -59,6 +60,7 @@ public:
 	void AddLines(MeshLines* line);
 	HitResult MousePick(int x, int y);
 	HitResult MousePick(int x, int y, NodeEntity* entity);
+	HitResult MousePick(int x, int y, NodeTerrain* terrain);
 	HitResult RayCast(float3 pos, float3 dir);
 	float2 ToScreenSpace(float3 position);
 	std::vector<NodeLight*> GetLights() {

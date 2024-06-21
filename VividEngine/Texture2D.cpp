@@ -37,3 +37,36 @@ Texture2D::Texture2D(std::string path,bool threaded) {
 
     }
 }
+
+Texture2D::Texture2D(int w, int h, float* data, int bpp)
+{
+    m_Width = w;
+    m_Height = h;
+    
+    TextureDesc TexDesc;
+    TexDesc.Name = "Float Tex2D"; // Name of the texture
+    TexDesc.Type = RESOURCE_DIM_TEX_2D; // Cube map type
+    TexDesc.Width = w;
+    TexDesc.Height = h;
+    TexDesc.Format = TEX_FORMAT_RGBA32_FLOAT; ;// Engine::m_pSwapChain->GetCurrentBackBufferRTV()->GetDesc().Format;  //DXGI_FORMAT_R32G32B32A32_FLOAT; // Assuming RGBA EXR format
+    TexDesc.BindFlags = BIND_SHADER_RESOURCE;
+    TexDesc.Usage = USAGE_IMMUTABLE;
+   
+    TexDesc.MipLevels = 1;
+    std::vector<TextureSubResData> res;
+
+    TextureSubResData adata;
+    adata.pData = data;
+    adata.Stride = w * sizeof(float) * 4;
+
+    TextureData tdata;
+    tdata.NumSubresources = 1;
+    tdata.pSubResources = &adata;
+
+
+    RefCntAutoPtr<ITexture> pTexture;
+    Engine::m_pDevice->CreateTexture(TexDesc, &tdata, &pTexture);
+    m_pTexture = pTexture;
+    m_pTextureView = pTexture->GetDefaultView(TEXTURE_VIEW_SHADER_RESOURCE);
+
+}

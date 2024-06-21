@@ -2,6 +2,7 @@
 #include "Intersections.h"
 #include "Mesh3D.h"
 #include "BasicMath.hpp"
+#include "TerrainMesh.h"
 
 Intersections::Intersections() {
 
@@ -20,14 +21,202 @@ void CL_CALLBACK errorCallback(cl_int err, const char* msg, void* data) {
 }
 
 
-CastResult Intersections::CastMesh(float3 pos, float3 dir, Mesh3D* mesh) {
+CastResult Intersections::CastTerrainMesh(float3 pos, float3 dir, TerrainMesh* mesh) {
+
+    //return CastResult();
+
+   // if (mesh) {
+    float size = 1000;
+    cl::Buffer posBuf(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(float3), &pos);
+    cl::Buffer dirBuf(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(float3), &dir);
+    cl::Buffer minResultBuffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(float), &size);
+    //}  num_tris = mesh->GetTris().size();
+    num_tris = mesh->GetTriangles().size();
+        int cl = clock();
+        if (mesh->NeedRebuild()) {
+
+            mesh->RebuildGeo();
+
+
+
+            num_tris = mesh->GetTriangles().size();
+            std::vector<float3> tri_data(num_tris * 3);
+
+
+            tri_data = mesh->GetGeo();
+
+
+            int byte_size = (sizeof(float3) * 3);
+
+            int result_byte_size = num_tris * sizeof(float);
+
+            int b = 5;
+            // Create OpenCL buffers
+           // float size = -10000;
+            //i//nt cl = clock();
+            triBuf = cl::Buffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+                sizeof(float3) * tri_data.size(), (void*)tri_data.data());
+            kernel.setArg(0, posBuf);
+            kernel.setArg(1, dirBuf);
+            kernel.setArg(2, minResultBuffer);
+            kernel.setArg(3, triBuf);
+            m_TBuffers[mesh] = triBuf;
+        }
+        else {
+            triBuf = m_TBuffers[mesh];
+            kernel.setArg(0, posBuf);
+            kernel.setArg(1, dirBuf);
+            kernel.setArg(2, minResultBuffer);
+            kernel.setArg(3, triBuf);
+        }
+
+    //int ct = clock() - cl;
+
+    //printf("CT:%d\n", ct);
+
+
+
+    // Check for errors
+
+
+    // Set kernel arguments
+
+
+
+    // Execute the kernel (one work-item per triangle)
+    cl::NDRange globalSize(num_tris);
+    queue.enqueueNDRangeKernel(kernel, cl::NullRange, globalSize, cl::NullRange);
+    queue.finish();
+
+    // Read the result
+    float ch=-10000;
+    queue.enqueueReadBuffer(minResultBuffer, CL_TRUE,0,4, &ch);
+
+    CastResult result;
+    result.Hit = false;
+    result.Distance = -1;
+    int ts = clock() - cl;
+    printf("RT:%d\n", ts);
+    if (ch > -1 && ch<1000) {
+        result.Hit = true;
+        result.Distance = ch;
+        return result;
+    }
+    
 
  
+
+
+    return result;
+}
+
+CastResult Intersections::CastMesh(float3 pos, float3 dir, Mesh3D* mesh) {
+
+    float size = 1000;
+    cl::Buffer posBuf(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(float3), &pos);
+    cl::Buffer dirBuf(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(float3), &dir);
+    cl::Buffer minResultBuffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(float), &size);
+    //}
+    num_tris = mesh->GetTris().size();
+    int cl = clock();
+    if (mesh->RebuildIf()) {
+
+        mesh->BuildGeo();
+
+
+
+        num_tris = mesh->GetTris().size();
+        std::vector<float3> tri_data(num_tris * 3);
+
+
+        tri_data = mesh->GetGeo();
+
+
+        int byte_size = (sizeof(float3) * 3);
+
+        int result_byte_size = num_tris * sizeof(float);
+
+        int b = 5;
+        // Create OpenCL buffers
+       // float size = -10000;
+        //i//nt cl = clock();
+        triBuf = cl::Buffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+            sizeof(float3) * tri_data.size(), (void*)tri_data.data());
+        kernel.setArg(0, posBuf);
+        kernel.setArg(1, dirBuf);
+        kernel.setArg(2, minResultBuffer);
+        kernel.setArg(3, triBuf);
+        m_Buffers[mesh] = triBuf;
+    }
+    else {
+
+        num_tris = mesh->GetTris().size();
+        std::vector<float3> tri_data(num_tris * 3);
+
+
+        tri_data = mesh->GetGeo();
+
+
+        int byte_size = (sizeof(float3) * 3);
+
+        int result_byte_size = num_tris * sizeof(float);
+        triBuf = m_Buffers[mesh]; // cl::Buffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+        //    sizeof(float3) * tri_data.size(), (void*)tri_data.data());
+
+        kernel.setArg(0, posBuf);
+        kernel.setArg(1, dirBuf);
+        kernel.setArg(2, minResultBuffer);
+        kernel.setArg(3, triBuf);
+    }
+
+    //int ct = clock() - cl;
+
+    //printf("CT:%d\n", ct);
+
+
+
+    // Check for errors
+
+
+    // Set kernel arguments
+
+
+
+    // Execute the kernel (one work-item per triangle)
+    cl::NDRange globalSize(num_tris);
+    queue.enqueueNDRangeKernel(kernel, cl::NullRange, globalSize, cl::NullRange);
+    queue.finish();
+
+    // Read the result
+    float ch = -10000;
+    queue.enqueueReadBuffer(minResultBuffer, CL_TRUE, 0, 4, &ch);
+
+    CastResult result;
+    result.Hit = false;
+    result.Distance = -1;
+    int ts = clock() - cl;
+    printf("RT:%d\n", ts);
+    if (ch > -1 && ch < 1000) {
+        result.Hit = true;
+        result.Distance = ch;
+        return result;
+    }
+
+
+
+
+
+    /*
+    return CastResult();
+
     if (mesh->RebuildIf()) {
         mesh->BuildGeo();
     }
     int num_tris = mesh->GetTris().size();
     std::vector<float3> tri_data(num_tris * 3);
+
+
+    tri_data = mesh->GetGeo();
 
 
     tri_data = mesh->GetGeo();
@@ -39,22 +228,26 @@ CastResult Intersections::CastMesh(float3 pos, float3 dir, Mesh3D* mesh) {
 
     int b = 5;
     // Create OpenCL buffers
-    
+    float size = 10000;
+    int cl = clock();
+    // Create OpenCL buffers
     cl::Buffer trianglesBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-     sizeof(float3)*tri_data.size(), (void*)tri_data.data());
+        sizeof(float3) * tri_data.size(), (void*)tri_data.data());
     cl::Buffer posBuf(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(float3), &pos);
     cl::Buffer dirBuf(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(float3), &dir);
-    cl::Buffer minResultBuffer(context, CL_MEM_READ_WRITE,result_byte_size);
+    cl::Buffer minResultBuffer(context, CL_MEM_READ_WRITE, sizeof(float));
+    int ct = clock() - cl;
+    printf("CT:%d\n", ct);
 
-    
+
 
     // Check for errors
- 
+
 
     // Set kernel arguments
- 
+
     kernel.setArg(0, posBuf);
-     kernel.setArg(1, dirBuf);
+    kernel.setArg(1, dirBuf);
     kernel.setArg(2, minResultBuffer);
     kernel.setArg(3, trianglesBuffer);
     // Execute the kernel (one work-item per triangle)
@@ -63,21 +256,30 @@ CastResult Intersections::CastMesh(float3 pos, float3 dir, Mesh3D* mesh) {
     queue.finish();
 
     // Read the result
-    std::vector<float> cd(num_tris);
-    queue.enqueueReadBuffer(minResultBuffer, CL_TRUE, 0,result_byte_size, cd.data());
+    float ch = -10000;
+    queue.enqueueReadBuffer(minResultBuffer, CL_TRUE, 0, 4, &ch);
 
     CastResult result;
     result.Hit = false;
     result.Distance = -1;
+
+    if (ch > -1) {
+        result.Hit = true;
+        result.Distance = ch;
+        return result;
+    }
+
+
     // Print or process the results
     for (int i = 0; i < num_tris; ++i) {
-    //    std::cout << "Result " << i << ": " << cd[i] << std::endl;
-        if (cd[i] > -1)
+        //    std::cout << "Result " << i << ": " << cd[i] << std::endl;
+    //    if (cd[i] > -1)
         {
-            result.Hit = true;
-            result.Distance = cd[i];
+            //     result.Hit = true;
+           //      result.Distance = cd[i];
         }
     }
-    
+
     return result;
+    */
 }

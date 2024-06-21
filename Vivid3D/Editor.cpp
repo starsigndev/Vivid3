@@ -28,3 +28,8 @@ void Editor::Stop() {
 	m_RunMode = RM_Stopped;
 	Engine::m_ActiveGraph->Stop();
 }
+
+float Editor::TerrainX = 0;
+float Editor::TerrainZ = 0;
+float Editor::TerrainBrushSize = 5.5f;
+float Editor::TerrainBrushStrength = 0.25f;

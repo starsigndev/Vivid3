@@ -31,5 +31,9 @@ public:
 	static VPropertyEditor* m_PropEditor;
 	static void BeginPlay();
 	static void Stop();
-};
+	static float TerrainX;
+	static float TerrainZ;
+	static float TerrainBrushSize;
+	static float TerrainBrushStrength;
 
+};

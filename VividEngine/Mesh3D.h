@@ -1,7 +1,6 @@
 #pragma once
 #include <vector>
 #include "data.h"
-
 class NodeEntity;
 class MeshBuffer;
 class MaterialBase;
@@ -54,6 +53,12 @@ public:
 	void SetVertex(int index,Vertex vertex) {
 		m_Vertices[index] = vertex;
 	}
+//	cl::Buffer& GetCLBuf() {
+//		return triBuf;
+	//}
+//	void SetCLBuf(cl::Buffer& buf) {
+//		triBuf = buf;
+	//}
 private:
 
 	std::vector<Vertex> m_Vertices;
@@ -65,5 +70,6 @@ private:
 	NodeEntity* m_Owner;
 	std::vector<float3> m_Build;
 	bool n_NeedsRebuild = true;
+//	cl::Buffer triBuf;
 };
 

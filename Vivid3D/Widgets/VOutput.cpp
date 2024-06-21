@@ -20,6 +20,10 @@
 #include "CubeRenderer.h"
 #include "MaterialMeshPBR.h"
 #include "TextureCube.h"
+#include "NodeTerrain.h"
+#include "EditHelp.h"
+#include "TerrainLayer.h"
+#include "PixelMap.h"
 
 VOutput::VOutput(QWidget *parent)
 	: QWidget(parent)
@@ -125,8 +129,8 @@ VOutput::VOutput(QWidget *parent)
 
         LineVertex v1, v2;
 
-        v1.position = float3(x, 0, -grid_size);
-        v2.position = float3(x, 0, grid_size);
+        v1.position = float3(x, -2, -grid_size);
+        v2.position = float3(x, -2, grid_size);
         v1.color = float4(0.4f,0.4f,0.4f, 1);
         v2.color = float4(0.4f,0.4f,0.4f, 1);
 
@@ -143,8 +147,8 @@ VOutput::VOutput(QWidget *parent)
 
         //
 
-        v1.position = float3(-grid_size, 0, x);
-        v2.position = float3(grid_size, 0, x);
+        v1.position = float3(-grid_size, -2, x);
+        v2.position = float3(grid_size, -2, x);
         
         l1.V0 = li;
         l1.V1 = li + 1;
@@ -160,8 +164,8 @@ VOutput::VOutput(QWidget *parent)
 
         LineVertex v1, v2;
 
-        v1.position = float3(x, 0, -grid_size);
-        v2.position = float3(x, 0, grid_size);
+        v1.position = float3(x, -2, -grid_size);
+        v2.position = float3(x, -2, grid_size);
         v1.color = float4(1, 1, 1, 1);
         v2.color = float4(1, 1, 1, 1);
 
@@ -178,8 +182,8 @@ VOutput::VOutput(QWidget *parent)
 
         //
 
-        v1.position = float3(-grid_size, 0, x);
-        v2.position = float3(grid_size, 0, x);
+        v1.position = float3(-grid_size, -2, x);
+        v2.position = float3(grid_size, -2, x);
 
         l1.V0 = li;
         l1.V1 = li + 1;
@@ -202,10 +206,16 @@ VOutput::VOutput(QWidget *parent)
     //m_Oct1 = new SceneOctree(m_Graph1);
     //int leafs = m_Oct1->LeafCount();
     int bb = 5;
-    auto cm1 = new TextureCube("test/test");
-    auto t1 = (NodeEntity*)m_Import->ImportNode("test/mesh2.fbx");
-    m_Graph1->AddNode(t1);
-    t1->GetMeshes()[0]->GetMaterial()->SetEnvironmentTex(cm1);
+    //auto cm1 = new TextureCube("test/test");
+   // auto t1 = (NodeEntity*)m_Import->ImportNode("test/mesh2.fbx");
+   // m_Graph1->AddNode(t1);
+   // t1->GetMeshes()[0]->GetMaterial()->SetEnvironmentTex(cm1);
+    auto t = new NodeTerrain(128, 128, 2, 3);
+
+    m_Graph1->AddNode(t);
+    m_BrushMaterial = new MaterialBase;
+    m_BrushMaterial->Create();
+    m_BrushMaterial->SetDiffuse(new Texture2D("edit/brush1.png"));
     
 }
 
@@ -348,14 +358,32 @@ void VOutput::mousePressEvent(QMouseEvent* event)
 
         int ts = clock();
 
+        NodeTerrain* ter = dynamic_cast<NodeTerrain*>(Editor::m_CurrentNode);
+        if (ter != nullptr) {
+
+            TerrainPlot();
+            return;
+
+        }
+        
+
+
         auto res1 = m_Graph1->MousePick(m_MousePosition.x(), m_MousePosition.y());
         int fs = clock() - ts;
         printf("Pick Time:%d\n", fs);
         
         if (res1.m_Hit) {
-            Editor::m_CurrentNode = res1.m_Entity;
+            if (res1.m_Node != nullptr) {
+
+                Editor::m_CurrentNode = (Node*)res1.m_Node;
+
+            }
+            else {
+                Editor::m_CurrentNode = res1.m_Entity;
+            }
             Editor::m_SceneGraph->SetNode((Node*)res1.m_Entity);
             Editor::m_PropEditor->SetNode((Node*)res1.m_Entity);
+            return;
         }
         else {
             Editor::m_SceneGraph->SetNode(nullptr);
@@ -409,9 +437,7 @@ void VOutput::mouseMoveEvent(QMouseEvent* event)
 {
 
 
-    //Translate from origin along selected axis, then into screen space. if final x>y use mouse x else use mouse y
-
-
+ 
 
 
     QPoint delta = event->pos() - m_MouseLast;
@@ -424,6 +450,36 @@ void VOutput::mouseMoveEvent(QMouseEvent* event)
         m_ViewPitch += delta.y() * 0.2f;
 
         //  update();
+    }
+
+    //Translate from origin along selected axis, then into screen space. if final x>y use mouse x else use mouse y
+    NodeTerrain* pTerrain = dynamic_cast<NodeTerrain*>(Editor::m_CurrentNode);
+
+    if (pTerrain)
+    {
+
+        auto res = m_Graph1->MousePick((int)m_MousePosition.x(), (int)m_MousePosition.y(), pTerrain);
+      
+        if (res.m_Hit) {
+            printf("!!!!!!!!!!!!!!!!!\n");
+            Editor::TerrainX = res.m_Point.x;
+            Editor::TerrainZ = res.m_Point.z;
+            m_TerrainBrush = EditHelp::CreateTerrainBrush(res.m_Point.x, res.m_Point.y+0.1f, res.m_Point.z, Editor::TerrainBrushSize, 1.0f);
+        }
+        else {
+            m_TerrainBrush = nullptr;
+       }
+        //update();
+
+
+       // 
+        //Edit.EditorGlobal.EditorRenderer.RenderNodeBasic(TerrainBrush);
+
+
+
+        int b = 5;
+
+        return;
     }
 
     if (Editor::m_CurrentNode != nullptr) {
@@ -1002,6 +1058,14 @@ void VOutput::paintEvent(QPaintEvent* event)
 
     }
 
+    if (m_TerrainBrush != nullptr) {
+
+
+       m_TerrainBrush->SetMaterial(m_BrushMaterial);
+        m_TerrainBrush->Render(false);
+
+    }
+
     //m_Draw->Rect(m_LightIcon, float2(20, 20), float2(256, 256), float4(1, 1, 1, 1));
 
     pContext->Flush();
@@ -1011,4 +1075,58 @@ void VOutput::paintEvent(QPaintEvent* event)
     pSwapchain->Present(1);
     update();
   //  QWidget::paintEvent(event);
+}
+
+void VOutput::TerrainPlot() {
+
+
+    //var ter = Edit.EditorGlobal.CurrentTerrain;
+    auto ter = (NodeTerrain*)Editor::m_CurrentNode;
+
+    //var l1 = ter.Layers[TerrainEditorForm.ActiveLayer];
+    auto layer = ter->GetLayer(1);
+
+    auto bb = ter->GetTerrainBounds();
+
+    float tw = bb.Size().x;
+    float th = bb.Size().z;
+
+    float tx = Editor::TerrainX;
+    float ty = Editor::TerrainZ;
+
+
+    float tx1 = tx - bb.Min.x;
+    float ty1 = ty - bb.Min.z;
+
+    
+
+    float mxi = ((layer->GetPixels()->GetWidth()) / tw);// * TerrainBrushSize;
+    float myi = ((layer->GetPixels()->GetHeight()) / th);
+
+
+    float w1 = Editor::TerrainBrushSize * mxi;
+    float h1 = Editor::TerrainBrushSize * myi;
+
+
+
+    float xi = tx1 / tw;
+    float yi = ty1 / th;
+
+    //                Console.WriteLine("XI:" + xi + " YI:" + yi);
+
+    //return;
+
+
+    //     xi = 1.0f - xi;
+    //    yi = 1.0f - yi;
+
+    layer->PlotBrush(xi, yi, (int)w1, (int)h1,1.0f);
+
+    //Lower other layers by a similar(Inverse?) amount.
+    for(auto l : ter->GetLayers())
+    {
+        if (l == layer) continue;
+      //  l->PlotBrush(xi, yi, (int)w1, (int)h1, -Editor::TerrainBrushStrength);
+    }
+
 }

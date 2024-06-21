@@ -228,10 +228,10 @@ float3 CalculatePointLighting(float3 ViewPosition, float3 FragPosition, float3 N
     float Diffuse = CalculateDiffuseLight(Normal, LightDirection);
     float Specular = CalculateSpecularLight(Normal, LightDirection, ViewPosition, Shininess,FragPosition);
     
-    float3 spec_tex = v_TextureSpec.Sample(v_TextureSpec_sampler,UV).rgb;
+    float3 spec_tex =float3(1,1,1);// v_TextureSpec.Sample(v_TextureSpec_sampler,UV).rgb;
 
-     float3 SpecularLighting = (Specular * MaterialSpecular * LightSpecular)*spec_tex;
-     float3 DiffuseLighting = Diffuse * MaterialDiffuse * LightColor;
+     float3 SpecularLighting = (Specular * LightSpecular)*spec_tex;
+     float3 DiffuseLighting = Diffuse *  LightColor;
     float3 Lighting = DiffuseLighting + SpecularLighting;
 
     // Final lighting value

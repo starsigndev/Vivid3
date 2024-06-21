@@ -1,4 +1,6 @@
-﻿  MaterialBase.cpp
+﻿  TerrainLayer.cpp
+C:\dev\Vivid3D\VividEngine\TerrainLayer.cpp(26,19): warning C4101: 'xd': unreferenced local variable
+C:\dev\Vivid3D\VividEngine\TerrainLayer.cpp(26,23): warning C4101: 'yd': unreferenced local variable
   Replacing x64\Debug\pch.obj
 cuda.lib(nvcuda.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 cudart.lib(cudart64_12.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored

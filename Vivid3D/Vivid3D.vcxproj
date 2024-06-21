@@ -114,6 +114,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EditHelp.cpp" />
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="VColorPreview.cpp" />
     <ClCompile Include="VContentBrowser.cpp" />
@@ -154,6 +155,7 @@
     <QtMoc Include="VTreeView.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EditHelp.h" />
     <ClInclude Include="Editor.h" />
     <QtMoc Include="VColorPreview.h" />
     <QtMoc Include="VImagePreview.h" />
