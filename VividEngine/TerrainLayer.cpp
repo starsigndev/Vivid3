@@ -62,10 +62,11 @@ void TerrainLayer::PlotBrush(float x, float y, int w, int h, float strength)
     
     }
     //LayerMap = new Texture2D(LayerPixMap.Width, LayerPixMap.Height, LayerPixMap.Data, 4);
+  
     if (m_LayerMap != nullptr) {
-        delete m_LayerMap;
+        m_LayerMap->Update(m_LayerPixMap->GetData());
     }
-
-    m_LayerMap = new Texture2D(m_LayerPixMap->GetWidth(), m_LayerPixMap->GetHeight(), m_LayerPixMap->GetData(), 4);
-
+    else {
+        m_LayerMap = new Texture2D(m_LayerPixMap->GetWidth(), m_LayerPixMap->GetHeight(), m_LayerPixMap->GetData(), 4);
+    }
 }

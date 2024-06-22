@@ -1,7 +1,138 @@
-﻿  NodeTerrain.cpp
-C:\dev\Vivid3D\VividEngine\NodeTerrain.cpp(150,55): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeTerrain.cpp(175,59): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeTerrain.cpp(237,55): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
+﻿  MaterialTerrain.cpp
+C:\dev\Vivid3D\VividEngine\MaterialTerrain.cpp(354,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\MaterialTerrain.cpp(402,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  MaterialTerrainDepth.cpp
+C:\dev\Vivid3D\VividEngine\MaterialTerrainDepth.cpp(352,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\MaterialTerrainDepth.cpp(400,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  MathsHelp.cpp
+C:\dev\Vivid3D\VividEngine\MathsHelp.h(18,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  Mesh3D.cpp
+C:\dev\Vivid3D\VividEngine\Mesh3D.cpp(72,36): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
+C:\dev\Vivid3D\VividEngine\Mesh3D.cpp(92,36): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
+  MeshBuffer.cpp
+  MeshLines.cpp
+C:\dev\Vivid3D\VividEngine\MathsHelp.h(18,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\dev\Vivid3D\VividEngine\MeshLines.cpp(54,37): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
+  MeshLinesBuffer.cpp
+C:\dev\Vivid3D\VividEngine\MathsHelp.h(18,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  Node.cpp
+C:\dev\Vivid3D\VividEngine\MathsHelp.h(18,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\dev\Vivid3D\VividEngine\Node.cpp(70,12): warning C4305: '=': truncation from 'double' to 'float'
+C:\dev\Vivid3D\VividEngine\Node.cpp(75,12): warning C4305: '=': truncation from 'double' to 'float'
+C:\dev\Vivid3D\VividEngine\Node.cpp(180,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  NodeActor.cpp
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(38,20): warning C4018: '<': signed/unsigned mismatch
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(57,20): warning C4018: '<': signed/unsigned mismatch
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(83,20): warning C4018: '<': signed/unsigned mismatch
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(122,23): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(122,23): warning C4244:         with
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(122,23): warning C4244:         [
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(122,23): warning C4244:             T=float
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(122,23): warning C4244:         ]
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(128,22): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(128,22): warning C4244:         with
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(128,22): warning C4244:         [
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(128,22): warning C4244:             T=float
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(128,22): warning C4244:         ]
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(134,23): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(134,23): warning C4244:         with
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(134,23): warning C4244:         [
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(134,23): warning C4244:             T=float
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(134,23): warning C4244:         ]
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(140,23): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(140,23): warning C4244:         with
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(140,23): warning C4244:         [
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(140,23): warning C4244:             T=float
+C:\dev\Vivid3D\VividEngine\NodeActor.cpp(140,23): warning C4244:         ]
+  NodeCamera.cpp
+C:\dev\Vivid3D\VividEngine\NodeCamera.cpp(15,84): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\dev\Vivid3D\VividEngine\NodeCamera.cpp(15,84): warning C4244:         with
+C:\dev\Vivid3D\VividEngine\NodeCamera.cpp(15,84): warning C4244:         [
+C:\dev\Vivid3D\VividEngine\NodeCamera.cpp(15,84): warning C4244:             T=float
+C:\dev\Vivid3D\VividEngine\NodeCamera.cpp(15,84): warning C4244:         ]
+C:\dev\Vivid3D\VividEngine\NodeCamera.cpp(15,58): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\dev\Vivid3D\VividEngine\NodeCamera.cpp(15,58): warning C4244:         with
+C:\dev\Vivid3D\VividEngine\NodeCamera.cpp(15,58): warning C4244:         [
+C:\dev\Vivid3D\VividEngine\NodeCamera.cpp(15,58): warning C4244:             T=float
+C:\dev\Vivid3D\VividEngine\NodeCamera.cpp(15,58): warning C4244:         ]
+  NodeEntity.cpp
+C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(26,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  NodeLight.cpp
+  NodeTerrain.cpp
+C:\dev\Vivid3D\VividEngine\NodeTerrain.cpp(160,59): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
+C:\dev\Vivid3D\VividEngine\NodeTerrain.cpp(223,55): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
+  OctNode.cpp
+C:\dev\Vivid3D\VividEngine\MathsHelp.h(18,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  ParticleEffector.cpp
+  PixelMap.cpp
+  Quat.cpp
+  RenderTargetCube.cpp
+  SceneGraph.cpp
+C:\dev\Vivid3D\VividEngine\MathsHelp.h(18,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  opencl.hpp: CL_HPP_TARGET_OPENCL_VERSION is not defined. It will default to 300 (OpenCL 3.0)
+  SceneOctree.cpp
+C:\dev\Vivid3D\VividEngine\MathsHelp.h(18,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  Compiling...
+  ScriptHost.cpp
+C:\dev\Vivid3D\VScript\VContext.h(76,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  TerrainLayer.cpp
+C:\dev\Vivid3D\VividEngine\TerrainLayer.cpp(26,19): warning C4101: 'xd': unreferenced local variable
+C:\dev\Vivid3D\VividEngine\TerrainLayer.cpp(26,23): warning C4101: 'yd': unreferenced local variable
+  TerrainMesh.cpp
+  TerrainMeshBuffer.cpp
+  Texture2D.cpp
+  TextureCube.cpp
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(228,34): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(228,56): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(232,37): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(232,59): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(440,34): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(440,56): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(444,37): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(444,59): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(622,37): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(622,59): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(626,44): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(626,66): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(714,30): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(714,52): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(723,37): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(723,59): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(738,28): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(738,50): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(747,35): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(747,57): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(762,30): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(762,52): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(771,37): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(771,59): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(786,28): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(786,50): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(795,35): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(795,57): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(809,30): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(809,52): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(818,37): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(818,59): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(833,28): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(833,50): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(842,35): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(842,57): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(1212,26): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(1212,48): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(1249,33): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(1249,55): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(1704,26): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(1704,48): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(1743,33): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(1743,55): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(2109,26): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(2109,48): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(2150,33): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(2150,55): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
+C:\dev\Vivid3D\VividEngine\TextureCube.cpp(99,40): warning C4244: '=': conversion from 'float' to 'Diligent::Uint64', possible loss of data
+  VFile.cpp
+  VividEngine.cpp
   Replacing x64\Release\pch.obj
 cuda.lib(nvcuda.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 cudart.lib(cudart64_12.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored

@@ -193,7 +193,7 @@ void NodeActor::Render(bool sp) {
 		}
 	}
 	else {
-		printf("Culled Actor\n");
+		//printf("Culled Actor\n");
 	}
 	RenderChildren(sp);
 

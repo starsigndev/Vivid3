@@ -20,9 +20,12 @@ public:
 	RefCntAutoPtr<IBuffer> GetTriangleBuffer() {
 		return IndexBuffer;
 	}
+	void Update();
 
 private:
 	RefCntAutoPtr<IBuffer> VertexBuffer;
 	RefCntAutoPtr<IBuffer> IndexBuffer;
+	TerrainMesh* m_Mesh;
+	float* m_Data = nullptr;
 };
 

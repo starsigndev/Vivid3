@@ -46,7 +46,7 @@ float light_GetDist(float3 lightPos,float3 fragPos,float lightRange)
     float dis = sqrt(xd * xd + yd * yd + zd * zd);
 
     if (dis < 0) {
-        dis = -dis;
+        dis =0;
     }
 
     float dv = dis / lightRange;
@@ -72,18 +72,21 @@ float light_GetPointDiff(float3 TLP,float3 TFP,float3 TVP,float3 tNormal,float3 
 
 }
 
-float light_GetPointSpec(float3 TLP,float3 TFP,float3 TVP,float3 tNormal)
-{
+float light_GetPointSpec(float3 TLP, float3 TFP, float3 TVP, float3 tNormal, float shininess = 64.0f) {
+    // Calculate the direction vectors
+    float3 lightDir = normalize(TLP - TFP);  // Light direction from fragment to light
+    float3 viewDir = normalize(TVP - TFP);   // View direction from fragment to viewer
 
-    float3 lightDir = normalize(TLP - TFP);
-    float3 viewDir = normalize(TVP-TFP);
-    float3 reflectDir = reflect(-lightDir,tNormal);
-    float3 halfwayDir = normalize(lightDir+viewDir);
+    // Calculate the halfway vector between the light direction and view direction
+    float3 halfwayDir = normalize(lightDir + viewDir);
 
-    return pow(max(dot(tNormal,halfwayDir),0.0),32.0);
-    
+    // Compute the dot product between the normal and the halfway vector
+    float specAngle = max(dot(tNormal, halfwayDir), 0.0);
 
+    // Compute the specular component using the shininess exponent
+    return pow(specAngle, shininess)*2;
 }
+
 
 float light_GetDirectional(float3 lightDir,float3 TLP,float3 TFP,float3 tNormal){
 
@@ -226,9 +229,9 @@ float3 CalculatePointLighting(float3 ViewPosition, float3 FragPosition, float3 N
 {
     float3 LightDirection = CalculateLightDirection(FragPosition, LightPosition);
     float Diffuse = CalculateDiffuseLight(Normal, LightDirection);
-    float Specular = CalculateSpecularLight(Normal, LightDirection, ViewPosition, Shininess,FragPosition);
+    float Specular = light_GetPointSpec(LightPosition,FragPosition,ViewPosition,Normal);//  CalculateSpecularLight(Normal, LightDirection, ViewPosition, Shininess,FragPosition);
     
-    float3 spec_tex =float3(1,1,1);// v_TextureSpec.Sample(v_TextureSpec_sampler,UV).rgb;
+    float3 spec_tex =v_TextureSpec.Sample(v_TextureSpec_sampler,UV).rgb;
 
      float3 SpecularLighting = (Specular * LightSpecular)*spec_tex;
      float3 DiffuseLighting = Diffuse *  LightColor;

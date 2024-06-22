@@ -29,7 +29,7 @@ MaterialMeshLines::MaterialMeshLines() {
 
 void MaterialMeshLines::Create() {
 
-    printf("Creating MeshLight.\n");
+    //printf("Creating MeshLight.\n");
     SetVertexShader("mesh_lines.vsh");
     SetPixelShader("mesh_lines.psh");
 

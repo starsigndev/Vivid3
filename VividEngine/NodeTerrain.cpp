@@ -85,13 +85,16 @@ void NodeTerrain::CreateTerrain(int layers) {
         {
 
 
-            layer1->SetColor(new Texture2D("edit/blank_layer.png"));
+            layer1->SetColor(new Texture2D("edit/blank_layer.png",true));
         }
         else
         {
 
-            layer1->SetColor(new Texture2D("test/grass1.png"));
+            layer1->SetColor(new Texture2D("engine\\white.png",true));
         }
+        layer1->SetNormal(new Texture2D("engine/normal.png",true));
+        layer1->SetSpecular(new Texture2D("engine/white.png", true));
+        layer1->SetSpecular(new Texture2D("engine/white.png"));
         //layer1.NormalMap = new Texture.Texture2D("engine\\maps\\blanknormal.jpg");
         //layer1.SpecularMap = new Texture.Texture2D("engine\\maps\\white.png");
         layer1->SetPixels(new PixelMap(1024, 1024));
@@ -99,11 +102,12 @@ void NodeTerrain::CreateTerrain(int layers) {
 
         if (i == 0)
         {
-            layer1->SetLayerMap(new Texture2D("engine\\white.png"));
+            //layer1->SetLayerMap(new Texture2D("engine\\white.png"));
             auto pixmap = new PixelMap(1024, 1024, float4(1, 1, 1, 1));
             layer1->SetPixels(pixmap);
-
-            //layer1->SetPixels()
+            layer1->SetLayerMap(new Texture2D(pixmap->GetWidth(), pixmap->GetHeight(), pixmap->GetData(), 4));
+            //
+            // layer1->SetPixels()
 
         }
         else
@@ -133,6 +137,8 @@ void NodeTerrain::Render(bool sp) {
     for (auto layer : m_Layers) {
 
         m_Material->SetDiffuse(layer->GetColor());
+        m_Material->SetNormals(layer->GetNormal());
+        m_Material->SetSpecular(layer->GetSpec());
         m_Material->SetLayerMap(layer->GetLayerMap());
         m_Material->SetLayerIndex(ii);
         m_Material->Bind(sp);

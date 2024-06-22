@@ -29,12 +29,26 @@ public:
 	void SetColor(Texture2D* color) {
 		m_Color = color;
 	}
+	void SetNormal(Texture2D* norm) {
+		m_Normal = norm;
+	}
+	void SetSpecular(Texture2D* spec) {
+		m_Specular = spec;
+	}
+	Texture2D* GetNormal() {
+		return m_Normal;
+	}
+	Texture2D* GetSpec() {
+		return m_Specular;
+	}
 private:
 
-	Texture2D* m_Color;
-	MaterialMeshPBR* m_Material;
-	Texture2D* m_LayerMap;
-	PixelMap* m_LayerPixMap;
+	Texture2D* m_Color = nullptr;
+	Texture2D* m_Normal = nullptr;
+	Texture2D* m_Specular = nullptr;
+	MaterialMeshPBR* m_Material = nullptr;
+	Texture2D* m_LayerMap = nullptr;
+	PixelMap* m_LayerPixMap = nullptr;
 
 
 };

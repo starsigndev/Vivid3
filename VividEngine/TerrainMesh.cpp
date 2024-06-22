@@ -17,8 +17,12 @@ void TerrainMesh::AddTriangle(Triangle tri) {
 
 void TerrainMesh::Build() {
 
-	m_Buffer = new TerrainMeshBuffer(this);
-
+    if (m_Buffer) {
+        m_Buffer->Update();
+    }
+    else {
+        m_Buffer = new TerrainMeshBuffer(this);
+    }
 
 }
 
@@ -26,7 +30,7 @@ void TerrainMesh::Build() {
 void TerrainMesh::RebuildGeo() {
 
     if (m_Rebuild == false) return;
-    printf("REBUILDING GEO: Tris:%d\n", GetTriangles().size());
+    //printf("REBUILDING GEO: Tris:%d\n", GetTriangles().size());
     auto world = m_Owner->GetWorldMatrix();
 
     auto tris = GetTriangles();

@@ -364,7 +364,7 @@ void VOutput::mousePressEvent(QMouseEvent* event)
 
         auto res1 = m_Graph1->MousePick(m_MousePosition.x(), m_MousePosition.y());
         int fs = clock() - ts;
-        printf("Pick Time:%d\n", fs);
+       // printf("Pick Time:%d\n", fs);
         
         if (res1.m_Hit) {
             if (res1.m_Node != nullptr) {
@@ -406,7 +406,7 @@ void VOutput::mousePressEvent(QMouseEvent* event)
 
         float2 ps = m_Graph1->ToScreenSpace(m_Gizmo->GetPosition());
 
-        printf("XP:%f YP:%f\n", ps.x, ps.y);
+       // printf("XP:%f YP:%f\n", ps.x, ps.y);
 
         m_CamRotate = true;
         // Handle right mouse button press
@@ -470,7 +470,7 @@ void VOutput::mouseMoveEvent(QMouseEvent* event)
         auto res = m_Graph1->MousePick((int)m_MousePosition.x(), (int)m_MousePosition.y(), pTerrain);
       
         if (res.m_Hit) {
-            printf("!!!!!!!!!!!!!!!!!\n");
+           // printf("!!!!!!!!!!!!!!!!!\n");
             Editor::TerrainX = res.m_Point.x;
             Editor::TerrainZ = res.m_Point.z;
             m_TerrainBrush = EditHelp::CreateTerrainBrush(res.m_Point.x, res.m_Point.y+0.1f, res.m_Point.z, Editor::TerrainBrushSize, 1.0f);
@@ -1031,7 +1031,7 @@ void VOutput::paintEvent(QPaintEvent* event)
 
     int ts = clock() - ss;
 
-    printf("RenderTime:%d\n", ts);
+   // printf("RenderTime:%d\n", ts);
 
 
 
@@ -1098,8 +1098,12 @@ void VOutput::paintEvent(QPaintEvent* event)
   //  QWidget::paintEvent(event);
 }
 
+
+
 void VOutput::TerrainPlot() {
 
+
+   
 
     //var ter = Edit.EditorGlobal.CurrentTerrain;
     auto ter = (NodeTerrain*)Editor::m_CurrentNode;
@@ -1161,7 +1165,7 @@ void VOutput::TerrainSculpt() {
 
     //List<TerrainVertex> vertices = new List<TerrainVertex>();
 
-    auto verts = ter->GetMesh()->GetVertices();
+    std::vector<TerrainVertex>& verts = ter->GetMesh()->GetVertices();
 
 
     int v = 0;
@@ -1182,8 +1186,8 @@ void VOutput::TerrainSculpt() {
 
             TerrainVertex nv = vert;
 
-            nv.position.y = nv.position.y + 0.02f * Editor::TerrainBrushStrength;
-            verts[v] = nv;
+            //nv.position.y = nv.position.y + 0.02f * Editor::TerrainBrushStrength;
+            verts[v].position.y = vert.position.y + 0.02f * Editor::TerrainBrushStrength;
             
             //ter.Mesh.Vertices[v] = nv;
 
@@ -1195,7 +1199,7 @@ void VOutput::TerrainSculpt() {
         v++;
     }
 
-    ter->GetMesh()->SetVertices(verts);
+   // ter->GetMesh()->SetVertices(verts);
     ter->GetMesh()->CalculateNormals();
     ter->GetMesh()->Build();
 

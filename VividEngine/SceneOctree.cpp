@@ -54,5 +54,5 @@ void SceneOctree::RenderBF() {
 		m_Root->RenderBF(false,0);
 	
 
-	printf("Nodes Rendered:%d\n", OctNode::m_NodesRendered);
+	//printf("Nodes Rendered:%d\n", OctNode::m_NodesRendered);
 }

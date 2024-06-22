@@ -101,9 +101,9 @@ void VContentView::mousePressEvent(QMouseEvent* event)
             m_All.clear();
             std::string top = m_Paths.top();
             m_Paths.pop();
-            printf("DIR:>>");
-            printf(top.c_str());
-            printf("\n");
+           // printf("DIR:>>");
+            //printf(top.c_str());
+            //printf("\n");
             Browse(top);
             update();
         }

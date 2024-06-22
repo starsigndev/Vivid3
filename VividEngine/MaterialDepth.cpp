@@ -42,7 +42,7 @@ MaterialDepth::MaterialDepth() {
 
 void MaterialDepth::Create() {
 
-    printf("Creating MeshLight.\n");
+    //printf("Creating MeshLight.\n");
     SetVertexShader("mat_depth.vsh");
     SetPixelShader("mat_depth.psh");
 

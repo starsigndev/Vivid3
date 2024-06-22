@@ -115,6 +115,10 @@
       <AdditionalIncludeDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.5\include;C:\dev\Vivid3D\VScript;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsTools\interface;C:\Dev\git\DE\DiligentEngine\DiligentCore;C:\Dev\git\DE\DiligentEngine\DiligentTools\TextureLoader\interface;C:\Dev\git\DE\DiligentEngine\DiligentTools\TextureLoader\include;C:\Dev\Assimp\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsEngine\interface;C:\Dev\git\DE\DiligentEngine\DiligentCore\Common\interface;C:\Dev\git\DE\DiligentEngine\DiligentCore\ThirdParty\SPIRV-Cross\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Platforms\Basic\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\ShaderTools\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\HLSL2GLSLConverterLib\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsEngineD3D12\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsEngine\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Common\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -141,6 +145,9 @@
       <AdditionalIncludeDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.5\include;C:\dev\Vivid3D\VScript;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsTools\interface;C:\Dev\git\DE\DiligentEngine\DiligentCore;C:\Dev\git\DE\DiligentEngine\DiligentTools\TextureLoader\interface;C:\Dev\git\DE\DiligentEngine\DiligentTools\TextureLoader\include;C:\Dev\Assimp\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsEngine\interface;C:\Dev\git\DE\DiligentEngine\DiligentCore\Common\interface;C:\Dev\git\DE\DiligentEngine\DiligentCore\ThirdParty\SPIRV-Cross\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Platforms\Basic\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\ShaderTools\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\HLSL2GLSLConverterLib\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsEngineD3D12\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Graphics\GraphicsEngine\include;C:\Dev\git\DE\DiligentEngine\DiligentCore\Common\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
     </ClCompile>
     <Link>
       <SubSystem>

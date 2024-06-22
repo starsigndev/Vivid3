@@ -18,7 +18,6 @@ using namespace Diligent;
 
 struct Constants {
 
-
     float4x4 v_MVP;
     float4x4 v_Proj;
     float4x4 v_Model;
@@ -38,7 +37,6 @@ struct Constants {
     float4 v_CameraExt;
     int4 v_Layers;
 
-
 };
 
 
@@ -55,7 +53,7 @@ MaterialTerrain::MaterialTerrain() {
 
 void MaterialTerrain::Create() {
 
-    printf("Creating MeshLight.\n");
+    //printf("Creating MeshLight.\n");
     SetVertexShader("mat_terrain.vsh");
     SetPixelShader("mat_terrain.psh");
     BasicUniform = CreateUniform(sizeof(Constants), "Constants Uniform Buffer - MVP");
@@ -277,6 +275,8 @@ void MaterialTerrain::Bind(bool sp) {
     if (sp) {
         m_SecondPassSRB->GetVariableByName(SHADER_TYPE_PIXEL, "v_Texture")->Set(m_Diffuse->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
         m_SecondPassSRB->GetVariableByName(SHADER_TYPE_PIXEL, "v_TextureNorm")->Set(m_Normal->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
+        m_SecondPassSRB->GetVariableByName(SHADER_TYPE_PIXEL, "v_TextureSpec")->Set(m_Specular->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
+
         //m_SecondPassSRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureRough")->Set(m_Roughness->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
         //m_SecondPassSRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureMetal")->Set(m_Metal->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
         //m_SecondPassSRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureAmbient")->Set(m_Ambient->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
@@ -293,6 +293,7 @@ void MaterialTerrain::Bind(bool sp) {
         m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "v_Texture")->Set(m_Diffuse->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
         m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "v_TextureNorm")->Set(m_Normal->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
         m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "v_TextureLayer")->Set(m_LayerMap->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
+        m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "v_TextureSpec")->Set(m_Specular->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
        // m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureRough")->Set(m_Roughness->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
        // m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureMetal")->Set(m_Metal->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
         //m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureAmbient")->Set(m_Ambient->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);

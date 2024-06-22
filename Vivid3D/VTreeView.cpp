@@ -84,7 +84,7 @@ void VTreeView::mouseMoveEvent(QMouseEvent* event)
 
     m_OverItem = nullptr;
     auto pos = event->position();
-    printf("PX:%d PY:%d \n", (int)pos.x(), (int)pos.y());
+   // printf("PX:%d PY:%d \n", (int)pos.x(), (int)pos.y());
     int y = CheckItem(m_Root,25,5, (int)pos.x(), (int)pos.y());
     update();
     setMinimumSize(width(), y+40);
@@ -250,7 +250,7 @@ void VTreeView::dragMoveEvent(QDragMoveEvent* event)
     QPoint globalPos = QCursor::pos();
     QPoint localPos = mapFromGlobal(globalPos);
     auto pos = QPointF(localPos.x(), localPos.y());// event->position();
-    printf("PX:%d PY:%d \n", (int)pos.x(), (int)pos.y());
+    //printf("PX:%d PY:%d \n", (int)pos.x(), (int)pos.y());
     int y = CheckItem(m_Root, 25, 5, (int)pos.x(), (int)pos.y());
     update();
     setMinimumSize(width(), y + 40);

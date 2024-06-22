@@ -50,7 +50,7 @@ MaterialActorDepth::MaterialActorDepth() {
 
 void MaterialActorDepth::Create() {
 
-    printf("Creating MeshLight.\n");
+    //printf("Creating MeshLight.\n");
     SetVertexShader("mesh_actordepth.vsh");
     SetPixelShader("mesh_actordepth.psh");
 

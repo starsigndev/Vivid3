@@ -55,7 +55,7 @@ MaterialTerrainDepth::MaterialTerrainDepth() {
 
 void MaterialTerrainDepth::Create() {
 
-    printf("Creating MeshLight.\n");
+    //printf("Creating MeshLight.\n");
     SetVertexShader("mat_terraindepth.vsh");
     SetPixelShader("mat_terraindepth.psh");
     BasicUniform = CreateUniform(sizeof(Constants), "Constants Uniform Buffer - MVP");

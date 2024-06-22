@@ -49,7 +49,7 @@ MaterialMeshPBR::MaterialMeshPBR() {
 
 void MaterialMeshPBR::Create() {
 
-    printf("Creating MeshLight.\n");
+    //printf("Creating MeshLight.\n");
     SetVertexShader("pbr_lit.vsh");
     SetPixelShader("pbr_lit.psh");
     BasicUniform = CreateUniform(sizeof(Constants), "Constants Uniform Buffer - MVP");

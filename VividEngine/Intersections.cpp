@@ -96,7 +96,7 @@ CastResult Intersections::CastTerrainMesh(float3 pos, float3 dir, TerrainMesh* m
     result.Hit = false;
     result.Distance = -1;
     int ts = clock() - cl;
-    printf("RT:%d\n", ts);
+    //printf("RT:%d\n", ts);
     if (ch > -1 && ch<1000) {
         result.Hit = true;
         result.Distance = ch;
@@ -195,7 +195,7 @@ CastResult Intersections::CastMesh(float3 pos, float3 dir, Mesh3D* mesh) {
     result.Hit = false;
     result.Distance = -1;
     int ts = clock() - cl;
-    printf("RT:%d\n", ts);
+    //printf("RT:%d\n", ts);
     if (ch > -1 && ch < 1000) {
         result.Hit = true;
         result.Distance = ch;

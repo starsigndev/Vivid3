@@ -1376,8 +1376,50 @@ void VPropEditor::SetTerrain(NodeTerrain* node) {
 	m_EditLayer->setMinimum(0);
 	m_EditLayer->setMinimumWidth(90);
 
+	QHBoxLayout* edit2_box = new QHBoxLayout(this);
+	edit2_box->setAlignment(Qt::AlignLeft);
+
+	QLabel* strength_lab = new QLabel("Strength");
+	QDoubleSpinBox* m_Strength = new QDoubleSpinBox();
+
+	m_Strength->setValue(Editor::TerrainBrushStrength);
+	m_Strength->setSingleStep(0.05f);
+	m_Strength->setMaximum(1.0f);
+	m_Strength->setMinimum(0.01f);
+	m_Strength->setMinimumWidth(90);
+
+	QObject::connect(m_Strength, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+		[&](float value) {
+
+			Editor::TerrainBrushStrength = value;
+
+		});
+
+
+	QLabel* size_lab = new QLabel("Size");
+	QDoubleSpinBox* m_Size = new QDoubleSpinBox();
+
+	
+	m_Size->setSingleStep(0.05f);
+	m_Size->setMaximum(100.0f);
+	m_Size->setMinimum(0.1f);
+	m_Size->setMinimumWidth(90);
+	m_Size->setValue(Editor::TerrainBrushSize);
+
+	QObject::connect(m_Size, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+		[&](float value) {
+
+			Editor::TerrainBrushSize = value;
+
+		});
+
 	edit_box->addWidget(layer_lab);
 	edit_box->addWidget(m_EditLayer);
+
+	edit2_box->addWidget(strength_lab);
+	edit2_box->addWidget(m_Strength);
+	edit2_box->addWidget(size_lab);
+	edit2_box->addWidget(m_Size);
 
 	edit_box->setAlignment(Qt::AlignLeft);
 
@@ -1394,6 +1436,7 @@ void VPropEditor::SetTerrain(NodeTerrain* node) {
 	
 	m_LO->addLayout(tool_box);
 	m_LO->addLayout(edit_box);
+	m_LO->addLayout(edit2_box);
 	int i = 1;
 	for (auto layer : layers) {
 
@@ -1406,8 +1449,10 @@ void VPropEditor::SetTerrain(NodeTerrain* node) {
 
 		QVBoxLayout* img_box = new QVBoxLayout(this);
 
+		QHBoxLayout* imgs_box = new QHBoxLayout(this);
+
 		VImagePreview* col_prev = new VImagePreview();
-		col_prev->SetSize(128, 128);
+		col_prev->SetSize(96, 96);
 
 		col_prev->SetImage(layer->GetColor()->GetPath());
 		col_prev->setProperty("LayerNumber", i);
@@ -1425,7 +1470,58 @@ void VPropEditor::SetTerrain(NodeTerrain* node) {
 
 			});
 		
-		img_box->addWidget(col_prev);
+		imgs_box->addWidget(col_prev);
+
+		//
+		VImagePreview* norm_prev = new VImagePreview();
+		norm_prev->SetSize(96,96);
+
+		norm_prev->SetImage(layer->GetNormal()->GetPath());
+		norm_prev->setProperty("LayerNumber", i);
+
+
+		QObject::connect(norm_prev, &VImagePreview::dropped, [norm_prev, this](const QString& filePath) {
+
+			int id = norm_prev->property("LayerNumber").toInt();
+			auto layer = m_Terrain->GetLayer(id - 1);
+			layer->SetNormal(new Texture2D(filePath.toStdString(), true));
+
+
+			//qDebug() << "File dropped:" << filePath;
+			//m_Material->SetDiffuse(new Texture2D(filePath.toStdString()));
+			int bb = 5;
+
+			});
+
+		imgs_box->addWidget(norm_prev);
+
+		//
+
+		VImagePreview* spec_prev = new VImagePreview();
+		spec_prev->SetSize(96, 96);
+
+		spec_prev->SetImage(layer->GetSpec()->GetPath());
+		spec_prev->setProperty("LayerNumber", i);
+
+
+		QObject::connect(spec_prev, &VImagePreview::dropped, [norm_prev, this](const QString& filePath) {
+
+			int id = norm_prev->property("LayerNumber").toInt();
+			auto layer = m_Terrain->GetLayer(id - 1);
+			layer->SetSpecular(new Texture2D(filePath.toStdString(), true));
+
+
+			//qDebug() << "File dropped:" << filePath;
+			//m_Material->SetDiffuse(new Texture2D(filePath.toStdString()));
+			int bb = 5;
+
+			});
+
+		imgs_box->addWidget(spec_prev);
+
+		//
+		img_box->addLayout(imgs_box);
+
 
 		img_box->setAlignment(Qt::AlignLeft);
 		//(layer_box);

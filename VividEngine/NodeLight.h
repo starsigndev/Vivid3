@@ -29,7 +29,7 @@ private:
 
     float3 m_Diffuse;
     float3 m_Specular;
-    float m_Range = 100.0f;
+    float m_Range = 2.0f;
     RenderTargetCube* m_ShadowMap;
 
 

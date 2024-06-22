@@ -110,7 +110,7 @@ NodeEntity* Mesh3D::GetOwner() {
 void Mesh3D::BuildGeo() {
 
 	if (n_NeedsRebuild == false) return;
-	printf("REBUILDING GEO: Tris:%d\n",GetTris().size());
+	//printf("REBUILDING GEO: Tris:%d\n",GetTris().size());
 	auto world = m_Owner->GetWorldMatrix();
 
 	auto tris = GetTris();

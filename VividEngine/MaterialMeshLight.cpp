@@ -47,7 +47,7 @@ MaterialMeshLight::MaterialMeshLight() {
 
 void MaterialMeshLight::Create() {
 
-	printf("Creating MeshLight.\n");
+	//printf("Creating MeshLight.\n");
     SetVertexShader("mesh_lit.vsh");
     SetPixelShader("mesh_lit.psh");
 

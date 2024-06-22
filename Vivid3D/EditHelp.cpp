@@ -92,7 +92,7 @@ NodeEntity* EditHelp::CreateTerrainBrush(float mx, float h, float my, float size
 
         // v1 =new Vertex();
 
-        v1.color = float4(1, 1, 1, 0.15f * strength);
+        v1.color = float4(1, 1, 1, 0);
 
         v1.texture = float3(0, 1, 0);
 

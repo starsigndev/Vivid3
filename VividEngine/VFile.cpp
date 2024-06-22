@@ -4,9 +4,9 @@
 #include <memory>
 VFile::VFile(const char* path, FileMode mode) {
 
-	printf("Opening File:");
-	printf(path);
-	printf(":\n");
+	//printf("Opening File:");
+	//printf(path);
+	//printf(":\n");
 
 	switch (mode) {
 	case FileMode::Read:

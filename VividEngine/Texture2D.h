@@ -39,6 +39,7 @@ public:
 		}
 		return m_pTexture;
 	}
+	void Update(float* data);
 	void Set(RefCntAutoPtr<ITexture> tex,RefCntAutoPtr<ITextureView> view)
 	{
 		m_pTextureView = view;
@@ -60,5 +61,6 @@ private:
 	int m_Width;
 	int m_Height;
 	std::thread load;
+	std::mutex data_m;
 };
 

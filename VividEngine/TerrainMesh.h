@@ -113,10 +113,10 @@ public:
         return m_Rebuild;
     }
     void RebuildGeo();
-    std::vector<Triangle> GetTriangles() {
+    std::vector<Triangle>& GetTriangles() {
         return m_Triangles;
     }
-    std::vector<TerrainVertex> GetVertices() {
+    std::vector<TerrainVertex>& GetVertices() {
         return m_Vertices;
     }
     void SetOwner(NodeTerrain* owner) {

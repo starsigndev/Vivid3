@@ -56,7 +56,7 @@ void main(in  PSInput  PSIn,
 
  //   lighting = CalculateLighting(PSIn.v_LightMode[0],tNormal,PSIn.TLP,PSIn.TFP,PSIn.TVP,PSIn.v_LightPos,PSIn.fragPos,PSIn.v_LightDir,PSIn.v_LightCone,PSIn.localNormal);
 
-    float3 light_v = CalculatePointLighting(PSIn.TVP,PSIn.TFP,tNormal,PSIn.TLP,PSIn.v_LightDiff,PSIn.v_MatDiff,PSIn.v_MatSpec,1.0f,PSIn.v_LightSpec,PSIn.Uv);
+    float3 light_v = CalculatePointLighting(PSIn.TVP,PSIn.TFP,tNormal,PSIn.TLP,PSIn.v_LightDiff,PSIn.v_MatDiff,PSIn.v_MatSpec,1.0f,1.0,PSIn.Uv);
 
    
  
@@ -80,7 +80,8 @@ void main(in  PSInput  PSIn,
 //    ffcol.rgb = ffcol.rgb * PSIn.v_MatDiff;
 
 
-    ffcol.rgb = (ffcol.rgb * light_v) * shadowVal;
+
+    ffcol.rgb = (ffcol.rgb * light_v) * shadowVal*light;
 
     ffcol.rgb = ffcol.rgb;
     ffcol.a = 1.0;
@@ -96,7 +97,7 @@ void main(in  PSInput  PSIn,
     if(PSIn.v_Layers.x==0)
     {
 
-      ffcol.rgb = (v_Texture.Sample(v_Texture_sampler, PSIn.Uv)).rgb * l_val;
+      ffcol.rgb = (v_Texture.Sample(v_Texture_sampler, PSIn.Uv)).rgb * l_val * light_v * shadowVal*light;
       ffcol.a=1.0;
     
     PSOut.Color = ffcol;
