@@ -9,9 +9,10 @@
 #include "qspinbox.h"
 #include "qcheckbox.h"
 #include <qlineedit.h>
+#include <qcombobox.h>
 class MaterialBase;
 class Node;
-
+class NodeTerrain;
 
 class VPropEditor : public QWidget
 {
@@ -23,6 +24,7 @@ public:
 	void SetMaterial(MaterialBase* material);
 	void SetNode(Node* node);
 	void UpdateNode();
+	void SetTerrain(NodeTerrain* node);
 
 private:
 	Ui::VPropEditorClass ui;
@@ -69,5 +71,10 @@ private:
 	QDoubleSpinBox* m_LightRange;
 
 	std::vector<QWidget*> m_ScriptWidgets;
+
+	//Terrain
+	QSpinBox* m_EditLayer;
+	NodeTerrain* m_Terrain = nullptr;
+	QComboBox* m_EditTool;
 
 };

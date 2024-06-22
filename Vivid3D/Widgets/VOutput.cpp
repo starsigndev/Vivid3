@@ -23,6 +23,7 @@
 #include "NodeTerrain.h"
 #include "EditHelp.h"
 #include "TerrainLayer.h"
+#include "TerrainMesh.h"
 #include "PixelMap.h"
 
 VOutput::VOutput(QWidget *parent)
@@ -358,14 +359,7 @@ void VOutput::mousePressEvent(QMouseEvent* event)
 
         int ts = clock();
 
-        NodeTerrain* ter = dynamic_cast<NodeTerrain*>(Editor::m_CurrentNode);
-        if (ter != nullptr) {
-
-            TerrainPlot();
-            return;
-
-        }
-        
+    
 
 
         auto res1 = m_Graph1->MousePick(m_MousePosition.x(), m_MousePosition.y());
@@ -375,8 +369,22 @@ void VOutput::mousePressEvent(QMouseEvent* event)
         if (res1.m_Hit) {
             if (res1.m_Node != nullptr) {
 
+                auto p_node = Editor::m_CurrentNode;
                 Editor::m_CurrentNode = (Node*)res1.m_Node;
 
+                NodeTerrain* ter = dynamic_cast<NodeTerrain*>(Editor::m_CurrentNode);
+                if (ter != nullptr) {
+                    
+                    if (p_node != Editor::m_CurrentNode)
+                    {
+                        Editor::m_PropEditor->SetTerrain(ter);
+                    }
+                    m_PlotTerrain = true;
+                    return;
+                }
+                else {
+                    m_PlotTerrain = false;
+                }
             }
             else {
                 Editor::m_CurrentNode = res1.m_Entity;
@@ -411,6 +419,7 @@ void VOutput::mousePressEvent(QMouseEvent* event)
 
 void VOutput::mouseReleaseEvent(QMouseEvent* event)
 {
+    m_PlotTerrain = false;
     if (event->button() == Qt::LeftButton)
     {
       
@@ -437,7 +446,7 @@ void VOutput::mouseMoveEvent(QMouseEvent* event)
 {
 
 
- 
+  
 
 
     QPoint delta = event->pos() - m_MouseLast;
@@ -470,7 +479,19 @@ void VOutput::mouseMoveEvent(QMouseEvent* event)
             m_TerrainBrush = nullptr;
        }
         //update();
+        if (m_PlotTerrain) {
 
+            switch (Editor::m_TerrainEditMode) {
+            case EM_Paint:
+                TerrainPlot();
+                break;
+            case EM_Sculpt:
+                TerrainSculpt();
+                break;
+            }
+            return;
+
+        }
 
        // 
         //Edit.EditorGlobal.EditorRenderer.RenderNodeBasic(TerrainBrush);
@@ -1084,7 +1105,7 @@ void VOutput::TerrainPlot() {
     auto ter = (NodeTerrain*)Editor::m_CurrentNode;
 
     //var l1 = ter.Layers[TerrainEditorForm.ActiveLayer];
-    auto layer = ter->GetLayer(1);
+    auto layer = ter->GetLayer(Editor::TerrainEditLayer);
 
     auto bb = ter->GetTerrainBounds();
 
@@ -1120,13 +1141,66 @@ void VOutput::TerrainPlot() {
     //     xi = 1.0f - xi;
     //    yi = 1.0f - yi;
 
-    layer->PlotBrush(xi, yi, (int)w1, (int)h1,1.0f);
+    layer->PlotBrush(xi, yi, (int)w1, (int)h1,Editor::TerrainBrushStrength);
 
     //Lower other layers by a similar(Inverse?) amount.
     for(auto l : ter->GetLayers())
     {
         if (l == layer) continue;
-      //  l->PlotBrush(xi, yi, (int)w1, (int)h1, -Editor::TerrainBrushStrength);
+        l->PlotBrush(xi, yi, (int)w1, (int)h1, -Editor::TerrainBrushStrength);
     }
+
+}
+
+void VOutput::TerrainSculpt() {
+
+    //var ter = Edit.EditorGlobal.CurrentTerrain;
+
+    auto ter =(NodeTerrain*) Editor::m_CurrentNode;
+
+
+    //List<TerrainVertex> vertices = new List<TerrainVertex>();
+
+    auto verts = ter->GetMesh()->GetVertices();
+
+
+    int v = 0;
+    for(auto vert : verts)
+    {
+
+        float xd = (ter->GetPosition().x + vert.position.x) - Editor::TerrainX;
+        float zd = (ter->GetPosition().z + vert.position.z) - Editor::TerrainZ;
+
+        float dis = (float)sqrt(xd * xd + zd * zd);
+
+        if (dis < Editor::TerrainBrushSize)
+        {
+
+            dis = dis / Editor::TerrainBrushSize;
+            if (dis > 1.0) dis = 1.0f;
+            dis = 1.0f - dis;
+
+            TerrainVertex nv = vert;
+
+            nv.position.y = nv.position.y + 0.02f * Editor::TerrainBrushStrength;
+            verts[v] = nv;
+            
+            //ter.Mesh.Vertices[v] = nv;
+
+
+
+        }
+
+
+        v++;
+    }
+
+    ter->GetMesh()->SetVertices(verts);
+    ter->GetMesh()->CalculateNormals();
+    ter->GetMesh()->Build();
+
+//    ter.Mesh.CalculateNormalsBinormalsAndTangents();
+//    ter.Mesh.CreateBuffers();
+//    ter.LookUpMesh = null;
 
 }

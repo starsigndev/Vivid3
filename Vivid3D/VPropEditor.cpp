@@ -17,6 +17,8 @@
 #include "VScope.h"
 #include "VName.h"
 #include "TextureCube.h"
+#include "NodeTerrain.h"
+#include "TerrainLayer.h"
 
 //#include <qcheckbox.h>
 
@@ -1299,6 +1301,142 @@ void VPropEditor::SetNode(Node* node) {
 	setLayout(m_LO);
 
 	
+
+}
+
+void VPropEditor::SetTerrain(NodeTerrain* node) {
+
+	if (layout() != nullptr) {
+
+		ne_clearLayout(layout());
+		//	return;
+		m_LO = (QVBoxLayout*)layout();
+
+	}
+	else {
+		m_LO = new QVBoxLayout(this);
+		m_LO->setAlignment(Qt::AlignTop);
+		m_LO->setSpacing(15);
+		//	setLayout(m_LO);
+
+	}
+	if (node == nullptr) {
+		m_Node = nullptr;
+		ne_clearLayout(layout());
+		return;
+	}
+
+	NodeTerrain* ter = dynamic_cast<NodeTerrain*>(node);
+
+	QHBoxLayout* info_box = new QHBoxLayout(this);
+
+	info_box->setAlignment(Qt::AlignLeft);
+
+	QLabel* ter_lab = new QLabel("Terrain Editor");
+	info_box->addWidget(ter_lab);
+
+
+	QHBoxLayout* tool_box = new QHBoxLayout(this);
+
+	m_EditTool = new QComboBox;
+
+	m_EditTool->setMinimumWidth(120);
+
+	m_EditTool->addItem("Paint");
+	m_EditTool->addItem("Sculpt");
+
+	QObject::connect(m_EditTool, QOverload<int>::of(&QComboBox::currentIndexChanged),
+		[&](int index) {
+			switch (index) {
+			case 0:
+				Editor::m_TerrainEditMode = EM_Paint;
+				break;
+			case 1:
+				Editor::m_TerrainEditMode = EM_Sculpt;
+				break;
+			}
+			//QString selectedItem = comboBox->itemText(index);
+			//label->setText("Selected: " + selectedItem);
+		});
+
+	tool_box->addWidget(m_EditTool);
+
+	tool_box->setAlignment(Qt::AlignLeft);
+
+
+	QHBoxLayout* edit_box = new QHBoxLayout(this);
+
+	QLabel* layer_lab = new QLabel("Edit Layer");
+	QSpinBox* m_EditLayer = new QSpinBox();
+
+
+	m_EditLayer->setValue(Editor::TerrainEditLayer);
+	m_EditLayer->setSingleStep(1);
+	m_EditLayer->setMaximum(ter->GetLayers().size()-1);
+	m_EditLayer->setMinimum(0);
+	m_EditLayer->setMinimumWidth(90);
+
+	edit_box->addWidget(layer_lab);
+	edit_box->addWidget(m_EditLayer);
+
+	edit_box->setAlignment(Qt::AlignLeft);
+
+	QObject::connect(m_EditLayer, QOverload<int>::of(&QSpinBox::valueChanged),
+		[&](int value) {
+
+			Editor::TerrainEditLayer = value;
+
+		});
+
+	auto layers = ter->GetLayers();
+	
+	m_LO->addLayout(info_box);
+	
+	m_LO->addLayout(tool_box);
+	m_LO->addLayout(edit_box);
+	int i = 1;
+	for (auto layer : layers) {
+
+		QHBoxLayout* layer_box = new QHBoxLayout(this);
+
+		std::string lab = "Layer" + std::to_string(i);
+
+		QLabel* layer_lab = new QLabel(lab.c_str());
+		layer_box->addWidget(layer_lab);
+
+		QVBoxLayout* img_box = new QVBoxLayout(this);
+
+		VImagePreview* col_prev = new VImagePreview();
+		col_prev->SetSize(128, 128);
+
+		col_prev->SetImage(layer->GetColor()->GetPath());
+		col_prev->setProperty("LayerNumber", i);
+
+
+		QObject::connect(col_prev, &VImagePreview::dropped, [col_prev,this](const QString& filePath) {
+			
+			int id = col_prev->property("LayerNumber").toInt();
+			auto layer = m_Terrain->GetLayer(id - 1);
+			layer->SetColor(new Texture2D(filePath.toStdString(), true));
+			
+			//qDebug() << "File dropped:" << filePath;
+			//m_Material->SetDiffuse(new Texture2D(filePath.toStdString()));
+			int bb = 5;
+
+			});
+		
+		img_box->addWidget(col_prev);
+
+		img_box->setAlignment(Qt::AlignLeft);
+		//(layer_box);
+		m_LO->addLayout(layer_box);
+		m_LO->addLayout(img_box);
+		i++;
+	}
+
+	m_Terrain = node;
+
+
 
 }
 

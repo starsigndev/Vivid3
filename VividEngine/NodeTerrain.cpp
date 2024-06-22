@@ -8,10 +8,13 @@
 #include "PixelMap.h"
 #include "TerrainMeshBuffer.h"
 #include "MaterialTerrain.h"
+#include "MaterialTerrainDepth.h"
+
 NodeTerrain::NodeTerrain(float width, float depth, float divisions, int layers)
 {
 
     m_Material = new MaterialTerrain;
+    m_DepthMaterial = new MaterialTerrainDepth;
 	m_Width = width;
 	m_Depth = depth;
 	m_Divisions = divisions;
@@ -87,7 +90,7 @@ void NodeTerrain::CreateTerrain(int layers) {
         else
         {
 
-            layer1->SetColor(new Texture2D("engine/white.png"));
+            layer1->SetColor(new Texture2D("test/grass1.png"));
         }
         //layer1.NormalMap = new Texture.Texture2D("engine\\maps\\blanknormal.jpg");
         //layer1.SpecularMap = new Texture.Texture2D("engine\\maps\\white.png");
@@ -97,6 +100,11 @@ void NodeTerrain::CreateTerrain(int layers) {
         if (i == 0)
         {
             layer1->SetLayerMap(new Texture2D("engine\\white.png"));
+            auto pixmap = new PixelMap(1024, 1024, float4(1, 1, 1, 1));
+            layer1->SetPixels(pixmap);
+
+            //layer1->SetPixels()
+
         }
         else
         {
@@ -121,13 +129,15 @@ void NodeTerrain::Render(bool sp) {
 
     auto m_Buffer = m_Mesh->GetBuffer();
 
+    int ii = 0;
     for (auto layer : m_Layers) {
 
         m_Material->SetDiffuse(layer->GetColor());
         m_Material->SetLayerMap(layer->GetLayerMap());
+        m_Material->SetLayerIndex(ii);
         m_Material->Bind(sp);
        
-
+        ii++;
         IBuffer* pBuffs[] = { m_Buffer->GetVertexBuffer() };
         Uint64 offsets = 0;
         Engine::m_pImmediateContext->SetVertexBuffers(0, 1, pBuffs, &offsets, RESOURCE_STATE_TRANSITION_MODE_TRANSITION, SET_VERTEX_BUFFERS_FLAG_RESET);
@@ -175,4 +185,39 @@ Bounds NodeTerrain::GetTerrainBounds() {
     res.Max = max;
     res.Centre = min + ((max / min) / 2);
     return res;
+}
+
+void NodeTerrain::RenderDepth() {
+    //return;
+
+    //m_DepthMaterial->Bind(false);
+    //m_Material->SetDiffuse(layer->GetColor());
+    //m_Material->SetLayerMap(layer->GetLayerMap());
+    Engine::m_Node = this;
+    
+    m_DepthMaterial->Bind(false);
+
+
+
+
+    IBuffer* pBuffs[] = { m_Mesh->GetBuffer()->GetVertexBuffer() };
+    Uint64 offsets = 0;
+    Engine::m_pImmediateContext->SetVertexBuffers(0, 1, pBuffs, &offsets, RESOURCE_STATE_TRANSITION_MODE_TRANSITION, SET_VERTEX_BUFFERS_FLAG_RESET);
+    Engine::m_pImmediateContext->SetIndexBuffer(m_Mesh->GetBuffer()->GetTriangleBuffer(), 0, RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
+
+    //if (sp) {
+
+     //   Engine::m_pImmediateContext->CommitShaderResources(m_Material->GetSecondPassSRB(), RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
+   // }
+   // else {
+        Engine::m_pImmediateContext->CommitShaderResources(m_DepthMaterial->GetSRB(), RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
+    //}
+    DrawIndexedAttribs attrib;
+    attrib.IndexType = VALUE_TYPE::VT_UINT32;
+    attrib.NumIndices = m_Mesh->GetTriangles().size() * 3;
+    attrib.Flags = DRAW_FLAG_VERIFY_ALL;
+    Engine::m_pImmediateContext->DrawIndexed(attrib);
+
+
+
 }

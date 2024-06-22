@@ -99,6 +99,7 @@ public:
 	IDeviceContext* GetContext() { return m_pImmediateContext; }
 	ISwapChain* GetSwapChain() { return m_pSwapChain; }
 	void TerrainPlot();
+	void TerrainSculpt();
 
 protected:
 	void resizeEvent(QResizeEvent* event) override;
@@ -146,4 +147,5 @@ private:
 	CubeRenderer* m_CubeRen;
 	NodeEntity* m_TerrainBrush = nullptr;
 	MaterialBase* m_BrushMaterial = nullptr;
+	bool m_PlotTerrain = false;
 };

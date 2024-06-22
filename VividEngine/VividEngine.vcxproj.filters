@@ -225,6 +225,9 @@
     <ClInclude Include="MaterialTerrain.h">
       <Filter>Material</Filter>
     </ClInclude>
+    <ClInclude Include="MaterialTerrainDepth.h">
+      <Filter>Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VividEngine.cpp">
@@ -369,6 +372,9 @@
       <Filter>Buffer</Filter>
     </ClCompile>
     <ClCompile Include="MaterialTerrain.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialTerrainDepth.cpp">
       <Filter>Material</Filter>
     </ClCompile>
   </ItemGroup>

@@ -19,6 +19,7 @@ cbuffer Constants
  float4 v_MatDiff;
  float4 v_MatSpec;
  float4 v_CameraExt;
+ int4 v_Layers;
 
 };
 
@@ -60,6 +61,7 @@ struct PSInput
  float3 v_LightDir : NORMAL5;
  float3 v_MatDiff : COLOR1;
  float3 v_MatSpec : COLOR2;
+ int4 v_Layers : POSITION9;
 
 };
 
@@ -106,5 +108,6 @@ void main(in  VSInput VSIn,
    PSIn.v_MatDiff = v_MatDiff.rgb;
    PSIn.v_MatSpec = v_MatSpec.rgb;
    PSIn.LayerCoord = VSIn.LayerCoord;
+   PSIn.v_Layers = v_Layers;
 
 }

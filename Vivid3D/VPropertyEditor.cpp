@@ -49,5 +49,11 @@ void VPropertyEditor::UpdateNode() {
 	m_PropEdit->UpdateNode();
 }
 
+void VPropertyEditor::SetTerrain(NodeTerrain* node) {
+
+	m_PropEdit->SetTerrain(node);
+
+}
+
 VPropertyEditor::~VPropertyEditor()
 {}

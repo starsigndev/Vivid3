@@ -19,6 +19,29 @@ PixelMap::PixelMap(int w, int h) {
 
 }
 
+
+PixelMap::PixelMap(int w, int h,float4 color) {
+
+	m_Width = w;
+	m_Height = h;
+	m_Data = new float[w * h * 4];
+	m_BPP = 4;
+	for (int y = 0; y < m_Height; y++) {
+		for (int x = 0; x < m_Width; x++) {
+
+			int loc = (y * m_Width * m_BPP) + (x * m_BPP);
+			m_Data[loc++] = color.x;
+			m_Data[loc++] = color.y;
+			m_Data[loc++] = color.z;
+			m_Data[loc++] = color.w;
+
+		}
+	}
+
+	
+
+}
+
 float4 PixelMap::GetColor(int x, int y) {
 
 	if (x < 0 || x >= m_Width || y < 0 || y >= m_Height) return float4(0, 0, 0, 0);

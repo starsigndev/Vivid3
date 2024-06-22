@@ -70,3 +70,13 @@ Texture2D::Texture2D(int w, int h, float* data, int bpp)
     m_pTextureView = pTexture->GetDefaultView(TEXTURE_VIEW_SHADER_RESOURCE);
 
 }
+
+Texture2D::~Texture2D() {
+
+    m_pTexture.Release();
+    m_pTextureView.Release();
+    m_pTexture.Detach();
+    m_pTextureView.Detach();
+
+
+}

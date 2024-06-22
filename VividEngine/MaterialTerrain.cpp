@@ -18,6 +18,7 @@ using namespace Diligent;
 
 struct Constants {
 
+
     float4x4 v_MVP;
     float4x4 v_Proj;
     float4x4 v_Model;
@@ -35,7 +36,7 @@ struct Constants {
     float4 v_MatDiff;
     float4 v_MatSpec;
     float4 v_CameraExt;
- 
+    int4 v_Layers;
 
 
 };
@@ -295,7 +296,7 @@ void MaterialTerrain::Bind(bool sp) {
        // m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureRough")->Set(m_Roughness->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
        // m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureMetal")->Set(m_Metal->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
         //m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureAmbient")->Set(m_Ambient->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
-   //     m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "v_Shadow")->Set(Engine::m_Light->GetShadowMaep()->GetTexView(), SET_SHADER_RESOURCE_FLAG_NONE);
+        m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "v_Shadow")->Set(Engine::m_Light->GetShadowMap()->GetTexView(), SET_SHADER_RESOURCE_FLAG_NONE);
         if (m_EnvironmentTex != nullptr) {
          //   m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_Environment")->Set(m_EnvironmentTex->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
         }
@@ -340,10 +341,11 @@ void MaterialTerrain::Bind(bool sp) {
         map_data[0].v_View = view.Transpose();
         map_data[0].v_LightDiff = float4(light->GetDiffuse(), 0);
         map_data[0].v_LightPos = float4(light->GetPosition(), 1.0f);
+        map_data[0].v_LightProp = float4(light->GetRange(), 0, 0, 0);
         //  map_data[0].lightSpec = float4(light->GetSpecular(), 1.0f);
 
         map_data[0].v_CameraPos = float4(Engine::m_Camera->GetPosition(), 1.0);
-
+        map_data[0].v_Layers = int4(m_LayerIndex, 0, 0, 0);
 
 
         int env = 0;
@@ -388,8 +390,9 @@ void MaterialTerrain::Bind(bool sp) {
         map_data[0].v_LightDiff = float4(light->GetDiffuse(), 0);
         map_data[0].v_LightPos = float4(light->GetPosition(), 1.0f);
         //  map_data[0].lightSpec = float4(light->GetSpecular(), 1.0f);
-
+        map_data[0].v_LightProp = float4(light->GetRange(), 0, 0, 0);
         map_data[0].v_CameraPos = float4(Engine::m_Camera->GetPosition(), 1.0);
+        map_data[0].v_Layers = int4(m_LayerIndex, 0, 0, 0);
 
 
 

@@ -24,6 +24,7 @@ class Texture2D
 public:
 
 	static Texture2D* WhiteTex;
+	~Texture2D();
 	Texture2D(std::string path,bool threaded = false);
 	Texture2D(int w, int h, float* data, int bpp);
 	RefCntAutoPtr<ITextureView> GetView() {

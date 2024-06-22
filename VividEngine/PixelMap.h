@@ -9,6 +9,7 @@ class PixelMap
 public:
 
 	PixelMap(int w, int h);
+	PixelMap(int w, int h, float4 color);
 	PixelMap(std::string path);
 	float4 GetColor(int x, int y);
 	void SetColor(int x, int y, float4 color);

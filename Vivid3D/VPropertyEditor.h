@@ -4,9 +4,12 @@
 #include "ui_VPropertyEditor.h"
 #include <qscrollarea.h>
 #include "QVBoxLayout"
+
 class MaterialBase;
 class VPropEditor;
 class Node;
+class NodeTerrain;
+
 
 class VPropertyEditor : public QWidget
 {
@@ -18,6 +21,7 @@ public:
 
 	void SetMaterial(MaterialBase* material);
 	void SetNode(Node* node);
+	void SetTerrain(NodeTerrain* node);
 	void UpdateNode();
 
 private:

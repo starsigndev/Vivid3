@@ -11,6 +11,10 @@ enum RunMode {
 	RM_Playing,RM_Stopped,RM_Paused,
 };
 
+enum TerrainEditMode {
+	EM_Paint,EM_Sculpt
+};
+
 class SceneGraph;
 class NodeEntity;
 class VSceneGraph;
@@ -26,6 +30,7 @@ public:
 	static GizmoMode m_GizmoMode;
 	static Node* m_CurrentNode;
 	static SpaceMode m_SpaceMode;
+	static TerrainEditMode m_TerrainEditMode;
 	static VSceneGraph* m_SceneGraph;
 	static VContentBrowser* m_ContentBrowser;
 	static VPropertyEditor* m_PropEditor;
@@ -35,5 +40,6 @@ public:
 	static float TerrainZ;
 	static float TerrainBrushSize;
 	static float TerrainBrushStrength;
+	static int TerrainEditLayer;
 
 };

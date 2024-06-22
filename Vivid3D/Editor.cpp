@@ -9,6 +9,7 @@ SceneGraph* Editor::m_Graph = nullptr;
 GizmoMode Editor::m_GizmoMode = GM_Translate;
 SpaceMode Editor::m_SpaceMode = SM_Local;
 RunMode Editor::m_RunMode = RM_Stopped;
+TerrainEditMode Editor::m_TerrainEditMode = EM_Paint;
 
 Node* Editor::m_CurrentNode = nullptr;
 VSceneGraph* Editor::m_SceneGraph = nullptr;
@@ -32,4 +33,5 @@ void Editor::Stop() {
 float Editor::TerrainX = 0;
 float Editor::TerrainZ = 0;
 float Editor::TerrainBrushSize = 5.5f;
-float Editor::TerrainBrushStrength = 0.25f;
+float Editor::TerrainBrushStrength = 0.55f;
+int Editor::TerrainEditLayer = 0;
