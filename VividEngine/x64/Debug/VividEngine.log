@@ -1,44 +1,6 @@
-﻿  Draw2D.cpp
-  Importer.cpp
-C:\dev\Vivid3D\VividEngine\Importer.cpp(89,23): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\Importer.cpp(167,23): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\Importer.cpp(172,27): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\Importer.cpp(192,27): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\Importer.cpp(253,23): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\Importer.cpp(318,23): warning C4018: '<': signed/unsigned mismatch
-  Material2D.cpp
-  MaterialActorDepth.cpp
-  MaterialActorLight.cpp
-  MaterialBase.cpp
-  MaterialMeshLight.cpp
-  MaterialMeshLines.cpp
-  MaterialMeshPBR.cpp
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(366,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(369,61): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(369,61): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(369,61): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(369,61): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(369,61): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(411,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(414,61): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(414,61): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(414,61): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(414,61): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(414,61): warning C4244:         ]
-  MaterialTerrain.cpp
-C:\dev\Vivid3D\VividEngine\MaterialTerrain.cpp(354,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\MaterialTerrain.cpp(402,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  MaterialTerrainDepth.cpp
-C:\dev\Vivid3D\VividEngine\MaterialTerrainDepth.cpp(352,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\MaterialTerrainDepth.cpp(400,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  NodeTerrain.cpp
-C:\dev\Vivid3D\VividEngine\NodeTerrain.cpp(160,59): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeTerrain.cpp(223,55): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
-  TerrainLayer.cpp
-C:\dev\Vivid3D\VividEngine\TerrainLayer.cpp(26,19): warning C4101: 'xd': unreferenced local variable
-C:\dev\Vivid3D\VividEngine\TerrainLayer.cpp(26,23): warning C4101: 'yd': unreferenced local variable
-  Texture2D.cpp
-  Generating Code...
+﻿  TerrainLayer.cpp
+C:\dev\Vivid3D\VividEngine\TerrainLayer.cpp(38,19): warning C4101: 'xd': unreferenced local variable
+C:\dev\Vivid3D\VividEngine\TerrainLayer.cpp(38,23): warning C4101: 'yd': unreferenced local variable
   Replacing x64\Debug\pch.obj
 cuda.lib(nvcuda.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 cudart.lib(cudart64_12.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored

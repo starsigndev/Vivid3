@@ -8,6 +8,18 @@ TerrainLayer::TerrainLayer() {
 
 }
 
+void TerrainLayer::FillBrush(float4 value) {
+
+    auto pix = new PixelMap(m_LayerPixMap->GetWidth(), m_LayerPixMap->GetHeight(),value);
+    if (m_LayerMap != nullptr) {
+        m_LayerMap->Update(pix->GetData());
+    }
+    else {
+        m_LayerMap = new Texture2D(pix->GetWidth(),pix->GetHeight(),pix->GetData(), 4);
+    }
+
+}
+
 void TerrainLayer::PlotBrush(float x, float y, int w, int h, float strength)
 {
     int px = (int)(x * ((float)m_LayerPixMap->GetWidth()));

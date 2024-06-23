@@ -378,8 +378,22 @@ void VOutput::mousePressEvent(QMouseEvent* event)
                     if (p_node != Editor::m_CurrentNode)
                     {
                         Editor::m_PropEditor->SetTerrain(ter);
+                   
                     }
                     m_PlotTerrain = true;
+                    if (m_PlotTerrain) {
+
+                        switch (Editor::m_TerrainEditMode) {
+                        case EM_Paint:
+                            TerrainPlot();
+                            break;
+                        case EM_Sculpt:
+                            TerrainSculpt();
+                            break;
+                        }
+                        return;
+
+                    }
                     return;
                 }
                 else {

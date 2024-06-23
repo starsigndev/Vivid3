@@ -1,5 +1,9 @@
 #pragma once
 
+#include "BasicMath.hpp"
+
+using namespace Diligent;
+
 class Texture2D;
 class TextureCube;
 class MaterialMeshPBR;
@@ -11,6 +15,7 @@ public:
 
 	TerrainLayer();
 	void PlotBrush(float x, float y, int w, int h, float strength);
+	void FillBrush(float4 value);
 	void SetLayerMap(Texture2D* tex) {
 		m_LayerMap = tex;
 	}

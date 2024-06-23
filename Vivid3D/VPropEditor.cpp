@@ -1519,8 +1519,29 @@ void VPropEditor::SetTerrain(NodeTerrain* node) {
 
 		imgs_box->addWidget(spec_prev);
 
+
+
 		//
 		img_box->addLayout(imgs_box);
+		auto fill = new QPushButton("Fill Layer");
+
+		fill->setMaximumWidth(80);
+		img_box->addWidget(fill);
+		fill->setProperty("Layer", i);
+		QObject::connect(fill, &QPushButton::clicked, [fill,this]() {
+			//label->setText("Button was clicked!");
+			auto ter = m_Terrain;
+			int edit_lay = fill->property("Layer").toInt() - 1;
+
+			auto layer = ter->GetLayer(edit_lay);
+			layer->FillBrush(float4(1, 1, 1, 1));
+			for (auto l : ter->GetLayers())
+			{
+				if (l == layer) continue;
+				l->FillBrush(float4(0, 0, 0, 1));
+			}
+			});
+
 
 
 		img_box->setAlignment(Qt::AlignLeft);
