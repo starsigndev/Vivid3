@@ -36,6 +36,7 @@ public:
 	int CheckItem(TreeItem* item, int x, int y, int px, int py);
 	void SetRoot(TreeItem* item) {
 		m_Root = item;
+		m_Root->m_Text = "Root";
 	}
 	void SetActive(TreeItem* item) {
 		m_ActiveItem = item;
@@ -43,6 +44,7 @@ public:
 
 protected:
 	void mousePressEvent(QMouseEvent* event) override;
+	void mouseReleaseEvent(QMouseEvent* event) override;
 	void paintEvent(QPaintEvent* event) override;
 	void mouseMoveEvent(QMouseEvent* event) override;
 //protected:
@@ -56,4 +58,5 @@ private:
 	TreeItem* m_Root;
 	TreeItem* m_OverItem = nullptr;
 	TreeItem* m_ActiveItem = nullptr;
+	bool m_LMB = false;
 };

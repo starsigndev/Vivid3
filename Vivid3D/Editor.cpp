@@ -3,6 +3,8 @@
 #include "NodeEntity.h"
 #include "VSceneGraph.h"
 #include "Engine.h"
+#include "Vivid3D.h"
+#include <qboxlayout.h>
 
 SceneGraph* Editor::m_Graph = nullptr;
 
@@ -15,6 +17,9 @@ Node* Editor::m_CurrentNode = nullptr;
 VSceneGraph* Editor::m_SceneGraph = nullptr;
 VContentBrowser* Editor::m_ContentBrowser = nullptr;
 VPropertyEditor* Editor::m_PropEditor = nullptr;
+Vivid3D* Editor::m_Main = nullptr;
+VTrackFrame* Editor::m_TrackPanel = nullptr;
+
 
 
 void Editor::BeginPlay() {

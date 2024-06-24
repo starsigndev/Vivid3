@@ -49,6 +49,7 @@ public:
 	void AddLight(NodeLight* light);
 	void RenderShadows();
 	void Render();
+	Node* FindNode(std::string url);
 	void RenderDepth();
 	NodeCamera* GetCamera();
 	void SetCamera(NodeCamera* camera) {

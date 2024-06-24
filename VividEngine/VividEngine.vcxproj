@@ -167,6 +167,8 @@
     <ClInclude Include="Bone.h" />
     <ClInclude Include="BoneInfo.h" />
     <ClInclude Include="Bounds.h" />
+    <ClInclude Include="Cinematic.h" />
+    <ClInclude Include="CineTrack.h" />
     <ClInclude Include="CLBase.h" />
     <ClInclude Include="CubeRenderer.h" />
     <ClInclude Include="Draw2D.h" />
@@ -211,6 +213,7 @@
     <ClInclude Include="TerrainMeshBuffer.h" />
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="TextureCube.h" />
+    <ClInclude Include="TrackKeyFrame.h" />
     <ClInclude Include="VFile.h" />
   </ItemGroup>
   <ItemGroup>
@@ -219,6 +222,8 @@
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="BoneInfo.cpp" />
     <ClCompile Include="Bounds.cpp" />
+    <ClCompile Include="Cinematic.cpp" />
+    <ClCompile Include="CineTrack.cpp" />
     <ClCompile Include="CLBase.cpp" />
     <ClCompile Include="CubeRenderer.cpp" />
     <ClCompile Include="Draw2D.cpp" />
@@ -266,6 +271,7 @@
     <ClCompile Include="TerrainMeshBuffer.cpp" />
     <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="TextureCube.cpp" />
+    <ClCompile Include="TrackKeyFrame.cpp" />
     <ClCompile Include="VFile.cpp" />
     <ClCompile Include="VividEngine.cpp" />
   </ItemGroup>

@@ -3,6 +3,7 @@
 #include "Node.h"
 #include "Editor.h"
 #include "VPropertyEditor.h"
+#include "qdrag.h"
 
 VTreeView::VTreeView(QWidget *parent)
 	: QWidget(parent)
@@ -53,11 +54,20 @@ int VTreeView::CheckItem(TreeItem* item, int x, int y, int px, int py) {
     return y;
 }
 
+void VTreeView::mouseReleaseEvent(QMouseEvent* event) {
+
+    m_LMB = false;
+
+}
 
 void VTreeView::mousePressEvent(QMouseEvent* event)
 {
+
+
+
     if (event->button() == Qt::LeftButton)
     {
+        m_LMB = true;
         if (m_OverItem != nullptr)
         {
             if (m_OverItem->m_Items.size() > 0) {
@@ -77,10 +87,45 @@ void VTreeView::mousePressEvent(QMouseEvent* event)
         // Handle left mouse button press
 
     }
+    update();
 }
 
 void VTreeView::mouseMoveEvent(QMouseEvent* event)
 {
+
+    if (m_LMB) {
+        if (m_OverItem == nullptr) return;
+        QMimeData* mimeData = new QMimeData;
+        mimeData->setText(m_OverItem->m_Text.c_str());
+
+        auto n = (Node*)m_OverItem->m_Data;
+
+        auto full_url = n->GetFullName();
+        mimeData->setText(full_url.c_str());
+
+    
+        int b = 5;
+//        auto node = m_OverItem->m_Data;
+
+        //mimeData->setData()
+       // QStringList filePaths;
+       // filePaths << m_OverItem->m_FullPath.c_str();
+
+        QList<QUrl> urls;
+       // for (const QString& filePath : filePaths) {
+        //    urls.append(QUrl::fromLocalFile(filePath));
+       // }
+        //mimeData->setUrls(urls);
+
+
+        // Create a drag object and initiate the drag operation
+        QDrag* drag = new QDrag(this);
+        drag->setMimeData(mimeData);
+        drag->exec(Qt::DropAction::TargetMoveAction);
+
+        return;
+    }
+
 
     m_OverItem = nullptr;
     auto pos = event->position();

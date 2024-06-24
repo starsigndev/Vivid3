@@ -172,6 +172,7 @@ Node::Node() {
 void Node::AddNode(Node* node) {
 
 	m_Nodes.push_back(node);
+	node->SetRoot(this);
 
 }
 
@@ -450,5 +451,28 @@ bool Node::GetStatic() {
 std::vector<VClass*> Node::GetScripts() {
 
 	return m_Scripts;
+
+}
+
+std::string Node::GetFullName() {
+
+	std::string root = "";
+
+	if (m_Root != nullptr) {
+
+		root = m_Root->GetFullName();
+	}
+
+	if (root != "")
+	{
+		return root + "." + m_Name;
+	}
+	return m_Name;
+
+}
+
+void Node::SetRoot(Node* node) {
+
+	m_Root = node;
 
 }

@@ -3,8 +3,10 @@
 #include "VSceneGraph.h"
 #include "VContentBrowser.h"
 #include "VTools.h"
+#include "Editor.h"
 #include "VPropertyEditor.h"
-
+#include "VMainMenu.h"
+#include "VCinemaEditor.h"
 Vivid3D::Vivid3D(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -43,6 +45,24 @@ Vivid3D::Vivid3D(QWidget *parent)
     m_PropEditor->setMinimumHeight(250);
 
 
+    auto menuBar = new VMainMenu(this);
+    // Set the menu bar for the main window
+    setMenuBar(menuBar);
+
+    Editor::m_Main = this;
+
+
+}
+
+void Vivid3D::CreateCinema() {
+
+    auto editor = new QDockWidget("Cinema Editor", this);
+//    m_SceneGraph->setWidget(new VSceneGraph);
+    SetDockWidget(m_SceneGraph);
+    //addDockWidget(Qt::LeftDockWidgetArea, m_SceneGraph);
+    tabifyDockWidget(m_ContentBrowser, editor);
+    editor->setWidget(new VCinemaEditor);
+    m_CinemaEditor = editor;
 }
 
 void Vivid3D::SetDockWidget(QDockWidget* dock) {

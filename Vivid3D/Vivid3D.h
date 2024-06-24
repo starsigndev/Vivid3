@@ -12,6 +12,7 @@ public:
     Vivid3D(QWidget *parent = nullptr);
     ~Vivid3D();
     void SetDockWidget(QDockWidget* dock);
+    void CreateCinema();
 
 private:
     Ui::Vivid3DClass ui;
@@ -20,6 +21,7 @@ private:
     QDockWidget* m_SceneGraph;
     QDockWidget* m_ContentBrowser;
     QDockWidget* m_PropEditor;
+    QDockWidget* m_CinemaEditor;
     VOutput* mSceneView;
 
 };

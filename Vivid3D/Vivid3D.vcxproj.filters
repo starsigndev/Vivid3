@@ -91,6 +91,30 @@
     <ClCompile Include="EditHelp.cpp">
       <Filter>EditHelp</Filter>
     </ClCompile>
+    <ClCompile Include="VMainMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VCinemaTimeLine.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="VCinemaEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VTimeTrack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VNodeFrame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VTrackNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VTrackTimeLine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VTrackFrame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Widgets\VOutput.h">
@@ -121,6 +145,30 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="VColorPreview.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="VMainMenu.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="VCinemaTimeLine.h">
+      <Filter>Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="VCinemaEditor.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="VTimeTrack.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="VNodeFrame.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="VTrackNode.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="VTrackTimeLine.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="VTrackFrame.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -156,6 +204,30 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="VColorPreview.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VMainMenu.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VCinemaTimeLine.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VCinemaEditor.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VTimeTrack.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VNodeFrame.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VTrackNode.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VTrackTimeLine.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VTrackFrame.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

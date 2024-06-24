@@ -211,9 +211,10 @@ VOutput::VOutput(QWidget *parent)
    // auto t1 = (NodeEntity*)m_Import->ImportNode("test/mesh2.fbx");
    // m_Graph1->AddNode(t1);
    // t1->GetMeshes()[0]->GetMaterial()->SetEnvironmentTex(cm1);
-    auto t = new NodeTerrain(128, 128, 2, 3);
+    //auto t = new NodeTerrain(128, 128, 2, 3);
 
-    m_Graph1->AddNode(t);
+
+    //m_Graph1->AddNode(t);
     m_BrushMaterial = new MaterialBase;
     m_BrushMaterial->Create();
     m_BrushMaterial->SetDiffuse(new Texture2D("edit/brush1.png"));

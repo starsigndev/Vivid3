@@ -21,6 +21,10 @@ class VSceneGraph;
 class VContentBrowser;
 class VPropertyEditor;
 class Node;
+class Vivid3D;
+class QFrame;
+class QVBoxLayout;
+class VTrackFrame;
 
 class Editor
 {
@@ -34,6 +38,8 @@ public:
 	static VSceneGraph* m_SceneGraph;
 	static VContentBrowser* m_ContentBrowser;
 	static VPropertyEditor* m_PropEditor;
+	static Vivid3D* m_Main;
+	static VTrackFrame* m_TrackPanel;
 	static void BeginPlay();
 	static void Stop();
 	static float TerrainX;

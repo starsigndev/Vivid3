@@ -66,7 +66,7 @@ SceneGraph::SceneGraph() {
 	m_Camera = new NodeCamera;
 	m_RootNode = new Node();
     m_RayTester = new Intersections();
-	m_RootNode->SetName("Graph Root");
+	m_RootNode->SetName("");
 //    m_CubeRenderer = new CubeRenderer()
 
 }
@@ -762,5 +762,30 @@ SceneInfo SceneGraph::GetInfo(float3 centre, float3 size,bool inc_local) {
 
 
     return info;
+
+}
+
+Node* _FindNode(Node* node, std::string url) {
+
+    if (node->GetFullName() == url) {
+        return node;
+    }
+    for (auto sub : node->GetNodes()) {
+
+        auto res = _FindNode(sub, url);
+        if (res != nullptr) {
+            return res;
+        }
+
+    }
+
+    return nullptr;
+
+}
+
+
+Node* SceneGraph::FindNode(std::string url) {
+
+    return _FindNode(m_RootNode, url);
 
 }

@@ -75,6 +75,8 @@ public:
 	bool GetEnabled() {
 		return m_Enabled;
 	}
+	std::string GetFullName();
+	void SetRoot(Node* node);
 	virtual void Update();
 	void AddScript(std::string path);
 	std::vector<VClass*> GetScripts();

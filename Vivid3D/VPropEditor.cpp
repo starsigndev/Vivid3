@@ -36,6 +36,10 @@ VPropEditor::VPropEditor(QWidget *parent)
 	QObject::connect(timer, &QTimer::timeout, [&]() {
 			
 		if (m_Node != nullptr) {
+			
+			auto check = dynamic_cast<NodeTerrain*>(m_Node);
+			if (check != nullptr) return;
+
 
 			if (m_BlockTimer) return;
 			m_BlockRot = true;
@@ -66,6 +70,10 @@ VPropEditor::VPropEditor(QWidget *parent)
 void VPropEditor::UpdateNode() {
 
 	if (m_Node == nullptr) return;
+	if (m_NodeRotX == nullptr) return;
+	auto check = dynamic_cast<NodeTerrain*>(m_Node);// != nullptr
+	if (check != nullptr) return;
+
 	m_BlockRot = true;
 	auto rot = m_Node->GetRotationEU();
 	m_NodeRotX->setValue(360-rot.x);
@@ -1325,6 +1333,7 @@ void VPropEditor::SetTerrain(NodeTerrain* node) {
 		ne_clearLayout(layout());
 		return;
 	}
+	m_Node = (Node*)node;
 
 	NodeTerrain* ter = dynamic_cast<NodeTerrain*>(node);
 

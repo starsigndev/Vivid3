@@ -3,6 +3,8 @@ C:\dev\Vivid3D\VividEngine\Animator.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Ani
 C:\dev\Vivid3D\VividEngine\Bone.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Bone.obj
 C:\dev\Vivid3D\VividEngine\BoneInfo.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\BoneInfo.obj
 C:\dev\Vivid3D\VividEngine\Bounds.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Bounds.obj
+C:\dev\Vivid3D\VividEngine\Cinematic.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Cinematic.obj
+C:\dev\Vivid3D\VividEngine\CineTrack.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\CineTrack.obj
 C:\dev\Vivid3D\VividEngine\CLBase.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\CLBase.obj
 C:\dev\Vivid3D\VividEngine\CubeRenderer.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\CubeRenderer.obj
 C:\dev\Vivid3D\VividEngine\Draw2D.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Draw2D.obj
@@ -45,5 +47,6 @@ C:\dev\Vivid3D\VividEngine\TerrainMesh.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\
 C:\dev\Vivid3D\VividEngine\TerrainMeshBuffer.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\TerrainMeshBuffer.obj
 C:\dev\Vivid3D\VividEngine\Texture2D.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Texture2D.obj
 C:\dev\Vivid3D\VividEngine\TextureCube.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\TextureCube.obj
+C:\dev\Vivid3D\VividEngine\TrackKeyFrame.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\TrackKeyFrame.obj
 C:\dev\Vivid3D\VividEngine\VFile.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\VFile.obj
 C:\dev\Vivid3D\VividEngine\VividEngine.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\VividEngine.obj

@@ -76,6 +76,9 @@
     <Filter Include="Pixels">
       <UniqueIdentifier>{c9910251-fa08-4f57-ab66-6cbe0243d2f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cine">
+      <UniqueIdentifier>{0500e369-3c40-4920-925a-f5715c5a270c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -228,6 +231,15 @@
     <ClInclude Include="MaterialTerrainDepth.h">
       <Filter>Material</Filter>
     </ClInclude>
+    <ClInclude Include="Cinematic.h">
+      <Filter>Cine</Filter>
+    </ClInclude>
+    <ClInclude Include="CineTrack.h">
+      <Filter>Cine</Filter>
+    </ClInclude>
+    <ClInclude Include="TrackKeyFrame.h">
+      <Filter>Cine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VividEngine.cpp">
@@ -376,6 +388,15 @@
     </ClCompile>
     <ClCompile Include="MaterialTerrainDepth.cpp">
       <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Cinematic.cpp">
+      <Filter>Cine</Filter>
+    </ClCompile>
+    <ClCompile Include="CineTrack.cpp">
+      <Filter>Cine</Filter>
+    </ClCompile>
+    <ClCompile Include="TrackKeyFrame.cpp">
+      <Filter>Cine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
