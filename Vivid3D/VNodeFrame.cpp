@@ -8,6 +8,8 @@
 #include <qboxlayout.h>
 #include "VTrackTimeLine.h"
 #include "VTrackFrame.h"
+#include "CineTrack.h"
+#include "Cinematic.h"
 
 VNodeFrame::VNodeFrame(QWidget *parent)
 	: QFrame(parent)
@@ -45,9 +47,26 @@ void VNodeFrame::dropEvent(QDropEvent* event)
 
     lay->addWidget(new_TrackNode);
 
+    
     new_TrackNode->SetNode(node);
 
-    Editor::m_TrackPanel->AddTimeLine(node);
+   auto time_Line =  Editor::m_TrackPanel->AddTimeLine(node);
+
+   
+   new_TrackNode->SetTimeLine(time_Line);
+
+  
+
+   auto anim = Editor::m_EditAnimation;
+
+   auto cine_Track = new CineTrack;
+
+   cine_Track->SetNode(node);
+   
+   anim->AddTrack(cine_Track);
+   time_Line->SetTrack(cine_Track);
+   cine_Track->SetOwner(anim);
+
 
    // new_track->setMinimumHeight(60);
    // new_track->setMaximumHeight(60);

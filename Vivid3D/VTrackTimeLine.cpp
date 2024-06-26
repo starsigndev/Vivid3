@@ -1,6 +1,9 @@
 #include "VTrackTimeLine.h"
 #include "qpainter.h"
 #include "qevent.h"
+#include "CineTrack.h"
+#include "Cinematic.h"
+#include "TrackKeyFrame.h"
 
 VTrackTimeLine::VTrackTimeLine(QWidget *parent)
 	: QWidget(parent)
@@ -48,6 +51,31 @@ void VTrackTimeLine::paintEvent(QPaintEvent* event)
     painter.setPen(Qt::NoPen);
     // Draw a rectangle filled with the gradient
     painter.drawRect(QRect(2,2,size().width()-4,size().height()-4));
+
+    auto track = m_Track;
+    auto cine = track->GetOwner();
+
+    int pix = cine->GetLength() * 80;
+
+    for (auto frame : track->GetFrames()) {
+
+        float time = frame->GetTime();
+        float px = time * 80.0f;
+        painter.setBrush(Qt::NoBrush);
+        painter.setPen(Qt::white);
+        painter.drawRect(QRect(px - 1, 2, 3, size().height() - 4));
+
+    }
+
+
+    setMinimumWidth(pix);
+    setMaximumWidth(pix);
+
+    //80
+
+
+    update();
+
 
 }
 

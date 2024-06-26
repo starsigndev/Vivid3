@@ -5,6 +5,7 @@
 #include "Engine.h"
 #include "Vivid3D.h"
 #include <qboxlayout.h>
+#include "Cinematic.h"
 
 SceneGraph* Editor::m_Graph = nullptr;
 
@@ -19,6 +20,7 @@ VContentBrowser* Editor::m_ContentBrowser = nullptr;
 VPropertyEditor* Editor::m_PropEditor = nullptr;
 Vivid3D* Editor::m_Main = nullptr;
 VTrackFrame* Editor::m_TrackPanel = nullptr;
+Cinematic* Editor::m_EditAnimation = nullptr;
 
 
 
@@ -40,3 +42,12 @@ float Editor::TerrainZ = 0;
 float Editor::TerrainBrushSize = 5.5f;
 float Editor::TerrainBrushStrength = 0.55f;
 int Editor::TerrainEditLayer = 0;
+double Editor::m_AnimEditTime = 0.0f;
+
+void Editor::CreateAnimation(std::string anim,float length) {
+
+
+	m_EditAnimation = new Cinematic;
+	m_EditAnimation->SetLength(length);
+
+}

@@ -115,6 +115,9 @@
     <ClCompile Include="VTrackFrame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VCreateAnimation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Widgets\VOutput.h">
@@ -169,6 +172,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="VTrackFrame.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="VCreateAnimation.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -228,6 +234,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="VTrackFrame.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VCreateAnimation.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

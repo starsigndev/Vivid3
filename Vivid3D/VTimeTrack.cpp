@@ -1,11 +1,15 @@
 #include "VTimeTrack.h"
 #include <qpainter.h>
 #include <qstatictext.h>
+#include "qevent.h"
+#include "Editor.h"
+#include "Cinematic.h"
 
 VTimeTrack::VTimeTrack(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	setMouseTracking(true);
 }
 
 
@@ -24,7 +28,7 @@ void VTimeTrack::paintEvent(QPaintEvent* event)
 
 		if (cx == 9) {
 
-			
+			int bb = 5;
 			painter.drawLine(QLine(x, 4, x, 8+15));
 			painter.drawStaticText(QPoint(x+4, 0), QStaticText(std::to_string(sec).c_str()));
 			sec++;
@@ -41,6 +45,40 @@ void VTimeTrack::paintEvent(QPaintEvent* event)
 		}
 	
 	}
+
+	pen.setColor(Qt::green);
+	painter.setPen(pen);
+	float px = 80 * m_Position;
+	painter.drawLine(QLine(px-1, 0, px-1, 30));
+	painter.drawLine(QLine(px, 0, px, 30));
+	painter.drawLine(QLine(px+1, 0, px+1, 30));
+
+}
+
+void VTimeTrack::mouseMoveEvent(QMouseEvent* event) {
+
+	if (m_MouseTrack) {
+		float px = (float)event->pos().x();
+		m_Position = px / 80.0f;
+		Editor::m_AnimEditTime = m_Position;
+		Editor::m_EditAnimation->SetTime(m_Position);
+		update();
+	}
+}
+
+void VTimeTrack::mousePressEvent(QMouseEvent* event) {
+	float px = (float)event->pos().x();
+	m_Position = px / 80.0f;
+	Editor::m_AnimEditTime = m_Position;
+	m_MouseTrack = true;
+	Editor::m_EditAnimation->SetTime(m_Position);
+	update();
+
+}
+
+void VTimeTrack::mouseReleaseEvent(QMouseEvent* event) {
+
+	m_MouseTrack = false;
 
 }
 

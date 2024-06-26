@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+
 
 enum GizmoMode {
 	GM_Translate,GM_Rotate,GM_Scale
@@ -25,6 +27,7 @@ class Vivid3D;
 class QFrame;
 class QVBoxLayout;
 class VTrackFrame;
+class Cinematic;
 
 class Editor
 {
@@ -40,6 +43,7 @@ public:
 	static VPropertyEditor* m_PropEditor;
 	static Vivid3D* m_Main;
 	static VTrackFrame* m_TrackPanel;
+	static Cinematic* m_EditAnimation;
 	static void BeginPlay();
 	static void Stop();
 	static float TerrainX;
@@ -47,5 +51,6 @@ public:
 	static float TerrainBrushSize;
 	static float TerrainBrushStrength;
 	static int TerrainEditLayer;
-
+	static void CreateAnimation(std::string anim,float length);
+	static double m_AnimEditTime;
 };

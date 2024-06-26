@@ -5,6 +5,7 @@
 #include <qframe.h>
 
 class Node;
+class VTrackTimeLine;
 
 class VTrackFrame : public QFrame
 {
@@ -13,7 +14,7 @@ class VTrackFrame : public QFrame
 public:
 	VTrackFrame(QWidget *parent = nullptr);
 	~VTrackFrame();
-	void AddTimeLine(Node* node);
+	VTrackTimeLine* AddTimeLine(Node* node);
 
 private:
 	Ui::VTrackFrameClass ui;

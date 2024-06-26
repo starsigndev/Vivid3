@@ -5,6 +5,7 @@ C:\dev\Vivid3D\Vivid3D\VCinemaTimeLine.cpp;C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\De
 C:\dev\Vivid3D\Vivid3D\VColorPreview.cpp;C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\VColorPreview.obj
 C:\dev\Vivid3D\Vivid3D\VContentBrowser.cpp;C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\VContentBrowser.obj
 C:\dev\Vivid3D\Vivid3D\VContentView.cpp;C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\VContentView.obj
+C:\dev\Vivid3D\Vivid3D\VCreateAnimation.cpp;C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\VCreateAnimation.obj
 C:\dev\Vivid3D\Vivid3D\VImagePreview.cpp;C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\VImagePreview.obj
 C:\dev\Vivid3D\Vivid3D\VMainMenu.cpp;C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\VMainMenu.obj
 C:\dev\Vivid3D\Vivid3D\VNodeFrame.cpp;C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\VNodeFrame.obj
@@ -25,6 +26,7 @@ C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_Vivid3D.cpp;C:\dev\Vivid3D\Vivi
 C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_VOutput.cpp;C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc_VOutput.obj
 C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_VSceneGraph.cpp;C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc_VSceneGraph.obj
 C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_VTreeView.cpp;C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc_VTreeView.obj
+C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_VCreateAnimation.cpp;C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc_VCreateAnimation.obj
 C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_VTrackFrame.cpp;C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc_VTrackFrame.obj
 C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_VTrackTimeLine.cpp;C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc_VTrackTimeLine.obj
 C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc\moc_VTrackNode.cpp;C:\dev\Vivid3D\Vivid3D\Vivid3D\x64\Debug\moc_VTrackNode.obj

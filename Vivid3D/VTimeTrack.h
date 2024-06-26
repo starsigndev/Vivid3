@@ -12,7 +12,12 @@ public:
 	~VTimeTrack();
 protected:
 	void paintEvent(QPaintEvent* event) override;
+	void mousePressEvent(QMouseEvent* event) override;
+	void mouseMoveEvent(QMouseEvent* event) override;
+	void mouseReleaseEvent(QMouseEvent* event) override;
 
 private:
 	Ui::VTimeTrackClass ui;
+	float m_Position = 0.0f;
+	bool m_MouseTrack = false;
 };

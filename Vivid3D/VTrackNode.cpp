@@ -1,12 +1,46 @@
 #include "VTrackNode.h"
 #include <qpainter.h>
 #include "Node.h"
+#include "qboxlayout.h"
+#include "qpushbutton.h"
+#include "VTrackTimeLine.h"
+#include "TrackKeyFrame.h"
+#include "Editor.h"
+#include "CineTrack.h"
 
 VTrackNode::VTrackNode(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+
+    auto v = new QVBoxLayout;
+    auto h1 = new QHBoxLayout;
+
+    auto rec = new QPushButton("O");
+    h1->addWidget(rec);
+    h1->setAlignment(Qt::AlignRight);
+    rec->setMaximumWidth(32);
+
+    QObject::connect(rec, &QPushButton::clicked, [&]() {
+    //    QMessageBox::information(&window, "Lambda Example", "Button was clicked!");
+        
+        auto cine_Track = m_TimeLine->GetCineTrack();
+
+        TrackKeyFrame* frame = new TrackKeyFrame;
+        frame->SetPosition(m_Node->GetPosition());
+        frame->SetRotation(m_Node->GetRotation());
+        frame->SetScale(m_Node->GetScale());
+        frame->SetTime(Editor::m_AnimEditTime);
+        cine_Track->InsertKeyFrame(frame, Editor::m_AnimEditTime);
+
+        });
+
+
+
+    v->addLayout(h1);
+    setLayout(v);
 }
+
 
 VTrackNode::~VTrackNode()
 {}

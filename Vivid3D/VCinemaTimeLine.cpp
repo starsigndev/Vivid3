@@ -12,6 +12,7 @@
 #include "VNodeFrame.h"
 #include "VTrackFrame.h"
 #include "Editor.h"
+#include "VCreateAnimation.h"
 
 VCinemaTimeLine::VCinemaTimeLine(QWidget *parent)
 	: QWidget(parent)
@@ -40,10 +41,21 @@ VCinemaTimeLine::VCinemaTimeLine(QWidget *parent)
 
 
 
-	anim_Menu->addAction("New Animation");
+	auto new_anim = anim_Menu->addAction("New Animation");
 	anim_Menu->addSeparator();
 	anim_Menu->addAction("Load Animation");
 	anim_Menu->addAction("Save Animation");
+
+
+	connect(new_anim, &QAction::triggered, this, [this]() {
+	//	QMessageBox::information(this, tr("Action Triggered"), tr("Example Action was triggered"));
+		auto create_Anim = new VCreateAnimation;
+		create_Anim->show();
+
+		//Editor::CreateAnimation(anim_Name);
+
+		});
+
 
 	menuBar->addMenu(anim_Menu);
 
