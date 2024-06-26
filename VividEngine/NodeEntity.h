@@ -23,6 +23,8 @@ public:
 	void BuildGeo();
 	void ForceRebuild();
 	Bounds* GetBounds();
+	void WriteNode(VFile* file);
+	void ReadNode(VFile* file);
 
 protected:
 

@@ -3,6 +3,9 @@
 #include "Editor.h"
 #include "SceneGraph.h"
 #include "Vivid3D.h"
+#include <qfiledialog.h>
+#include "Engine.h"
+#include "VSceneGraph.h"
 
 VMainMenu::VMainMenu(QWidget *parent)
 	: QMenuBar(parent)
@@ -17,10 +20,71 @@ VMainMenu::VMainMenu(QWidget *parent)
 	//project
 	project->addAction("New Scene");
 	project->addSeparator();
-	project->addAction("Load Scene");
-	project->addAction("Save Scene");
+	auto load_Scene = project->addAction("Load Scene");
+
+	auto save_Scene = project->addAction("Save Scene");
+
 	project->addSeparator();
 	project->addAction("Quit V3");
+
+	connect(save_Scene, &QAction::triggered, [this]() {
+
+		QString filePath = QFileDialog::getSaveFileName(this,
+			tr("Save Scene"),
+			QString(),
+			tr("Scene Files (*.scene);"),
+			nullptr);
+
+		if (!filePath.isEmpty())
+		{
+			// Ensure the file has the .scene extension
+			if (!filePath.endsWith(".scene", Qt::CaseInsensitive))
+			{
+				filePath += ".scene";
+				
+			}
+			Editor::m_Graph->SaveScene(filePath.toStdString());
+		}
+		//auto terrain = new NodeTerrain(128, 128, 3, 4);
+		//Editor::m_Graph->AddNode(terrain);
+
+		});
+
+	//
+	connect(load_Scene, &QAction::triggered, [this]() {
+
+		QString filePath = QFileDialog::getOpenFileName(this,
+			tr("Save Scene"),
+			QString(),
+			tr("Scene Files (*.scene);"),
+			nullptr
+			);
+
+		if (!filePath.isEmpty())
+		{
+			// Ensure the file has the .scene extension
+			if (!filePath.endsWith(".scene", Qt::CaseInsensitive))
+			{
+				filePath += ".scene";
+
+
+			}
+			auto cam = Engine::m_Camera;
+			Editor::m_Graph = new SceneGraph;
+			Editor::m_Graph->LoadScene(filePath.toStdString());
+			Engine::m_Camera = cam;
+			Editor::m_Graph->SetCamera(cam);
+			Editor::m_SceneGraph->UpdateGraph();
+
+			
+			//Editor::m_Graph->SaveScene(filePath.toStdString());
+		}
+		//auto terrain = new NodeTerrain(128, 128, 3, 4);
+		//Editor::m_Graph->AddNode(terrain);
+
+		});
+
+
 
 	//Create
 	auto create_terrain = create->addAction("Create Terrain");

@@ -15,6 +15,7 @@ class CubeRenderer;
 class MeshLines;
 class Bounds;
 class NodeTerrain;
+class VFile;
 
 
 struct SceneInfo {
@@ -74,6 +75,10 @@ public:
 
 	Bounds GetBounds();
 
+	void SaveScene(std::string path);
+	void LoadScene(std::string path);
+	Node* ReadNode(VFile* file);
+
 private:
 
 	NodeCamera* m_Camera;
@@ -83,5 +88,6 @@ private:
 	bool m_IsPlaying = false;
 	std::vector<MeshLines*> m_Lines;
 	Intersections* m_RayTester;
+
 };
 

@@ -74,6 +74,8 @@ Node* Importer::ImportNode(std::string path) {
 
     NodeEntity* root = new NodeEntity;
 
+    root->SetResourcePath(path);
+
     root->SetName(scene->mRootNode->mName.C_Str());
 
     std::string path_alone = getDirectoryPath(path);

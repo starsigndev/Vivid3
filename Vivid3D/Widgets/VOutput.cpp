@@ -1022,7 +1022,9 @@ void VOutput::paintEvent(QPaintEvent* event)
     ay = ay + 0.1f;
 
   //  m_Node1->SetRotation(0, ay, 0);
+    m_Graph1 = Editor::m_Graph;
     
+
     cam->SetRotation(m_ViewPitch, m_ViewYaw, 0);
     m_Graph1->Update();
 

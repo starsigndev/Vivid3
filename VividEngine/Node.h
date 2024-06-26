@@ -7,6 +7,7 @@ using namespace Diligent;
 
 class Bounds;
 class VClass;
+class VFile;
 
 
 
@@ -88,7 +89,10 @@ public:
 	void SetStatic(bool stat);
 	bool GetStatic();
 	virtual Bounds* GetBounds() { return new Bounds(); };
-
+	void SetResourcePath(std::string path);
+	std::string GetResourcePath();
+	virtual void WriteNode(VFile* file);
+	virtual void ReadNode(VFile* file);
 protected:
 
 	std::string m_Name;
@@ -111,7 +115,7 @@ protected:
 	float3 m_PushedPosition;
 	float3 m_PushedScale; 
 	bool m_Static = true;
-
+	std::string m_ResourcePath = "";
 };
 
 

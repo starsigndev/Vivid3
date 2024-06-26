@@ -24,6 +24,8 @@ public:
     RenderTargetCube* GetShadowMap() {
         return m_ShadowMap;
     }
+    void WriteNode(VFile* file);
+    void ReadNode(VFile* file);
 
 private:
 

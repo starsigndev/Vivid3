@@ -12,6 +12,7 @@
 #include "NodeTerrain.h"
 #include "TerrainMesh.h"
 #include "MathsHelp.h"
+#include "VFile.h"
 
 std::vector<TerrainMesh*> GetTerrainMeshes(Node* node, std::vector<TerrainMesh*> meshes)
 {
@@ -787,5 +788,72 @@ Node* _FindNode(Node* node, std::string url) {
 Node* SceneGraph::FindNode(std::string url) {
 
     return _FindNode(m_RootNode, url);
+
+}
+
+void SceneGraph::SaveScene(std::string path) {
+
+    VFile* file = new VFile(path.c_str(), FileMode::Write);
+
+    m_RootNode->WriteNode(file);
+
+    file->Close();
+
+}
+
+Node* SceneGraph::ReadNode(VFile* file) {
+
+    
+    int type = file->ReadInt();
+
+    Node* res = nullptr;
+
+    switch (type) {
+    case 1:
+    {
+        auto n = new Node;
+
+        n->ReadNode(file);
+        res = n;
+    }
+        break;
+    case 2:
+
+    {
+        auto ne = new NodeEntity;
+        ne->ReadNode(file);
+        res = (Node*)ne;
+    }
+        break;
+    case 3:
+    {
+        auto le = new NodeLight;
+        le->ReadNode(file);
+        res = (Node*)le;
+        m_Lights.push_back(le);
+       
+    }
+        break;
+    }
+
+    int nc = file->ReadInt();
+
+    for (int i = 0; i < nc; i++) {
+
+        res->AddNode(ReadNode(file));
+
+    }
+
+    return res;
+
+}
+
+void SceneGraph::LoadScene(std::string path) {
+
+    VFile* file = new VFile(path.c_str(), FileMode::Read);
+
+    m_RootNode = ReadNode(file);
+
+    file->Close();
 
 }

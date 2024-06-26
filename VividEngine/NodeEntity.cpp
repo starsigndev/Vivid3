@@ -6,6 +6,8 @@
 #include "Mesh3D.h"
 #include "Engine.h"
 #include "Bounds.h"
+#include "VFile.h"
+#include "Importer.h"
 
 NodeEntity::NodeEntity() {
 
@@ -168,4 +170,44 @@ Bounds* NodeEntity::GetBounds() {
 	res->Centre.z = res->Min.z + (res->Max.z - res->Min.z) / 2.0f;
 
 	return res;
+}
+
+void NodeEntity::WriteNode(VFile* file) {
+
+	file->WriteInt(2);
+	file->WriteString(m_ResourcePath.c_str());
+	file->WriteVec3(m_Position);
+	file->WriteMatrix(m_Rotation);
+	file->WriteVec3(m_Scale);
+	file->WriteString(m_Name.c_str());
+
+
+	file->WriteInt(m_Nodes.size());
+
+	for (auto node : m_Nodes) {
+
+		node->WriteNode(file);
+
+	}
+
+}
+
+void NodeEntity::ReadNode(VFile* file) {
+
+	m_ResourcePath = file->ReadString();
+	m_Position = file->ReadVec3();
+	m_Rotation = file->ReadMatrix();
+	m_Scale = file->ReadVec3();
+	m_Name = file->ReadString();
+
+	Importer* import = new Importer;
+	auto imp = (NodeEntity*)import->ImportNode(m_ResourcePath);
+
+
+	for (auto mesh : imp->GetMeshes()) {
+
+		AddMesh(mesh);
+
+	}
+
 }

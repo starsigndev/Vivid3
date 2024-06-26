@@ -281,3 +281,51 @@ void VFile::Seek(long position) {
 	istream.seekg(position, std::ios::beg);
 
 }
+
+void VFile::WriteMatrix(float4x4 matrix) {
+
+	WriteFloat(matrix.m00);
+	WriteFloat(matrix.m01);
+	WriteFloat(matrix.m02);
+	WriteFloat(matrix.m03);
+	WriteFloat(matrix.m10);
+	WriteFloat(matrix.m11);
+	WriteFloat(matrix.m12);
+	WriteFloat(matrix.m13);
+	WriteFloat(matrix.m20);
+	WriteFloat(matrix.m21);
+	WriteFloat(matrix.m22);
+	WriteFloat(matrix.m23);
+	WriteFloat(matrix.m30);
+	WriteFloat(matrix.m31);
+	WriteFloat(matrix.m32);
+	WriteFloat(matrix.m33);
+
+}
+
+
+float4x4 VFile::ReadMatrix() {
+
+	float4x4 r;
+
+	r.m00 = ReadFloat();
+	r.m01 = ReadFloat();
+	r.m02 = ReadFloat();
+	r.m03 = ReadFloat();
+
+	r.m10 = ReadFloat();
+	r.m11 = ReadFloat();
+	r.m12 = ReadFloat();
+	r.m13 = ReadFloat();
+	r.m20 = ReadFloat();
+	r.m21 = ReadFloat();
+	r.m22 = ReadFloat();
+	r.m23 = ReadFloat();
+	r.m30 = ReadFloat();
+	r.m31 = ReadFloat();
+	r.m32 = ReadFloat();
+	r.m33 = ReadFloat();
+
+	return r;
+
+}

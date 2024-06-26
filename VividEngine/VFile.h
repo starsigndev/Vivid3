@@ -28,7 +28,7 @@ public:
 	void WriteBool(bool b);
 	void WriteVec3(float3 v);
 	void WriteVec4(float4 v);
-//	void WriteMatrix(float4x4 v);
+	void WriteMatrix(float4x4 v);
 //	void WriteMatrix3x3(float3x3 v);
 	float3 ReadVec3();
 	float4 ReadVec4();
@@ -47,7 +47,7 @@ public:
 	const char* ReadString();
 	long ReadLong();
 	bool ReadBool();
-	
+	float4x4 ReadMatrix();
 	void Close();
 	static long Length(const char * path);
 	void Seek(long position);

@@ -14,6 +14,7 @@
 #include "VVar.h"
 #include "FileHelp.h"
 #include "VFunction.h"
+#include "VFile.h"
 bool first_node = true;
 using namespace Diligent;
 
@@ -474,5 +475,45 @@ std::string Node::GetFullName() {
 void Node::SetRoot(Node* node) {
 
 	m_Root = node;
+
+}
+
+void Node::SetResourcePath(std::string path) {
+
+	m_ResourcePath = path;
+
+}
+
+std::string Node::GetResourcePath() {
+
+	return m_ResourcePath;
+
+}
+
+void Node::WriteNode(VFile* file) {
+
+	file->WriteInt(1);
+	file->WriteVec3(m_Position);
+	file->WriteMatrix(m_Rotation);
+	file->WriteVec3(m_Scale);
+	file->WriteString(m_Name.c_str());
+
+	file->WriteInt(m_Nodes.size());
+
+	for (auto node : m_Nodes) {
+
+		node->WriteNode(file);
+
+	}
+
+
+}
+
+void Node::ReadNode(VFile* file) {
+
+	m_Position = file->ReadVec3();
+	m_Rotation = file->ReadMatrix();
+	m_Scale = file->ReadVec3();
+	m_Name = file->ReadString();
 
 }
