@@ -117,7 +117,7 @@ CastResult Intersections::CastMesh(float3 pos, float3 dir, Mesh3D* mesh) {
     cl::Buffer dirBuf(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(float3), &dir);
     cl::Buffer minResultBuffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(float), &size);
     //}
-    num_tris = mesh->GetTris().size();
+    num_tris = mesh->TriCount();
     int cl = clock();
     if (mesh->RebuildIf()) {
 
@@ -151,7 +151,7 @@ CastResult Intersections::CastMesh(float3 pos, float3 dir, Mesh3D* mesh) {
     }
     else {
 
-        num_tris = mesh->GetTris().size();
+        num_tris = mesh->TriCount();
         std::vector<float3> tri_data(num_tris * 3);
 
 

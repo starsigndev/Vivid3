@@ -18,6 +18,7 @@ public:
 	std::vector<Vertex> GetVertices();
 	std::vector<Triangle> GetTris();
 	void Build();
+	void BuildFast(float* v, Uint32* i,int verts,int tris);
 	MaterialBase* GetMaterial() {
 		return m_Material;
 	}
@@ -45,6 +46,7 @@ public:
 		return m_FUseBuild;
 	}
 	int TriCount() {
+		return m_NumTris;
 		return m_Tris.size();
 	}
 	void NeedsRebuild() {
@@ -82,6 +84,9 @@ private:
 	bool n_NeedsRebuild = true;
 	float3* m_FBuild;
 	float3* m_FUseBuild;
+	int m_NumTris, m_NumVerts;
+	float* m_VertsData;
+	Uint32* m_TrisData;
 //	cl::Buffer triBuf;
 };
 

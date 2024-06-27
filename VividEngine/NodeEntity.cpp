@@ -217,6 +217,7 @@ void NodeEntity::SaveFastNode(std::string path) {
 
 	VFile* file = new VFile(path.c_str(), FileMode::Write);
 
+	file->WriteString(m_Name.c_str());
 	file->WriteInt(m_Meshes.size());
 
 	for (auto v : m_Meshes)
@@ -251,6 +252,8 @@ void NodeEntity::LoadFastNode(std::string path) {
 
 	VFile* file = new VFile(path.c_str(), FileMode::Read);
 
+	m_Name = file->ReadString();
+
 	int mc = file->ReadInt();
 
 	for (int i = 0; i < mc; i++) {
@@ -265,6 +268,7 @@ void NodeEntity::LoadFastNode(std::string path) {
 		Uint32* tdata = (Uint32*)file->ReadBytes(tsize);
 		std::string mat = file->ReadString();
 
+		/*
 		int vi = 0;
 		for (int v = 0; v < num_verts; v++) {
 
@@ -308,10 +312,13 @@ void NodeEntity::LoadFastNode(std::string path) {
 			nt.v2 = tdata[vi++];
 			mesh->AddTri(nt);
 		}
+		*/
 
 		
 		mesh->SetMaterial(MaterialBase::LoadMaterial(mat));
-		mesh->Build();
+		//mesh->Build();
+		mesh->BuildFast(vdata, tdata,num_verts,num_tris);
+		
 		mesh->SetDepthMaterial(new MaterialDepth);
 		AddMesh(mesh);
 

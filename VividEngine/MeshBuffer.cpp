@@ -15,6 +15,36 @@ void MeshBuffer::SetMesh(Mesh3D* mesh) {
 
 }
 
+void MeshBuffer::SetMeshFast(float* v, Uint32* i,int verts,int tris) {
+
+	BufferDesc vbuf;
+	vbuf.Name = "Mesh Buffer VB";
+	vbuf.Usage = USAGE_IMMUTABLE;
+	vbuf.BindFlags = BIND_VERTEX_BUFFER;
+	vbuf.Size = (Uint64)(sizeof(Vertex) * verts);
+
+	BufferData vdata;
+	vdata.DataSize = vbuf.Size;
+	vdata.pData = v;
+
+	Engine::m_pDevice->CreateBuffer(vbuf, &vdata, &VertexBuffer);
+
+	BufferDesc ibuf;
+
+	ibuf.Name = "Mesh Buffer IB";
+	ibuf.Usage = USAGE_IMMUTABLE;
+	ibuf.BindFlags = BIND_INDEX_BUFFER;
+	ibuf.Size = (Uint64)(sizeof(Uint32) * tris * 3);
+
+
+	BufferData idata;
+	idata.DataSize = ibuf.Size;
+	idata.pData = i;
+
+	Engine::m_pDevice->CreateBuffer(ibuf, &idata, &IndexBuffer);
+
+}
+
 void MeshBuffer::Build() {
 
 

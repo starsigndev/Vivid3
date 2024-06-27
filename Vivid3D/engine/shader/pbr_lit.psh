@@ -322,8 +322,7 @@ void main(in  PSInput  PSIn,
     float3 lightColor = CalculateLighting(PSIn, normal, viewDir, lightDir, PSIn.v_LightDiffuse, 1.0,roughness+PSIn.v_ExtraProp.z,metalness+PSIn.v_ExtraProp.w);
     lightColor *= ambientOcclusion*albedo;
 
-    float4 fcol = float4(lightColor, 1.0) * shadowVal;
-
+    float4 fcol = float4(lightColor, 1.0) * shadowVal*light;
     fcol.a=1.0;
 
 

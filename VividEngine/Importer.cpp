@@ -43,6 +43,28 @@ std::string getDirectoryPath(const std::string& fullPath) {
     return fullPath.substr(0, lastSlashPos + 1);
 }
 
+
+std::string extractFilenameAlone(const std::string& filePath) {
+    // Find last occurrence of '/' or '\\' to handle both Unix and Windows paths
+    size_t lastSlashIndex = filePath.find_last_of("/\\");
+
+    // Extract substring starting right after the slash to the end
+    std::string filename = (lastSlashIndex != std::string::npos)
+        ? filePath.substr(lastSlashIndex + 1)
+        : filePath;
+
+    // Find last dot (.) to exclude extension
+    size_t lastDotIndex = filename.find_last_of('.');
+
+    // Extract substring up to the last dot if extension exists
+    if (lastDotIndex != std::string::npos) {
+        filename = filename.substr(0, lastDotIndex);
+    }
+
+    return filename;
+}
+
+
 std::string getFilename(const std::string& fullPath) {
     // Find the last occurrence of either '/' or '\\'
     size_t lastSlashPos = fullPath.find_last_of("/\\");
@@ -88,6 +110,8 @@ Node* Importer::ImportNode(std::string path) {
     root->SetResourcePath(path);
 
     root->SetName(scene->mRootNode->mName.C_Str());
+
+    root->SetName(extractFilenameAlone(path));
 
     std::string path_alone = getDirectoryPath(path);
 

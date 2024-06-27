@@ -16,6 +16,7 @@ public:
 
 	MeshBuffer();
 	void SetMesh(Mesh3D* mesh);
+	void SetMeshFast(float* v, Uint32* i,int verts,int tris);
 	void Build();
 	RefCntAutoPtr<IBuffer> GetVertexBuffer() {
 		return VertexBuffer;

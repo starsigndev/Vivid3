@@ -1,12 +1,9 @@
-﻿  NodeEntity.cpp
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(48,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(28,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(185,29): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(220,30): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(228,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(229,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(231,39): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(234,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+﻿  Intersections.cpp
+  opencl.hpp: CL_HPP_TARGET_OPENCL_VERSION is not defined. It will default to 300 (OpenCL 3.0)
+C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\Intersections.cpp(34,41): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\Intersections.cpp(42,49): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\Intersections.cpp(287,1): warning C4715: 'Intersections::CastMesh': not all control paths return a value
   Replacing x64\Debug\pch.obj
 cuda.lib(nvcuda.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 cudart.lib(cudart64_12.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
