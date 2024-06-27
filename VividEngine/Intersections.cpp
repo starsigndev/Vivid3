@@ -125,12 +125,13 @@ CastResult Intersections::CastMesh(float3 pos, float3 dir, Mesh3D* mesh) {
 
 
 
-        num_tris = mesh->GetTris().size();
-        std::vector<float3> tri_data(num_tris * 3);
+ //       num_tris = mesh->GetTris().size();
+     //   std::vector<float3> tri_data(num_tris * 3);
 
 
-        tri_data = mesh->GetGeo();
+        int num_tris = mesh->TriCount();
 
+        auto rdata = mesh->GetRawGeo();
 
         int byte_size = (sizeof(float3) * 3);
 
@@ -141,7 +142,7 @@ CastResult Intersections::CastMesh(float3 pos, float3 dir, Mesh3D* mesh) {
        // float size = -10000;
         //i//nt cl = clock();
         triBuf = cl::Buffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-            sizeof(float3) * tri_data.size(), (void*)tri_data.data());
+            sizeof(float3) * num_tris*3, (void*)rdata);
         kernel.setArg(0, posBuf);
         kernel.setArg(1, dirBuf);
         kernel.setArg(2, minResultBuffer);
@@ -154,7 +155,8 @@ CastResult Intersections::CastMesh(float3 pos, float3 dir, Mesh3D* mesh) {
         std::vector<float3> tri_data(num_tris * 3);
 
 
-        tri_data = mesh->GetGeo();
+        //tri_data = mesh->GetGeo();
+
 
 
         int byte_size = (sizeof(float3) * 3);

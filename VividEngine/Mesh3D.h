@@ -41,6 +41,12 @@ public:
 	std::vector<float3> GetGeo() {
 		return m_UseBuild;
 	}
+	float3* GetRawGeo() {
+		return m_FUseBuild;
+	}
+	int TriCount() {
+		return m_Tris.size();
+	}
 	void NeedsRebuild() {
 		n_NeedsRebuild = true;
 	}
@@ -53,6 +59,9 @@ public:
 	void SetVertex(int index,Vertex vertex) {
 		m_Vertices[index] = vertex;
 	}
+	float* GetVertexData();
+	Uint32* GetTriData();
+
 //	cl::Buffer& GetCLBuf() {
 //		return triBuf;
 	//}
@@ -71,6 +80,8 @@ private:
 	std::vector<float3> m_Build;
 	std::vector<float3> m_UseBuild;
 	bool n_NeedsRebuild = true;
+	float3* m_FBuild;
+	float3* m_FUseBuild;
 //	cl::Buffer triBuf;
 };
 

@@ -211,3 +211,112 @@ void NodeEntity::ReadNode(VFile* file) {
 	}
 
 }
+
+
+void NodeEntity::SaveFastNode(std::string path) {
+
+	VFile* file = new VFile(path.c_str(), FileMode::Write);
+
+	file->WriteInt(m_Meshes.size());
+
+	for (auto v : m_Meshes)
+	{
+		
+		auto verts = v->GetVertexData();
+		auto tris = v->GetTriData();
+
+		int vsize = v->GetVertices().size() * 27 * 4;
+		int tsize = v->GetTris().size() * 3 * 4;
+
+		file->WriteInt(v->GetVertices().size());
+		file->WriteInt(vsize);
+		file->WriteBytes((void*)verts, vsize);
+		file->WriteInt(v->GetTris().size());
+		file->WriteInt(tsize);
+		file->WriteBytes((void*)tris, tsize);
+
+		auto mat = v->GetMaterial();
+		file->WriteString(mat->GetPath().c_str());
+
+
+
+	}
+
+	file->Close();
+
+}
+
+void NodeEntity::LoadFastNode(std::string path) {
+
+
+	VFile* file = new VFile(path.c_str(), FileMode::Read);
+
+	int mc = file->ReadInt();
+
+	for (int i = 0; i < mc; i++) {
+
+		Mesh3D* mesh = new Mesh3D;
+
+		int num_verts = file->ReadInt();
+		int vsize = file->ReadInt();
+		float* vdata = (float*)file->ReadBytes(vsize);
+		int num_tris = file->ReadInt();
+		int tsize = file->ReadInt();
+		Uint32* tdata = (Uint32*)file->ReadBytes(tsize);
+		std::string mat = file->ReadString();
+
+		int vi = 0;
+		for (int v = 0; v < num_verts; v++) {
+
+			Vertex nv;
+			nv.position.x = vdata[vi++];
+			nv.position.y = vdata[vi++];
+			nv.position.z = vdata[vi++];
+			nv.color.x = vdata[vi++];
+			nv.color.y = vdata[vi++];
+			nv.color.z = vdata[vi++];
+			nv.color.w = vdata[vi++];
+			nv.texture.x = vdata[vi++];
+			nv.texture.y = vdata[vi++];
+			nv.texture.z = vdata[vi++];
+			nv.normal.x = vdata[vi++];
+			nv.normal.y = vdata[vi++];
+			nv.normal.z = vdata[vi++];
+			nv.binormal.x = vdata[vi++];
+			nv.binormal.y = vdata[vi++];
+			nv.binormal.z = vdata[vi++];
+			nv.tangent.x = vdata[vi++];
+			nv.tangent.y = vdata[vi++];
+			nv.tangent.z = vdata[vi++];
+			nv.bone_ids.x = vdata[vi++];
+			nv.bone_ids.y = vdata[vi++];
+			nv.bone_ids.z = vdata[vi++];
+			nv.bone_ids.w = vdata[vi++];
+			nv.bone_weights.x = vdata[vi++];
+			nv.bone_weights.y = vdata[vi++];
+			nv.bone_weights.z = vdata[vi++];
+			nv.bone_weights.w = vdata[vi++];
+			mesh->AddVertex(nv,false);
+
+
+		}
+		vi = 0;
+		for (int t = 0; t < num_tris; t++) {
+			Triangle nt;
+			nt.v0 = tdata[vi++];
+			nt.v1 = tdata[vi++];
+			nt.v2 = tdata[vi++];
+			mesh->AddTri(nt);
+		}
+
+		
+		mesh->SetMaterial(MaterialBase::LoadMaterial(mat));
+		mesh->Build();
+		mesh->SetDepthMaterial(new MaterialDepth);
+		AddMesh(mesh);
+
+	}
+
+	file->Close();
+
+}

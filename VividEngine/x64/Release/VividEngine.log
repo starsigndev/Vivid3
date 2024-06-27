@@ -1,6 +1,12 @@
-﻿  Mesh3D.cpp
-C:\dev\Vivid3D\VividEngine\Mesh3D.cpp(74,36): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
-C:\dev\Vivid3D\VividEngine\Mesh3D.cpp(94,36): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
+﻿  NodeEntity.cpp
+C:\dev\Vivid3D\VividEngine\Mesh3D.h(48,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(28,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(185,29): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(220,30): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(228,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(229,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(231,39): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(234,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
   Replacing x64\Release\pch.obj
 cuda.lib(nvcuda.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 cudart.lib(cudart64_12.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored

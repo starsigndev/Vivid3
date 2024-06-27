@@ -63,6 +63,17 @@ Node* Importer::ImportNode(std::string path) {
     // Define import flags (e.g., to triangulate polygons)
     unsigned int flags = aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_GenSmoothNormals;
 
+
+    if (VFile::Exists(std::string(path + ".ml").c_str() ))
+    {
+
+        auto res = new NodeEntity;
+        res->LoadFastNode(path + ".ml");
+
+        return res;
+
+    }
+
     // Load the scene from the file
     const aiScene* scene = importer.ReadFile(path, flags);
 
@@ -217,6 +228,9 @@ Node* Importer::ImportNode(std::string path) {
 
 
     }
+
+    root->SaveFastNode(path + ".ml");
+
 
     return (Node*)root;
 

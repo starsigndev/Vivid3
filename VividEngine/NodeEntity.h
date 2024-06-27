@@ -25,6 +25,8 @@ public:
 	Bounds* GetBounds();
 	void WriteNode(VFile* file);
 	void ReadNode(VFile* file);
+	void SaveFastNode(std::string path);
+	void LoadFastNode(std::string path);
 
 protected:
 

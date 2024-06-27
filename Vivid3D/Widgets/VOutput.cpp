@@ -297,70 +297,72 @@ void VOutput::mousePressEvent(QMouseEvent* event)
 
         //m_Graph1->MousePick(m_MousePosition.x(), m_MousePosition.y());
         // Handle left mouse button press
-        auto res = m_Graph1->MousePick(m_MousePosition.x(), m_MousePosition.y(), m_Gizmo);
-        
-        switch (Editor::m_GizmoMode) {
-        case GM_Translate:
-            if (res.m_Hit) {
-                printf("Hit!!\n");
-                if (res.m_Entity->IsMeshIndex(res.m_Mesh, 2)) {
-                    // printf("Y!!!\n");
-                    m_LockY = true;
-                    m_LockX = 0;
-                    m_LockZ = 0;
 
-                }
-                if (res.m_Entity->IsMeshIndex(res.m_Mesh, 1)) {
-                    // printf("Y!!!\n");
-                    m_LockY = false;
-                    m_LockX = true;
-                    m_LockZ = 0;
+        if (Editor::m_CurrentNode != nullptr) {
+            auto res = m_Graph1->MousePick(m_MousePosition.x(), m_MousePosition.y(), m_Gizmo);
 
-                }
-                if (res.m_Entity->IsMeshIndex(res.m_Mesh, 0)) {
-                    // printf("Y!!!\n");
-                    m_LockY = false;
-                    m_LockX = false;
-                    m_LockZ = true;
+            switch (Editor::m_GizmoMode) {
+            case GM_Translate:
+                if (res.m_Hit) {
+                    printf("Hit!!\n");
+                    if (res.m_Entity->IsMeshIndex(res.m_Mesh, 2)) {
+                        // printf("Y!!!\n");
+                        m_LockY = true;
+                        m_LockX = 0;
+                        m_LockZ = 0;
 
+                    }
+                    if (res.m_Entity->IsMeshIndex(res.m_Mesh, 1)) {
+                        // printf("Y!!!\n");
+                        m_LockY = false;
+                        m_LockX = true;
+                        m_LockZ = 0;
+
+                    }
+                    if (res.m_Entity->IsMeshIndex(res.m_Mesh, 0)) {
+                        // printf("Y!!!\n");
+                        m_LockY = false;
+                        m_LockX = false;
+                        m_LockZ = true;
+
+                    }
+                    return;
                 }
-                return;
+
+                break;
+            case GM_Rotate:
+                if (res.m_Hit) {
+                    if (res.m_Entity->IsMeshIndex(res.m_Mesh, 2)) {
+                        // printf("Y!!!\n");
+                        m_LockY = false;
+                        m_LockX = true;
+                        m_LockZ = 0;
+
+                    }
+                    if (res.m_Entity->IsMeshIndex(res.m_Mesh, 1)) {
+                        // printf("Y!!!\n");
+                        m_LockY = false;
+                        m_LockX = false;
+                        m_LockZ = true;
+
+                    }
+                    if (res.m_Entity->IsMeshIndex(res.m_Mesh, 0)) {
+                        // printf("Y!!!\n");
+                        m_LockY = true;
+                        m_LockX = false;
+                        m_LockZ = false;
+
+                    }
+                    return;
+                }
+
+                //return;
+                break;
             }
-            
-            break;
-        case GM_Rotate:
-            if (res.m_Hit) {
-                if (res.m_Entity->IsMeshIndex(res.m_Mesh, 2)) {
-                    // printf("Y!!!\n");
-                    m_LockY = false;
-                    m_LockX = true;
-                    m_LockZ = 0;
-
-                }
-                if (res.m_Entity->IsMeshIndex(res.m_Mesh, 1)) {
-                    // printf("Y!!!\n");
-                    m_LockY = false;
-                    m_LockX = false;
-                    m_LockZ = true;
-
-                }
-                if (res.m_Entity->IsMeshIndex(res.m_Mesh, 0)) {
-                    // printf("Y!!!\n");
-                    m_LockY = true;
-                    m_LockX = false;
-                    m_LockZ = false;
-
-                }
-                return;
-            }
-
-            //return;
-            break;
         }
+            int ts = clock();
 
-        int ts = clock();
-
-    
+        
 
 
         auto res1 = m_Graph1->MousePick(m_MousePosition.x(), m_MousePosition.y());
