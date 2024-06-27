@@ -16,6 +16,9 @@ C:\dev\Vivid3D\VividEngine\Material2D.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\M
 C:\dev\Vivid3D\VividEngine\MaterialActorDepth.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialActorDepth.obj
 C:\dev\Vivid3D\VividEngine\MaterialActorLight.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialActorLight.obj
 C:\dev\Vivid3D\VividEngine\MaterialBase.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialBase.obj
+C:\dev\Vivid3D\VividEngine\MaterialBlur.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialBlur.obj
+C:\dev\Vivid3D\VividEngine\MaterialColorLimit.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialColorLimit.obj
+C:\dev\Vivid3D\VividEngine\MaterialCombine.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialCombine.obj
 C:\dev\Vivid3D\VividEngine\MaterialDepth.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialDepth.obj
 C:\dev\Vivid3D\VividEngine\MaterialMeshLight.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialMeshLight.obj
 C:\dev\Vivid3D\VividEngine\MaterialMeshLines.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialMeshLines.obj
@@ -37,7 +40,11 @@ C:\dev\Vivid3D\VividEngine\OctNode.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\OctN
 C:\dev\Vivid3D\VividEngine\ParticleEffector.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\ParticleEffector.obj
 C:\dev\Vivid3D\VividEngine\pch.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\pch.obj
 C:\dev\Vivid3D\VividEngine\PixelMap.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\PixelMap.obj
+C:\dev\Vivid3D\VividEngine\PostProcess.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\PostProcess.obj
+C:\dev\Vivid3D\VividEngine\PostProcessing.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\PostProcessing.obj
+C:\dev\Vivid3D\VividEngine\PPBloom.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\PPBloom.obj
 C:\dev\Vivid3D\VividEngine\Quat.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Quat.obj
+C:\dev\Vivid3D\VividEngine\RenderTarget2D.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\RenderTarget2D.obj
 C:\dev\Vivid3D\VividEngine\RenderTargetCube.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\RenderTargetCube.obj
 C:\dev\Vivid3D\VividEngine\SceneGraph.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\SceneGraph.obj
 C:\dev\Vivid3D\VividEngine\SceneOctree.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\SceneOctree.obj

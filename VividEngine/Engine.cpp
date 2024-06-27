@@ -3,6 +3,7 @@
 #include "RenderTargetCube.h"
 #include "MaterialBase.h"
 #include "ScriptHost.h"
+#include "RenderTarget2D.h"
 
 RefCntAutoPtr<IRenderDevice>  Engine::m_pDevice;
 RefCntAutoPtr<IDeviceContext> Engine::m_pImmediateContext;
@@ -15,11 +16,15 @@ NodeCamera* Engine::m_Camera = nullptr;
 Node* Engine::m_Node = nullptr;
 std::vector<NodeLight*> Engine::m_Lights;
 RenderTargetCube* Engine::m_BoundRTC = nullptr;
+RenderTarget2D* Engine::m_BoundRT2D = nullptr;
 
 int Engine::GetFrameWidth() {
 
 	if (m_BoundRTC != nullptr) {
 		return m_BoundRTC->GetWidth();
+	}
+	if (m_BoundRT2D != nullptr) {
+		return m_BoundRT2D->GetWidth();
 	}
 	return m_FrameWidth;
 
@@ -29,6 +34,9 @@ int Engine::GetFrameHeight() {
 
 	if (m_BoundRTC != nullptr) {
 		return m_BoundRTC->GetHeight();
+	}
+	if (m_BoundRT2D != nullptr) {
+		return m_BoundRT2D->GetHeight();
 	}
 	return m_FrameHeight;
 
@@ -54,6 +62,12 @@ void Engine::ClearZ() {
 
 	m_pImmediateContext->ClearDepthStencil(m_pSwapChain->GetDepthBufferDSV(), CLEAR_DEPTH_FLAG, 1.0f, 0, RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
 
+
+}
+
+void Engine::SetBoundRT2D(RenderTarget2D* target) {
+
+	m_BoundRT2D = target;
 
 }
 

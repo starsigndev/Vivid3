@@ -182,6 +182,9 @@
     <ClInclude Include="MaterialActorDepth.h" />
     <ClInclude Include="MaterialActorLight.h" />
     <ClInclude Include="MaterialBase.h" />
+    <ClInclude Include="MaterialBlur.h" />
+    <ClInclude Include="MaterialColorLimit.h" />
+    <ClInclude Include="MaterialCombine.h" />
     <ClInclude Include="MaterialDepth.h" />
     <ClInclude Include="MaterialMeshLight.h" />
     <ClInclude Include="MaterialMeshLines.h" />
@@ -203,7 +206,11 @@
     <ClInclude Include="ParticleEffector.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PixelMap.h" />
+    <ClInclude Include="PostProcess.h" />
+    <ClInclude Include="PostProcessing.h" />
+    <ClInclude Include="PPBloom.h" />
     <ClInclude Include="Quat.h" />
+    <ClInclude Include="RenderTarget2D.h" />
     <ClInclude Include="RenderTargetCube.h" />
     <ClInclude Include="SceneGraph.h" />
     <ClInclude Include="data.h" />
@@ -236,6 +243,9 @@
     <ClCompile Include="MaterialActorDepth.cpp" />
     <ClCompile Include="MaterialActorLight.cpp" />
     <ClCompile Include="MaterialBase.cpp" />
+    <ClCompile Include="MaterialBlur.cpp" />
+    <ClCompile Include="MaterialColorLimit.cpp" />
+    <ClCompile Include="MaterialCombine.cpp" />
     <ClCompile Include="MaterialDepth.cpp" />
     <ClCompile Include="MaterialMeshLight.cpp" />
     <ClCompile Include="MaterialMeshLines.cpp" />
@@ -262,7 +272,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="PixelMap.cpp" />
+    <ClCompile Include="PostProcess.cpp" />
+    <ClCompile Include="PostProcessing.cpp" />
+    <ClCompile Include="PPBloom.cpp" />
     <ClCompile Include="Quat.cpp" />
+    <ClCompile Include="RenderTarget2D.cpp" />
     <ClCompile Include="RenderTargetCube.cpp" />
     <ClCompile Include="SceneGraph.cpp" />
     <ClCompile Include="SceneOctree.cpp" />

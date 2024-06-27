@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Texture2D.h"
 #include <thread>
-
+#include "RenderTarget2D.h"
 
 void _load_texture(Texture2D* texture)
 {
@@ -70,6 +70,13 @@ Texture2D::Texture2D(int w, int h, float* data, int bpp)
     Engine::m_pDevice->CreateTexture(TexDesc, &tdata, &pTexture);
     m_pTexture = pTexture;
     m_pTextureView = pTexture->GetDefaultView(TEXTURE_VIEW_SHADER_RESOURCE);
+
+}
+
+Texture2D::Texture2D(RenderTarget2D* target) {
+
+    m_pTexture = target->GetTexture();
+    m_pTextureView = target->GetView();
 
 }
 

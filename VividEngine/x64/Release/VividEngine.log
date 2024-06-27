@@ -1,67 +1,14 @@
-﻿  Draw2D.cpp
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-  Importer.cpp
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\Importer.cpp(126,23): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\Importer.cpp(204,23): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\Importer.cpp(209,27): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\Importer.cpp(229,27): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\Importer.cpp(293,23): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\Importer.cpp(358,23): warning C4018: '<': signed/unsigned mismatch
-  Intersections.cpp
-  opencl.hpp: CL_HPP_TARGET_OPENCL_VERSION is not defined. It will default to 300 (OpenCL 3.0)
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\Intersections.cpp(34,41): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\Intersections.cpp(42,49): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  Mesh3D.cpp
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\Mesh3D.cpp(88,37): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
-  MeshBuffer.cpp
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-  NodeActor.cpp
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(38,20): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(57,20): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(83,20): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(122,23): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(122,23): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(122,23): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(122,23): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(122,23): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(128,22): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(128,22): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(128,22): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(128,22): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(128,22): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(134,23): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(134,23): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(134,23): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(134,23): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(134,23): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(140,23): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(140,23): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(140,23): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(140,23): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(140,23): warning C4244:         ]
-  NodeEntity.cpp
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(28,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(185,29): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(221,30): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(229,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(230,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(232,39): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(235,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-  OctNode.cpp
-C:\dev\Vivid3D\VividEngine\MathsHelp.h(18,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-  SceneGraph.cpp
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\MathsHelp.h(18,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-  opencl.hpp: CL_HPP_TARGET_OPENCL_VERSION is not defined. It will default to 300 (OpenCL 3.0)
-  SceneOctree.cpp
-C:\dev\Vivid3D\VividEngine\MathsHelp.h(18,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+﻿  PostProcessing.cpp
+C:\dev\Vivid3D\VividEngine\PostProcessing.cpp(32,90): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\dev\Vivid3D\VividEngine\PostProcessing.cpp(32,90): warning C4244:         with
+C:\dev\Vivid3D\VividEngine\PostProcessing.cpp(32,90): warning C4244:         [
+C:\dev\Vivid3D\VividEngine\PostProcessing.cpp(32,90): warning C4244:             T=float
+C:\dev\Vivid3D\VividEngine\PostProcessing.cpp(32,90): warning C4244:         ]
+C:\dev\Vivid3D\VividEngine\PostProcessing.cpp(32,64): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\dev\Vivid3D\VividEngine\PostProcessing.cpp(32,64): warning C4244:         with
+C:\dev\Vivid3D\VividEngine\PostProcessing.cpp(32,64): warning C4244:         [
+C:\dev\Vivid3D\VividEngine\PostProcessing.cpp(32,64): warning C4244:             T=float
+C:\dev\Vivid3D\VividEngine\PostProcessing.cpp(32,64): warning C4244:         ]
   Replacing x64\Release\pch.obj
 cuda.lib(nvcuda.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 cudart.lib(cudart64_12.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored

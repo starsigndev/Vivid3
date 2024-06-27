@@ -84,6 +84,9 @@ class MeshLines;
 class Draw2D;
 class Texture2D;
 class NodeActor;
+class RenderTarget2D;
+class PostProcessing;
+class PPBloom;
 
 class VOutput : public QWidget
 {
@@ -148,4 +151,7 @@ private:
 	NodeEntity* m_TerrainBrush = nullptr;
 	MaterialBase* m_BrushMaterial = nullptr;
 	bool m_PlotTerrain = false;
+	RenderTarget2D* m_RT2;
+	PostProcessing* m_PP;
+	PPBloom* m_ppBloom;
 };

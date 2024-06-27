@@ -36,6 +36,7 @@
 using namespace Diligent;
 
 class RenderTargetCube;
+class RenderTarget2D;
 class ScriptHost;
 class MaterialBase;
 class SceneGraph;
@@ -59,8 +60,10 @@ public:
 	static NodeLight* m_Light;
 	static void ClearZ();
 	static void SetBoundRTC(RenderTargetCube* target);
+	static void SetBoundRT2D(RenderTarget2D* target);
 
 	static RenderTargetCube* m_BoundRTC;
+	static RenderTarget2D* m_BoundRT2D;
 	static std::vector<MaterialBase*> m_ActiveMaterials;
 	static MaterialBase* FindActiveMaterial(std::string path);
 	static ScriptHost* m_ScriptHost;

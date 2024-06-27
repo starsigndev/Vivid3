@@ -7,7 +7,7 @@ public:
 
     Material2D();
     void Create();
-    void Bind(Texture2D* tex);
+    void Bind(bool sp) override;
 
 private:
 };

@@ -29,6 +29,9 @@ public:
 	RefCntAutoPtr<IShaderResourceBinding> GetSecondPassSRB() {
 		return m_SecondPassSRB;
 	}
+	void SetAux(Texture2D* aux) {
+		m_Aux = aux;
+	}
 	void SetDiffuse(Texture2D* texture);
 	void SetSpecular(Texture2D* texture);
 	void SetNormals(Texture2D* texture);
@@ -96,7 +99,7 @@ protected:
 	Texture2D* m_Specular = nullptr;
 	RenderTargetCube* m_Environment = nullptr;
 	TextureCube* m_EnvironmentTex = nullptr;
-
+	Texture2D* m_Aux = nullptr;
 	//PBR
 	Texture2D* m_Roughness;
 	Texture2D* m_Metal;

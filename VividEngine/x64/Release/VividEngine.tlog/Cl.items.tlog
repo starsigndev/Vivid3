@@ -37,7 +37,11 @@ C:\dev\Vivid3D\VividEngine\OctNode.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\Oc
 C:\dev\Vivid3D\VividEngine\ParticleEffector.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\ParticleEffector.obj
 C:\dev\Vivid3D\VividEngine\pch.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\pch.obj
 C:\dev\Vivid3D\VividEngine\PixelMap.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\PixelMap.obj
+C:\dev\Vivid3D\VividEngine\PostProcess.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\PostProcess.obj
+C:\dev\Vivid3D\VividEngine\PostProcessing.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\PostProcessing.obj
+C:\dev\Vivid3D\VividEngine\PPBloom.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\PPBloom.obj
 C:\dev\Vivid3D\VividEngine\Quat.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\Quat.obj
+C:\dev\Vivid3D\VividEngine\RenderTarget2D.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\RenderTarget2D.obj
 C:\dev\Vivid3D\VividEngine\RenderTargetCube.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\RenderTargetCube.obj
 C:\dev\Vivid3D\VividEngine\SceneGraph.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\SceneGraph.obj
 C:\dev\Vivid3D\VividEngine\SceneOctree.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\SceneOctree.obj

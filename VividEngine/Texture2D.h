@@ -17,6 +17,7 @@
 
 using namespace Diligent;
 
+class RenderTarget2D;
 
 
 class Texture2D
@@ -27,6 +28,7 @@ public:
 	~Texture2D();
 	Texture2D(std::string path,bool threaded = false);
 	Texture2D(int w, int h, float* data, int bpp);
+	Texture2D(RenderTarget2D* rt);
 	RefCntAutoPtr<ITextureView> GetView() {
 		if (m_Loading) {
 			return WhiteTex->GetView();

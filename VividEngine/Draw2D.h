@@ -12,7 +12,9 @@ public:
 
 	Draw2D();
 	void Rect(Texture2D* image, float2 position, float2 size, float4 color);
-
+	void SetMaterial(Material2D* material) {
+		m_Material = material;
+	}
 
 private:
 

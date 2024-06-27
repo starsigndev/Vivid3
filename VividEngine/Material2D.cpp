@@ -24,7 +24,8 @@ struct Constant2D {
 
 Material2D::Material2D() {
 
-	Create();
+	//Create();
+
 
 }
 
@@ -257,9 +258,9 @@ void Material2D::Create() {
 
 }
 
-void Material2D::Bind(Texture2D* tex) {
+void Material2D::Bind(bool sp) {
 
-    m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "v_Texture")->Set(tex->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
+    m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "v_Texture")->Set(m_Diffuse->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);
 
 
     //  m_SRB->GetVariableByName(SHADER_TYPE_PIXEL, "g_TextureSpec")->Set(m_Specular->GetView(), SET_SHADER_RESOURCE_FLAG_NONE);

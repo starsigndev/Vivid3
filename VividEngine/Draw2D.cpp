@@ -7,6 +7,7 @@
 Draw2D::Draw2D() {
 
 	m_Material = new Material2D;
+	m_Material->Create();
 
 }
 
@@ -49,7 +50,9 @@ void Draw2D::Rect(Texture2D* image, float2 pos, float2 size, float4 color) {
 
 	mesh->Build();
 
-	m_Material->Bind(image);
+	m_Material->SetDiffuse(image);
+	m_Material->Bind(false);
+
 
 	mesh->SetMaterial(m_Material);
 

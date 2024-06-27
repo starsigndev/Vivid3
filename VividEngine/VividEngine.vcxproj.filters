@@ -79,6 +79,15 @@
     <Filter Include="Cine">
       <UniqueIdentifier>{0500e369-3c40-4920-925a-f5715c5a270c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PP">
+      <UniqueIdentifier>{3fa0cd0a-6004-4d0a-b943-93ba83714165}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PP\Processes">
+      <UniqueIdentifier>{8df2eb6a-d56e-4f0f-8e32-8622d9bd074b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PP\Materials">
+      <UniqueIdentifier>{0d3b3d68-3e9b-4103-9cff-fa41f86a3c8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -240,6 +249,27 @@
     <ClInclude Include="TrackKeyFrame.h">
       <Filter>Cine</Filter>
     </ClInclude>
+    <ClInclude Include="RenderTarget2D.h">
+      <Filter>RenderTarget</Filter>
+    </ClInclude>
+    <ClInclude Include="PostProcessing.h">
+      <Filter>PP</Filter>
+    </ClInclude>
+    <ClInclude Include="PostProcess.h">
+      <Filter>PP</Filter>
+    </ClInclude>
+    <ClInclude Include="PPBloom.h">
+      <Filter>PP\Processes</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialColorLimit.h">
+      <Filter>PP\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialBlur.h">
+      <Filter>PP\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialCombine.h">
+      <Filter>PP\Materials</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VividEngine.cpp">
@@ -397,6 +427,27 @@
     </ClCompile>
     <ClCompile Include="TrackKeyFrame.cpp">
       <Filter>Cine</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTarget2D.cpp">
+      <Filter>RenderTarget</Filter>
+    </ClCompile>
+    <ClCompile Include="PostProcessing.cpp">
+      <Filter>PP</Filter>
+    </ClCompile>
+    <ClCompile Include="PostProcess.cpp">
+      <Filter>PP</Filter>
+    </ClCompile>
+    <ClCompile Include="PPBloom.cpp">
+      <Filter>PP\Processes</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialColorLimit.cpp">
+      <Filter>PP\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialBlur.cpp">
+      <Filter>PP\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialCombine.cpp">
+      <Filter>PP\Materials</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

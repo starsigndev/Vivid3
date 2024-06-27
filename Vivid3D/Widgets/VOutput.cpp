@@ -25,6 +25,9 @@
 #include "TerrainLayer.h"
 #include "TerrainMesh.h"
 #include "PixelMap.h"
+#include "RenderTarget2D.h"
+#include "PostProcessing.h"
+#include "PPBloom.h"
 
 VOutput::VOutput(QWidget *parent)
 	: QWidget(parent)
@@ -218,7 +221,9 @@ VOutput::VOutput(QWidget *parent)
     m_BrushMaterial = new MaterialBase;
     m_BrushMaterial->Create();
     m_BrushMaterial->SetDiffuse(new Texture2D("edit/brush1.png"));
-    
+    //m_RT2 = new RenderTarget2D(1024, 1024);
+
+
 }
 
 
@@ -266,6 +271,12 @@ void VOutput::resizeEvent(QResizeEvent* event)
     qDebug() << "Widget resized from" << oldSize << "to" << newSize;
     Engine::SetFrameWidth(newSize.width());
     Engine::SetFrameHeight(newSize.height());
+
+    m_PP = new PostProcessing;
+    m_ppBloom = new PPBloom;
+    m_PP->AddPostProcess(m_ppBloom);
+    m_ppBloom->SetGraph(m_Graph1);
+
 }
 
 
@@ -1025,7 +1036,7 @@ void VOutput::paintEvent(QPaintEvent* event)
 
   //  m_Node1->SetRotation(0, ay, 0);
     m_Graph1 = Editor::m_Graph;
-    
+    m_ppBloom->SetGraph(m_Graph1);
 
     cam->SetRotation(m_ViewPitch, m_ViewYaw, 0);
     m_Graph1->Update();
@@ -1044,9 +1055,14 @@ void VOutput::paintEvent(QPaintEvent* event)
 
     int ss = clock();
 
-    m_Graph1->Render();
-   // m_Oct1->RenderBF();
+    //m_RT2->Bind();
+    //m_Graph1->Render();
 
+   // m_RT2->Release();
+    // m_Oct1->RenderBF();
+    m_PP->Process();
+
+    //m_Draw->Rect(new Texture2D(m_RT2), float2(20, 20), float2(400, 400), float4(1, 1, 1, 1));
 
     int ts = clock() - ss;
 
