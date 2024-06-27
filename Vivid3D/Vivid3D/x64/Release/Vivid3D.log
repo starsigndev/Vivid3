@@ -1,9 +1,6 @@
-﻿  VPropEditor.cpp
-  VOutput.cpp
-C:\dev\Vivid3D\Vivid3D\VPropEditor.cpp(1375,49): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-  Generating code
-  462 of 8212 functions ( 5.6%) were compiled, the rest were copied from previous compilation.
-    18 functions were new in current compilation
-    241 functions had inline decision re-evaluated but remain unchanged
+﻿  Generating code
+  4 of 8733 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    74 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Vivid3D.vcxproj -> C:\dev\Vivid3D\Vivid3D\x64\Release\Vivid3D.exe

@@ -39,7 +39,7 @@ public:
 	void RenderDepth();
 	void BuildGeo();
 	std::vector<float3> GetGeo() {
-		return m_Build;
+		return m_UseBuild;
 	}
 	void NeedsRebuild() {
 		n_NeedsRebuild = true;
@@ -69,6 +69,7 @@ private:
 	MaterialBase* m_DepthMaterial;
 	NodeEntity* m_Owner;
 	std::vector<float3> m_Build;
+	std::vector<float3> m_UseBuild;
 	bool n_NeedsRebuild = true;
 //	cl::Buffer triBuf;
 };

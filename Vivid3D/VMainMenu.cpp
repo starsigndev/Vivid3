@@ -70,10 +70,12 @@ VMainMenu::VMainMenu(QWidget *parent)
 
 			}
 			auto cam = Engine::m_Camera;
+			auto lines = Editor::m_Graph->GetLines();
 			Editor::m_Graph = new SceneGraph;
 			Editor::m_Graph->LoadScene(filePath.toStdString());
 			Engine::m_Camera = cam;
 			Editor::m_Graph->SetCamera(cam);
+			Editor::m_Graph->SetLines(lines);
 			Editor::m_SceneGraph->UpdateGraph();
 
 			

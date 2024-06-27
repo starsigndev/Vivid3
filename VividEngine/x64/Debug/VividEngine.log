@@ -1,6 +1,6 @@
-﻿  SceneGraph.cpp
-C:\dev\Vivid3D\VividEngine\MathsHelp.h(18,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-  opencl.hpp: CL_HPP_TARGET_OPENCL_VERSION is not defined. It will default to 300 (OpenCL 3.0)
+﻿  Mesh3D.cpp
+C:\dev\Vivid3D\VividEngine\Mesh3D.cpp(73,36): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
+C:\dev\Vivid3D\VividEngine\Mesh3D.cpp(93,36): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
   Replacing x64\Debug\pch.obj
 cuda.lib(nvcuda.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 cudart.lib(cudart64_12.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored

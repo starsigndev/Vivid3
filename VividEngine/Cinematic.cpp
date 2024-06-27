@@ -208,7 +208,7 @@ void Cinematic::SetTime(double time) {
 			node->SetPosition(f_pos);
 			node->SetRotation(f_rot);
 			node->SetScale(f_scale);
-			return;
+			continue;
 		}
 		if (frames.size() == 1) {
 

@@ -45,6 +45,13 @@ class SceneGraph
 public:
 
 	SceneGraph();
+	std::vector<MeshLines*> GetLines() {
+		return m_Lines;
+	}
+	void SetLines(std::vector<MeshLines*> lines)
+	{
+		m_Lines = lines;
+	}
 
 	void AddNode(Node* node);
 	void AddLight(NodeLight* light);

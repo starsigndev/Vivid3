@@ -1,9 +1,6 @@
-﻿  NodeTerrain.cpp
-C:\dev\Vivid3D\VividEngine\NodeTerrain.cpp(160,59): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeTerrain.cpp(223,55): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
-  TerrainLayer.cpp
-C:\dev\Vivid3D\VividEngine\TerrainLayer.cpp(38,19): warning C4101: 'xd': unreferenced local variable
-C:\dev\Vivid3D\VividEngine\TerrainLayer.cpp(38,23): warning C4101: 'yd': unreferenced local variable
+﻿  Mesh3D.cpp
+C:\dev\Vivid3D\VividEngine\Mesh3D.cpp(74,36): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
+C:\dev\Vivid3D\VividEngine\Mesh3D.cpp(94,36): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
   Replacing x64\Release\pch.obj
 cuda.lib(nvcuda.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 cudart.lib(cudart64_12.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
