@@ -93,6 +93,12 @@ public:
 	std::string GetResourcePath();
 	virtual void WriteNode(VFile* file);
 	virtual void ReadNode(VFile* file);
+	void SetRTEnable() {
+		m_RTEnable = true;
+	}
+	bool GetRTEnable() {
+		return m_RTEnable;
+	}
 protected:
 
 	std::string m_Name;
@@ -116,6 +122,7 @@ protected:
 	float3 m_PushedScale; 
 	bool m_Static = true;
 	std::string m_ResourcePath = "";
+	bool m_RTEnable = false;
 };
 
 

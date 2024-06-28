@@ -447,40 +447,17 @@ void Mesh3D::BuildGeo() {
 
 
 	if (m_FBuild==nullptr) {
-		//auto tris = GetTris();
-		//auto verts = GetVertices();
+		auto tris = GetTris();
+		auto verts = GetVertices();
 
 
 		//m_Build.clear();
 
 
-		m_FBuild = new float3[m_NumTris * 3];
+		m_FBuild = new float3[tris.size() * 3];
 		int i = 0;
 
 
-		for (int t = 0; t < m_NumTris;t++) {
-
-			int t0, t1, t2;
-
-			t0 = m_TrisData[t * 3] * 27;
-			t1 = m_TrisData[t * 3 + 1] * 27;
-			t2 = m_TrisData[t * 3 + 2] * 27;
-
-			float3 v0 = float3(m_VertsData[t0],m_VertsData[t0+1],m_VertsData[t0+2]);
-			float3 v1 = float3(m_VertsData[t1], m_VertsData[t1 + 1], m_VertsData[t1 + 2]);
-			float3 v2 = float3(m_VertsData[t2], m_VertsData[t2 + 1], m_VertsData[t2 + 2]);
-
-
-			m_FBuild[i++] = v0;
-			m_FBuild[i++] = v1;// verts[t.v1].position;
-			m_FBuild[i++] = v2;// verts[t.v2].position;
-
-
-
-
-		}
-
-		/*
 		for (auto t : tris) {
 
 			float3 v0 = verts[t.v0].position;// *world;
@@ -496,13 +473,12 @@ void Mesh3D::BuildGeo() {
 		
 
 		}
-		*/
 
 	}
 	if (m_FUseBuild == nullptr)
 	{
 		//m_FUseBuild.clear();
-		m_FUseBuild = new float3[m_NumTris * 3];
+		m_FUseBuild = new float3[m_Tris.size() * 3];
 	
 	}
 	
@@ -512,7 +488,7 @@ void Mesh3D::BuildGeo() {
 	else {
 		//transform_points_avx2_optimized(m_Build, world, m_UseBuild);
 
-		transform_points_avx2_F(m_FBuild,m_NumTris*3, world, m_FUseBuild);
+		transform_points_avx2_F(m_FBuild,m_Tris.size()*3, world, m_FUseBuild);
 	}
 
 

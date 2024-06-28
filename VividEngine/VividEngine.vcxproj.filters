@@ -88,6 +88,12 @@
     <Filter Include="PP\Materials">
       <UniqueIdentifier>{0d3b3d68-3e9b-4103-9cff-fa41f86a3c8b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{c82a0b43-dcc5-4430-88bf-255de907a6ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\RTX">
+      <UniqueIdentifier>{dafe7549-fe5d-40ce-877c-b49ee5d4f341}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -270,6 +276,21 @@
     <ClInclude Include="MaterialCombine.h">
       <Filter>PP\Materials</Filter>
     </ClInclude>
+    <ClInclude Include="NitroRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="RendererBase.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="SolarisRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="RTPipeline.h">
+      <Filter>Renderer\RTX</Filter>
+    </ClInclude>
+    <ClInclude Include="RTMesh.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VividEngine.cpp">
@@ -448,6 +469,21 @@
     </ClCompile>
     <ClCompile Include="MaterialCombine.cpp">
       <Filter>PP\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="NitroRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="RendererBase.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="SolarisRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="RTPipeline.cpp">
+      <Filter>Renderer\RTX</Filter>
+    </ClCompile>
+    <ClCompile Include="RTMesh.cpp">
+      <Filter>Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

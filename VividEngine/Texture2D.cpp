@@ -18,7 +18,7 @@ Texture2D::Texture2D(std::string path,bool threaded) {
 
     int b = 5;
 
-    if (!threaded) {
+    if (!threaded || threaded) {
         TextureLoadInfo loadInfo;
 
         CreateTextureFromFile(path.c_str(), loadInfo, Engine::m_pDevice, &m_pTexture);

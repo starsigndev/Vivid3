@@ -1,0 +1,89 @@
+#pragma once
+#include "RendererBase.h"
+#include "Engine.h"
+#include <vector>
+#include "NodeLight.h"
+#include "RenderTargetCube.h"
+#include "Texture2D.h"
+
+#include <Graphics/GraphicsEngine/interface/RenderDevice.h>
+#include <Graphics/GraphicsEngine/interface/DeviceContext.h>
+#include <Graphics/GraphicsEngine/interface/Buffer.h>
+#include <Graphics/GraphicsEngine/interface/SwapChain.h>
+#include <Common/interface/RefCntAutoPtr.hpp>
+#include <MapHelper.hpp> // Add this line
+#include "TextureCube.h"
+#include "MapHelper.hpp"
+#include "GraphicsTypesX.hpp"
+#include "GraphicsUtilities.h"
+#include "TextureUtilities.h"
+#include "ShaderMacroHelper.hpp"
+
+#include "AdvancedMath.hpp"
+namespace HLSL
+{
+#include "structures.fxh"
+}
+class RTMesh;
+class Draw2D;
+
+class SolarisRenderer :
+    public RendererBase
+{
+public:
+
+    SolarisRenderer();
+    void CreateStructures();
+    void CreateTopLevel();
+    void CreateSBT();
+    void PreRender() override;
+    void Render() override;
+    void UpdatePrimitives();
+    void CreatePipeline();
+
+private:
+
+    bool m_RayTracedShadows = true;
+
+    RefCntAutoPtr<IShaderResourceBinding> m_RayTracingSRB;
+    //data
+    std::vector<RTMesh*> m_Meshes;
+    RefCntAutoPtr<ITopLevelAS> m_TLAS;
+    RefCntAutoPtr<IBuffer>             m_ScratchBuffer;
+    RefCntAutoPtr<IBuffer>             m_InstanceBuffer;
+    RefCntAutoPtr<IShaderBindingTable> m_SBT;
+    RefCntAutoPtr<IBuffer> m_RenderAttribsCB;
+    HLSL::Constants m_Constants = {};
+    RefCntAutoPtr<IBuffer> m_ConstantsCB;
+    static constexpr int NumTextures = 4;
+    static constexpr int NumCubes = 4;
+
+    RefCntAutoPtr<IBuffer> m_CubeAttribsCB;
+    RefCntAutoPtr<IBuffer> m_BoxAttribsCB;
+
+
+    RefCntAutoPtr<IPipelineState>         m_pRayTracingPSO;
+    RefCntAutoPtr<IShaderResourceBinding> m_pRayTracingSRB;
+
+    RefCntAutoPtr<IPipelineState>         m_pImageBlitPSO;
+    RefCntAutoPtr<IShaderResourceBinding> m_pImageBlitSRB;
+
+    RefCntAutoPtr<IBottomLevelAS>      m_pCubeBLAS;
+    RefCntAutoPtr<IBottomLevelAS>      m_pProceduralBLAS;
+    RefCntAutoPtr<ITopLevelAS>         m_pTLAS;
+
+    RefCntAutoPtr<IShaderBindingTable> m_pSBT;
+
+    Uint32          m_MaxRecursionDepth = 8;
+    const double    m_MaxAnimationTimeDelta = 1.0 / 60.0;
+    float           m_AnimationTime = 0.0f;
+    
+    bool            m_EnableCubes[NumCubes] = { true, true, true, true };
+    bool            m_Animate = true;
+    float           m_DispersionFactor = 0.1f;
+    TEXTURE_FORMAT          m_ColorBufferFormat = TEX_FORMAT_RGBA8_UNORM;
+    RefCntAutoPtr<ITexture> m_pColorRT;
+
+    Draw2D* m_Draw;
+};
+

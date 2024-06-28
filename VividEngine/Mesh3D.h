@@ -46,7 +46,7 @@ public:
 		return m_FUseBuild;
 	}
 	int TriCount() {
-		return m_NumTris;
+
 		return m_Tris.size();
 	}
 	void NeedsRebuild() {
@@ -63,6 +63,7 @@ public:
 	}
 	float* GetVertexData();
 	Uint32* GetTriData();
+
 
 //	cl::Buffer& GetCLBuf() {
 //		return triBuf;

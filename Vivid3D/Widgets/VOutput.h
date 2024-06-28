@@ -87,6 +87,8 @@ class NodeActor;
 class RenderTarget2D;
 class PostProcessing;
 class PPBloom;
+class NitroRenderer;
+class SolarisRenderer;
 
 class VOutput : public QWidget
 {
@@ -154,4 +156,6 @@ private:
 	RenderTarget2D* m_RT2;
 	PostProcessing* m_PP;
 	PPBloom* m_ppBloom;
+	NitroRenderer* m_Nitro;
+	SolarisRenderer* m_Solaris;
 };

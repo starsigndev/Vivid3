@@ -8,7 +8,7 @@
 #include "Bounds.h"
 #include "VFile.h"
 #include "Importer.h"
-
+#include "MaterialMeshPBR.h"
 NodeEntity::NodeEntity() {
 
 	m_Static = true;
@@ -268,7 +268,7 @@ void NodeEntity::LoadFastNode(std::string path) {
 		Uint32* tdata = (Uint32*)file->ReadBytes(tsize);
 		std::string mat = file->ReadString();
 
-		/*
+
 		int vi = 0;
 		for (int v = 0; v < num_verts; v++) {
 
@@ -312,15 +312,41 @@ void NodeEntity::LoadFastNode(std::string path) {
 			nt.v2 = tdata[vi++];
 			mesh->AddTri(nt);
 		}
-		*/
+	
+		//mesh->BuildFast(vdata, tdata, num_verts, num_tris);
 
-		
-		mesh->SetMaterial(MaterialBase::LoadMaterial(mat));
-		//mesh->Build();
-		mesh->BuildFast(vdata, tdata,num_verts,num_tris);
-		
 		mesh->SetDepthMaterial(new MaterialDepth);
+		mesh->Build();
 		AddMesh(mesh);
+
+		auto lmat = Engine::FindActiveMaterial(mat);
+
+		if (lmat != nullptr) {
+			//materials.push_back(lmat);
+			mesh->SetMaterial(lmat);
+			continue;
+		}
+
+		if (VFile::Exists(mat.c_str())) {
+
+
+			auto v_mat = (MaterialMeshPBR*)MaterialBase::LoadMaterial(mat);
+			//materials.push_back(v_mat);
+
+			Engine::m_ActiveMaterials.push_back(v_mat);
+			mesh->SetMaterial(v_mat);
+			continue;
+
+		}
+
+
+		//Engine::m_ActiveMaterials.push_back(v_mat);
+		mesh->SetMaterial(MaterialBase::LoadMaterial(mat));
+		
+		Engine::m_ActiveMaterials.push_back(mesh->GetMaterial());
+
+		//mesh->Build();
+		
 
 	}
 

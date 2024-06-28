@@ -30,6 +30,7 @@ C:\dev\Vivid3D\VividEngine\Mesh3D.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Mesh3
 C:\dev\Vivid3D\VividEngine\MeshBuffer.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MeshBuffer.obj
 C:\dev\Vivid3D\VividEngine\MeshLines.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MeshLines.obj
 C:\dev\Vivid3D\VividEngine\MeshLinesBuffer.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MeshLinesBuffer.obj
+C:\dev\Vivid3D\VividEngine\NitroRenderer.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\NitroRenderer.obj
 C:\dev\Vivid3D\VividEngine\Node.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Node.obj
 C:\dev\Vivid3D\VividEngine\NodeActor.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\NodeActor.obj
 C:\dev\Vivid3D\VividEngine\NodeCamera.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\NodeCamera.obj
@@ -44,11 +45,15 @@ C:\dev\Vivid3D\VividEngine\PostProcess.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\
 C:\dev\Vivid3D\VividEngine\PostProcessing.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\PostProcessing.obj
 C:\dev\Vivid3D\VividEngine\PPBloom.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\PPBloom.obj
 C:\dev\Vivid3D\VividEngine\Quat.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Quat.obj
+C:\dev\Vivid3D\VividEngine\RendererBase.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\RendererBase.obj
 C:\dev\Vivid3D\VividEngine\RenderTarget2D.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\RenderTarget2D.obj
 C:\dev\Vivid3D\VividEngine\RenderTargetCube.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\RenderTargetCube.obj
+C:\dev\Vivid3D\VividEngine\RTMesh.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\RTMesh.obj
+C:\dev\Vivid3D\VividEngine\RTPipeline.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\RTPipeline.obj
 C:\dev\Vivid3D\VividEngine\SceneGraph.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\SceneGraph.obj
 C:\dev\Vivid3D\VividEngine\SceneOctree.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\SceneOctree.obj
 C:\dev\Vivid3D\VividEngine\ScriptHost.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\ScriptHost.obj
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\SolarisRenderer.obj
 C:\dev\Vivid3D\VividEngine\TerrainLayer.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\TerrainLayer.obj
 C:\dev\Vivid3D\VividEngine\TerrainMesh.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\TerrainMesh.obj
 C:\dev\Vivid3D\VividEngine\TerrainMeshBuffer.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\TerrainMeshBuffer.obj

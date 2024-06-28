@@ -13,7 +13,7 @@
 #include "TerrainMesh.h"
 #include "MathsHelp.h"
 #include "VFile.h"
-
+#include "RTMesh.h"
 std::vector<TerrainMesh*> GetTerrainMeshes(Node* node, std::vector<TerrainMesh*> meshes)
 {
 
@@ -106,16 +106,32 @@ void SceneGraph::RenderDepth() {
 
 }
 
+void SceneGraph::RenderLines() {
+    Engine::m_Camera = m_Camera;
+    Engine::m_Lights = m_Lights;
+    Engine::m_Light = m_Lights[0];
+
+    if (m_LinesOn) {
+        for (auto lines : m_Lines) {
+
+            lines->Render();
+
+        }
+    }
+}
+
 void SceneGraph::Render() {
 
 	Engine::m_Camera = m_Camera;
 	Engine::m_Lights = m_Lights;
     Engine::m_Light = m_Lights[0];
 	
-    for (auto lines : m_Lines) {
+    if (m_LinesOn) {
+        for (auto lines : m_Lines) {
 
-        lines->Render();
+            lines->Render();
 
+        }
     }
     
     bool sp = false;
@@ -855,5 +871,40 @@ void SceneGraph::LoadScene(std::string path) {
     m_RootNode = ReadNode(file);
 
     file->Close();
+
+}
+
+std::vector<RTMesh*> RTGetMeshes(Node* node, std::vector<RTMesh*> meshes) {
+
+    if (dynamic_cast<NodeEntity*>(node)) {
+
+        auto ent = (NodeEntity*)node;
+        if (ent->GetRTEnable()) {
+            for (auto mesh : ent->GetMeshes()) {
+                meshes.push_back(new RTMesh(mesh));
+            }
+        }
+
+    }
+
+    for (auto node : node->GetNodes()) {
+
+        meshes = RTGetMeshes(node, meshes);
+
+
+    }
+
+    return meshes;
+
+}
+
+std::vector<RTMesh*> SceneGraph::GetRTMeshes() {
+
+    std::vector<RTMesh*> meshes;
+
+
+
+    return RTGetMeshes(m_RootNode, meshes);
+
 
 }

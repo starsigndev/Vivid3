@@ -18,6 +18,6 @@ public:
 
 private:
     float m_C1 = 0.5f;
-    float m_C2 = 0.5f;
+    float m_C2 = 0.55f;
 };
 

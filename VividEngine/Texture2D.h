@@ -29,6 +29,10 @@ public:
 	Texture2D(std::string path,bool threaded = false);
 	Texture2D(int w, int h, float* data, int bpp);
 	Texture2D(RenderTarget2D* rt);
+	Texture2D(ITextureView* view)
+	{
+		m_pTextureView = view;
+	}
 	RefCntAutoPtr<ITextureView> GetView() {
 		if (m_Loading) {
 			return WhiteTex->GetView();

@@ -16,6 +16,7 @@ class MeshLines;
 class Bounds;
 class NodeTerrain;
 class VFile;
+class RTMesh;
 
 
 struct SceneInfo {
@@ -57,6 +58,7 @@ public:
 	void AddLight(NodeLight* light);
 	void RenderShadows();
 	void Render();
+	void RenderLines();
 	Node* FindNode(std::string url);
 	void RenderDepth();
 	NodeCamera* GetCamera();
@@ -85,7 +87,24 @@ public:
 	void SaveScene(std::string path);
 	void LoadScene(std::string path);
 	Node* ReadNode(VFile* file);
+	void LinesOn() {
+		m_LinesOn = true;
+	}
+	void LinesOff() {
 
+		m_LinesOn = false;
+
+	}
+	std::vector<RTMesh*> GetRTMeshes();
+	void Updated() {
+		m_Updated = true;
+	}
+	bool IsUpdated() {
+		return m_Updated;
+	}
+	void UpdateComplete() {
+		m_Updated = false;
+	}
 private:
 
 	NodeCamera* m_Camera;
@@ -95,6 +114,8 @@ private:
 	bool m_IsPlaying = false;
 	std::vector<MeshLines*> m_Lines;
 	Intersections* m_RayTester;
+	bool m_LinesOn = true;
+	bool m_Updated = true;
 
 };
 

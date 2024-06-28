@@ -360,6 +360,9 @@ void VContentView::mouseDoubleClickEvent(QMouseEvent* event)
                         auto node = imp->ImportNode(m_OverItem->m_FullPath);
                         Editor::m_Graph->AddNode(node);
                         Editor::m_SceneGraph->UpdateGraph();
+                        node->SetRTEnable();
+                        Editor::m_Graph->Updated();
+
 
 
                         //exit(1);

@@ -16,6 +16,6 @@ public:
     }
 
 private:
-    float m_Blur = 0.0035f;
+    float m_Blur = 0.005f;
 };
 

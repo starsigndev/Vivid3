@@ -28,6 +28,8 @@
 #include "RenderTarget2D.h"
 #include "PostProcessing.h"
 #include "PPBloom.h"
+#include "NitroRenderer.h"
+#include "SolarisRenderer.h"
 
 VOutput::VOutput(QWidget *parent)
 	: QWidget(parent)
@@ -223,6 +225,8 @@ VOutput::VOutput(QWidget *parent)
     m_BrushMaterial->SetDiffuse(new Texture2D("edit/brush1.png"));
     //m_RT2 = new RenderTarget2D(1024, 1024);
 
+    m_Nitro = new NitroRenderer;
+    m_Nitro->SetSceneGraph(m_Graph1);
 
 }
 
@@ -276,7 +280,8 @@ void VOutput::resizeEvent(QResizeEvent* event)
     m_ppBloom = new PPBloom;
     m_PP->AddPostProcess(m_ppBloom);
     m_ppBloom->SetGraph(m_Graph1);
-
+    m_Solaris = new SolarisRenderer;
+    m_Solaris->SetSceneGraph(m_Graph1);
 }
 
 
@@ -1037,11 +1042,14 @@ void VOutput::paintEvent(QPaintEvent* event)
   //  m_Node1->SetRotation(0, ay, 0);
     m_Graph1 = Editor::m_Graph;
     m_ppBloom->SetGraph(m_Graph1);
+    m_Nitro->SetSceneGraph(m_Graph1);
+
 
     cam->SetRotation(m_ViewPitch, m_ViewYaw, 0);
     m_Graph1->Update();
 
-    m_Graph1->RenderShadows();
+
+    //m_Graph1->RenderShadows();
    // m_CubeRen->RenderEnvironment(m_Node2->GetPosition());
 
 
@@ -1060,7 +1068,15 @@ void VOutput::paintEvent(QPaintEvent* event)
 
    // m_RT2->Release();
     // m_Oct1->RenderBF();
-    m_PP->Process();
+    //m_Graph1->RenderLines();
+    //m_PP->Process();
+    //m_Nitro->PreRender();
+    //m_Nitro->Render();
+
+    Engine::m_Camera = m_Graph1->GetCamera();
+    m_Solaris->PreRender();
+    m_Solaris->Render();
+
 
     //m_Draw->Rect(new Texture2D(m_RT2), float2(20, 20), float2(400, 400), float4(1, 1, 1, 1));
 
