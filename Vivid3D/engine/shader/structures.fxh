@@ -1,10 +1,7 @@
 
-struct CubeAttribs
-{
-    float4 UVs[555];
-    float4 Normals[555];
-    uint4  Primitives[555];
-};
+
+
+
 
 struct PrimaryRayPayload
 {

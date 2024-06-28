@@ -40,6 +40,7 @@ public:
     void Render() override;
     void UpdatePrimitives();
     void CreatePipeline();
+    void UpdateTextures();
 
 private:
 
@@ -85,5 +86,14 @@ private:
     RefCntAutoPtr<ITexture> m_pColorRT;
 
     Draw2D* m_Draw;
+    RefCntAutoPtr<ITextureView> m_GlobalTex;
+    RefCntAutoPtr<IBuffer> uvBuf;
+    RefCntAutoPtr<IBuffer> normBuf;
+    RefCntAutoPtr<IBuffer> primBuf;
+    RefCntAutoPtr<IBuffer> offsetsBuf;
+    RefCntAutoPtr<IBufferView> uvsBufferView;
+    RefCntAutoPtr<IBufferView> normalsBufferView;
+    RefCntAutoPtr<IBufferView> primitivesBufferView;
+    RefCntAutoPtr<IBufferView> offsetsBufferView;
 };
 

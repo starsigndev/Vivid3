@@ -1,24 +1,23 @@
-﻿  RTPipeline.cpp
-  SolarisRenderer.cpp
+﻿  SolarisRenderer.cpp
 C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(152,94): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(152,94): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(152,94): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(152,94): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(152,94): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(152,81): warning C4244: 'argument': conversion from 'Diligent::Uint32' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(152,81): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(152,81): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(152,81): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(152,81): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(152,53): warning C4244: 'argument': conversion from 'Diligent::Uint32' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(152,53): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(152,53): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(152,53): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(152,53): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(226,43): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(290,40): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
-  Generating Code...
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(154,94): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(154,94): warning C4244:         with
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(154,94): warning C4244:         [
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(154,94): warning C4244:             T=float
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(154,94): warning C4244:         ]
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(154,81): warning C4244: 'argument': conversion from 'Diligent::Uint32' to 'T', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(154,81): warning C4244:         with
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(154,81): warning C4244:         [
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(154,81): warning C4244:             T=float
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(154,81): warning C4244:         ]
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(154,53): warning C4244: 'argument': conversion from 'Diligent::Uint32' to 'T', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(154,53): warning C4244:         with
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(154,53): warning C4244:         [
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(154,53): warning C4244:             T=float
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(154,53): warning C4244:         ]
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(229,11): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(230,11): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(381,40): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
   Replacing x64\Debug\pch.obj
 cuda.lib(nvcuda.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 cudart.lib(cudart64_12.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored

@@ -6,6 +6,15 @@
       "AbsoluteMoniker": "D:0:0:{890CA403-5FF8-4B45-98A1-A5B204770902}|..\\VividEngine\\VividEngine.vcxproj|C:\\dev\\Vivid3D\\VividEngine\\SolarisRenderer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Dev\\git\\DE\\DiligentEngine\\DiligentCore\\Platforms\\Win32\\src\\Win32Debug.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{890CA403-5FF8-4B45-98A1-A5B204770902}|..\\VividEngine\\VividEngine.vcxproj|C:\\dev\\Vivid3D\\VividEngine\\SolarisRenderer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\dev\\GIT\\DE\\DiligentEngine\\DiligentCore\\Common\\interface\\RefCntAutoPtr.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{890CA403-5FF8-4B45-98A1-A5B204770902}|..\\VividEngine\\VividEngine.vcxproj|C:\\DEV\\VIVID3D\\VIVIDENGINE\\STRUCTURES.FXH||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
@@ -38,12 +47,6 @@
     },
     {
       "AbsoluteMoniker": "D:0:0:{890CA403-5FF8-4B45-98A1-A5B204770902}|..\\VividEngine\\VividEngine.vcxproj|C:\\Dev\\Vivid3D\\VividEngine\\MaterialBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{890CA403-5FF8-4B45-98A1-A5B204770902}|..\\VividEngine\\VividEngine.vcxproj|C:\\dev\\Vivid3D\\VividEngine\\SolarisRenderer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Dev\\git\\DE\\DiligentEngine\\DiligentCore\\Platforms\\Win32\\src\\Win32Debug.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\include\\vector||{3B902123-F8A7-4915-9F01-361F908088D0}|"
@@ -161,9 +164,6 @@
     },
     {
       "AbsoluteMoniker": "D:0:0:{890CA403-5FF8-4B45-98A1-A5B204770902}|..\\VividEngine\\VividEngine.vcxproj|C:\\dev\\Vivid3D\\VividEngine\\MaterialColorLimit.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\dev\\GIT\\DE\\DiligentEngine\\DiligentCore\\Common\\interface\\RefCntAutoPtr.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{890CA403-5FF8-4B45-98A1-A5B204770902}|..\\VividEngine\\VividEngine.vcxproj|C:\\dev\\Vivid3D\\VividEngine\\Material2D.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
@@ -868,7 +868,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Document",
@@ -885,85 +885,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "MaterialBase.cpp",
-              "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\MaterialBase.cpp",
-              "RelativeDocumentMoniker": "..\\VividEngine\\MaterialBase.cpp",
-              "ToolTip": "C:\\dev\\Vivid3D\\VividEngine\\MaterialBase.cpp",
-              "RelativeToolTip": "..\\VividEngine\\MaterialBase.cpp",
-              "ViewState": "AQIAADcBAAAAAAAAAAAqwEgBAAAdAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-05-29T14:29:21.67Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Material2D.cpp",
-              "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\Material2D.cpp",
-              "RelativeDocumentMoniker": "..\\VividEngine\\Material2D.cpp",
-              "ToolTip": "C:\\dev\\Vivid3D\\VividEngine\\Material2D.cpp",
-              "RelativeToolTip": "..\\VividEngine\\Material2D.cpp",
-              "ViewState": "AQIAAPMAAAAAAAAAAAAqwAQBAAAVAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-06-12T11:28:15.434Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Win32Debug.cpp",
-              "DocumentMoniker": "C:\\dev\\GIT\\DE\\DiligentEngine\\DiligentCore\\Platforms\\Win32\\src\\Win32Debug.cpp",
-              "RelativeDocumentMoniker": "..\\..\\GIT\\DE\\DiligentEngine\\DiligentCore\\Platforms\\Win32\\src\\Win32Debug.cpp",
-              "ToolTip": "C:\\dev\\GIT\\DE\\DiligentEngine\\DiligentCore\\Platforms\\Win32\\src\\Win32Debug.cpp",
-              "RelativeToolTip": "..\\..\\GIT\\DE\\DiligentEngine\\DiligentCore\\Platforms\\Win32\\src\\Win32Debug.cpp",
-              "ViewState": "AQIAAE0AAAAAAAAAAAAqwF8AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-05-30T13:22:12.814Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "SceneGraph.cpp",
-              "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\SceneGraph.cpp",
-              "RelativeDocumentMoniker": "..\\VividEngine\\SceneGraph.cpp",
-              "ToolTip": "C:\\dev\\Vivid3D\\VividEngine\\SceneGraph.cpp",
-              "RelativeToolTip": "..\\VividEngine\\SceneGraph.cpp",
-              "ViewState": "AQIAAKsBAAAAAAAAAAAqwL0BAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-05-29T14:20:51.247Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "SolarisRenderer.cpp",
-              "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\SolarisRenderer.cpp",
-              "RelativeDocumentMoniker": "..\\VividEngine\\SolarisRenderer.cpp",
-              "ToolTip": "C:\\dev\\Vivid3D\\VividEngine\\SolarisRenderer.cpp",
-              "RelativeToolTip": "..\\VividEngine\\SolarisRenderer.cpp",
-              "ViewState": "AQIAAKsAAAAAAAAAAAAqwL0AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-06-28T09:56:59.586Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "VOutput.cpp",
-              "DocumentMoniker": "C:\\dev\\Vivid3D\\Vivid3D\\Widgets\\VOutput.cpp",
-              "RelativeDocumentMoniker": "Widgets\\VOutput.cpp",
-              "ToolTip": "C:\\dev\\Vivid3D\\Vivid3D\\Widgets\\VOutput.cpp",
-              "RelativeToolTip": "Widgets\\VOutput.cpp",
-              "ViewState": "AQIAACMEAAAAAAAAAAAqwDoEAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-05-29T11:29:54.61Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "MaterialMeshPBR.h",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\MaterialMeshPBR.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\MaterialMeshPBR.h",
@@ -976,7 +898,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "MaterialMeshPBR.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\MaterialMeshPBR.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\MaterialMeshPBR.cpp",
@@ -989,7 +911,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "structures.fxh",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\structures.fxh",
               "RelativeDocumentMoniker": "..\\VividEngine\\structures.fxh",
@@ -1002,7 +924,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "Texture2D.h",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\Texture2D.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\Texture2D.h",
@@ -1015,7 +937,111 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
+              "Title": "SolarisRenderer.h",
+              "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\SolarisRenderer.h",
+              "RelativeDocumentMoniker": "..\\VividEngine\\SolarisRenderer.h",
+              "ToolTip": "C:\\dev\\Vivid3D\\VividEngine\\SolarisRenderer.h",
+              "RelativeToolTip": "..\\VividEngine\\SolarisRenderer.h",
+              "ViewState": "AQIAAEEAAAAAAAAAAAAqwGAAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-06-28T09:54:22.138Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Material2D.cpp",
+              "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\Material2D.cpp",
+              "RelativeDocumentMoniker": "..\\VividEngine\\Material2D.cpp",
+              "ToolTip": "C:\\dev\\Vivid3D\\VividEngine\\Material2D.cpp",
+              "RelativeToolTip": "..\\VividEngine\\Material2D.cpp",
+              "ViewState": "AQIAAPMAAAAAAAAAAAAqwAQBAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-06-12T11:28:15.434Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RefCntAutoPtr.hpp",
+              "DocumentMoniker": "C:\\dev\\GIT\\DE\\DiligentEngine\\DiligentCore\\Common\\interface\\RefCntAutoPtr.hpp",
+              "RelativeDocumentMoniker": "..\\..\\GIT\\DE\\DiligentEngine\\DiligentCore\\Common\\interface\\RefCntAutoPtr.hpp",
+              "ToolTip": "C:\\dev\\GIT\\DE\\DiligentEngine\\DiligentCore\\Common\\interface\\RefCntAutoPtr.hpp",
+              "RelativeToolTip": "..\\..\\GIT\\DE\\DiligentEngine\\DiligentCore\\Common\\interface\\RefCntAutoPtr.hpp",
+              "ViewState": "AQIAAIsAAAAAAAAAAAAqwJ0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-06-12T11:44:54.506Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Win32Debug.cpp",
+              "DocumentMoniker": "C:\\dev\\GIT\\DE\\DiligentEngine\\DiligentCore\\Platforms\\Win32\\src\\Win32Debug.cpp",
+              "RelativeDocumentMoniker": "..\\..\\GIT\\DE\\DiligentEngine\\DiligentCore\\Platforms\\Win32\\src\\Win32Debug.cpp",
+              "ToolTip": "C:\\dev\\GIT\\DE\\DiligentEngine\\DiligentCore\\Platforms\\Win32\\src\\Win32Debug.cpp",
+              "RelativeToolTip": "..\\..\\GIT\\DE\\DiligentEngine\\DiligentCore\\Platforms\\Win32\\src\\Win32Debug.cpp",
+              "ViewState": "AQIAAE0AAAAAAAAAAAAqwF8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-30T13:22:12.814Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SolarisRenderer.cpp",
+              "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\SolarisRenderer.cpp",
+              "RelativeDocumentMoniker": "..\\VividEngine\\SolarisRenderer.cpp",
+              "ToolTip": "C:\\dev\\Vivid3D\\VividEngine\\SolarisRenderer.cpp",
+              "RelativeToolTip": "..\\VividEngine\\SolarisRenderer.cpp",
+              "ViewState": "AQIAACQCAAAAAAAAAAAqwDsCAABKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-06-28T09:56:59.586Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "VOutput.cpp",
+              "DocumentMoniker": "C:\\dev\\Vivid3D\\Vivid3D\\Widgets\\VOutput.cpp",
+              "RelativeDocumentMoniker": "Widgets\\VOutput.cpp",
+              "ToolTip": "C:\\dev\\Vivid3D\\Vivid3D\\Widgets\\VOutput.cpp",
+              "RelativeToolTip": "Widgets\\VOutput.cpp",
+              "ViewState": "AQIAACMEAAAAAAAAAAAqwDoEAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-29T11:29:54.61Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "SceneGraph.cpp",
+              "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\SceneGraph.cpp",
+              "RelativeDocumentMoniker": "..\\VividEngine\\SceneGraph.cpp",
+              "ToolTip": "C:\\dev\\Vivid3D\\VividEngine\\SceneGraph.cpp",
+              "RelativeToolTip": "..\\VividEngine\\SceneGraph.cpp",
+              "ViewState": "AQIAAKsBAAAAAAAAAAAqwL0BAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-29T14:20:51.247Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "MaterialBase.cpp",
+              "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\MaterialBase.cpp",
+              "RelativeDocumentMoniker": "..\\VividEngine\\MaterialBase.cpp",
+              "ToolTip": "C:\\dev\\Vivid3D\\VividEngine\\MaterialBase.cpp",
+              "RelativeToolTip": "..\\VividEngine\\MaterialBase.cpp",
+              "ViewState": "AQIAADcBAAAAAAAAAAAqwEgBAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-29T14:29:21.67Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "NodeCamera.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\NodeCamera.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\NodeCamera.cpp",
@@ -1028,7 +1054,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "RTPipeline.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\RTPipeline.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\RTPipeline.cpp",
@@ -1041,7 +1067,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "Texture2D.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\Texture2D.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\Texture2D.cpp",
@@ -1054,7 +1080,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "RTPipeline.h",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\RTPipeline.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\RTPipeline.h",
@@ -1067,20 +1093,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "SolarisRenderer.h",
-              "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\SolarisRenderer.h",
-              "RelativeDocumentMoniker": "..\\VividEngine\\SolarisRenderer.h",
-              "ToolTip": "C:\\dev\\Vivid3D\\VividEngine\\SolarisRenderer.h",
-              "RelativeToolTip": "..\\VividEngine\\SolarisRenderer.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABsAAAANAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-06-28T09:54:22.138Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "Draw2D.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\Draw2D.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\Draw2D.cpp",
@@ -1093,7 +1106,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "Node.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\Node.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\Node.cpp",
@@ -1106,7 +1119,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "vector",
               "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\include\\vector",
               "RelativeDocumentMoniker": "..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\include\\vector",
@@ -1119,7 +1132,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "Node.h",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\Node.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\Node.h",
@@ -1132,7 +1145,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "RTMesh.h",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\RTMesh.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\RTMesh.h",
@@ -1145,7 +1158,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "RTMesh.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\RTMesh.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\RTMesh.cpp",
@@ -1158,7 +1171,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "SceneGraph.h",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\SceneGraph.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\SceneGraph.h",
@@ -1171,7 +1184,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "Mesh3D.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\Mesh3D.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\Mesh3D.cpp",
@@ -1184,7 +1197,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "MeshBuffer.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\MeshBuffer.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\MeshBuffer.cpp",
@@ -1197,7 +1210,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "MeshBuffer.h",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\MeshBuffer.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\MeshBuffer.h",
@@ -1210,7 +1223,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "VContentView.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\Vivid3D\\VContentView.cpp",
               "RelativeDocumentMoniker": "VContentView.cpp",
@@ -1223,7 +1236,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "Mesh3D.h",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\Mesh3D.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\Mesh3D.h",
@@ -1236,7 +1249,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "NodeEntity.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\NodeEntity.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\NodeEntity.cpp",
@@ -1249,7 +1262,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "NodeEntity.h",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\NodeEntity.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\NodeEntity.h",
@@ -1262,7 +1275,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "Vivid3D.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\Vivid3D\\Vivid3D.cpp",
               "RelativeDocumentMoniker": "Vivid3D.cpp",
@@ -1275,7 +1288,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "Intersections.h",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\Intersections.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\Intersections.h",
@@ -1288,7 +1301,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "Intersections.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\Intersections.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\Intersections.cpp",
@@ -1301,7 +1314,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 40,
               "Title": "RendererBase.h",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\RendererBase.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\RendererBase.h",
@@ -1314,7 +1327,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "Importer.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\Importer.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\Importer.cpp",
@@ -1327,7 +1340,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "Importer.h",
               "DocumentMoniker": "C:\\Dev\\Vivid3D\\VividEngine\\Importer.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\Importer.h",
@@ -1340,7 +1353,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "NitroRenderer.h",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\NitroRenderer.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\NitroRenderer.h",
@@ -1353,7 +1366,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "VOutput.h",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\Vivid3D\\Widgets\\VOutput.h",
               "RelativeDocumentMoniker": "Widgets\\VOutput.h",
@@ -1366,7 +1379,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "NitroRenderer.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\NitroRenderer.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\NitroRenderer.cpp",
@@ -1379,7 +1392,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 45,
               "Title": "MaterialCombine.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\MaterialCombine.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\MaterialCombine.cpp",
@@ -1391,7 +1404,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "TextureCube.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\TextureCube.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\TextureCube.cpp",
@@ -1404,7 +1417,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 42,
               "Title": "PostProcess.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\PostProcess.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\PostProcess.cpp",
@@ -1416,7 +1429,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "RendererBase.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\RendererBase.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\RendererBase.cpp",
@@ -1429,7 +1442,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 46,
               "Title": "PostProcessing.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\PostProcessing.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\PostProcessing.cpp",
@@ -1441,7 +1454,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 41,
               "Title": "PPBloom.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\PPBloom.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\PPBloom.cpp",
@@ -1454,7 +1467,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 44,
               "Title": "MaterialCombine.h",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\MaterialCombine.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\MaterialCombine.h",
@@ -1466,7 +1479,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 43,
               "Title": "MaterialBlur.h",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\MaterialBlur.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\MaterialBlur.h",
@@ -1478,7 +1491,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 48,
               "Title": "PostProcess.h",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\PostProcess.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\PostProcess.h",
@@ -1490,7 +1503,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 47,
               "Title": "PPBloom.h",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\PPBloom.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\PPBloom.h",
@@ -1502,7 +1515,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 51,
               "Title": "MaterialBlur.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\MaterialBlur.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\MaterialBlur.cpp",
@@ -1526,7 +1539,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 49,
               "Title": "MaterialBase.h",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\MaterialBase.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\MaterialBase.h",
@@ -1538,7 +1551,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 50,
               "Title": "MaterialColorLimit.h",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\MaterialColorLimit.h",
               "RelativeDocumentMoniker": "..\\VividEngine\\MaterialColorLimit.h",
@@ -1550,7 +1563,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 52,
               "Title": "MaterialColorLimit.cpp",
               "DocumentMoniker": "C:\\dev\\Vivid3D\\VividEngine\\MaterialColorLimit.cpp",
               "RelativeDocumentMoniker": "..\\VividEngine\\MaterialColorLimit.cpp",
@@ -1571,18 +1584,6 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-06-12T11:27:43.082Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 52,
-              "Title": "RefCntAutoPtr.hpp",
-              "DocumentMoniker": "C:\\dev\\GIT\\DE\\DiligentEngine\\DiligentCore\\Common\\interface\\RefCntAutoPtr.hpp",
-              "RelativeDocumentMoniker": "..\\..\\GIT\\DE\\DiligentEngine\\DiligentCore\\Common\\interface\\RefCntAutoPtr.hpp",
-              "ToolTip": "C:\\dev\\GIT\\DE\\DiligentEngine\\DiligentCore\\Common\\interface\\RefCntAutoPtr.hpp",
-              "RelativeToolTip": "..\\..\\GIT\\DE\\DiligentEngine\\DiligentCore\\Common\\interface\\RefCntAutoPtr.hpp",
-              "ViewState": "AQIAAMQAAAAAAAAAAAAqwNYAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-06-12T11:44:54.506Z"
             },
             {
               "$type": "Document",

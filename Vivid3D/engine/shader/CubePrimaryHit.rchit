@@ -2,8 +2,10 @@
 #include "structures.fxh"
 #include "RayUtils.fxh"
 
-ConstantBuffer<CubeAttribs>  g_CubeAttribsCB;
-
+StructuredBuffer<float4> UVsBuffer;
+StructuredBuffer<float4> NormalsBuffer;//: register(t1);
+StructuredBuffer<uint4>  PrimitivesBuffer;// : register(t2);
+StructuredBuffer<uint4> Offsets;
 Texture2D    g_CubeTextures[NUM_TEXTURES];
 SamplerState g_SamLinearWrap;
 
@@ -13,22 +15,27 @@ void main(inout PrimaryRayPayload payload, in BuiltInTriangleIntersectionAttribu
     // Calculate triangle barycentrics.
     float3 barycentrics = float3(1.0 - attr.barycentrics.x - attr.barycentrics.y, attr.barycentrics.x, attr.barycentrics.y);
 
+
+    uint real_i = PrimitiveIndex()+Offsets[InstanceID()].y;
+
     // Get vertex indices for primitive.
-    uint3 primitive = g_CubeAttribsCB.Primitives[PrimitiveIndex()].xyz;
+      uint3 primitive = PrimitivesBuffer[real_i].xyz;
+
+
 
     // Calculate texture coordinates.
-    float2 uv = g_CubeAttribsCB.UVs[primitive.x].xy * barycentrics.x +
-                g_CubeAttribsCB.UVs[primitive.y].xy * barycentrics.y +
-                g_CubeAttribsCB.UVs[primitive.z].xy * barycentrics.z;
+    float2 uv = UVsBuffer[primitive.x].xy * barycentrics.x +
+                UVsBuffer[primitive.y].xy * barycentrics.y +
+                UVsBuffer[primitive.z].xy * barycentrics.z;
 
     // Calculate and transform triangle normal.
-    float3 normal = g_CubeAttribsCB.Normals[primitive.x].xyz * barycentrics.x +
-                    g_CubeAttribsCB.Normals[primitive.y].xyz * barycentrics.y +
-                    g_CubeAttribsCB.Normals[primitive.z].xyz * barycentrics.z;
-    normal        = normalize(mul((float3x3) ObjectToWorld3x4(), normal));
+    float3 normal = NormalsBuffer[primitive.x].xyz * barycentrics.x +
+                    NormalsBuffer[primitive.y].xyz * barycentrics.y +
+                    NormalsBuffer[primitive.z].xyz * barycentrics.z;
+    normal = normalize(mul((float3x3) ObjectToWorld3x4(), normal));
 
     // Sample texturing. Ray tracing shaders don't support LOD calculation, so we must specify LOD and apply filtering.
-    //payload.Color = g_CubeTextures[NonUniformResourceIndex(InstanceID())].SampleLevel(g_SamLinearWrap, uv, 0).rgb;
+    payload.Color = g_CubeTextures[NonUniformResourceIndex(InstanceID())].SampleLevel(g_SamLinearWrap, uv, 0).rgb;
     payload.Depth = RayTCurrent();
     
 
