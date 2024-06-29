@@ -39,6 +39,7 @@ public:
     void PreRender() override;
     void Render() override;
     void UpdatePrimitives();
+    void UpdateLights();
     void CreatePipeline();
     void UpdateTextures();
 
@@ -82,18 +83,22 @@ private:
     bool            m_EnableCubes[NumCubes] = { true, true, true, true };
     bool            m_Animate = true;
     float           m_DispersionFactor = 0.1f;
-    TEXTURE_FORMAT          m_ColorBufferFormat = TEX_FORMAT_RGBA8_UNORM;
+    TEXTURE_FORMAT          m_ColorBufferFormat = TEX_FORMAT_RGBA32_FLOAT;
     RefCntAutoPtr<ITexture> m_pColorRT;
 
     Draw2D* m_Draw;
     RefCntAutoPtr<ITextureView> m_GlobalTex;
-    RefCntAutoPtr<IBuffer> uvBuf;
-    RefCntAutoPtr<IBuffer> normBuf;
+    RefCntAutoPtr<IBuffer> vertsBuf;
+    RefCntAutoPtr<IBuffer> trisBuf;
     RefCntAutoPtr<IBuffer> primBuf;
     RefCntAutoPtr<IBuffer> offsetsBuf;
-    RefCntAutoPtr<IBufferView> uvsBufferView;
-    RefCntAutoPtr<IBufferView> normalsBufferView;
+    RefCntAutoPtr<IBuffer> lightsBuf;
+    RefCntAutoPtr<IBufferView> verticesBufferView;
+    RefCntAutoPtr<IBufferView> trisBufferView;
     RefCntAutoPtr<IBufferView> primitivesBufferView;
     RefCntAutoPtr<IBufferView> offsetsBufferView;
+    RefCntAutoPtr<IBufferView> lightsBufferView;
+    int prevCount = 0;
+
 };
 

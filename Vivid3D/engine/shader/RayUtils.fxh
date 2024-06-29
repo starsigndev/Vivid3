@@ -1,7 +1,36 @@
 
+
 RaytracingAccelerationStructure g_TLAS;
 ConstantBuffer<Constants>       g_ConstantsCB;
 
+struct Vertex {
+
+	float3 position; //0
+	float4 color; //3
+	float3 texture; //7
+	float3 normal; //10
+	float3 binormal; //13
+	float3 tangent; //16 
+	float4 bone_ids; //19
+	float4 bone_weights; //23
+};
+
+struct Triangle{
+
+    uint3 Indices;
+
+};
+
+StructuredBuffer<Vertex> Vertices;
+StructuredBuffer<Triangle> Triangles;
+
+StructuredBuffer<uint4> Offsets;
+StructuredBuffer<float4> LightsBuffer;
+
+static const float PI = 3.14159265358979323846;
+#define MAX_REFLECTION_DISTANCE 50.0 
+
+static const int MAX_REFLECTION_RECURSION_DEPTH = 2;
 
 PrimaryRayPayload CastPrimaryRay(RayDesc ray, uint Recursion)
 {
@@ -11,7 +40,7 @@ PrimaryRayPayload CastPrimaryRay(RayDesc ray, uint Recursion)
     if (Recursion >= g_ConstantsCB.MaxRecursion)
     {
         // set pink color for debugging
-        payload.Color = float3(0.95, 0.18, 0.95);
+        payload.Color = float3(0,0,0);
         return payload;
     }
     TraceRay(g_TLAS,            // Acceleration structure
@@ -26,6 +55,27 @@ PrimaryRayPayload CastPrimaryRay(RayDesc ray, uint Recursion)
     return payload;
 }
 
+float3 TraceReflectionRay(float3 rayOrigin, float3 rayDirection, int recursionDepth)
+{
+    if (recursionDepth >= MAX_REFLECTION_RECURSION_DEPTH)
+        return float3(0.0, 0.0, 0.0); // Terminate recursion if max depth reached
+
+    RayDesc reflectionRay;
+    reflectionRay.Origin = rayOrigin + rayDirection * SMALL_OFFSET; // Offset to avoid self-intersection
+    reflectionRay.Direction = rayDirection;
+    reflectionRay.TMin = 0.01;
+    reflectionRay.TMax = MAX_REFLECTION_DISTANCE;
+
+    PrimaryRayPayload reflectionPayload;
+    reflectionPayload.Recursion = recursionDepth;
+
+    TraceRay(g_TLAS, RAY_FLAG_NONE, 0xFF, 0, 1, 0, reflectionRay, reflectionPayload);
+
+    // Compute reflection color
+    float3 reflectionColor = reflectionPayload.Color;
+
+    return reflectionColor;
+}
 ShadowRayPayload CastShadow(RayDesc ray, uint Recursion)
 {
     // By default initialize Shading with 0.
@@ -73,10 +123,94 @@ float3 DirectionWithinCone(float3 dir, float2 offset)
     return normalize(dir + left * offset.x + up * offset.y);
 }
 
+
+float3 FresnelSchlick(float cosTheta, float3 F0)
+{
+    return F0 + (1.0 - F0) * pow(1.0 - cosTheta, 5.0);
+}
+
+float GeometrySchlickGGX(float NdotV, float roughness)
+{
+    float r = (roughness + 1.0);
+    float k = (r * r) / 8.0;
+    return NdotV / (NdotV * (1.0 - k) + k);
+}
+
+float GeometrySmith(float3 normal, float3 viewDir, float3 lightDir, float roughness)
+{
+    float NdotV = max(dot(normal, viewDir), 0.0);
+    float NdotL = max(dot(normal, lightDir), 0.0);
+    float ggx1 = GeometrySchlickGGX(NdotV, roughness);
+    float ggx2 = GeometrySchlickGGX(NdotL, roughness);
+    return ggx1 * ggx2;
+}
+
+float DistributionGGX(float3 normal, float3 halfVector, float roughness)
+{
+    float alpha = roughness * roughness;
+    float alpha2 = alpha * alpha;
+    float NdotH = max(dot(normal, halfVector), 0.0);
+    float NdotH2 = NdotH * NdotH;
+
+    float nom = alpha2;
+    float denom = (NdotH2 * (alpha2 - 1.0) + 1.0);
+    denom = PI * denom * denom;
+
+    return nom / denom;
+}
+
+float3 CalculateLighting(float3 fPos,float3 diffuse,float3 normal, float3 viewDir, float3 lightDir, float3 lightColor, float lightIntensity, float roughness, float metalness,int recursion)
+{
+      normal = normalize(normal);
+    viewDir = normalize(viewDir);
+    lightDir = normalize(lightDir);
+
+    float3 halfVector = normalize(lightDir + viewDir);
+
+    // Fresnel-Schlick approximation
+    float3 F0 = lerp(float3(0.04, 0.04, 0.04), diffuse, metalness);
+    float3 F = FresnelSchlick(max(dot(halfVector, viewDir), 0.0), F0);
+
+    // Geometry function (Smith Schlick-GGX)
+    float G = GeometrySmith(normal, viewDir, lightDir, roughness);
+
+    // Normal Distribution Function (GGX)
+    float D = DistributionGGX(normal, halfVector, roughness);
+
+    // Specular and diffuse components
+    float3 kS = F;
+    float3 kD = (1.0 - kS) * (1.0 - metalness);
+
+    float NdotL = max(dot(normal, lightDir), 0.0);
+    float NdotV = max(dot(normal, viewDir), 0.0);
+    
+    // Specular BRDF
+    float3 specular = (D * G * F) / max(4.0 * NdotV * NdotL, 0.001);
+
+    // Calculate reflection
+    float3 reflectDir = normalize(reflect(-viewDir, normal));   
+    float3 envMapColor = float3(0.0, 0.0, 0.0);
+    if (recursion < MAX_REFLECTION_RECURSION_DEPTH)
+    {
+        envMapColor = TraceReflectionRay(fPos, reflectDir, recursion + 1);
+        // Apply Fresnel to reflection
+        envMapColor *= F;
+    }
+
+    // Combine direct and indirect lighting
+    float3 directLighting = lightIntensity * NdotL * (kD * diffuse / PI + specular);
+    float3 indirectLighting = envMapColor;
+
+    return directLighting + indirectLighting;
+}
+
+
+
+
 // Calculate lighting.
 void LightingPass(inout float3 Color, float3 Pos, float3 Norm, uint Recursion)
 {
-    RayDesc ray;
+   RayDesc ray;
     float3  col = float3(0.0, 0.0, 0.0);
 
     // Add a small offset to avoid self-intersections.
@@ -111,4 +245,5 @@ void LightingPass(inout float3 Color, float3 Pos, float3 Norm, uint Recursion)
         col += Color * 0.125;
     }
     Color = col * (1.0 / float(NUM_LIGHTS)) + g_ConstantsCB.AmbientColor.rgb;
+    
 }

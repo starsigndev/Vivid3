@@ -65,7 +65,7 @@ VOutput::VOutput(QWidget *parent)
     auto l2 = new NodeLight;
     l2->SetPosition(float3(0, 12, 10));
     l2->SetDiffuse(float3(0, 2, 2));
-    //m_Graph1->AddLight(l2);
+ //5   m_Graph1->AddLight(l2);
     
     auto cam = m_Graph1->GetCamera();
     cam->SetPosition(float3(0, 8,0));

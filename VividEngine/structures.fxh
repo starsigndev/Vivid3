@@ -27,6 +27,9 @@ struct Constants
     // Camera world position
     float4   CameraPos;
     float4x4 InvViewProj;
+    int4  Lightcount;
+    float4 CamPos;
+
 
     // Near and far clip plane distances
     float2   ClipPlanes;

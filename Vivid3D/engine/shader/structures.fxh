@@ -25,6 +25,9 @@ struct Constants
     float4   CameraPos;
     float4x4 InvViewProj;
 
+    int4 Lightcount;
+    float4 CamPos;
+
     // Near and far clip plane distances
     float2   ClipPlanes;
     float2   Padding0;
@@ -34,9 +37,7 @@ struct Constants
     // Maximum ray recursion depth
     int      MaxRecursion;
     float2   Padding2;
-
-    // Reflection sphere properties
-    float3  SphereReflectionColorMask;
+   float3  SphereReflectionColorMask;
     int     SphereReflectionBlur;
 
     // Refraction cube properties
@@ -55,6 +56,7 @@ struct Constants
     float4  LightPos[NUM_LIGHTS];
     float4  LightColor[NUM_LIGHTS];
 };
+
 
 struct BoxAttribs
 {
