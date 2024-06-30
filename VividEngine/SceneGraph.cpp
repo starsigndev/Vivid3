@@ -14,6 +14,7 @@
 #include "MathsHelp.h"
 #include "VFile.h"
 #include "RTMesh.h"
+#include "NodeActor.h"
 std::vector<TerrainMesh*> GetTerrainMeshes(Node* node, std::vector<TerrainMesh*> meshes)
 {
 
@@ -874,18 +875,61 @@ void SceneGraph::LoadScene(std::string path) {
 
 }
 
-std::vector<RTMesh*> RTGetMeshes(Node* node, std::vector<RTMesh*> meshes) {
+std::vector<RTMesh*> SceneGraph::DynRTGetMeshes(Node* node, std::vector<RTMesh*> meshes) {
 
-    if (dynamic_cast<NodeEntity*>(node)) {
+   
+    if (dynamic_cast<NodeActor*>(node)) {
 
-        auto ent = (NodeEntity*)node;
+        auto ent = (NodeActor*)node;
         if (ent->GetRTEnable()) {
             for (auto mesh : ent->GetMeshes()) {
-                meshes.push_back(new RTMesh(mesh));
+                if (m_DynamicCache.count(mesh) > 0)
+                {
+                    continue;
+                }
+                auto rm = new RTMesh(mesh);
+                meshes.push_back(rm);
+                m_DynamicCache[mesh] = rm;
             }
         }
 
     }
+
+    for (auto node : node->GetNodes()) {
+
+        meshes = DynRTGetMeshes(node, meshes);
+
+
+    }
+
+    return meshes;
+
+}
+
+
+std::vector<RTMesh*> SceneGraph::RTGetMeshes(Node* node, std::vector<RTMesh*> meshes) {
+    if (dynamic_cast<NodeActor*>(node) == nullptr) {
+
+
+        if (dynamic_cast<NodeEntity*>(node)) {
+
+            
+            auto ent = (NodeEntity*)node;
+            if (ent->GetRTEnable()) {
+                for (auto mesh : ent->GetMeshes()) {
+                    if (m_StaticCache.count(mesh) > 0) {
+                        continue;
+                    }
+                    auto rm = new RTMesh(mesh);
+                    meshes.push_back(rm);
+                    m_StaticCache[mesh] = rm;
+                }
+            }
+
+        }
+    }
+
+    
 
     for (auto node : node->GetNodes()) {
 
@@ -905,6 +949,15 @@ std::vector<RTMesh*> SceneGraph::GetRTMeshes() {
 
 
     return RTGetMeshes(m_RootNode, meshes);
+
+
+}
+
+std::vector<RTMesh*> SceneGraph::GetDynRTMeshes() {
+
+    std::vector<RTMesh*> meshes;
+
+    return DynRTGetMeshes(m_RootNode, meshes);
 
 
 }

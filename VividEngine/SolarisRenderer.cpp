@@ -8,6 +8,28 @@
 #include "MaterialBase.h"
 #include "MaterialMeshPBR.h"
 #include "NodeLight.h"
+#include "NodeActor.h"
+
+float4x4 RemoveScaleAndPosition(const float4x4& matrix)
+{
+	// Extract and normalize the first column (X axis)
+	float3 xAxis = normalize(float3(matrix._11, matrix._12, matrix._13));
+
+	// Extract and normalize the second column (Y axis)
+	float3 yAxis = normalize(float3(matrix._21, matrix._22, matrix._23));
+
+	// Extract and normalize the third column (Z axis)
+	float3 zAxis = normalize(float3(matrix._31, matrix._32, matrix._33));
+
+	// Create a new 4x4 matrix with only rotation
+	float4x4 rotationOnly;
+	rotationOnly._11 = xAxis.x; rotationOnly._12 = xAxis.y; rotationOnly._13 = xAxis.z; rotationOnly._14 = 0.0f;
+	rotationOnly._21 = yAxis.x; rotationOnly._22 = yAxis.y; rotationOnly._23 = yAxis.z; rotationOnly._24 = 0.0f;
+	rotationOnly._31 = zAxis.x; rotationOnly._32 = zAxis.y; rotationOnly._33 = zAxis.z; rotationOnly._34 = 0.0f;
+	rotationOnly._41 = 0.0f;    rotationOnly._42 = 0.0f;    rotationOnly._43 = 0.0f;    rotationOnly._44 = 1.0f;
+
+	return rotationOnly;
+}
 
 InstanceMatrix ConvertToInstanceMatrix(const float4x4& matrix)
 {
@@ -111,7 +133,17 @@ void SolarisRenderer::PreRender()
 	if (GetSceneGraph()->IsUpdated()) {
 
 		CreateStructures();
+		
+		UpdateTextures();
+		CreateSBT();
 		GetSceneGraph()->UpdateComplete();
+
+	}
+	else if (Engine::m_MeterialsUpdated) {
+
+		UpdateTextures();
+		Engine::m_MeterialsUpdated = false;
+
 
 	}
 
@@ -132,9 +164,14 @@ void SolarisRenderer::Render() {
 	
 	CreateTopLevel();
 
-	if (m_Meshes.size() == 0) return;
+
+	if (m_Meshes.size() ==0 && m_DynMeshes.size()==0) return;
+
 
 	UpdateLights();
+	UpdateDynamics();
+
+
 
 	m_Constants.CameraPos = float4{ cam->GetPosition(), 1.0f};
 	m_Constants.InvViewProj = (cam->GetWorldMatrix() * cam->GetProjection()).Inverse().Transpose();
@@ -168,16 +205,34 @@ void SolarisRenderer::CreateStructures() {
 
 	auto graph = GetSceneGraph();
 	auto meshes = graph->GetRTMeshes();
+	auto dynMeshes = graph->GetDynRTMeshes();
 
-	m_Meshes = meshes;
 
-	if (m_Meshes.size() == 0) return;
+	for (auto sm : meshes) {
+		m_Meshes.push_back(sm);
+	}
+	for (auto dm : dynMeshes) {
+		m_DynMeshes.push_back(dm);
+	}
+	//m_Meshes = meshes;
+	//m_DynMeshes = dynMeshes;
 
-	if (m_Meshes.size() > 0) {
+
+
+//	if (m_Meshes.size() == 0) return;
+
+	
+
+
+	if (m_Meshes.size() > 0 || m_DynMeshes.size()>0) {
 		CreateTopLevel();
 	}
+	else {
+		return;
+	}
 	
-	CreateSBT();
+	//CreateSBT();
+
 
 	UpdatePrimitives();
 
@@ -240,7 +295,7 @@ void SolarisRenderer::UpdatePrimitives() {
 
 	for (auto m : m_Meshes) {
 
-	
+ 		if (m->GetDynamic()) continue;
 		offsets.push_back(uint4(vs, ts,0,0));
 		vs = vs + m->GetMesh()->GetVertices().size();
 		ts = ts + m->GetMesh()->GetTris().size();
@@ -286,10 +341,12 @@ void SolarisRenderer::UpdatePrimitives() {
 		primBuf = nullptr;
 		offsetsBuf = nullptr;
 		offsetsBufferView = nullptr;
-		lightsBuf = nullptr;
-		lightsBufferView = nullptr;
+	//	lightsBuf = nullptr;
+	//	lightsBufferView = nullptr;
 
 	}
+
+	if (Vertices.size() == 0) return;
 
 	CreateStructuredBuffer(Engine::m_pDevice, Vertices.data(), sizeof(Vertex) * Vertices.size(), sizeof(Vertex), &vertsBuf);
 	CreateStructuredBuffer(Engine::m_pDevice, Tris.data(), sizeof(Triangle) * Tris.size(), sizeof(Triangle), &trisBuf);
@@ -321,12 +378,148 @@ void SolarisRenderer::UpdatePrimitives() {
 	m_pRayTracingSRB->GetVariableByName(SHADER_TYPE_RAY_CLOSEST_HIT, "Triangles")->Set(trisBufferView);
 	m_pRayTracingSRB->GetVariableByName(SHADER_TYPE_RAY_CLOSEST_HIT, "Offsets")->Set(offsetsBufferView);
 
+	//CreateSBT();
 
 }
 
+void SolarisRenderer::UpdateDynamics() {
+
+	
+	HLSL::CubeAttribs Attribs;
+
+	int tri = 0;
+	int u = 0;
+	std::vector<Vertex> Vertices;
+	std::vector<Triangle> Tris;
+	std::vector<uint4> primitives;
+	std::vector<uint4> offsets;
+
+
+
+	int vs = 0;
+	int ts = 0;
+
+
+	int basev = 0;
+
+	for (auto m : m_DynMeshes) {
+
+		if (m->GetDynamic()==false) continue;
+		offsets.push_back(uint4(vs, ts, 0, 0));
+		vs = vs + m->GetMesh()->GetVertices().size();
+		ts = ts + m->GetMesh()->GetTris().size();
+
+
+
+		auto act = (NodeActor*)m->GetMesh()->GetOwner();
+
+		auto bones = act->GetBones();
+
+		int pu = u;
+		for (auto v : m->GetMesh()->GetVertices())
+		{
+			auto pos = v.position;
+			auto norm = v.normal;
+			auto tan = v.tangent;
+
+			float4x4 s = float4x4(0);
+
+			for (int i = 0; i < 4; i++) {
+				if (v.bone_ids[i] >= 0)
+				{
+					s += (bones[(int)v.bone_ids[i]] * v.bone_weights[i]);
+				}
+			}
+
+			auto ns = RemoveScaleAndPosition(s);
+
+			pos = pos * s;
+			norm = norm * ns;
+			tan = tan * ns;
+			v.position = pos;
+			v.normal = norm;
+			v.tangent = tan;
+
+			//data[ii++] = pos.x;
+			//data[ii++] = pos.y;
+			//data[ii++] = pos.z;
+
+			Vertices.push_back(v);
+			//uvs.push_back(float4{ v.texture.x,v.texture.y,0,0 });
+			//normals.push_back(float4{v.normal.x,v.normal.y,v.normal.z,0});
+			u++;
+
+
+		}
+		//Attribs.Primitives
+
+		for (auto t : m->GetMesh()->GetTris()) {
+
+			//primitives.push_back(uint4{ pu+t.v0,pu+t.v1,pu+t.v2,0 });
+			t.v0 = t.v0 + basev;
+			t.v1 = t.v1 + basev;
+			t.v2 = t.v2 + basev;
+			Tris.push_back(t);
+
+		}
+		basev = basev + m->GetMesh()->GetVertices().size();
+
+	}
+
+	if (dynTrisBuf != nullptr) {
+
+		//return;
+		dynVertsBuf = nullptr;
+		dynVertsBufView = nullptr;
+		dynTrisBuf = nullptr;
+		dynTrisBufView = nullptr;
+		dynOffsetsBuf = nullptr;
+		dynOffsetsBufView = nullptr;
+
+	}
+
+	if (Vertices.size() == 0) return;
+
+	CreateStructuredBuffer(Engine::m_pDevice, Vertices.data(), sizeof(Vertex) * Vertices.size(), sizeof(Vertex), &dynVertsBuf);
+	CreateStructuredBuffer(Engine::m_pDevice, Tris.data(), sizeof(Triangle) * Tris.size(), sizeof(Triangle), &dynTrisBuf);
+	CreateStructuredBuffer(Engine::m_pDevice, offsets.data(), sizeof(uint4) * offsets.size(), sizeof(uint4), &dynOffsetsBuf);
+
+
+	CreateStructuredBufferView(Engine::m_pDevice, dynVertsBuf, &dynVertsBufView);
+	CreateStructuredBufferView(Engine::m_pDevice, dynTrisBuf, &dynTrisBufView);
+	CreateStructuredBufferView(Engine::m_pDevice, dynOffsetsBuf, &dynOffsetsBufView);
+
+
+
+
+	if (m_RenderAttribsCB == nullptr) {
+		BufferDesc BuffDesc;
+		BuffDesc.Name = "Cube Attribs";
+		BuffDesc.Usage = USAGE_IMMUTABLE;
+		BuffDesc.BindFlags = BIND_UNIFORM_BUFFER;
+		BuffDesc.Size = sizeof(Attribs);
+
+		BufferData BufData = { &Attribs, BuffDesc.Size };
+
+		Engine::m_pDevice->CreateBuffer(BuffDesc, &BufData, &m_RenderAttribsCB);
+
+		VERIFY_EXPR(m_CubeAttribsCB != nullptr);
+	}
+
+	m_pRayTracingSRB->GetVariableByName(SHADER_TYPE_RAY_CLOSEST_HIT, "DynamicVertices")->Set(dynVertsBufView);
+	m_pRayTracingSRB->GetVariableByName(SHADER_TYPE_RAY_CLOSEST_HIT, "DynamicTriangles")->Set(dynTrisBufView);
+	m_pRayTracingSRB->GetVariableByName(SHADER_TYPE_RAY_CLOSEST_HIT, "DynamicOffsets")->Set(dynOffsetsBufView);
+
+
+//	CreateSBT();
+
+
+}
+
+bool first = true;
 void SolarisRenderer::CreateTopLevel() {
 
-	if (m_Meshes.size() == 0) return;
+	if (m_Meshes.size() == 0 && m_DynMeshes.size()==0) return;
 
 	if (!m_TLAS)
 	{
@@ -335,6 +528,7 @@ void SolarisRenderer::CreateTopLevel() {
 		TLASDesc.MaxInstanceCount = 1024;
 		TLASDesc.Flags = RAYTRACING_BUILD_AS_ALLOW_UPDATE | RAYTRACING_BUILD_AS_PREFER_FAST_TRACE;
 		Engine::m_pDevice->CreateTLAS(TLASDesc, &m_TLAS);
+
 
 		m_pRayTracingSRB->GetVariableByName(SHADER_TYPE_RAY_GEN, "g_TLAS")->Set(m_TLAS);
 		m_pRayTracingSRB->GetVariableByName(SHADER_TYPE_RAY_CLOSEST_HIT, "g_TLAS")->Set(m_TLAS);
@@ -369,32 +563,76 @@ void SolarisRenderer::CreateTopLevel() {
 	int i = 0;
 	for (auto m : m_Meshes) {
 
+		if (m->HasPrimitive()) {
+			TLASBuildInstanceData& inst = m->GetPrimitive();
+			if (m->GetMesh()->GetOwner()->IsUpdated()) {
+				InstanceMatrix mat = ConvertToInstanceMatrix(m->GetNode()->GetWorldMatrix().Transpose());
+				inst.Transform = mat;
+				m->GetMesh()->GetOwner()->UpdateComplete();
+			}
+			Instances.push_back(inst);
+
+		}
+		else {
+			TLASBuildInstanceData inst;
+
+			auto name = m->GetName() + std::to_string(i);
+			char* myString = new char[strlen(name.c_str()) + 1];
+			strcpy(myString, name.c_str());
+			inst.InstanceName = myString;
+			inst.CustomId = i;
+			inst.pBLAS = m->GetBLAS();
+			InstanceMatrix mat = ConvertToInstanceMatrix(m->GetNode()->GetWorldMatrix().Transpose());
+			inst.Transform = mat;
+			inst.ContributionToHitGroupIndex = TLAS_INSTANCE_OFFSET_AUTO;
+			//inst.Transform.SetTranslation(m->GetNode()->GetPosition().x, m->GetNode()->GetPosition().y, m->GetNode()->GetPosition().z);
+			inst.Mask = OPAQUE_GEOM_MASK;
+			Instances.push_back(inst);
+			m->SetPrimitive(inst);
+		}
+
+		i++;
+
+	}
+	i = 0;
+	for (auto m : m_DynMeshes) {
+
 		TLASBuildInstanceData inst;
 
-		auto name = m->GetName();
+		auto name = m->GetName() + std::to_string(i);
 		char* myString = new char[strlen(name.c_str()) + 1];
 		strcpy(myString, name.c_str());
 		inst.InstanceName = myString;
 		inst.CustomId = i;
+		m->UpdateBLAS();
 		inst.pBLAS = m->GetBLAS();
 		InstanceMatrix mat = ConvertToInstanceMatrix(m->GetNode()->GetWorldMatrix().Transpose());
 		inst.Transform = mat;
 		//inst.Transform.SetTranslation(m->GetNode()->GetPosition().x, m->GetNode()->GetPosition().y, m->GetNode()->GetPosition().z);
 		inst.Mask = OPAQUE_GEOM_MASK;
+		inst.ContributionToHitGroupIndex =TLAS_INSTANCE_OFFSET_AUTO;
 		Instances.push_back(inst);
+
 		i++;
 
 	}
-
 	BuildTLASAttribs Attribs;
 	Attribs.pTLAS = m_TLAS;
-	if (prevCount != m_Meshes.size()) {
+	if (prevCount != m_Meshes.size()+m_DynMeshes.size()) {
+	//	Attribs.Update = false;
+		first = true;
+	}
+	else {
+		//Attribs.Update = true;
+	}
+	if (first) {
 		Attribs.Update = false;
+		first = false;
 	}
 	else {
 		Attribs.Update = true;
 	}
-	prevCount = m_Meshes.size();
+	prevCount = m_Meshes.size() + m_DynMeshes.size();
 	// Scratch buffer will be used to store temporary data during TLAS build or update.
 	// Previous content in the scratch buffer will be discarded.
 	Attribs.pScratchBuffer = m_ScratchBuffer;
@@ -409,7 +647,9 @@ void SolarisRenderer::CreateTopLevel() {
 
 	// Bind hit shaders per instance, it allows you to change the number of geometries in BLAS without invalidating the shader binding table.
 	Attribs.BindingMode = HIT_GROUP_BINDING_MODE_PER_INSTANCE;
-	Attribs.HitGroupStride = HIT_GROUP_STRIDE;
+	
+	Attribs.HitGroupStride = 2;
+
 
 	// Allow engine to change resource states.
 	Attribs.TLASTransitionMode = RESOURCE_STATE_TRANSITION_MODE_TRANSITION;
@@ -418,7 +658,9 @@ void SolarisRenderer::CreateTopLevel() {
 	Attribs.ScratchBufferTransitionMode = RESOURCE_STATE_TRANSITION_MODE_TRANSITION;
 
 	Engine::m_pImmediateContext->BuildTLAS(Attribs);
+	
 
+//	CreateSBT();
 
 }
 
@@ -430,8 +672,10 @@ void SolarisRenderer::CreateSBT() {
 
 	if (m_SBT != nullptr) {
 		//m_SBT->Reset(;
+	
 
 		m_SBT->ResetHitGroups();
+	
 		
 //		m_SBT = nullptr;
 	}
@@ -446,17 +690,29 @@ void SolarisRenderer::CreateSBT() {
 	m_SBT->BindMissShader("PrimaryMiss", PRIMARY_RAY_INDEX);
 	m_SBT->BindMissShader("ShadowMiss", SHADOW_RAY_INDEX);
 
+	int i = 0;
 	for (auto m : m_Meshes) {
 
-		auto name = m->GetName();
+		auto name = m->GetName() + std::to_string(i);
 		char* myString = new char[strlen(name.c_str()) + 1];
 		strcpy(myString, name.c_str());
 
-		m_SBT->BindHitGroupForInstance(m_TLAS,myString, PRIMARY_RAY_INDEX, "CubePrimaryHit");
+	
+			m_SBT->BindHitGroupForInstance(m_TLAS, myString, PRIMARY_RAY_INDEX, "StaticGeoHit");
 
-
+		i++;
 	}
+	i = 0;
+	for (auto m : m_DynMeshes) {
 
+		auto name = m->GetName() + std::to_string(i);
+		char* myString = new char[strlen(name.c_str()) + 1];
+		strcpy(myString, name.c_str());
+
+			m_SBT->BindHitGroupForInstance(m_TLAS, myString, PRIMARY_RAY_INDEX, "DynamicGeoHit");
+	
+		i++;
+	}
 
 	// clang-format on
 
@@ -471,6 +727,7 @@ void SolarisRenderer::CreateSBT() {
 	// Update SBT with the shader groups we bound
 	Engine::m_pImmediateContext->UpdateSBT(m_SBT);
 
+
 }
 
 void SolarisRenderer::CreatePipeline() {
@@ -482,6 +739,9 @@ void SolarisRenderer::CreatePipeline() {
 
 	PSOCreateInfo.PSODesc.Name = "Ray tracing PSO";
 	PSOCreateInfo.PSODesc.PipelineType = PIPELINE_TYPE_RAY_TRACING;
+
+
+
 
 	// Define shader macros
 	ShaderMacroHelper Macros;
@@ -537,19 +797,29 @@ void SolarisRenderer::CreatePipeline() {
 	}
 
 	// Create closest hit shaders.
-	RefCntAutoPtr<IShader> pCubePrimaryHit;
+	RefCntAutoPtr<IShader> pStaticGeoHIT;
 	{
 		ShaderCI.Desc.ShaderType = SHADER_TYPE_RAY_CLOSEST_HIT;
-		ShaderCI.Desc.Name = "Cube primary ray closest hit shader";
-		ShaderCI.FilePath = "CubePrimaryHit.rchit";
+		ShaderCI.Desc.Name = "Static Geo ray closest hit shader";
+		ShaderCI.FilePath = "staticGeoHit.rchit";
 		ShaderCI.EntryPoint = "main";
-		Engine::m_pDevice->CreateShader(ShaderCI, &pCubePrimaryHit);
-		VERIFY_EXPR(pCubePrimaryHit != nullptr);
+		Engine::m_pDevice->CreateShader(ShaderCI, &pStaticGeoHIT);
+		VERIFY_EXPR(pStaticGeoHIT != nullptr);
 
 		
 	}
 
+	RefCntAutoPtr<IShader> pDynGeoHIT;
+	{
+		ShaderCI.Desc.ShaderType = SHADER_TYPE_RAY_CLOSEST_HIT;
+		ShaderCI.Desc.Name = "Dynamic Geo ray closest hit shader";
+		ShaderCI.FilePath = "dynGeoHit.rchit";
+		ShaderCI.EntryPoint = "main";
+		Engine::m_pDevice->CreateShader(ShaderCI, &pDynGeoHIT);
+		VERIFY_EXPR(pDynGeoHIT != nullptr);
 
+
+	}
 
 	// Setup shader groups
 
@@ -561,7 +831,8 @@ void SolarisRenderer::CreatePipeline() {
 	PSOCreateInfo.AddGeneralShader("ShadowMiss", pShadowMiss);
 
 	// Primary ray hit group for the textured cube.
-	PSOCreateInfo.AddTriangleHitShader("CubePrimaryHit", pCubePrimaryHit);
+	PSOCreateInfo.AddTriangleHitShader("StaticGeoHit", pStaticGeoHIT);
+	PSOCreateInfo.AddTriangleHitShader("DynamicGeoHit", pDynGeoHIT);
 	// Primary ray hit group for the ground.
 
 
@@ -596,7 +867,10 @@ void SolarisRenderer::CreatePipeline() {
 		.AddVariable(SHADER_TYPE_RAY_GEN | SHADER_TYPE_RAY_CLOSEST_HIT, "Vertices", SHADER_RESOURCE_VARIABLE_TYPE_DYNAMIC)
 		.AddVariable(SHADER_TYPE_RAY_GEN | SHADER_TYPE_RAY_CLOSEST_HIT, "Triangles", SHADER_RESOURCE_VARIABLE_TYPE_DYNAMIC)
 		.AddVariable(SHADER_TYPE_RAY_GEN | SHADER_TYPE_RAY_CLOSEST_HIT, "Offsets", SHADER_RESOURCE_VARIABLE_TYPE_DYNAMIC)
-	.AddVariable(SHADER_TYPE_RAY_GEN | SHADER_TYPE_RAY_CLOSEST_HIT, "LightsBuffer", SHADER_RESOURCE_VARIABLE_TYPE_DYNAMIC);
+		.AddVariable(SHADER_TYPE_RAY_GEN | SHADER_TYPE_RAY_CLOSEST_HIT, "LightsBuffer", SHADER_RESOURCE_VARIABLE_TYPE_DYNAMIC)
+		.AddVariable(SHADER_TYPE_RAY_GEN | SHADER_TYPE_RAY_CLOSEST_HIT, "DynamicVertices", SHADER_RESOURCE_VARIABLE_TYPE_DYNAMIC)
+		.AddVariable(SHADER_TYPE_RAY_GEN | SHADER_TYPE_RAY_CLOSEST_HIT, "DynamicTriangles", SHADER_RESOURCE_VARIABLE_TYPE_DYNAMIC)
+		.AddVariable(SHADER_TYPE_RAY_GEN | SHADER_TYPE_RAY_CLOSEST_HIT, "DynamicOffsets", SHADER_RESOURCE_VARIABLE_TYPE_DYNAMIC);
 
 	PSOCreateInfo.PSODesc.ResourceLayout = ResourceLayout;
 
@@ -615,7 +889,7 @@ void SolarisRenderer::CreatePipeline() {
 
 void SolarisRenderer::UpdateTextures() {
 
-	IDeviceObject* texAr[64];
+	IDeviceObject* texAr[128];
 	int tex_count = 0;
 	for (auto m : m_Meshes) {
 
@@ -632,7 +906,22 @@ void SolarisRenderer::UpdateTextures() {
 		
 
 	}
-	m_pRayTracingSRB->GetVariableByName(SHADER_TYPE_RAY_CLOSEST_HIT, "g_CubeTextures")->SetArray(texAr, 0, tex_count);
+	for (auto m : m_DynMeshes) {
+
+		auto m3d = m->GetMesh();
+		auto mat = (MaterialMeshPBR*)m3d->GetMaterial();
+		auto tex = mat->GetDiffuse()->GetView();
+		auto norm = mat->GetNormal()->GetView();
+		auto rough = mat->GetRough()->GetView();
+		auto metal = mat->GetMetal()->GetView();
+		texAr[tex_count++] = tex;
+		texAr[tex_count++] = norm;
+		texAr[tex_count++] = rough;
+		texAr[tex_count++] = metal;
+
+
+	}
+	m_pRayTracingSRB->GetVariableByName(SHADER_TYPE_RAY_CLOSEST_HIT, "g_CubeTextures")->SetArray(texAr, 0, tex_count, SET_SHADER_RESOURCE_FLAG_ALLOW_OVERWRITE);
 
 
 }

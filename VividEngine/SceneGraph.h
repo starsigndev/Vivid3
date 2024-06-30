@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include "BasicMath.hpp"
+#include <map>
 
 using namespace Diligent;
 
@@ -95,7 +96,11 @@ public:
 		m_LinesOn = false;
 
 	}
+	std::vector<RTMesh*> RTGetMeshes(Node* node, std::vector<RTMesh*> meshes);
+	std::vector<RTMesh*> DynRTGetMeshes(Node* node, std::vector<RTMesh*> meshes);
 	std::vector<RTMesh*> GetRTMeshes();
+	std::vector<RTMesh*> GetDynRTMeshes();
+
 	void Updated() {
 		m_Updated = true;
 	}
@@ -115,7 +120,9 @@ private:
 	std::vector<MeshLines*> m_Lines;
 	Intersections* m_RayTester;
 	bool m_LinesOn = true;
-	bool m_Updated = true;
+	bool m_Updated = false;
+	std::map<Mesh3D*, RTMesh*> m_StaticCache;
+	std::map<Mesh3D*, RTMesh*> m_DynamicCache;
 
 };
 

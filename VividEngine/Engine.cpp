@@ -109,3 +109,5 @@ std::vector<MaterialBase*> Engine::m_ActiveMaterials;
 NodeLight* Engine::m_Light = nullptr;
 
 SceneGraph* Engine::m_ActiveGraph = nullptr;
+
+bool Engine::m_MeterialsUpdated = false;

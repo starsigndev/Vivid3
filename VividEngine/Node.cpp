@@ -206,7 +206,7 @@ void Node::SetPosition(float3 position) {
 	
 	
 	BuildGeo();
-
+	Updated();
 
 }
 
@@ -231,27 +231,28 @@ void Node::SetRotation(float pitch, float yaw, float roll,bool edit) {
 	else {
 		m_Rotation = float4x4::RotationX(pitch) * float4x4::RotationY(yaw) * float4x4::RotationZ(roll);
 	}
-
+	Updated();
 }
 
 void Node::SetScale(float3 scale) {
 
 	m_Scale = scale;
 	BuildGeo();
-
+	Updated();
 }
 
 void Node::Move(float3 delta) {
 
 	m_Position = m_Position + (delta * m_Rotation);
 	BuildGeo();
-
+	Updated();
 }
 
 void Node::Translate(float3 delta) {
 
 	m_Position = m_Position + delta;
 	BuildGeo();
+	Updated();
 
 }
 
@@ -268,7 +269,7 @@ void Node::Rotate(float pitch, float yaw, float roll) {
 	pitch = MathsHelp::Deg2Rad(pitch);
 	roll = MathsHelp::Deg2Rad(roll);
 	
-
+	Updated();
 
 }
 
@@ -282,6 +283,7 @@ void RotationMatrixToEulerAngles2(const float4x4& rotationMatrix, float& pitch, 
 	pitch = MathsHelp::Rad2Deg(pitch);
 	yaw = MathsHelp::Rad2Deg(yaw);
 	roll = MathsHelp::Rad2Deg(roll);
+
 }
 
 float3 Node::GetRotationEU() {
@@ -315,7 +317,7 @@ void Node::Turn(float pitch, float yaw, float roll,bool local) {
 
 	}
 	BuildGeo();
-
+	Updated();
 }
 
 float4x4 Node::GetWorldMatrix() {

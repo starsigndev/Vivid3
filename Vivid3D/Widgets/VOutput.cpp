@@ -53,7 +53,14 @@ VOutput::VOutput(QWidget *parent)
     m_Import = new Importer;
     m_Graph1 = new SceneGraph;
 
+   // auto act1 = m_Import->ImportActor("test/act1.fbx");
+   // act1->SetScale(float3(0.1, 0.1, 0.1));
+   // auto n1 = m_Import->ImportNode("c:/content/mesh1.fbx");
 
+   // m_Graph1->AddNode(act1);
+ //   m_Graph1->AddNode(n1);
+
+    //m_Graph1->AddNode(act1);
 
     m_Light1 = new NodeLight;
     m_Light1->SetPosition(float3(0, 8,0));
@@ -65,7 +72,7 @@ VOutput::VOutput(QWidget *parent)
     auto l2 = new NodeLight;
     l2->SetPosition(float3(0, 12, 10));
     l2->SetDiffuse(float3(0, 2, 2));
- //5   m_Graph1->AddLight(l2);
+//    m_Graph1->AddLight(l2);
     
     auto cam = m_Graph1->GetCamera();
     cam->SetPosition(float3(0, 8,0));
@@ -1071,11 +1078,12 @@ void VOutput::paintEvent(QPaintEvent* event)
     //m_Graph1->RenderLines();
     //m_PP->Process();
     //m_Nitro->PreRender();
-    //m_Nitro->Render();
+   // m_Nitro->Render();
 
     Engine::m_Camera = m_Graph1->GetCamera();
-    m_Solaris->PreRender();
-    m_Solaris->Render();
+        m_Solaris->PreRender();
+        m_Solaris->Render();
+
 
 
     //m_Draw->Rect(new Texture2D(m_RT2), float2(20, 20), float2(400, 400), float4(1, 1, 1, 1));

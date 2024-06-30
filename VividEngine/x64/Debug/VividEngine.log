@@ -1,30 +1,33 @@
 ﻿  SolarisRenderer.cpp
 C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(141,65): warning C4267: 'argument': conversion from 'size_t' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(141,65): warning C4267:         with
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(141,65): warning C4267:         [
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(141,65): warning C4267:             T=int32_t
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(141,65): warning C4267:         ]
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(162,94): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(162,94): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(162,94): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(162,94): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(162,94): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(162,81): warning C4244: 'argument': conversion from 'Diligent::Uint32' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(162,81): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(162,81): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(162,81): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(162,81): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(162,53): warning C4244: 'argument': conversion from 'Diligent::Uint32' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(162,53): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(162,53): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(162,53): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(162,53): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(245,11): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(246,11): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(274,17): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(397,27): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(408,40): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(178,65): warning C4267: 'argument': conversion from 'size_t' to 'T', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(178,65): warning C4267:         with
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(178,65): warning C4267:         [
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(178,65): warning C4267:             T=int32_t
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(178,65): warning C4267:         ]
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,94): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,94): warning C4244:         with
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,94): warning C4244:         [
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,94): warning C4244:             T=float
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,94): warning C4244:         ]
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,81): warning C4244: 'argument': conversion from 'Diligent::Uint32' to 'T', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,81): warning C4244:         with
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,81): warning C4244:         [
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,81): warning C4244:             T=float
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,81): warning C4244:         ]
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,53): warning C4244: 'argument': conversion from 'Diligent::Uint32' to 'T', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,53): warning C4244:         with
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,53): warning C4244:         [
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,53): warning C4244:             T=float
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,53): warning C4244:         ]
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(300,11): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(301,11): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(329,17): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(409,11): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(410,11): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(465,17): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(635,30): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(646,40): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
   Replacing x64\Debug\pch.obj
 cuda.lib(nvcuda.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 cudart.lib(cudart64_12.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored

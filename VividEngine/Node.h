@@ -27,7 +27,7 @@ public:
 
 	//Transform
 	void SetPosition(float3 position);
-	void SetRotation(float pitch, float yaw, float roll,bool edit = false);
+	void SetRotation(float pitch, float yaw, float roll, bool edit = false);
 	void SetScale(float3 scale);
 	float3 GetRotationEU();
 	float3 GetPosition();
@@ -85,7 +85,7 @@ public:
 	void Stop();
 	virtual void Push();
 	virtual void Pop();
-	virtual void BuildGeo(){};
+	virtual void BuildGeo() {};
 	void SetStatic(bool stat);
 	bool GetStatic();
 	virtual Bounds* GetBounds() { return new Bounds(); };
@@ -97,7 +97,16 @@ public:
 		m_RTEnable = true;
 	}
 	bool GetRTEnable() {
-		return m_RTEnable;
+		return true;
+	}
+	bool IsUpdated() {
+		return m_Updated;
+	}
+	void Updated() {
+		m_Updated = true;
+	}
+	void UpdateComplete() {
+		m_Updated = false;
 	}
 protected:
 
@@ -119,10 +128,11 @@ protected:
 	//
 	float4x4 m_PushedRotation;
 	float3 m_PushedPosition;
-	float3 m_PushedScale; 
+	float3 m_PushedScale;
 	bool m_Static = true;
 	std::string m_ResourcePath = "";
 	bool m_RTEnable = false;
+	bool m_Updated = true;
 };
 
 

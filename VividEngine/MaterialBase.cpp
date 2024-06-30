@@ -329,25 +329,26 @@ void MaterialBase::Bind(bool sp) {
 void MaterialBase::SetDiffuse(Texture2D* texture) {
 
     m_Diffuse = texture;
-
+    Updated();
 }
 
 void MaterialBase::SetSpecular(Texture2D* texture) {
 
     m_Specular = texture;
-
+    Updated();
 }
 
 void MaterialBase::SetNormals(Texture2D* texture) {
 
     m_Normal = texture;
+    Updated();
 
 }
 
 void MaterialBase::SetEnvironment(RenderTargetCube* env) {
 
     m_Environment = env;
-
+    Updated();
 }
 
 void MaterialBase::SaveMaterial(std::string path) {
@@ -447,4 +448,11 @@ MaterialBase* MaterialBase::LoadMaterial(std::string path) {
 
     return res;
 
+}
+
+void MaterialBase::Updated() {
+
+    //void Updated() {
+        Engine::m_MeterialsUpdated = true;
+    
 }

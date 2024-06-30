@@ -152,11 +152,11 @@ float light_GetShadow(float3 fragPos,float3 lightPos,float lightRange){
         float closestDepth = v_Shadow.Sample(v_Shadow_sampler,normalize(fragToLight)).r;
 
 
-        if(closestDepth>currentDepth-0.0015 && closestDepth<currentDepth+0.0015)
+        if(closestDepth>currentDepth-0.001 && closestDepth<currentDepth+0.0011)
         {
             shadowVal += 0;
         }else
-        if( (currentDepth-0.0003)>closestDepth)
+        if( (currentDepth-0.0013)>closestDepth)
         {
 
          shadowVal +=1.0f;
@@ -321,7 +321,7 @@ void main(in  PSInput  PSIn,
 
     float3 lightColor = CalculateLighting(PSIn, normal, viewDir, lightDir, PSIn.v_LightDiffuse, 1.0,roughness+PSIn.v_ExtraProp.z,metalness+PSIn.v_ExtraProp.w);
     lightColor *= ambientOcclusion*albedo;
-
+    
     float4 fcol = float4(lightColor, 1.0) * shadowVal*light;
     fcol.a=1.0;
 

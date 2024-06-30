@@ -18,6 +18,8 @@ public:
 
 	NodeActor() {
 		m_Static = false;
+		m_RTEnable = true;
+		m_Name = "Actor";
 	};
 
 	Mesh3D* ProcessMesh(aiMesh* mesh, aiScene* scene, bool cre_buf = true);
@@ -42,7 +44,7 @@ public:
 
 	void Render(bool sp);
 	void Update();
-
+	std::vector<float4x4> GetBones();
 	float dt = 0.0f;
 
 private:

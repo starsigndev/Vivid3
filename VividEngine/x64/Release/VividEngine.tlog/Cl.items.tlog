@@ -16,6 +16,9 @@ C:\dev\Vivid3D\VividEngine\Material2D.cpp;C:\dev\Vivid3D\VividEngine\x64\Release
 C:\dev\Vivid3D\VividEngine\MaterialActorDepth.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MaterialActorDepth.obj
 C:\dev\Vivid3D\VividEngine\MaterialActorLight.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MaterialActorLight.obj
 C:\dev\Vivid3D\VividEngine\MaterialBase.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MaterialBase.obj
+C:\dev\Vivid3D\VividEngine\MaterialBlur.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MaterialBlur.obj
+C:\dev\Vivid3D\VividEngine\MaterialColorLimit.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MaterialColorLimit.obj
+C:\dev\Vivid3D\VividEngine\MaterialCombine.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MaterialCombine.obj
 C:\dev\Vivid3D\VividEngine\MaterialDepth.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MaterialDepth.obj
 C:\dev\Vivid3D\VividEngine\MaterialMeshLight.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MaterialMeshLight.obj
 C:\dev\Vivid3D\VividEngine\MaterialMeshLines.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MaterialMeshLines.obj
@@ -27,6 +30,7 @@ C:\dev\Vivid3D\VividEngine\Mesh3D.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\Mes
 C:\dev\Vivid3D\VividEngine\MeshBuffer.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MeshBuffer.obj
 C:\dev\Vivid3D\VividEngine\MeshLines.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MeshLines.obj
 C:\dev\Vivid3D\VividEngine\MeshLinesBuffer.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\MeshLinesBuffer.obj
+C:\dev\Vivid3D\VividEngine\NitroRenderer.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\NitroRenderer.obj
 C:\dev\Vivid3D\VividEngine\Node.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\Node.obj
 C:\dev\Vivid3D\VividEngine\NodeActor.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\NodeActor.obj
 C:\dev\Vivid3D\VividEngine\NodeCamera.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\NodeCamera.obj
@@ -41,11 +45,15 @@ C:\dev\Vivid3D\VividEngine\PostProcess.cpp;C:\dev\Vivid3D\VividEngine\x64\Releas
 C:\dev\Vivid3D\VividEngine\PostProcessing.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\PostProcessing.obj
 C:\dev\Vivid3D\VividEngine\PPBloom.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\PPBloom.obj
 C:\dev\Vivid3D\VividEngine\Quat.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\Quat.obj
+C:\dev\Vivid3D\VividEngine\RendererBase.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\RendererBase.obj
 C:\dev\Vivid3D\VividEngine\RenderTarget2D.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\RenderTarget2D.obj
 C:\dev\Vivid3D\VividEngine\RenderTargetCube.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\RenderTargetCube.obj
+C:\dev\Vivid3D\VividEngine\RTMesh.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\RTMesh.obj
+C:\dev\Vivid3D\VividEngine\RTPipeline.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\RTPipeline.obj
 C:\dev\Vivid3D\VividEngine\SceneGraph.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\SceneGraph.obj
 C:\dev\Vivid3D\VividEngine\SceneOctree.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\SceneOctree.obj
 C:\dev\Vivid3D\VividEngine\ScriptHost.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\ScriptHost.obj
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\SolarisRenderer.obj
 C:\dev\Vivid3D\VividEngine\TerrainLayer.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\TerrainLayer.obj
 C:\dev\Vivid3D\VividEngine\TerrainMesh.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\TerrainMesh.obj
 C:\dev\Vivid3D\VividEngine\TerrainMeshBuffer.cpp;C:\dev\Vivid3D\VividEngine\x64\Release\TerrainMeshBuffer.obj

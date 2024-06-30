@@ -2,7 +2,7 @@
 #include "Texture2D.h"
 #include <thread>
 #include "RenderTarget2D.h"
-
+#include "VFile.h"
 void _load_texture(Texture2D* texture)
 {
 
@@ -17,6 +17,11 @@ Texture2D* Texture2D::WhiteTex = nullptr;
 Texture2D::Texture2D(std::string path,bool threaded) {
 
     int b = 5;
+    if (VFile::Exists(path.c_str()) == false) {
+        m_pTexture = WhiteTex->GetTex();
+        m_pTextureView = WhiteTex->GetView();
+        return;
+    }
 
     if (!threaded || threaded) {
         TextureLoadInfo loadInfo;

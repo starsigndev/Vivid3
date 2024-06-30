@@ -41,9 +41,13 @@ struct ActorLightUniform
 MaterialActorLight::MaterialActorLight() {
 
     Create();
+
     m_Diffuse = new Texture2D("engine/white.png");
     m_Normal = new Texture2D("engine/normal.png");
     m_Specular = new Texture2D("engine/white.png");
+    m_Metal = new Texture2D("engine/white.png");
+    m_Roughness = new Texture2D("engine/grey.png");
+    m_Ambient = new Texture2D("engine/white.png");
 }
 
 void MaterialActorLight::Create() {

@@ -109,7 +109,7 @@ void Mesh3D::RenderDepth() {
 
 	DrawIndexedAttribs attrib;
 	attrib.IndexType = VALUE_TYPE::VT_UINT32;
-	attrib.NumIndices = m_NumTris * 3;
+	attrib.NumIndices = m_Tris.size() * 3;
 	attrib.Flags = DRAW_FLAG_VERIFY_ALL;
 	Engine::m_pImmediateContext->DrawIndexed(attrib);
 

@@ -37,9 +37,11 @@ public:
 	void SetNormals(Texture2D* texture);
 	void SetRough(Texture2D* texture) {
 		m_Roughness = texture;
+		Updated();
 	}
 	void SetMetal(Texture2D* metal) {
 		m_Metal = metal;
+		Updated();
 	}
 	void SetAmbient(Texture2D* ambient) {
 		m_Ambient = ambient;
@@ -47,6 +49,7 @@ public:
 	void SetEnvironment(RenderTargetCube* env);
 	void SetEnvironmentTex(TextureCube* map) {
 		m_EnvironmentTex = map;
+		Updated();
 	}
 	TextureCube* GetEnvironmentTex() {
 		return m_EnvironmentTex;
@@ -90,7 +93,7 @@ public:
 	void SetSpecularColor(float4 spec) {
 		m_SpecularColor = spec;
 	}
-
+	void Updated();
 protected:
 
 	//Textures
@@ -123,6 +126,7 @@ protected:
 	RefCntAutoPtr<IShaderResourceBinding> m_SRB;
 	RefCntAutoPtr<IShaderResourceBinding> m_SecondPassSRB;
 	std::string m_FullPath;
+	bool m_Updated = false;
 
 };
 

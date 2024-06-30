@@ -199,3 +199,7 @@ void NodeActor::Render(bool sp) {
 
 
 }
+
+std::vector<float4x4> NodeActor::GetBones() {
+	return m_Animator->GetBones();
+}

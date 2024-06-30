@@ -41,6 +41,7 @@ public:
     void UpdatePrimitives();
     void UpdateLights();
     void CreatePipeline();
+    void UpdateDynamics();
     void UpdateTextures();
 
 private:
@@ -50,6 +51,7 @@ private:
     RefCntAutoPtr<IShaderResourceBinding> m_RayTracingSRB;
     //data
     std::vector<RTMesh*> m_Meshes;
+    std::vector<RTMesh*> m_DynMeshes;
     RefCntAutoPtr<ITopLevelAS> m_TLAS;
     RefCntAutoPtr<IBuffer>             m_ScratchBuffer;
     RefCntAutoPtr<IBuffer>             m_InstanceBuffer;
@@ -98,6 +100,13 @@ private:
     RefCntAutoPtr<IBufferView> primitivesBufferView;
     RefCntAutoPtr<IBufferView> offsetsBufferView;
     RefCntAutoPtr<IBufferView> lightsBufferView;
+    RefCntAutoPtr<IBuffer> dynVertsBuf;
+    RefCntAutoPtr<IBufferView> dynVertsBufView;
+    RefCntAutoPtr<IBuffer> dynTrisBuf;
+    RefCntAutoPtr<IBufferView> dynTrisBufView;
+    RefCntAutoPtr<IBuffer> dynOffsetsBuf;
+    RefCntAutoPtr<IBufferView> dynOffsetsBufView;
+
     int prevCount = 0;
 
 };

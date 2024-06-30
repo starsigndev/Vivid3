@@ -24,6 +24,7 @@ class RTMesh
 public:
 
 	RTMesh(Mesh3D* mesh);
+	void UpdateBLAS();
 	std::string GetName() {
 		return m_Name;
 	}
@@ -36,6 +37,19 @@ public:
 	Mesh3D* GetMesh() {
 		return m_Mesh;
 	}
+	bool GetDynamic() {
+		return m_Dynamic;
+	}
+	bool HasPrimitive() {
+		return m_HasInstance;
+	}
+	void SetPrimitive(TLASBuildInstanceData inst) {
+		m_Instance = inst;
+		m_HasInstance = true;
+	}
+	TLASBuildInstanceData& GetPrimitive() {
+		return m_Instance;
+	}
 private:
 
 	std::string m_Name;
@@ -44,5 +58,10 @@ private:
 	RefCntAutoPtr<IBuffer> IndexBuffer;
 	Node* m_Node;
 	Mesh3D* m_Mesh;
+	bool m_Dynamic = false;
+	float* m_VertData = nullptr;
+	RefCntAutoPtr<IBuffer> pScratchBuffer;
+	TLASBuildInstanceData m_Instance;
+	bool m_HasInstance = false;
 };
 

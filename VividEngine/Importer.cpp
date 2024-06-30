@@ -86,15 +86,6 @@ Node* Importer::ImportNode(std::string path) {
     unsigned int flags = aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_GenSmoothNormals;
 
 
-    if (VFile::Exists(std::string(path + ".ml").c_str() ))
-    {
-
-        auto res = new NodeEntity;
-        res->LoadFastNode(path + ".ml");
-
-        return res;
-
-    }
 
     // Load the scene from the file
     const aiScene* scene = importer.ReadFile(path, flags);
@@ -217,7 +208,7 @@ Node* Importer::ImportNode(std::string path) {
             Vertex vertex;
             vertex.position = float3(-aVertex.x, aVertex.z, aVertex.y);
             vertex.color = float4(1, 1, 1, 1);
-            vertex.texture = float3(aTex.x, aTex.y, aTex.z);
+            vertex.texture = float3(aTex.x, 1.0-aTex.y, aTex.z);
             vertex.normal = float3(-aNorm.x, aNorm.z, aNorm.y);
             vertex.binormal = float3(-aBiNorm.x, aBiNorm.z, aBiNorm.y);
             vertex.tangent = float3(-aTan.x, aTan.z, aTan.y);
@@ -253,7 +244,7 @@ Node* Importer::ImportNode(std::string path) {
 
     }
 
-    root->SaveFastNode(path + ".ml");
+//    root->SaveFastNode(path + ".ml");
 
 
     return (Node*)root;

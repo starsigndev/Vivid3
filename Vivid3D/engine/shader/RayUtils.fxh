@@ -24,13 +24,17 @@ struct Triangle{
 StructuredBuffer<Vertex> Vertices;
 StructuredBuffer<Triangle> Triangles;
 
+StructuredBuffer<Vertex> DynamicVertices;
+StructuredBuffer<Triangle> DynamicTriangles;
+StructuredBuffer<uint4> DynamicOffsets;
+
 StructuredBuffer<uint4> Offsets;
 StructuredBuffer<float4> LightsBuffer;
 
 static const float PI = 3.14159265358979323846;
 #define MAX_REFLECTION_DISTANCE 50.0 
 
-static const int MAX_REFLECTION_RECURSION_DEPTH = 2;
+static const int MAX_REFLECTION_RECURSION_DEPTH = 3;
 
 PrimaryRayPayload CastPrimaryRay(RayDesc ray, uint Recursion)
 {
@@ -124,88 +128,93 @@ float3 DirectionWithinCone(float3 dir, float2 offset)
 }
 
 
-float3 FresnelSchlick(float cosTheta, float3 F0)
+
+static const float EPSILON = 1e-8;
+
+float3 FresnelSchlick(float cosTheta, float3 F0, float roughness)
 {
-    return F0 + (1.0 - F0) * pow(1.0 - cosTheta, 5.0);
+    return F0 + (max(float3(1.0 - roughness, 1.0 - roughness, 1.0 - roughness), F0) - F0) * pow(1.0 - cosTheta, 5.0);
 }
 
 float GeometrySchlickGGX(float NdotV, float roughness)
 {
-    float r = (roughness + 1.0);
-    float k = (r * r) / 8.0;
+    float alpha = roughness * roughness;
+    float k = alpha / 2.0;
     return NdotV / (NdotV * (1.0 - k) + k);
 }
 
-float GeometrySmith(float3 normal, float3 viewDir, float3 lightDir, float roughness)
+float GeometrySmith(float3 N, float3 V, float3 L, float roughness)
 {
-    float NdotV = max(dot(normal, viewDir), 0.0);
-    float NdotL = max(dot(normal, lightDir), 0.0);
+    float NdotV = max(dot(N, V), 0.0);
+    float NdotL = max(dot(N, L), 0.0);
     float ggx1 = GeometrySchlickGGX(NdotV, roughness);
     float ggx2 = GeometrySchlickGGX(NdotL, roughness);
     return ggx1 * ggx2;
 }
 
-float DistributionGGX(float3 normal, float3 halfVector, float roughness)
+float DistributionGGX(float3 N, float3 H, float roughness)
 {
     float alpha = roughness * roughness;
     float alpha2 = alpha * alpha;
-    float NdotH = max(dot(normal, halfVector), 0.0);
+    float NdotH = max(dot(N, H), 0.0);
     float NdotH2 = NdotH * NdotH;
 
     float nom = alpha2;
     float denom = (NdotH2 * (alpha2 - 1.0) + 1.0);
     denom = PI * denom * denom;
 
-    return nom / denom;
+    return nom / max(denom, EPSILON);
 }
 
-float3 CalculateLighting(float3 fPos,float3 diffuse,float3 normal, float3 viewDir, float3 lightDir, float3 lightColor, float lightIntensity, float roughness, float metalness,int recursion)
+float3 CalculateLighting(float3 fragPos, float3 albedo, float3 N, float3 V, float3 L, float3 lightColor, float lightIntensity, float roughness, float metallic, int recursion)
 {
-      normal = normalize(normal);
-    viewDir = normalize(viewDir);
-    lightDir = normalize(lightDir);
+    N = normalize(N);
+    V = normalize(V);
+    L = normalize(L);
 
-    float3 halfVector = normalize(lightDir + viewDir);
+    float3 H = normalize(L + V);
 
-    // Fresnel-Schlick approximation
-    float3 F0 = lerp(float3(0.04, 0.04, 0.04), diffuse, metalness);
-    float3 F = FresnelSchlick(max(dot(halfVector, viewDir), 0.0), F0);
+    float3 F0 = lerp(float3(0.04, 0.04, 0.04), albedo, metallic);
+    float3 F = FresnelSchlick(max(dot(H, V), 0.0), F0, roughness);
 
-    // Geometry function (Smith Schlick-GGX)
-    float G = GeometrySmith(normal, viewDir, lightDir, roughness);
+    float G = GeometrySmith(N, V, L, roughness);
+    float D = DistributionGGX(N, H, roughness);
 
-    // Normal Distribution Function (GGX)
-    float D = DistributionGGX(normal, halfVector, roughness);
-
-    // Specular and diffuse components
     float3 kS = F;
-    float3 kD = (1.0 - kS) * (1.0 - metalness);
+    float3 kD = (1.0 - kS) * (1.0 - metallic);
 
-    float NdotL = max(dot(normal, lightDir), 0.0);
-    float NdotV = max(dot(normal, viewDir), 0.0);
+    float NdotL = max(dot(N, L), 0.0);
+    float NdotV = max(dot(N, V), 0.0);
     
-    // Specular BRDF
-    float3 specular = (D * G * F) / max(4.0 * NdotV * NdotL, 0.001);
+    float3 specular = (D * G * F) / max(4.0 * NdotV * NdotL, EPSILON);
 
-    // Calculate reflection
-    float3 reflectDir = normalize(reflect(-viewDir, normal));   
+    float3 directDiffuse = kD * albedo / PI;
+    float3 directSpecular = specular;
+    float3 directLighting = lightColor * lightIntensity * NdotL * (directDiffuse + directSpecular);
+
+    // Ambient Occlusion (placeholder - implement your AO technique)
+    float ao = 1.0;
+
+    // Environment mapping and reflection
+    float3 R = reflect(-V, N);
     float3 envMapColor = float3(0.0, 0.0, 0.0);
-    if (recursion < MAX_REFLECTION_RECURSION_DEPTH)
+    if (recursion < MAX_REFLECTION_RECURSION_DEPTH && metallic > 0.0)
     {
-        envMapColor = TraceReflectionRay(fPos, reflectDir, recursion + 1);
-        // Apply Fresnel to reflection
+        envMapColor = TraceReflectionRay(fragPos, R, recursion + 1);
         envMapColor *= F;
     }
 
-    // Combine direct and indirect lighting
-    float3 directLighting = lightIntensity * NdotL * (kD * diffuse / PI + specular);
-    float3 indirectLighting = envMapColor;
+    // Image-based lighting (IBL) - placeholder
+    float3 irradiance = float3(0.03, 0.03, 0.03); // Placeholder for diffuse irradiance
+    float3 prefilteredColor = float3(0.1, 0.1, 0.1); // Placeholder for specular IBL
+    float2 envBRDF = float2(1.0, 0.0); // Placeholder for BRDF LUT
 
-    return directLighting + indirectLighting;
+    float3 diffuseIBL = irradiance * albedo;
+    float3 specularIBL = prefilteredColor * (F * envBRDF.x + envBRDF.y);
+    float3 indirectLighting = (kD * diffuseIBL + specularIBL) * ao;
+
+    return directLighting + indirectLighting + envMapColor;
 }
-
-
-
 
 // Calculate lighting.
 void LightingPass(inout float3 Color, float3 Pos, float3 Norm, uint Recursion)

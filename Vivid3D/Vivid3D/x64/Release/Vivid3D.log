@@ -1,8 +1,26 @@
-﻿  Generating code
-  Previous IPDB and IOBJ mismatch, fall back to full compilation.
-C:\dev\Vivid3D\VScript\VScope.cpp(33): warning C4715: 'VScope::FindVar': not all control paths return a value
-C:\dev\Vivid3D\VividEngine\CineTrack.cpp(87): warning C4715: 'CineTrack::GetFrames': not all control paths return a value
-C:\dev\Vivid3D\VividEngine\Intersections.cpp(287): warning C4715: 'Intersections::CastMesh': not all control paths return a value
-  All 8836 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+﻿  EditHelp.cpp
+  Editor.cpp
+  VContentView.cpp
+  VImagePreview.cpp
+  VMainMenu.cpp
+  VPropEditor.cpp
+  VSceneGraph.cpp
+  VTrackNode.cpp
+  VTreeView.cpp
+  Vivid3D.cpp
+  VOutput.cpp
+  main.cpp
+C:\Dev\Vivid3D\VividEngine\MathsHelp.h(18,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\Dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\Vivid3D\EditHelp.cpp(49,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\dev\Vivid3D\Vivid3D\EditHelp.cpp(50,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\dev\Vivid3D\Vivid3D\VPropEditor.cpp(1384,49): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  moc_VOutput.cpp
+  moc_Vivid3D.cpp
+  Generating code
+  122 of 9761 functions ( 1.2%) were compiled, the rest were copied from previous compilation.
+    3 functions were new in current compilation
+    92 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Vivid3D.vcxproj -> C:\dev\Vivid3D\Vivid3D\x64\Release\Vivid3D.exe

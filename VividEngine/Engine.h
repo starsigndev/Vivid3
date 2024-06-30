@@ -68,6 +68,7 @@ public:
 	static MaterialBase* FindActiveMaterial(std::string path);
 	static ScriptHost* m_ScriptHost;
 	static SceneGraph* m_ActiveGraph;
+	static bool m_MeterialsUpdated;
 private:
 
 	static int m_FrameWidth;
