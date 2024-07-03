@@ -272,7 +272,7 @@ void MaterialBlur::Bind(bool sp) {
     float FOVRadians = 45.0f * (3.14159265358979323846f / 180.0f);
 
 
-    auto light = Engine::m_Lights[0];
+//    auto light = Engine::m_Lights[0];
 
     float4x4 mvp = Engine::m_Camera->GetProjection2D(); //float4x4::Projection(FOVRadians, 1024.0f / 760.0f,0.01,1001,false);
 

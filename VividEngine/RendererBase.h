@@ -12,7 +12,7 @@ public:
 	RendererBase();
 	void SetSceneGraph(SceneGraph* graph);
 	virtual void PreRender() = 0;
-	virtual void Render() = 0;
+	virtual void Render(bool no_render) = 0;
 	SceneGraph* GetSceneGraph() {
 		return m_SceneGraph;
 	}

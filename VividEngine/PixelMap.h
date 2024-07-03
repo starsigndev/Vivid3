@@ -22,6 +22,9 @@ public:
 	float* GetData() {
 		return m_Data;
 	}
+	int GetBPP() {
+		return m_BPP;
+	}
 
 private:
 

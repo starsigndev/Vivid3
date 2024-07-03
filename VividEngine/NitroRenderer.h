@@ -7,7 +7,7 @@ class NitroRenderer : public RendererBase
 public:
 
 	void PreRender() override;
-	void Render() override;
+	void Render(bool no_render) override;
 
 private:
 

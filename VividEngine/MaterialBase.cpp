@@ -456,3 +456,14 @@ void MaterialBase::Updated() {
         Engine::m_MeterialsUpdated = true;
     
 }
+
+void MaterialBase::CopyMaps(MaterialBase* other) {
+
+    m_Diffuse = other->GetDiffuse();
+    m_Emissive = other->GetEmissive();
+    m_Normal = other->GetNormal();
+    m_Metal = other->GetMetal();
+    m_Roughness = other->GetRough();
+    m_Specular = other->GetSpecular();
+
+}

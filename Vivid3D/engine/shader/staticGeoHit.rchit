@@ -99,6 +99,7 @@ float3 fragPosWorld = worldPos.xyz;
         float3 light_Diff = LightsBuffer[index+1].xyz;
         float3 light_Spec = LightsBuffer[index+2].xyz;
         float light_Range = LightsBuffer[index+3].x;
+    float light = light_GetDist(light_Pos,fragPosWorld,light_Range);
 
         float3 TLP = mul(light_Pos, TBN);
         float3 TVP = mul(g_ConstantsCB.CamPos.xyz, TBN);
@@ -125,7 +126,7 @@ float3 fragPosWorld = worldPos.xyz;
       normalFromMap = normalize(mul(TBN, normalFromMap));
 
 
-      float3 lightCol = CalculateLighting(fragPosWorld,tex_Col, normalFromMap, viewDir, lightDir,light_Diff, 1.0,tex_Rough,tex_Metal,payload.Recursion);
+      float3 lightCol = CalculateLighting(fragPosWorld,tex_Col, normalFromMap, viewDir, lightDir,light_Diff, 1.0,tex_Rough,tex_Metal,payload.Recursion)*light;
 
 
 

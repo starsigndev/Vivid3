@@ -8,6 +8,7 @@ using namespace Diligent;
 class Bounds;
 class VClass;
 class VFile;
+class MaterialBase;
 
 
 
@@ -48,6 +49,7 @@ public:
 	virtual void Render(bool sp) {
 		RenderChildren(sp);
 	};
+	virtual void RenderForcedMaterial(MaterialBase* material);
 	virtual void RenderDepth() {
 		RenderDepthChildren();
 	}
@@ -61,7 +63,9 @@ public:
 			node->Render(sp);
 		}
 	}
+	void RenderChildrenForcedMaterial(MaterialBase* material);
 	std::string GetName() {
+
 		return m_Name;
 	}
 	void SetName(std::string name) {

@@ -3,6 +3,72 @@
 #include <thread>
 #include "RenderTarget2D.h"
 #include "VFile.h"
+
+std::vector<uint8_t> GetTextureData(Diligent::ITexture* pTexture)
+{
+    auto pTexDesc = pTexture->GetDesc();
+
+    if (pTexDesc.Type != Diligent::RESOURCE_DIM_TEX_2D)
+    {
+        throw std::runtime_error("Only 2D textures are supported");
+    }
+
+    uint32_t width = pTexDesc.Width;
+    uint32_t height = pTexDesc.Height;
+    uint32_t rowPitch = width * 4; // Assuming RGBA8 format
+    uint32_t bufferSize = rowPitch * height;
+
+    std::vector<uint8_t> textureData(bufferSize);
+
+    // Try to map the texture directly
+    Diligent::MappedTextureSubresource MappedData;
+    Engine::m_pImmediateContext->MapTextureSubresource(pTexture, 0, 0, Diligent::MAP_READ, Diligent::MAP_FLAG_DO_NOT_WAIT, nullptr, MappedData);
+    {
+        // Direct access successful
+        for (uint32_t y = 0; y < height; ++y)
+        {
+            const uint8_t* srcRow = static_cast<const uint8_t*>(MappedData.pData) + y * MappedData.Stride;
+            uint8_t* dstRow = textureData.data() + y * rowPitch;
+            std::memcpy(dstRow, srcRow, rowPitch);
+        }
+
+
+        Engine::m_pImmediateContext->UnmapTextureSubresource(pTexture, 0, 0);
+    }
+    
+    //return nullptr;
+
+
+    {
+        // Direct access failed, fall back to staging texture method
+        Diligent::TextureDesc StagingTexDesc = pTexDesc;
+        StagingTexDesc.Usage = Diligent::USAGE_STAGING;
+        StagingTexDesc.CPUAccessFlags = Diligent::CPU_ACCESS_READ;
+        StagingTexDesc.BindFlags = Diligent::BIND_NONE;
+
+        Diligent::RefCntAutoPtr<Diligent::ITexture> pStagingTexture;
+        Engine::m_pDevice->CreateTexture(StagingTexDesc, nullptr, &pStagingTexture);
+
+       // Engine::m_pImmediateContext->CopyTexture(pTexture, 0, 0, nullptr, pStagingTexture, 0, 0, nullptr, Diligent::RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
+
+
+       // if (pContext->MapTextureSubresource(pStagingTexture, 0, 0, Diligent::MAP_READ, Diligent::MAP_FLAG_DO_NOT_WAIT, nullptr, MappedData) == Diligent::SUCCEEDED)
+        {
+            for (uint32_t y = 0; y < height; ++y)
+            {
+                const uint8_t* srcRow = static_cast<const uint8_t*>(MappedData.pData) + y * MappedData.Stride;
+                uint8_t* dstRow = textureData.data() + y * rowPitch;
+                std::memcpy(dstRow, srcRow, rowPitch);
+            }
+
+        //    pContext->UnmapTextureSubresource(pStagingTexture, 0, 0);
+        }
+     
+    }
+
+    return textureData;
+}
+
 void _load_texture(Texture2D* texture)
 {
 
@@ -25,10 +91,18 @@ Texture2D::Texture2D(std::string path,bool threaded) {
 
     if (!threaded || threaded) {
         TextureLoadInfo loadInfo;
+        loadInfo.MipLevels = 5;
+        loadInfo.GenerateMips = true;// = ;// TEXTURE_VIEW_FLAG_ALLOW_MIP_MAP_GENERATION;
+        loadInfo.MipFilter = TEXTURE_LOAD_MIP_FILTER_MOST_FREQUENT;
+      
 
+        // 
         CreateTextureFromFile(path.c_str(), loadInfo, Engine::m_pDevice, &m_pTexture);
 
         m_pTextureView = m_pTexture->GetDefaultView(TEXTURE_VIEW_SHADER_RESOURCE);
+      //  Engine::m_pImmediateContext->GenerateMips(m_pTextureView);
+
+
 
         m_Width = m_pTexture->GetDesc().Width;
         m_Height = m_pTexture->GetDesc().Height;

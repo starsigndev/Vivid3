@@ -9,6 +9,9 @@
 #include "MaterialMeshPBR.h"
 #include "NodeLight.h"
 #include "NodeActor.h"
+#include "NodeTerrain.h"
+#include "TerrainMesh.h"
+#include "TerrainLayer.h"
 
 float4x4 RemoveScaleAndPosition(const float4x4& matrix)
 {
@@ -155,7 +158,7 @@ void SolarisRenderer::PreRender()
 	}
 }
 
-void SolarisRenderer::Render() {
+void SolarisRenderer::Render(bool no_render) {
 
 	//GetSceneGraph()->Render();
 	//float3 CameraWorldPos = float3::MakeVector(m_Camera.GetWorldMatrix()[3]);
@@ -165,7 +168,7 @@ void SolarisRenderer::Render() {
 	CreateTopLevel();
 
 
-	if (m_Meshes.size() ==0 && m_DynMeshes.size()==0) return;
+	if (m_Meshes.size() ==0 && m_DynMeshes.size()==0 && m_ActiveTerrain==nullptr) return;
 
 
 	UpdateLights();
@@ -177,6 +180,11 @@ void SolarisRenderer::Render() {
 	m_Constants.InvViewProj = (cam->GetWorldMatrix() * cam->GetProjection()).Inverse().Transpose();
 	m_Constants.Lightcount = int4(GetSceneGraph()->GetLights().size(), 0, 0, 0);
 	m_Constants.CamPos = float4(GetSceneGraph()->GetCamera()->GetPosition(), 1.0);
+	if (m_ActiveTerrain) {
+
+		m_Constants.TerrainInfo = int4(m_ActiveTerrain->GetLayers().size(), 0, 0, 0);
+
+	}
 
 	Engine::m_pImmediateContext->UpdateBuffer(m_ConstantsCB, 0, sizeof(m_Constants), &m_Constants, RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
 
@@ -194,10 +202,14 @@ void SolarisRenderer::Render() {
 	Engine::m_pImmediateContext->TraceRays(Attribs);
 
 	ITextureView* view = m_pColorRT->GetDefaultView(TEXTURE_VIEW_SHADER_RESOURCE);
+	if (no_render) {
 
+		m_RenderedFrame = new Texture2D(view);
+	}
+	else {
 
-	m_Draw->Rect(new Texture2D(view), float2(0, Attribs.DimensionY), float2(Attribs.DimensionX, -(int)Attribs.DimensionY), float4(1, 1, 1, 1));
-
+		m_Draw->Rect(new Texture2D(view), float2(0, Attribs.DimensionY), float2(Attribs.DimensionX, -(int)Attribs.DimensionY), float4(1, 1, 1, 1));
+	}
 
 }
 
@@ -206,6 +218,11 @@ void SolarisRenderer::CreateStructures() {
 	auto graph = GetSceneGraph();
 	auto meshes = graph->GetRTMeshes();
 	auto dynMeshes = graph->GetDynRTMeshes();
+	auto terrain = graph->GetTerrain();
+
+//	m_ActiveTerrain = terrain;
+
+	
 
 
 	for (auto sm : meshes) {
@@ -221,9 +238,12 @@ void SolarisRenderer::CreateStructures() {
 
 //	if (m_Meshes.size() == 0) return;
 
-	
+	if (terrain != nullptr && m_ActiveTerrain == nullptr)
+	{
 
-
+		m_ActiveTerrain = terrain;
+		CreateTopLevel();
+	}else
 	if (m_Meshes.size() > 0 || m_DynMeshes.size()>0) {
 		CreateTopLevel();
 	}
@@ -235,7 +255,9 @@ void SolarisRenderer::CreateStructures() {
 
 
 	UpdatePrimitives();
-
+	if (m_ActiveTerrain) {
+		UpdateTerrain();
+	}
 	UpdateTextures();
 
  }
@@ -302,7 +324,7 @@ void SolarisRenderer::UpdatePrimitives() {
 		
 
 
-
+		//--OPTIMIZE
 
 		int pu = u;
 		for (auto v : m->GetMesh()->GetVertices())
@@ -519,7 +541,7 @@ void SolarisRenderer::UpdateDynamics() {
 bool first = true;
 void SolarisRenderer::CreateTopLevel() {
 
-	if (m_Meshes.size() == 0 && m_DynMeshes.size()==0) return;
+	if (m_Meshes.size() == 0 && m_DynMeshes.size()==0 && m_ActiveTerrain==nullptr) return;
 
 	if (!m_TLAS)
 	{
@@ -616,6 +638,28 @@ void SolarisRenderer::CreateTopLevel() {
 		i++;
 
 	}
+
+	i = 0;
+	if (m_ActiveTerrain) {
+		
+		TLASBuildInstanceData inst;
+
+		auto name = m_ActiveTerrain->GetName() + std::to_string(i);
+		char* myString = new char[strlen(name.c_str()) + 1];
+		strcpy(myString, name.c_str());
+		inst.InstanceName = myString;
+		inst.CustomId = 0;
+		inst.pBLAS = m_ActiveTerrain->GetMesh()->GetBLAS();
+		InstanceMatrix mat = ConvertToInstanceMatrix(m_ActiveTerrain->GetWorldMatrix().Transpose());
+		inst.Transform = mat;
+		//inst.Transform.SetTranslation(m->GetNode()->GetPosition().x, m->GetNode()->GetPosition().y, m->GetNode()->GetPosition().z);
+		inst.Mask = OPAQUE_GEOM_MASK;
+		inst.ContributionToHitGroupIndex = TLAS_INSTANCE_OFFSET_AUTO;
+		Instances.push_back(inst);
+
+	}
+
+
 	BuildTLASAttribs Attribs;
 	Attribs.pTLAS = m_TLAS;
 	if (prevCount != m_Meshes.size()+m_DynMeshes.size()) {
@@ -713,6 +757,14 @@ void SolarisRenderer::CreateSBT() {
 	
 		i++;
 	}
+	i = 0;
+	if (m_ActiveTerrain != nullptr) {
+		auto name = m_ActiveTerrain->GetName() + std::to_string(i);
+		char* myString = new char[strlen(name.c_str()) + 1];
+		strcpy(myString, name.c_str());
+		m_SBT->BindHitGroupForInstance(m_TLAS, myString, PRIMARY_RAY_INDEX, "TerrainGeoHit");
+
+	}
 
 	// clang-format on
 
@@ -760,7 +812,7 @@ void SolarisRenderer::CreatePipeline() {
 
 	// Shader model 6.3 is required for DXR 1.0, shader model 6.5 is required for DXR 1.1 and enables additional features.
 	// Use 6.3 for compatibility with DXR 1.0 and VK_NV_ray_tracing.
-	ShaderCI.HLSLVersion = { 6, 3 };
+	ShaderCI.HLSLVersion = { 6, 5 };
 	ShaderCI.SourceLanguage = SHADER_SOURCE_LANGUAGE_HLSL;
 
 	// Create a shader source stream factory to load shaders from files.
@@ -821,6 +873,19 @@ void SolarisRenderer::CreatePipeline() {
 
 	}
 
+	RefCntAutoPtr<IShader> pTerrainGeoHIT;
+	{
+		ShaderCI.Desc.ShaderType = SHADER_TYPE_RAY_CLOSEST_HIT;
+		ShaderCI.Desc.Name = "Terrain Geo ray closest hit shader";
+		ShaderCI.FilePath = "TerrainGeoHit.rchit";
+		ShaderCI.EntryPoint = "main";
+		Engine::m_pDevice->CreateShader(ShaderCI, &pTerrainGeoHIT);
+		VERIFY_EXPR(pDynGeoHIT != nullptr);
+
+
+	}
+
+
 	// Setup shader groups
 
 	// Ray generation shader is an entry point for a ray tracing pipeline.
@@ -833,7 +898,9 @@ void SolarisRenderer::CreatePipeline() {
 	// Primary ray hit group for the textured cube.
 	PSOCreateInfo.AddTriangleHitShader("StaticGeoHit", pStaticGeoHIT);
 	PSOCreateInfo.AddTriangleHitShader("DynamicGeoHit", pDynGeoHIT);
-	// Primary ray hit group for the ground.
+	PSOCreateInfo.AddTriangleHitShader("TerrainGeoHit", pTerrainGeoHIT);
+	// Primary ray hit group for the groun
+	// d.
 
 
 
@@ -853,7 +920,7 @@ void SolarisRenderer::CreatePipeline() {
 
 	// Define immutable sampler for g_Texture and g_GroundTexture. Immutable samplers should be used whenever possible
 	SamplerDesc SamLinearWrapDesc{
-		FILTER_TYPE_LINEAR, FILTER_TYPE_LINEAR, FILTER_TYPE_LINEAR,
+		FILTER_TYPE_ANISOTROPIC, FILTER_TYPE_ANISOTROPIC,FILTER_TYPE_ANISOTROPIC,
 		TEXTURE_ADDRESS_WRAP, TEXTURE_ADDRESS_WRAP, TEXTURE_ADDRESS_WRAP //
 	};
 
@@ -870,7 +937,9 @@ void SolarisRenderer::CreatePipeline() {
 		.AddVariable(SHADER_TYPE_RAY_GEN | SHADER_TYPE_RAY_CLOSEST_HIT, "LightsBuffer", SHADER_RESOURCE_VARIABLE_TYPE_DYNAMIC)
 		.AddVariable(SHADER_TYPE_RAY_GEN | SHADER_TYPE_RAY_CLOSEST_HIT, "DynamicVertices", SHADER_RESOURCE_VARIABLE_TYPE_DYNAMIC)
 		.AddVariable(SHADER_TYPE_RAY_GEN | SHADER_TYPE_RAY_CLOSEST_HIT, "DynamicTriangles", SHADER_RESOURCE_VARIABLE_TYPE_DYNAMIC)
-		.AddVariable(SHADER_TYPE_RAY_GEN | SHADER_TYPE_RAY_CLOSEST_HIT, "DynamicOffsets", SHADER_RESOURCE_VARIABLE_TYPE_DYNAMIC);
+		.AddVariable(SHADER_TYPE_RAY_GEN | SHADER_TYPE_RAY_CLOSEST_HIT, "DynamicOffsets", SHADER_RESOURCE_VARIABLE_TYPE_DYNAMIC)
+		.AddVariable(SHADER_TYPE_RAY_GEN | SHADER_TYPE_RAY_CLOSEST_HIT, "TerrainVertices", SHADER_RESOURCE_VARIABLE_TYPE_DYNAMIC)
+		.AddVariable(SHADER_TYPE_RAY_GEN | SHADER_TYPE_RAY_CLOSEST_HIT, "TerrainTriangles", SHADER_RESOURCE_VARIABLE_TYPE_DYNAMIC);
 
 	PSOCreateInfo.PSODesc.ResourceLayout = ResourceLayout;
 
@@ -890,6 +959,11 @@ void SolarisRenderer::CreatePipeline() {
 void SolarisRenderer::UpdateTextures() {
 
 	IDeviceObject* texAr[128];
+	IDeviceObject* tCol[8];
+	IDeviceObject* tNorm[8];
+	IDeviceObject* tSpec[8];
+	IDeviceObject* tLayer[8];
+
 	int tex_count = 0;
 	for (auto m : m_Meshes) {
 
@@ -921,8 +995,36 @@ void SolarisRenderer::UpdateTextures() {
 
 
 	}
-	m_pRayTracingSRB->GetVariableByName(SHADER_TYPE_RAY_CLOSEST_HIT, "g_CubeTextures")->SetArray(texAr, 0, tex_count, SET_SHADER_RESOURCE_FLAG_ALLOW_OVERWRITE);
 
+	if (m_ActiveTerrain) {
+
+		auto tmesh = m_ActiveTerrain->GetMesh();
+
+		auto layers = m_ActiveTerrain->GetLayers();
+
+		int i = 0;
+		for (auto l : layers) {
+
+			tCol[i] = l->GetColor()->GetView();
+			tNorm[i] = l->GetNormal()->GetView();
+			tSpec[i] = l->GetSpec()->GetView();
+			tLayer[i] = l->GetLayerMap()->GetView();
+			i++;
+		}
+
+		m_pRayTracingSRB->GetVariableByName(SHADER_TYPE_RAY_CLOSEST_HIT, "g_TerrainCol")->SetArray(tCol, 0, i, SET_SHADER_RESOURCE_FLAG_ALLOW_OVERWRITE);
+		m_pRayTracingSRB->GetVariableByName(SHADER_TYPE_RAY_CLOSEST_HIT, "g_TerrainNorm")->SetArray(tNorm, 0, i, SET_SHADER_RESOURCE_FLAG_ALLOW_OVERWRITE);
+		//m_pRayTracingSRB->GetVariableByName(SHADER_TYPE_RAY_CLOSEST_HIT, "g_TerrainSpec")->SetArray(tSpec, 0, i, SET_SHADER_RESOURCE_FLAG_ALLOW_OVERWRITE);
+		m_pRayTracingSRB->GetVariableByName(SHADER_TYPE_RAY_CLOSEST_HIT, "g_Layers")->SetArray(tLayer, 0,i, SET_SHADER_RESOURCE_FLAG_ALLOW_OVERWRITE);
+
+
+
+
+
+	}
+
+	m_pRayTracingSRB->GetVariableByName(SHADER_TYPE_RAY_CLOSEST_HIT, "g_CubeTextures")->SetArray(texAr, 0, tex_count, SET_SHADER_RESOURCE_FLAG_ALLOW_OVERWRITE);
+	
 
 }
 
@@ -950,4 +1052,43 @@ void SolarisRenderer::UpdateLights() {
 
 	m_pRayTracingSRB->GetVariableByName(SHADER_TYPE_RAY_CLOSEST_HIT, "LightsBuffer")->Set(lightsBufferView);
 
+}
+
+Texture2D* SolarisRenderer::GetRenderedFrame() {
+
+	return m_RenderedFrame;
+
+}
+
+
+void SolarisRenderer::UpdateTerrain() {
+
+	if (terrainVertsBuf != nullptr) return;
+
+	std::vector<TerrainVertex> vertices = m_ActiveTerrain->GetMesh()->GetVertices();
+	std::vector<Triangle> triangles = m_ActiveTerrain->GetMesh()->GetTriangles();
+
+
+	CreateStructuredBuffer(Engine::m_pDevice, vertices.data(), sizeof(TerrainVertex) * vertices.size(), sizeof(TerrainVertex), &terrainVertsBuf);
+	CreateStructuredBuffer(Engine::m_pDevice, triangles.data(), sizeof(Triangle) * triangles.size(), sizeof(Triangle), &terrainTrisBuf);
+
+
+
+	CreateStructuredBufferView(Engine::m_pDevice, terrainVertsBuf, &terrainVertsBufView);
+	CreateStructuredBufferView(Engine::m_pDevice, terrainTrisBuf, &terrainTrisBufView);
+
+	//CreateStructuredBufferView(Engine::m_pDevice, offsetsBuf, &offsetsBufferView);
+
+
+
+
+
+
+	m_pRayTracingSRB->GetVariableByName(SHADER_TYPE_RAY_CLOSEST_HIT, "TerrainVertices")->Set(terrainVertsBufView);
+	m_pRayTracingSRB->GetVariableByName(SHADER_TYPE_RAY_CLOSEST_HIT, "TerrainTriangles")->Set(terrainTrisBufView);
+	//m_pRayTracingSRB->GetVariableByName(SHADER_TYPE_RAY_CLOSEST_HIT, "Offsets")->Set(offsetsBufferView);
+
+
+	
+	
 }

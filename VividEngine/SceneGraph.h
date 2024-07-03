@@ -18,7 +18,8 @@ class Bounds;
 class NodeTerrain;
 class VFile;
 class RTMesh;
-
+class MaterialBase;
+class NodeTerrain;
 
 struct SceneInfo {
 
@@ -54,7 +55,7 @@ public:
 	{
 		m_Lines = lines;
 	}
-
+	NodeTerrain* GetTerrain();
 	void AddNode(Node* node);
 	void AddLight(NodeLight* light);
 	void RenderShadows();
@@ -110,6 +111,7 @@ public:
 	void UpdateComplete() {
 		m_Updated = false;
 	}
+	void RenderForcedMaterial(MaterialBase* material);
 private:
 
 	NodeCamera* m_Camera;
@@ -123,6 +125,7 @@ private:
 	bool m_Updated = false;
 	std::map<Mesh3D*, RTMesh*> m_StaticCache;
 	std::map<Mesh3D*, RTMesh*> m_DynamicCache;
+	NodeTerrain* m_ActiveTerrain = nullptr;
 
 };
 

@@ -8,6 +8,13 @@ TerrainLayer::TerrainLayer() {
 
 }
 
+
+void TerrainLayer::SetPixels(PixelMap* pixels) {
+    m_LayerPixMap = pixels;
+    m_LayerMap = new Texture2D(pixels->GetWidth(), pixels->GetHeight(), pixels->GetData(), 4);
+}
+
+
 void TerrainLayer::FillBrush(float4 value) {
 
     auto pix = new PixelMap(m_LayerPixMap->GetWidth(), m_LayerPixMap->GetHeight(),value);

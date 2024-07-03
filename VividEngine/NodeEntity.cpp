@@ -353,3 +353,21 @@ void NodeEntity::LoadFastNode(std::string path) {
 	file->Close();
 
 }
+
+void NodeEntity::RenderForcedMaterial(MaterialBase* material) {
+	Engine::m_Node = this;
+	int b = 5;
+	for (auto mesh : m_Meshes) {
+
+		auto tmp = mesh->GetMaterial();
+		material->CopyMaps(mesh->GetMaterial());
+		mesh->SetMaterial(material);
+		material->Bind(false);
+		mesh->Render(false);
+		mesh->SetMaterial(tmp);
+
+
+
+	}
+
+}

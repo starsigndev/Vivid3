@@ -43,6 +43,7 @@ MaterialMeshLight::MaterialMeshLight() {
     m_Diffuse = new Texture2D("engine/white.png");
     m_Normal = new Texture2D("engine/normal.png");
     m_Specular = new Texture2D("engine/white.png");
+    m_Emissive = new Texture2D("engine/black.png");
 }
 
 void MaterialMeshLight::Create() {

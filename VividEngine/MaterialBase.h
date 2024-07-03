@@ -93,13 +93,21 @@ public:
 	void SetSpecularColor(float4 spec) {
 		m_SpecularColor = spec;
 	}
+	void SetEmissive(Texture2D* emissive) {
+		m_Emissive = emissive;
+	}
+	Texture2D* GetEmissive() {
+		return m_Emissive;
+	}
 	void Updated();
+	void CopyMaps(MaterialBase* other);
 protected:
 
 	//Textures
 	Texture2D* m_Diffuse = nullptr;
 	Texture2D* m_Normal = nullptr;
 	Texture2D* m_Specular = nullptr;
+	Texture2D* m_Emissive = nullptr;
 	RenderTargetCube* m_Environment = nullptr;
 	TextureCube* m_EnvironmentTex = nullptr;
 	Texture2D* m_Aux = nullptr;

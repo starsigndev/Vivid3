@@ -9,7 +9,7 @@ void NitroRenderer::PreRender()
 
 }
 
-void NitroRenderer::Render() {
+void NitroRenderer::Render(bool no_render) {
 
 	GetSceneGraph()->Render();
 

@@ -519,3 +519,14 @@ void Node::ReadNode(VFile* file) {
 	m_Name = file->ReadString();
 
 }
+
+void Node::RenderChildrenForcedMaterial(MaterialBase* material) {
+	for (auto node : m_Nodes) {
+		node->RenderForcedMaterial(material);
+	}
+}
+
+void Node::RenderForcedMaterial(MaterialBase* material)
+{
+	RenderChildrenForcedMaterial(material);
+}

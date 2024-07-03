@@ -26,6 +26,7 @@ namespace HLSL
 }
 class RTMesh;
 class Draw2D;
+class NodeTerrain;
 
 class SolarisRenderer :
     public RendererBase
@@ -37,12 +38,14 @@ public:
     void CreateTopLevel();
     void CreateSBT();
     void PreRender() override;
-    void Render() override;
+    void Render(bool no_render) override;
     void UpdatePrimitives();
     void UpdateLights();
     void CreatePipeline();
     void UpdateDynamics();
     void UpdateTextures();
+    void UpdateTerrain();
+    Texture2D* GetRenderedFrame();
 
 private:
 
@@ -106,8 +109,12 @@ private:
     RefCntAutoPtr<IBufferView> dynTrisBufView;
     RefCntAutoPtr<IBuffer> dynOffsetsBuf;
     RefCntAutoPtr<IBufferView> dynOffsetsBufView;
-
+    RefCntAutoPtr<IBuffer> terrainVertsBuf;
+    RefCntAutoPtr<IBuffer> terrainTrisBuf;
+    RefCntAutoPtr<IBufferView> terrainVertsBufView;
+    RefCntAutoPtr<IBufferView> terrainTrisBufView;
+    Texture2D* m_RenderedFrame = nullptr;
     int prevCount = 0;
-
+    NodeTerrain* m_ActiveTerrain = nullptr;
 };
 

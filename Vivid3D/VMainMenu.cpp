@@ -6,6 +6,7 @@
 #include <qfiledialog.h>
 #include "Engine.h"
 #include "VSceneGraph.h"
+#include "RendererBase.h"
 
 VMainMenu::VMainMenu(QWidget *parent)
 	: QMenuBar(parent)
@@ -77,6 +78,8 @@ VMainMenu::VMainMenu(QWidget *parent)
 			Editor::m_Graph->SetCamera(cam);
 			Editor::m_Graph->SetLines(lines);
 			Editor::m_SceneGraph->UpdateGraph();
+			Editor::m_Graph->Updated();
+			Engine::m_ActiveRenderer->SetSceneGraph(Editor::m_Graph);
 
 			
 			//Editor::m_Graph->SaveScene(filePath.toStdString());

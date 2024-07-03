@@ -1,277 +1,33 @@
-﻿  Animation.cpp
-  Cinematic.cpp
-  CubeRenderer.cpp
-  Draw2D.cpp
-  Engine.cpp
-  Importer.cpp
-  Material2D.cpp
-  MaterialActorDepth.cpp
-  MaterialActorLight.cpp
-  MaterialBase.cpp
-  MaterialBlur.cpp
-  MaterialColorLimit.cpp
-C:\dev\Vivid3D\VividEngine\Cinematic.cpp(187,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\dev\Vivid3D\VividEngine\Cinematic.cpp(189,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\dev\Vivid3D\VividEngine\Cinematic.cpp(218,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+﻿  SolarisRenderer.cpp
 C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\Cinematic.cpp(220,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\MathsHelp.h(18,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-C:\dev\Vivid3D\VividEngine\Animation.cpp(14,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\dev\Vivid3D\VividEngine\Animation.cpp(15,25): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\Animation.cpp(32,20): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\Importer.cpp(117,23): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\Importer.cpp(195,23): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\Importer.cpp(200,27): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\Importer.cpp(211,48): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\Importer.cpp(211,48): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\Importer.cpp(211,48): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\Importer.cpp(211,48): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\Importer.cpp(211,48): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\Importer.cpp(220,27): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\Importer.cpp(284,23): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\Importer.cpp(349,23): warning C4018: '<': signed/unsigned mismatch
-  MaterialCombine.cpp
-  MaterialDepth.cpp
-  MaterialMeshLight.cpp
-  MaterialMeshLines.cpp
-  MaterialMeshPBR.cpp
-  MaterialTerrain.cpp
-  MaterialTerrainDepth.cpp
-  Mesh3D.cpp
-  MeshBuffer.cpp
-  MeshLines.cpp
-  MeshLinesBuffer.cpp
-  NitroRenderer.cpp
-C:\dev\Vivid3D\VividEngine\MaterialTerrain.cpp(354,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\MaterialTerrain.cpp(402,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(366,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(369,61): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(369,61): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(369,61): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(369,61): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(369,61): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(411,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(414,61): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(414,61): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(414,61): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(414,61): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp(414,61): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\MaterialTerrainDepth.cpp(352,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\MaterialTerrainDepth.cpp(400,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\Mesh3D.cpp(88,37): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
-C:\dev\Vivid3D\VividEngine\Mesh3D.cpp(112,36): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
-C:\dev\Vivid3D\VividEngine\MathsHelp.h(18,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-C:\dev\Vivid3D\VividEngine\MeshLines.cpp(54,37): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
-  Node.cpp
-  NodeActor.cpp
-C:\dev\Vivid3D\VividEngine\MathsHelp.h(18,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-  NodeCamera.cpp
-  NodeEntity.cpp
-  NodeLight.cpp
-  NodeTerrain.cpp
-  OctNode.cpp
-  PPBloom.cpp
-  PostProcess.cpp
-  PostProcessing.cpp
-  RTMesh.cpp
-  RTPipeline.cpp
-C:\dev\Vivid3D\VividEngine\NodeCamera.cpp(15,84): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeCamera.cpp(15,84): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\NodeCamera.cpp(15,84): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\NodeCamera.cpp(15,84): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\NodeCamera.cpp(15,84): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\NodeCamera.cpp(15,58): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeCamera.cpp(15,58): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\NodeCamera.cpp(15,58): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\NodeCamera.cpp(15,58): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\NodeCamera.cpp(15,58): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\NodeLight.cpp(45,29): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeTerrain.cpp(160,59): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeTerrain.cpp(223,55): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(38,20): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\MathsHelp.h(18,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(57,20): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(83,20): warning C4018: '<': signed/unsigned mismatch
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(122,23): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(122,23): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(122,23): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(122,23): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(122,23): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(128,22): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(128,22): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(128,22): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(128,22): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(128,22): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(134,23): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(134,23): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(134,23): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(134,23): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(134,23): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(140,23): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(140,23): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(140,23): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(140,23): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\NodeActor.cpp(140,23): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\Node.cpp(71,12): warning C4305: '=': truncation from 'double' to 'float'
-C:\dev\Vivid3D\VividEngine\Node.cpp(76,12): warning C4305: '=': truncation from 'double' to 'float'
-C:\dev\Vivid3D\VividEngine\Node.cpp(182,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(37,98): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(37,98): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(37,98): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(37,98): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(37,98): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(37,72): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(37,72): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(37,72): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(37,72): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(37,72): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(44,98): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(44,98): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(44,98): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(44,98): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(44,98): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(44,72): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(44,72): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(44,72): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(44,72): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(44,72): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(53,98): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(53,98): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(53,98): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(53,98): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(53,98): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(53,72): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(53,72): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(53,72): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(53,72): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\PPBloom.cpp(53,72): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\Node.cpp(503,29): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\MathsHelp.h(18,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(28,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(185,29): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(221,30): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(229,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(230,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(232,39): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\NodeEntity.cpp(235,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\PostProcessing.cpp(32,90): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\PostProcessing.cpp(32,90): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\PostProcessing.cpp(32,90): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\PostProcessing.cpp(32,90): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\PostProcessing.cpp(32,90): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\PostProcessing.cpp(32,64): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\PostProcessing.cpp(32,64): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\PostProcessing.cpp(32,64): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\PostProcessing.cpp(32,64): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\PostProcessing.cpp(32,64): warning C4244:         ]
-  RenderTarget2D.cpp
-  RenderTargetCube.cpp
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-  RendererBase.cpp
-C:\dev\Vivid3D\VividEngine\RTMesh.cpp(21,53): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
-C:\dev\Vivid3D\VividEngine\RTMesh.cpp(24,52): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
-C:\dev\Vivid3D\VividEngine\RTMesh.cpp(152,53): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
-C:\dev\Vivid3D\VividEngine\RTMesh.cpp(155,52): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
-  SceneGraph.cpp
-  SceneOctree.cpp
-  SolarisRenderer.cpp
-  TerrainLayer.cpp
-  TerrainMesh.cpp
-  TerrainMeshBuffer.cpp
-  Texture2D.cpp
-  TextureCube.cpp
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\TerrainLayer.cpp(38,19): warning C4101: 'xd': unreferenced local variable
-C:\dev\Vivid3D\VividEngine\TerrainLayer.cpp(38,23): warning C4101: 'yd': unreferenced local variable
-C:\dev\Vivid3D\VividEngine\MathsHelp.h(18,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\MathsHelp.h(18,27): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-  opencl.hpp: CL_HPP_TARGET_OPENCL_VERSION is not defined. It will default to 300 (OpenCL 3.0)
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(228,34): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(228,56): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(232,37): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(232,59): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(440,34): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(440,56): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(444,37): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(444,59): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(622,37): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(622,59): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(626,44): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(626,66): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(714,30): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(714,52): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(723,37): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(723,59): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(738,28): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(738,50): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(747,35): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(747,57): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(762,30): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(762,52): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(771,37): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(771,59): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(786,28): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(786,50): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(795,35): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(795,57): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(809,30): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(809,52): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(818,37): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(818,59): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(833,28): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(833,50): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(842,35): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(842,57): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(1212,26): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(1212,48): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(1249,33): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(1249,55): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(1704,26): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(1704,48): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(1743,33): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(1743,55): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(2109,26): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(2109,48): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(2150,33): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\Vivid3D\packages\openexr-msvc14-x64.2.2.0.7784\build\native\include\OpenEXR\ImathVec.h(2150,55): warning C5040: dynamic exception specifications are valid only in C++14 and earlier; treating as noexcept(false)
-C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(178,65): warning C4267: 'argument': conversion from 'size_t' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(178,65): warning C4267:         with
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(178,65): warning C4267:         [
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(178,65): warning C4267:             T=int32_t
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(178,65): warning C4267:         ]
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,94): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,94): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,94): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,94): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,94): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,81): warning C4244: 'argument': conversion from 'Diligent::Uint32' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,81): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,81): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,81): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,81): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,53): warning C4244: 'argument': conversion from 'Diligent::Uint32' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,53): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,53): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,53): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(199,53): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(300,11): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(301,11): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(329,17): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(409,11): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(410,11): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(465,17): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(624,30): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(635,40): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
-C:\dev\Vivid3D\VividEngine\TextureCube.cpp(99,40): warning C4244: '=': conversion from 'float' to 'Diligent::Uint64', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(180,65): warning C4267: 'argument': conversion from 'size_t' to 'T', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(180,65): warning C4267:         with
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(180,65): warning C4267:         [
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(180,65): warning C4267:             T=int32_t
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(180,65): warning C4267:         ]
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(205,95): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(205,95): warning C4244:         with
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(205,95): warning C4244:         [
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(205,95): warning C4244:             T=float
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(205,95): warning C4244:         ]
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(205,82): warning C4244: 'argument': conversion from 'Diligent::Uint32' to 'T', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(205,82): warning C4244:         with
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(205,82): warning C4244:         [
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(205,82): warning C4244:             T=float
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(205,82): warning C4244:         ]
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(205,54): warning C4244: 'argument': conversion from 'Diligent::Uint32' to 'T', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(205,54): warning C4244:         with
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(205,54): warning C4244:         [
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(205,54): warning C4244:             T=float
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(205,54): warning C4244:         ]
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(313,11): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(314,11): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(342,17): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(422,11): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(423,11): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(478,17): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(648,30): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(659,40): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
   Replacing x64\Release\pch.obj
 cuda.lib(nvcuda.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 cudart.lib(cudart64_12.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored

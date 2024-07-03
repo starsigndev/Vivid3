@@ -17,6 +17,8 @@ public:
 	Mesh3D* GetMesh(int index);
 	std::vector<Mesh3D*> GetMeshes();
 	void Render(bool sp);
+	void RenderForcedMaterial(MaterialBase* material);
+
 	void RenderDepth();
 	void SetMaterial(MaterialBase* material);
 	bool IsMeshIndex(Mesh3D* mesh, int index);

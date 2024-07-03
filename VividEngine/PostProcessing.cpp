@@ -19,9 +19,7 @@ void PostProcessing::AddPostProcess(PostProcess* process) {
 
 }
 
-void PostProcessing::Process() {
-
-	Texture2D* frame = nullptr;
+void PostProcessing::Process(Texture2D* frame) {
 
 	for (auto pp : m_Processes) {
 
@@ -29,6 +27,6 @@ void PostProcessing::Process() {
 
 	}
 
-	m_Draw->Rect(frame, float2(0, 0), float2(Engine::GetFrameWidth(), Engine::GetFrameHeight()),float4(1,1,1,1));
+	m_Draw->Rect(frame, float2(0, Engine::GetFrameHeight()), float2(Engine::GetFrameWidth(), -Engine::GetFrameHeight()),float4(1,1,1,1));
 
 }

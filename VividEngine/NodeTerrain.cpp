@@ -9,6 +9,14 @@
 #include "TerrainMeshBuffer.h"
 #include "MaterialTerrain.h"
 #include "MaterialTerrainDepth.h"
+#include "VFile.h"
+
+NodeTerrain::NodeTerrain() {
+
+    m_Material = new MaterialTerrain;
+    m_DepthMaterial = new MaterialTerrainDepth;
+    m_Name = "Terrain";
+}
 
 NodeTerrain::NodeTerrain(float width, float depth, float divisions, int layers)
 {
@@ -225,5 +233,177 @@ void NodeTerrain::RenderDepth() {
     Engine::m_pImmediateContext->DrawIndexed(attrib);
 
 
+
+}
+
+void NodeTerrain::WriteNode(VFile* file) {
+
+    std::string t_path = Engine::m_ContentPath+"terrains\\"+ m_Name + ".terrain";
+    file->WriteInt(4);
+    file->WriteString(t_path.c_str());
+    file->WriteString(m_Name.c_str());
+    SaveTerrain(t_path);
+
+
+
+
+}
+
+void NodeTerrain::ReadNode(VFile* file) {
+
+    auto path = file->ReadString();
+    m_Name = file->ReadString();
+    LoadTerrain(path);
+   // m_Name = "Terrain";
+
+
+}
+
+void NodeTerrain::LoadTerrain(std::string path) {
+
+    VFile* file = new VFile(path.c_str(), FileMode::Read);
+
+    m_Width = file->ReadFloat();
+    m_Depth = file->ReadFloat();
+    m_Divisions = file->ReadFloat();
+
+    m_Mesh = new TerrainMesh;
+
+    int verts = file->ReadInt();
+
+    std::vector<TerrainVertex> tverts;
+
+    for (int i = 0; i < verts; i++) {
+
+        TerrainVertex v;
+        v.position = file->ReadVec3();
+        v.color = file->ReadVec4();
+        v.normal = file->ReadVec3();
+        v.binormal = file->ReadVec3();
+        v.tangent = file->ReadVec3();
+        v.texture = file->ReadVec3();
+        v.layercoord = file->ReadVec3();
+        tverts.push_back(v);
+    }
+
+    int tris = file->ReadInt();
+
+    std::vector<Triangle> ttris;
+
+    for (int i = 0; i < tris; i++) {
+
+        Triangle t;
+        t.v0 = file->ReadInt();
+        t.v1 = file->ReadInt();
+        t.v2 = file->ReadInt();
+        ttris.push_back(t);
+    }
+
+    m_Mesh->SetVertices(tverts);
+    m_Mesh->SetTriangles(ttris);
+    m_Mesh->SetOwner(this);
+    m_Mesh->Build();
+
+    int lc = file->ReadInt();
+
+    for (int l = 0; l < lc; l++) {
+
+        auto layer = new TerrainLayer;
+        int w = file->ReadInt();
+        int h = file->ReadInt();
+        int bpp = file->ReadInt();
+        auto pix = new PixelMap(w, h);
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+
+                float r = file->ReadFloat();
+                float g = file->ReadFloat();
+                float b = file->ReadFloat();
+                float a = file->ReadFloat();
+
+                pix->SetColor(x, y, float4(r, g, b, a));
+
+            }
+        }
+
+        auto col = new Texture2D(file->ReadString());
+        auto norm = new Texture2D(file->ReadString());
+        auto spec = new Texture2D(file->ReadString());
+        layer->SetColor(col);
+        layer->SetNormal(norm);
+        layer->SetSpecular(spec);
+        layer->SetPixels(pix);
+        m_Layers.push_back(layer);
+        
+
+
+    }
+
+    file->Close();
+
+}
+
+void NodeTerrain::SaveTerrain(std::string path) {
+
+    VFile* file = new VFile(path.c_str(), FileMode::Write);
+
+    
+    file->WriteFloat(m_Width);
+    file->WriteFloat(m_Depth);
+    file->WriteFloat(m_Divisions);
+ 
+
+    auto verts = m_Mesh->GetVertices();
+    auto tris = m_Mesh->GetTriangles();
+
+    file->WriteInt(verts.size());
+    for (auto v : verts) {
+
+        file->WriteVec3(v.position);
+        file->WriteVec4(v.color);
+        file->WriteVec3(v.normal);
+        file->WriteVec3(v.binormal);
+        file->WriteVec3(v.tangent);
+        file->WriteVec3(v.texture);
+        file->WriteVec3(v.layercoord);
+
+    }
+    file->WriteInt(tris.size());
+    for (auto t : tris) {
+
+        file->WriteInt(t.v0);
+        file->WriteInt(t.v1);
+        file->WriteInt(t.v2);
+
+    }
+    file->WriteInt(m_Layers.size());
+    for (auto l : m_Layers) {
+
+        auto pix = l->GetPixels();
+        file->WriteInt(pix->GetWidth());
+        file->WriteInt(pix->GetHeight());
+        file->WriteInt(pix->GetBPP());
+
+        for (int y = 0; y < pix->GetHeight(); y++) {
+            for (int x = 0; x < pix->GetWidth(); x++) {
+
+                auto col = pix->GetColor(x, y);
+
+                file->WriteFloat(col.r);
+                file->WriteFloat(col.g);
+                file->WriteFloat(col.b);
+                file->WriteFloat(col.a);
+
+            }
+        }
+
+        file->WriteString(l->GetColor()->GetPath().c_str());
+        file->WriteString(l->GetNormal()->GetPath().c_str());
+        file->WriteString(l->GetSpec()->GetPath().c_str());
+
+    }
+      
+
+    file->Close();
 
 }

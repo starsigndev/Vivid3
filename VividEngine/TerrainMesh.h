@@ -1,7 +1,20 @@
 #pragma once
 #include <vector>
 #include "data.h"
+#include <Graphics/GraphicsEngine/interface/RenderDevice.h>
+#include <Graphics/GraphicsEngine/interface/DeviceContext.h>
+#include <Graphics/GraphicsEngine/interface/Texture.h>
+#include <Graphics/GraphicsEngine/interface/TextureView.h>
+#include <Graphics/GraphicsEngine/interface/SwapChain.h>
+#include <Common/interface/RefCntAutoPtr.hpp>
+//#include <Common/interface/FileStream.h>
 
+#include <TextureUtilities.h>
+#include "Engine.h"
+#include <thread>
+#include <mutex>
+
+using namespace Diligent;
 class TerrainMeshBuffer;
 class NodeTerrain;
 
@@ -19,6 +32,7 @@ public:
 		m_Triangles = triangles;
 	}
 	void Build();
+    RefCntAutoPtr<IBottomLevelAS> GetBLAS();
 
 	TerrainMeshBuffer* GetBuffer() {
 		return m_Buffer;
@@ -137,6 +151,15 @@ private:
     bool m_Rebuild = true;
     NodeTerrain* m_Owner = nullptr;
     std::vector<float3> m_Build;
-    
+    std::string m_Name;
+    RefCntAutoPtr<IBottomLevelAS> m_BLAS;
+    RefCntAutoPtr<IBuffer> VertexBuffer;
+    RefCntAutoPtr<IBuffer> IndexBuffer;
+    Node* m_Node;
+     bool m_Dynamic = false;
+    float* m_VertData = nullptr;
+    RefCntAutoPtr<IBuffer> pScratchBuffer;
+    TLASBuildInstanceData m_Instance;
+    bool m_HasInstance = false;
 };
 

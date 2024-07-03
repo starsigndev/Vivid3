@@ -18,7 +18,7 @@ public:
     }
 
 private:
-    float m_ColorLimit = 0.72f;
+    float m_ColorLimit = 0.85f;
 
 };
 

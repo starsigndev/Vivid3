@@ -19,8 +19,13 @@
 #include "MaterialActorLight.h"
 #include "MaterialActorDepth.h"
 #include "MaterialMeshPBR.h"
+#include <optional>
 namespace fs = std::filesystem;
 using namespace Diligent;
+std::string getFileNameWithoutExtension(const std::string& fileName) {
+    std::filesystem::path filePath(fileName);
+    return filePath.stem().string();
+}
 std::string ExtractFilename(const std::string& path) {
     // Find the last occurrence of the directory separator
     size_t lastSlash = path.find_last_of("/\\");
@@ -146,7 +151,20 @@ Node* Importer::ImportNode(std::string path) {
             aiString str;
 
             mat->GetTexture(aiTextureType_DIFFUSE, j, &str);
-            v_mat->SetDiffuse(new Texture2D(path_alone + getFilename(std::string(str.C_Str()))));
+            if (VFile::Exists(std::string(path_alone + getFilename(std::string(str.C_Str()))).c_str()))
+            {
+                v_mat->SetDiffuse(new Texture2D(path_alone + getFilename(std::string(str.C_Str()))));
+            }
+            else {
+                auto raw_name = getFilename(str.C_Str());
+                raw_name = getFileNameWithoutExtension(raw_name);
+                auto res = Engine::FindResource(raw_name);
+                if (res) {
+                    v_mat->SetDiffuse(new Texture2D(res.value().c_str()));
+                }
+
+                int b = 5;
+            }
             //GLuint textureID = LoadTextureFromFile(directory + '/' + str.C_Str());
             std::cout << "Loaded diffuse texture ID:  for texture " << str.C_Str() << std::endl;
         }
@@ -155,7 +173,21 @@ Node* Importer::ImportNode(std::string path) {
         for (unsigned int j = 0; j < mat->GetTextureCount(aiTextureType_SPECULAR); ++j) {
             aiString str;
             mat->GetTexture(aiTextureType_SPECULAR, j, &str);
-            v_mat->SetSpecular(new Texture2D(path_alone + std::string(str.C_Str())));
+         //   v_mat->SetSpecular(new Texture2D(path_alone + std::string(str.C_Str())));
+            if (VFile::Exists(std::string(path_alone + getFilename(std::string(str.C_Str()))).c_str()))
+            {
+                v_mat->SetMetal(new Texture2D(path_alone + getFilename(std::string(str.C_Str()))));
+            }
+            else {
+                auto raw_name = getFilename(str.C_Str());
+                raw_name = getFileNameWithoutExtension(raw_name);
+                auto res = Engine::FindResource(raw_name);
+                if (res) {
+                    v_mat->SetMetal(new Texture2D(res.value().c_str()));
+                }
+
+                int b = 5;
+            }
             //GLuint textureID = LoadTextureFromFile(directory + '/' + str.C_Str());
             std::cout << "Loaded specular texture ID: for texture " << str.C_Str() << std::endl;
         }
@@ -165,7 +197,21 @@ Node* Importer::ImportNode(std::string path) {
             aiString str;
 
             mat->GetTexture(aiTextureType_NORMALS, j, &str);
-            v_mat->SetNormals(new Texture2D(path_alone + std::string(str.C_Str())));
+           // v_mat->SetNormals(new Texture2D(path_alone + std::string(str.C_Str())));
+            if (VFile::Exists(std::string(path_alone + getFilename(std::string(str.C_Str()))).c_str()))
+            {
+                v_mat->SetNormals(new Texture2D(path_alone + getFilename(std::string(str.C_Str()))));
+            }
+            else {
+                auto raw_name = getFilename(str.C_Str());
+                raw_name = getFileNameWithoutExtension(raw_name);
+                auto res = Engine::FindResource(raw_name);
+                if (res) {
+                    v_mat->SetNormals(new Texture2D(res.value().c_str()));
+                }
+
+                int b = 5;
+            }
             //GLuint textureID = LoadTextureFromFile(directory + '/' + str.C_Str());
             std::cout << "Loaded normal texture ID: for texture " << str.C_Str() << std::endl;
         }
@@ -173,7 +219,21 @@ Node* Importer::ImportNode(std::string path) {
             aiString str;
 
             mat->GetTexture(aiTextureType_METALNESS, j, &str);
-            v_mat->SetMetal(new Texture2D(path_alone + std::string(str.C_Str())));
+            //v_mat->SetMetal(new Texture2D(path_alone + std::string(str.C_Str())));
+            if (VFile::Exists(std::string(path_alone + getFilename(std::string(str.C_Str()))).c_str()))
+            {
+                v_mat->SetMetal(new Texture2D(path_alone + getFilename(std::string(str.C_Str()))));
+            }
+            else {
+                auto raw_name = getFilename(str.C_Str());
+                raw_name = getFileNameWithoutExtension(raw_name);
+                auto res = Engine::FindResource(raw_name);
+                if (res) {
+                    v_mat->SetMetal(new Texture2D(res.value().c_str()));
+                }
+
+                int b = 5;
+            }
             //GLuint textureID = LoadTextureFromFile(directory + '/' + str.C_Str());
             std::cout << "Loaded normal texture ID: for texture " << str.C_Str() << std::endl;
         }
@@ -182,7 +242,23 @@ Node* Importer::ImportNode(std::string path) {
             aiString str;
 
             mat->GetTexture(aiTextureType_DIFFUSE_ROUGHNESS, j, &str);
-            v_mat->SetNormals(new Texture2D(path_alone + std::string(str.C_Str())));
+
+
+            //v_mat->SetNormals(new Texture2D(path_alone + std::string(str.C_Str())));
+            if (VFile::Exists(std::string(path_alone + getFilename(std::string(str.C_Str()))).c_str()))
+            {
+                v_mat->SetRough(new Texture2D(path_alone + getFilename(std::string(str.C_Str()))));
+            }
+            else {
+                auto raw_name = getFilename(str.C_Str());
+                raw_name = getFileNameWithoutExtension(raw_name);
+                auto res = Engine::FindResource(raw_name);
+                if (res) {
+                    v_mat->SetRough(new Texture2D(res.value().c_str()));
+                }
+
+                int b = 5;
+            }
             //GLuint textureID = LoadTextureFromFile(directory + '/' + str.C_Str());
             std::cout << "Loaded normal texture ID: for texture " << str.C_Str() << std::endl;
         }

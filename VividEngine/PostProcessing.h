@@ -3,6 +3,7 @@
 
 class PostProcess;
 class Draw2D;
+class Texture2D;
 
 class PostProcessing
 {
@@ -10,7 +11,7 @@ public:
 
 	PostProcessing();
 	void AddPostProcess(PostProcess* process);
-	void Process();
+	void Process(Texture2D* frame);
 
 private:
 

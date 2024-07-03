@@ -87,6 +87,7 @@ class NodeActor;
 class RenderTarget2D;
 class PostProcessing;
 class PPBloom;
+class PPEmissive;
 class NitroRenderer;
 class SolarisRenderer;
 
@@ -156,6 +157,7 @@ private:
 	RenderTarget2D* m_RT2;
 	PostProcessing* m_PP;
 	PPBloom* m_ppBloom;
+	PPEmissive* m_ppEmissive;
 	NitroRenderer* m_Nitro;
 	SolarisRenderer* m_Solaris;
 };

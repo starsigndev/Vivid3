@@ -18,6 +18,51 @@ struct PSOutput
     float4 Color : SV_TARGET;
 };
 
+static const int KERNEL_SIZE = 19;
+static const float2 GAUSSIAN_WEIGHTS[KERNEL_SIZE] = {
+    float2(-9, 0.000229),
+    float2(-8, 0.001082),
+    float2(-7, 0.004292),
+    float2(-6, 0.014317),
+    float2(-5, 0.040134),
+    float2(-4, 0.094454),
+    float2(-3, 0.186572),
+    float2(-2, 0.309789),
+    float2(-1, 0.432369),
+    float2(0, 0.507523),
+    float2(1, 0.432369),
+    float2(2, 0.309789),
+    float2(3, 0.186572),
+    float2(4, 0.094454),
+    float2(5, 0.040134),
+    float2(6, 0.014317),
+    float2(7, 0.004292),
+    float2(8, 0.001082),
+    float2(9, 0.000229)
+};
+
+float4 GaussianBlur(Texture2D tex, SamplerState samplerState, float2 uv, float blurFactor)
+{
+    float4 color = float4(0, 0, 0, 0);
+    uint width, height;
+    tex.GetDimensions(width, height);
+    float2 texelSize = float2(1.0 / width, 1.0 / height);
+    
+    [unroll]
+    for (int i = 0; i < KERNEL_SIZE; i++)
+    {
+        float2 offset = GAUSSIAN_WEIGHTS[i].x * texelSize * blurFactor * 5.0;
+        float weight = GAUSSIAN_WEIGHTS[i].y;
+        
+        // Horizontal pass
+        color += tex.Sample(samplerState, uv + float2(offset.x, 0)) * weight;
+        
+        // Vertical pass
+        color += tex.Sample(samplerState, uv + float2(0, offset.y)) * weight;
+    }
+    
+    return color / 2.0; // Divide by 2 because we're doing both horizontal and vertical in one pass
+}
 // Note that if separate shader objects are not supported (this is only the case for old GLES3.0 devices), vertex
 // shader output variable name must match exactly the name of the pixel shader input variable.
 // If the variable has structure type (like in this example), the structure declarations must also be identical.
@@ -28,49 +73,13 @@ void main(in  PSInput  PSIn,
  
   
    
-    float4 ffcol =v_Texture.Sample(v_Texture_sampler, PSIn.Uv) * PSIn.v_Color;
 
-  float3 col = float3(0,0,0);
+  float4 col = GaussianBlur(v_Texture,v_Texture_sampler,PSIn.Uv.xy,PSIn.v_Blur.x);
 
-    float steps=10;
+    float4 ffcol;
 
-    float sc=0;
-
-    for(float x=-steps;x<steps;x++)
-    {
-        for(float y=-steps;y<steps;y++){
-
-            float2 uv = PSIn.Uv.xy;
-
-            float ax = x*PSIn.v_Blur.x;
-            float ay = y*PSIn.v_Blur.x;
-
-            float df = sqrt(ax*ax+ay*ay) / (steps*4);
-            df = 1.0 - df;
-            if(df<0){
-                df=0;
-            }
-
-
-           
-
-            uv.x = uv.x + ay;
-            uv.y = uv.y + ax;
-
-            if(uv.x>=0 && uv.x<=1.0 && uv.y>=0 && uv.y<=1.0){
-
-            col = col + v_Texture.Sample(v_Texture_sampler,uv).rgb*df;
-
-            sc++;
-
-            }
-        }
-    }
-    //ffcol.rgb = v_Texture.Sample(v_Texture_sampler,PSIn.Uv).rgb;
-
-    col = col / sc;
-
-    ffcol.rgb = col;
+    ffcol.rgb = col.rgb;
+    ffcol.a = 1.0;
 
     
 

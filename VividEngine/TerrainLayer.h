@@ -19,9 +19,7 @@ public:
 	void SetLayerMap(Texture2D* tex) {
 		m_LayerMap = tex;
 	}
-	void SetPixels(PixelMap* pixels) {
-		m_LayerPixMap = pixels;
-	}
+	void SetPixels(PixelMap* pixels);
 	Texture2D* GetLayerMap() {
 		return m_LayerMap;
 	}

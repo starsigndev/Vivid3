@@ -14,6 +14,7 @@
 #include "MathsHelp.h"
 #include "VFile.h"
 #include "RTMesh.h"
+#include "NodeTerrain.h"
 #include "NodeActor.h"
 std::vector<TerrainMesh*> GetTerrainMeshes(Node* node, std::vector<TerrainMesh*> meshes)
 {
@@ -74,7 +75,11 @@ SceneGraph::SceneGraph() {
 }
 
 void SceneGraph::AddNode(Node* node) {
-
+    
+    if (dynamic_cast<NodeTerrain*>(node))
+    {
+       m_ActiveTerrain  = (NodeTerrain*)node;
+    }
 	m_RootNode->AddNode(node);
 
 }
@@ -851,6 +856,16 @@ Node* SceneGraph::ReadNode(VFile* file) {
        
     }
         break;
+    case 4:
+    {
+        auto te = new NodeTerrain;
+        te->ReadNode(file);
+        res = (Node*)te;
+
+
+
+    }
+    break;
     }
 
     int nc = file->ReadInt();
@@ -959,5 +974,39 @@ std::vector<RTMesh*> SceneGraph::GetDynRTMeshes() {
 
     return DynRTGetMeshes(m_RootNode, meshes);
 
+
+}
+
+
+void SceneGraph::RenderForcedMaterial(MaterialBase* material)
+{
+    Engine::m_Camera = m_Camera;
+    Engine::m_Lights = m_Lights;
+    Engine::m_Light = m_Lights[0];
+    m_RootNode->RenderForcedMaterial(material);
+
+}
+
+
+NodeTerrain* FindTerrain(Node* node) {
+
+    if (dynamic_cast<NodeTerrain*>(node)) {
+        return (NodeTerrain*)node;
+    }
+
+    for (auto n : node->GetNodes()) {
+
+        auto res = FindTerrain(n);
+        if (res != nullptr) {
+            return res;
+        }
+
+    }
+    return nullptr;
+}
+
+NodeTerrain* SceneGraph::GetTerrain() {
+
+    return FindTerrain(m_RootNode);
 
 }

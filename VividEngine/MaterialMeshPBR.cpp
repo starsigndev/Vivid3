@@ -45,6 +45,8 @@ MaterialMeshPBR::MaterialMeshPBR() {
     m_Metal = new Texture2D("engine/white.png");
     m_Roughness = new Texture2D("engine/grey.png");
     m_Ambient = new Texture2D("engine/white.png");
+    m_Emissive = new Texture2D("engine/emtest1.png");
+
 }
 
 void MaterialMeshPBR::Create() {

@@ -28,6 +28,7 @@
 #include "RenderTarget2D.h"
 #include "PostProcessing.h"
 #include "PPBloom.h"
+#include "PPEmissive.h"
 #include "NitroRenderer.h"
 #include "SolarisRenderer.h"
 
@@ -230,10 +231,10 @@ VOutput::VOutput(QWidget *parent)
     m_BrushMaterial = new MaterialBase;
     m_BrushMaterial->Create();
     m_BrushMaterial->SetDiffuse(new Texture2D("edit/brush1.png"));
-    //m_RT2 = new RenderTarget2D(1024, 1024);
-
+   
     m_Nitro = new NitroRenderer;
     m_Nitro->SetSceneGraph(m_Graph1);
+  
 
 }
 
@@ -289,6 +290,14 @@ void VOutput::resizeEvent(QResizeEvent* event)
     m_ppBloom->SetGraph(m_Graph1);
     m_Solaris = new SolarisRenderer;
     m_Solaris->SetSceneGraph(m_Graph1);
+    Engine::m_Solaris = m_Solaris;
+    Engine::m_ActiveRenderer = m_Solaris;
+
+    m_ppEmissive = new PPEmissive;
+  //  m_PP->AddPostProcess(m_ppEmissive);
+    m_ppEmissive->SetGraph(m_Graph1);
+    m_RT2 = new RenderTarget2D(Engine::GetFrameWidth(), Engine::GetFrameHeight());
+
 }
 
 
@@ -1049,14 +1058,14 @@ void VOutput::paintEvent(QPaintEvent* event)
   //  m_Node1->SetRotation(0, ay, 0);
     m_Graph1 = Editor::m_Graph;
     m_ppBloom->SetGraph(m_Graph1);
-    m_Nitro->SetSceneGraph(m_Graph1);
+//    m_Nitro->SetSceneGraph(m_Graph1);
 
 
     cam->SetRotation(m_ViewPitch, m_ViewYaw, 0);
     m_Graph1->Update();
 
 
-    //m_Graph1->RenderShadows();
+  //  m_Graph1->RenderShadows();
    // m_CubeRen->RenderEnvironment(m_Node2->GetPosition());
 
 
@@ -1076,18 +1085,30 @@ void VOutput::paintEvent(QPaintEvent* event)
    // m_RT2->Release();
     // m_Oct1->RenderBF();
     //m_Graph1->RenderLines();
-    //m_PP->Process();
-    //m_Nitro->PreRender();
-   // m_Nitro->Render();
+    //m_RT2->Bind();
+    //m_Graph1->Render();
+    //m_RT2->Release();
+
+    //m_PP->Process(new Texture2D(m_RT2));
+   // m_Nitro->PreRender();
+   // m_Nitro->Render(false);;
+    Engine::m_ActiveRenderer = m_Nitro;
+
 
     Engine::m_Camera = m_Graph1->GetCamera();
-        m_Solaris->PreRender();
-        m_Solaris->Render();
+    m_Solaris->SetSceneGraph(Editor::m_Graph);
+       m_Solaris->PreRender();
+        m_Solaris->Render(false);
+
+
+     //   auto frame = m_Solaris->GetRenderedFrame();
 
 
 
-    //m_Draw->Rect(new Texture2D(m_RT2), float2(20, 20), float2(400, 400), float4(1, 1, 1, 1));
-
+       // if (frame != nullptr) {
+         //   m_Draw->Rect(frame, float2(20, 20), float2(400, 400), float4(1, 1, 1, 1));
+       //     m_PP->Process(frame);
+        //}
     int ts = clock() - ss;
 
    // printf("RenderTime:%d\n", ts);

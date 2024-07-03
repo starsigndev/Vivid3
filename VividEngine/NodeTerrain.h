@@ -14,6 +14,7 @@ class NodeTerrain :
 public:
 
     NodeTerrain(float width, float depth, float divisions, int layers);
+    NodeTerrain();
     void CreateTerrain(int layers);
     void Render(bool sp);
     void RenderDepth();
@@ -26,6 +27,10 @@ public:
         return m_Layers;
     }
     Bounds GetTerrainBounds();
+    void WriteNode(VFile* file);
+    void ReadNode(VFile* file);
+    void SaveTerrain(std::string path);
+    void LoadTerrain(std::string path);
 private:
 
 

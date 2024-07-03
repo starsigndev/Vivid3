@@ -24,7 +24,7 @@
 #    undef CreateWindow
 #endif
 
-
+#include <optional>
 #include "RefCntAutoPtr.hpp"
 #include "RenderDevice.h"
 #include "DeviceContext.h"
@@ -40,6 +40,8 @@ class RenderTarget2D;
 class ScriptHost;
 class MaterialBase;
 class SceneGraph;
+class RendererBase;
+class SolarisRenderer;
 
 class Engine
 {
@@ -69,6 +71,12 @@ public:
 	static ScriptHost* m_ScriptHost;
 	static SceneGraph* m_ActiveGraph;
 	static bool m_MeterialsUpdated;
+	static std::string m_ContentPath;
+
+	static std::optional<std::string> FindResource(std::string name);
+	static std::optional<std::string> searchStringInPath(const std::string& path, const std::string& searchString);
+	static SolarisRenderer* m_Solaris;
+	static RendererBase* m_ActiveRenderer;
 private:
 
 	static int m_FrameWidth;

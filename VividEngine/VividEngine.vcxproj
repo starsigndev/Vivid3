@@ -188,6 +188,7 @@
     <ClInclude Include="MaterialColorLimit.h" />
     <ClInclude Include="MaterialCombine.h" />
     <ClInclude Include="MaterialDepth.h" />
+    <ClInclude Include="MaterialEmissive.h" />
     <ClInclude Include="MaterialMeshLight.h" />
     <ClInclude Include="MaterialMeshLines.h" />
     <ClInclude Include="MaterialMeshPBR.h" />
@@ -212,6 +213,7 @@
     <ClInclude Include="PostProcess.h" />
     <ClInclude Include="PostProcessing.h" />
     <ClInclude Include="PPBloom.h" />
+    <ClInclude Include="PPEmissive.h" />
     <ClInclude Include="Quat.h" />
     <ClInclude Include="RendererBase.h" />
     <ClInclude Include="RenderTarget2D.h" />
@@ -254,6 +256,7 @@
     <ClCompile Include="MaterialColorLimit.cpp" />
     <ClCompile Include="MaterialCombine.cpp" />
     <ClCompile Include="MaterialDepth.cpp" />
+    <ClCompile Include="MaterialEmissive.cpp" />
     <ClCompile Include="MaterialMeshLight.cpp" />
     <ClCompile Include="MaterialMeshLines.cpp" />
     <ClCompile Include="MaterialMeshPBR.cpp" />
@@ -283,6 +286,7 @@
     <ClCompile Include="PostProcess.cpp" />
     <ClCompile Include="PostProcessing.cpp" />
     <ClCompile Include="PPBloom.cpp" />
+    <ClCompile Include="PPEmissive.cpp" />
     <ClCompile Include="Quat.cpp" />
     <ClCompile Include="RendererBase.cpp" />
     <ClCompile Include="RenderTarget2D.cpp" />

@@ -11,7 +11,7 @@ Vivid3D::Vivid3D(QWidget *parent)
     : QMainWindow(parent)
 {
    // ui.setupUi(this);
-    resize(1424, 750);
+    resize(1624, 950);
     setWindowTitle("Vivid3D - (c)Star Signal Games");
   //  dockScene = new QDockWidget("Scene", this);
   //  SetDockWidget(dockScene);

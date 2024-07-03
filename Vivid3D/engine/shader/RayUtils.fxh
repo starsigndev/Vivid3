@@ -15,6 +15,18 @@ struct Vertex {
 	float4 bone_weights; //23
 };
 
+struct TerrainVertex {
+
+	float3 position;
+	float4 color;
+	float3 texture;
+	float3 normal;
+	float3 binormal;
+	float3 tangent;
+	float3 layercoord;
+
+};
+
 struct Triangle{
 
     uint3 Indices;
@@ -27,6 +39,10 @@ StructuredBuffer<Triangle> Triangles;
 StructuredBuffer<Vertex> DynamicVertices;
 StructuredBuffer<Triangle> DynamicTriangles;
 StructuredBuffer<uint4> DynamicOffsets;
+
+StructuredBuffer<TerrainVertex> TerrainVertices;
+StructuredBuffer<Triangle> TerrainTriangles;
+
 
 StructuredBuffer<uint4> Offsets;
 StructuredBuffer<float4> LightsBuffer;
@@ -255,4 +271,31 @@ void LightingPass(inout float3 Color, float3 Pos, float3 Norm, uint Recursion)
     }
     Color = col * (1.0 / float(NUM_LIGHTS)) + g_ConstantsCB.AmbientColor.rgb;
     
+}
+
+float light_GetDist(float3 lightPos,float3 fragPos,float lightRange)
+{
+
+  float xd = lightPos.x - fragPos.x;
+    float yd = lightPos.y - fragPos.y;
+    float zd = lightPos.z - fragPos.z;
+
+
+    float dis = sqrt(xd * xd + yd * yd + zd * zd);
+
+    if (dis < 0) {
+        dis = -dis;
+    }
+
+    float dv = dis / lightRange;
+
+    if (dv > 1.0) {
+        dv = 1.0;
+    }
+    dv = 1.0 - dv;
+
+
+    return dv;
+
+
 }

@@ -20,6 +20,7 @@ C:\dev\Vivid3D\VividEngine\MaterialBlur.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug
 C:\dev\Vivid3D\VividEngine\MaterialColorLimit.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialColorLimit.obj
 C:\dev\Vivid3D\VividEngine\MaterialCombine.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialCombine.obj
 C:\dev\Vivid3D\VividEngine\MaterialDepth.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialDepth.obj
+C:\dev\Vivid3D\VividEngine\MaterialEmissive.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialEmissive.obj
 C:\dev\Vivid3D\VividEngine\MaterialMeshLight.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialMeshLight.obj
 C:\dev\Vivid3D\VividEngine\MaterialMeshLines.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialMeshLines.obj
 C:\dev\Vivid3D\VividEngine\MaterialMeshPBR.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\MaterialMeshPBR.obj
@@ -44,6 +45,7 @@ C:\dev\Vivid3D\VividEngine\PixelMap.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Pix
 C:\dev\Vivid3D\VividEngine\PostProcess.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\PostProcess.obj
 C:\dev\Vivid3D\VividEngine\PostProcessing.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\PostProcessing.obj
 C:\dev\Vivid3D\VividEngine\PPBloom.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\PPBloom.obj
+C:\dev\Vivid3D\VividEngine\PPEmissive.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\PPEmissive.obj
 C:\dev\Vivid3D\VividEngine\Quat.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\Quat.obj
 C:\dev\Vivid3D\VividEngine\RendererBase.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\RendererBase.obj
 C:\dev\Vivid3D\VividEngine\RenderTarget2D.cpp;C:\dev\Vivid3D\VividEngine\x64\Debug\RenderTarget2D.obj

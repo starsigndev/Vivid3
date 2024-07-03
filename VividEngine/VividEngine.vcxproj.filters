@@ -291,6 +291,12 @@
     <ClInclude Include="RTMesh.h">
       <Filter>Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="PPEmissive.h">
+      <Filter>PP\Processes</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialEmissive.h">
+      <Filter>Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VividEngine.cpp">
@@ -484,6 +490,12 @@
     </ClCompile>
     <ClCompile Include="RTMesh.cpp">
       <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="PPEmissive.cpp">
+      <Filter>PP\Processes</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialEmissive.cpp">
+      <Filter>Material</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -29,6 +29,7 @@ struct Constants
     float4x4 InvViewProj;
     int4  Lightcount;
     float4 CamPos;
+    int4 TerrainInfo;
 
 
     // Near and far clip plane distances

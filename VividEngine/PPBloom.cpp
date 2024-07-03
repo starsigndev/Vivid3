@@ -22,19 +22,12 @@ PPBloom::PPBloom() {
 Texture2D* PPBloom::Process(Texture2D* frame) {
 
 
-	BindRT(0);
-
-
-	//GetGraph()->LinesOff();
-	GetGraph()->Render();
-	//GetGraph()->LinesOn();
-
-	ReleaseRT(0);
+	
 
 	BindRT(1);
 
 	m_Draw->SetMaterial((Material2D*)m_ColorLimit);
-	m_Draw->Rect(GetTexture(0), float2(0, 0), float2(Engine::GetFrameWidth(), Engine::GetFrameHeight()), float4(1, 1, 1, 1));
+	m_Draw->Rect(frame, float2(0, 0), float2(Engine::GetFrameWidth(), Engine::GetFrameHeight()), float4(1, 1, 1, 1));
 
 	ReleaseRT(1);
 
@@ -49,7 +42,7 @@ Texture2D* PPBloom::Process(Texture2D* frame) {
 	BindRT(3);
 
 	m_Draw->SetMaterial((Material2D*)m_Combine);
-	m_Combine->SetAux(GetTexture(0));
+	m_Combine->SetAux(frame);
 	m_Draw->Rect(GetTexture(2), float2(0, 0), float2(Engine::GetFrameWidth(), Engine::GetFrameHeight()), float4(1, 1, 1, 1));
 
 

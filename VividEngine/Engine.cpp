@@ -4,6 +4,39 @@
 #include "MaterialBase.h"
 #include "ScriptHost.h"
 #include "RenderTarget2D.h"
+#include <filesystem>
+
+
+namespace fs = std::filesystem;
+bool contains_search_string(const std::string& file_path, const std::string& search_string) {
+	std::string lower_file_path = file_path;
+	std::string lower_search_string = search_string;
+
+	// Convert both the file path and the search string to lowercase
+	std::transform(lower_file_path.begin(), lower_file_path.end(), lower_file_path.begin(), ::tolower);
+	std::transform(lower_search_string.begin(), lower_search_string.end(), lower_search_string.begin(), ::tolower);
+
+	// Check if the lowercased search string is found in the lowercased file path
+	return lower_file_path.find(lower_search_string) != std::string::npos;
+}
+
+std::string find_file_with_search_string(const std::string& path, const std::string& search_string) {
+	for (const auto& entry : fs::recursive_directory_iterator(path)) {
+		if (entry.is_regular_file()) {
+			if (contains_search_string(entry.path().string(), search_string)) {
+				return entry.path().string();
+			}
+		}
+		else if (entry.is_directory()) {
+			if (contains_search_string(entry.path().string(), search_string)) {
+				return entry.path().string();
+			}
+		}
+	}
+	return ""; // Return an empty string if no file or directory is found
+}
+
+
 
 RefCntAutoPtr<IRenderDevice>  Engine::m_pDevice;
 RefCntAutoPtr<IDeviceContext> Engine::m_pImmediateContext;
@@ -111,3 +144,31 @@ NodeLight* Engine::m_Light = nullptr;
 SceneGraph* Engine::m_ActiveGraph = nullptr;
 
 bool Engine::m_MeterialsUpdated = false;
+std::string Engine::m_ContentPath = "c:\\content\\";
+
+
+std::optional<std::string> Engine::searchStringInPath(const std::string& path, const std::string& searchString) {
+	try {
+		for (const auto& entry : std::filesystem::directory_iterator(path)) {
+			if (entry.is_regular_file()) {
+				std::string filePath = entry.path().string();
+				if (filePath.find(searchString) != std::string::npos) {
+					return filePath;
+				}
+			}
+		}
+	}
+	catch (const std::filesystem::filesystem_error& e) {
+		// Handle or log the error as needed
+	}
+	return std::nullopt;
+}
+
+std::optional<std::string> Engine::FindResource(std::string name) {
+
+	return find_file_with_search_string(Engine::m_ContentPath, name);
+
+}
+
+SolarisRenderer* Engine::m_Solaris = nullptr;
+RendererBase* Engine::m_ActiveRenderer = nullptr;
