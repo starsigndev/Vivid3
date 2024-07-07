@@ -118,6 +118,12 @@
     <ClCompile Include="VCreateAnimation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VImportModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImportSettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Widgets\VOutput.h">
@@ -175,6 +181,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="VCreateAnimation.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="VImportModel.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -239,6 +248,9 @@
     <QtUic Include="VCreateAnimation.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="VImportModel.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor.h">
@@ -246,6 +258,9 @@
     </ClInclude>
     <ClInclude Include="EditHelp.h">
       <Filter>EditHelp</Filter>
+    </ClInclude>
+    <ClInclude Include="ImportSettings.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

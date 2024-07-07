@@ -95,10 +95,10 @@ float3 fragPosWorld = worldPos.xyz;
       for(int i=0;i<g_ConstantsCB.TerrainInfo.x;i++)
       {
 
-          float3 tex_Col = g_TerrainCol[NonUniformResourceIndex(InstanceID()+i)].SampleLevel(g_SamLinearWrap, uv, 0).rgb;
-          float3 tex_Norm = g_TerrainNorm[NonUniformResourceIndex(InstanceID()+i)].SampleLevel(g_SamLinearWrap, uv, 0).rgb;
-          float tex_Spec = g_TerrainSpec[NonUniformResourceIndex(InstanceID()+i)].SampleLevel(g_SamLinearWrap, uv, 0).r;
-          float l_val =  g_Layers[NonUniformResourceIndex(InstanceID()+i)].SampleLevel(g_SamLinearWrap,layer_coord, 0).r;    
+          float3 tex_Col = ReadTex(g_TerrainCol[NonUniformResourceIndex(InstanceID()+i)],g_SamLinearWrap, uv, fragPosWorld).rgb;
+          float3 tex_Norm = ReadTex(g_TerrainNorm[NonUniformResourceIndex(InstanceID()+i)],g_SamLinearWrap, uv, fragPosWorld).rgb;
+          float tex_Spec = ReadTex(g_TerrainSpec[NonUniformResourceIndex(InstanceID()+i)],g_SamLinearWrap, uv, fragPosWorld).r;
+          float l_val =  ReadTex(g_Layers[NonUniformResourceIndex(InstanceID()+i)],g_SamLinearWrap,layer_coord, fragPosWorld).r;    
    float3 tNormal = float3(0.5, 0.0f, 1.0f);
 
       tNormal = tex_Norm;

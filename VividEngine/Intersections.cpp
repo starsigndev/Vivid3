@@ -20,6 +20,18 @@ void CL_CALLBACK errorCallback(cl_int err, const char* msg, void* data) {
     // Handle error as needed
 }
 
+int float_to_int(float f) {
+    int i;
+    memcpy(&i, &f, sizeof(int));
+    return i;
+}
+
+// Helper function to convert int to float for reading the result
+float int_to_float(int i) {
+    float f;
+    memcpy(&f, &i, sizeof(float));
+    return f;
+}
 
 CastResult Intersections::CastTerrainMesh(float3 pos, float3 dir, TerrainMesh* mesh) {
 
@@ -27,10 +39,12 @@ CastResult Intersections::CastTerrainMesh(float3 pos, float3 dir, TerrainMesh* m
 
    // if (mesh) {
     float size = 1000;
+    int initial_result = float_to_int(FLT_MAX);
     cl::Buffer posBuf(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(float3), &pos);
     cl::Buffer dirBuf(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(float3), &dir);
-    cl::Buffer minResultBuffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(float), &size);
+    cl::Buffer minResultBuffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(float), &initial_result);
     //}  num_tris = mesh->GetTris().size();
+
     num_tris = mesh->GetTriangles().size();
         int cl = clock();
         if (mesh->NeedRebuild()) {
@@ -88,9 +102,14 @@ CastResult Intersections::CastTerrainMesh(float3 pos, float3 dir, TerrainMesh* m
     queue.enqueueNDRangeKernel(kernel, cl::NullRange, globalSize, cl::NullRange);
     queue.finish();
 
+    float ch = 0;
     // Read the result
-    float ch=-10000;
-    queue.enqueueReadBuffer(minResultBuffer, CL_TRUE,0,4, &ch);
+    int int_r;
+    queue.enqueueReadBuffer(minResultBuffer, CL_TRUE,0,4, &int_r);
+
+    ch = int_to_float(int_r);
+
+
 
     CastResult result;
     result.Hit = false;
@@ -112,10 +131,12 @@ CastResult Intersections::CastTerrainMesh(float3 pos, float3 dir, TerrainMesh* m
 
 CastResult Intersections::CastMesh(float3 pos, float3 dir, Mesh3D* mesh) {
 
+ //   float size = 1000;
     float size = 1000;
+    int initial_result = float_to_int(FLT_MAX);
     cl::Buffer posBuf(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(float3), &pos);
     cl::Buffer dirBuf(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(float3), &dir);
-    cl::Buffer minResultBuffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(float), &size);
+    cl::Buffer minResultBuffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(float), &initial_result);
     //}
     num_tris = mesh->TriCount();
     int cl = clock();
@@ -190,8 +211,12 @@ CastResult Intersections::CastMesh(float3 pos, float3 dir, Mesh3D* mesh) {
     queue.finish();
 
     // Read the result
-    float ch = -10000;
-    queue.enqueueReadBuffer(minResultBuffer, CL_TRUE, 0, 4, &ch);
+    float ch = 0;
+    // Read the result
+    int int_r;
+    queue.enqueueReadBuffer(minResultBuffer, CL_TRUE, 0, 4, &int_r);
+
+    ch = int_to_float(int_r);
 
     CastResult result;
     result.Hit = false;

@@ -119,6 +119,7 @@
   <ItemGroup>
     <ClCompile Include="EditHelp.cpp" />
     <ClCompile Include="Editor.cpp" />
+    <ClCompile Include="ImportSettings.cpp" />
     <ClCompile Include="VCinemaEditor.cpp" />
     <ClCompile Include="VCinemaTimeLine.cpp" />
     <ClCompile Include="VColorPreview.cpp" />
@@ -126,6 +127,7 @@
     <ClCompile Include="VContentView.cpp" />
     <ClCompile Include="VCreateAnimation.cpp" />
     <ClCompile Include="VImagePreview.cpp" />
+    <ClCompile Include="VImportModel.cpp" />
     <ClCompile Include="VMainMenu.cpp" />
     <ClCompile Include="VNodeFrame.cpp" />
     <ClCompile Include="VPropEditor.cpp" />
@@ -147,6 +149,7 @@
     <QtUic Include="VCreateAnimation.ui" />
     <QtUic Include="VElementEditor.ui" />
     <QtUic Include="VImagePreview.ui" />
+    <QtUic Include="VImportModel.ui" />
     <QtUic Include="Vivid3D.ui" />
     <QtMoc Include="Vivid3D.h" />
     <ClCompile Include="Vivid3D.cpp" />
@@ -178,6 +181,8 @@
   <ItemGroup>
     <ClInclude Include="EditHelp.h" />
     <ClInclude Include="Editor.h" />
+    <ClInclude Include="ImportSettings.h" />
+    <QtMoc Include="VImportModel.h" />
     <QtMoc Include="VCreateAnimation.h" />
     <QtMoc Include="VTrackFrame.h" />
     <QtMoc Include="VTrackTimeLine.h" />

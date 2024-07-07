@@ -180,6 +180,8 @@ void SolarisRenderer::Render(bool no_render) {
 	m_Constants.InvViewProj = (cam->GetWorldMatrix() * cam->GetProjection()).Inverse().Transpose();
 	m_Constants.Lightcount = int4(GetSceneGraph()->GetLights().size(), 0, 0, 0);
 	m_Constants.CamPos = float4(GetSceneGraph()->GetCamera()->GetPosition(), 1.0);
+	m_Constants.CamExt = float4(cam->GetNearZ(), cam->GetFarZ(), 0, 0);
+	m_Constants.screenSize = float4(Engine::GetFrameWidth(), Engine::GetFrameHeight(), 0, 0);
 	if (m_ActiveTerrain) {
 
 		m_Constants.TerrainInfo = int4(m_ActiveTerrain->GetLayers().size(), 0, 0, 0);

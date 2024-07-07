@@ -1,38 +1,9 @@
-﻿  SolarisRenderer.cpp
+﻿  Intersections.cpp
+  opencl.hpp: CL_HPP_TARGET_OPENCL_VERSION is not defined. It will default to 300 (OpenCL 3.0)
 C:\dev\Vivid3D\VividEngine\Mesh3D.h(50,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(181,65): warning C4267: 'argument': conversion from 'size_t' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(181,65): warning C4267:         with
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(181,65): warning C4267:         [
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(181,65): warning C4267:             T=int32_t
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(181,65): warning C4267:         ]
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(185,67): warning C4267: 'argument': conversion from 'size_t' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(185,67): warning C4267:         with
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(185,67): warning C4267:         [
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(185,67): warning C4267:             T=int32_t
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(185,67): warning C4267:         ]
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(211,95): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(211,95): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(211,95): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(211,95): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(211,95): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(211,82): warning C4244: 'argument': conversion from 'Diligent::Uint32' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(211,82): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(211,82): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(211,82): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(211,82): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(211,54): warning C4244: 'argument': conversion from 'Diligent::Uint32' to 'T', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(211,54): warning C4244:         with
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(211,54): warning C4244:         [
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(211,54): warning C4244:             T=float
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(211,54): warning C4244:         ]
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(322,11): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(323,11): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(351,17): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(431,11): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(432,11): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(487,17): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(679,30): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\dev\Vivid3D\VividEngine\SolarisRenderer.cpp(690,40): warning C4267: '=': conversion from 'size_t' to 'Diligent::Uint32', possible loss of data
+C:\dev\Vivid3D\VividEngine\Intersections.cpp(48,41): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\Intersections.cpp(56,49): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\dev\Vivid3D\VividEngine\Intersections.cpp(312,1): warning C4715: 'Intersections::CastMesh': not all control paths return a value
   Replacing x64\Debug\pch.obj
 cuda.lib(nvcuda.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored
 cudart.lib(cudart64_12.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in assimp-vc143-mt.lib(assimp-vc143-mt.dll); second definition ignored

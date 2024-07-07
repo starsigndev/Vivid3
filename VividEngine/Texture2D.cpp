@@ -91,9 +91,12 @@ Texture2D::Texture2D(std::string path,bool threaded) {
 
     if (!threaded || threaded) {
         TextureLoadInfo loadInfo;
-        loadInfo.MipLevels = 5;
+        loadInfo.MipLevels = 7;
+
         loadInfo.GenerateMips = true;// = ;// TEXTURE_VIEW_FLAG_ALLOW_MIP_MAP_GENERATION;
-        loadInfo.MipFilter = TEXTURE_LOAD_MIP_FILTER_MOST_FREQUENT;
+        loadInfo.MipFilter = TEXTURE_LOAD_MIP_FILTER_BOX_AVERAGE;
+
+
       
 
         // 

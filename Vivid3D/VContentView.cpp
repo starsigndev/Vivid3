@@ -12,6 +12,10 @@
 #include "VPropertyEditor.h"
 #include <qmimedata.h>
 #include <qdrag.h>
+#include "VImportModel.h"
+#include "VFile.h"
+#include "ImportSettings.h"
+
 
 VContentView::VContentView(QWidget *parent)
 	: QWidget(parent)
@@ -356,12 +360,39 @@ void VContentView::mouseDoubleClickEvent(QMouseEvent* event)
                 if (m_OverItem != nullptr) {
                     if (m_OverItem->m_Ext == "fbx")
                     {
-                        Importer* imp = new Importer;
-                        auto node = imp->ImportNode(m_OverItem->m_FullPath);
-                        Editor::m_Graph->AddNode(node);
-                        Editor::m_SceneGraph->UpdateGraph();
-                        node->SetRTEnable();
-                        Editor::m_Graph->Updated();
+
+                        auto imp_path = m_OverItem->m_FullPath + ".import";
+
+                        if (VFile::Exists(imp_path.c_str())) {
+
+                            auto imp = new ImportSettings;
+                            imp->Load(m_OverItem->m_FullPath + ".import");
+                            auto node = imp->GetNode();
+                           
+                            Editor::m_Graph->AddNode(node);
+                         Editor::m_SceneGraph->UpdateGraph();
+                         node->SetRTEnable();
+                         Editor::m_Graph->Updated();
+                            
+
+                        }
+                        else {
+
+                            auto imp_model = new VImportModel;
+
+                          
+                            imp_model->Set(m_OverItem->m_FullPath);
+                            imp_model->show();
+
+                        }
+
+                        //Importer* imp = new Importer;
+                        //auto node = imp->ImportNode(m_OverItem->m_FullPath);
+                        //Editor::m_Graph->AddNode(node);
+                       // Editor::m_SceneGraph->UpdateGraph();
+                       // node->SetRTEnable();
+                        //Editor::m_Graph->Updated();
+
 
 
 

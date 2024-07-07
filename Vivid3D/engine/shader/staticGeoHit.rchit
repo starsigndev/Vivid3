@@ -65,6 +65,9 @@ float3 fragPosWorld = worldPos.xyz;
 
 
 
+
+
+
     
   // Apply lighting.
     float3 rayOrigin = WorldRayOrigin() + WorldRayDirection() * RayTCurrent();
@@ -72,10 +75,10 @@ float3 fragPosWorld = worldPos.xyz;
 
     payload.Color = payload.Color*0.001;
 
-    float3 tex_Col = g_CubeTextures[NonUniformResourceIndex(InstanceID()*4)].SampleLevel(g_SamLinearWrap, uv, 0).rgb;
-    float3 tex_Norm = g_CubeTextures[NonUniformResourceIndex(InstanceID()*4+1)].SampleLevel(g_SamLinearWrap, uv, 0).rgb;
-    float tex_Rough = g_CubeTextures[NonUniformResourceIndex(InstanceID()*4+2)].SampleLevel(g_SamLinearWrap, uv, 0).r;
-    float tex_Metal = g_CubeTextures[NonUniformResourceIndex(InstanceID()*4+3)].SampleLevel(g_SamLinearWrap, uv, 0).r;    
+    float3 tex_Col = ReadTex(g_CubeTextures[NonUniformResourceIndex(InstanceID()*4)],g_SamLinearWrap, uv,fragPosWorld).rgb;
+    float3 tex_Norm = ReadTex(g_CubeTextures[NonUniformResourceIndex(InstanceID()*4+1)],g_SamLinearWrap, uv,fragPosWorld).rgb;
+    float tex_Rough = ReadTex(g_CubeTextures[NonUniformResourceIndex(InstanceID()*4+2)],g_SamLinearWrap, uv,fragPosWorld).r;
+    float tex_Metal =ReadTex(g_CubeTextures[NonUniformResourceIndex(InstanceID()*4+3)],g_SamLinearWrap, uv,fragPosWorld).r;
 
 
     // Sample texturing. Ray tracing shaders don't support LOD calculation, so we must specify LOD and apply filtering.

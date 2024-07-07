@@ -28,6 +28,8 @@ struct Constants
     int4 Lightcount;
     float4 CamPos;
     int4 TerrainInfo;
+    float4 screenSize;
+    float4 CamExt;
 
     // Near and far clip plane distances
     float2   ClipPlanes;

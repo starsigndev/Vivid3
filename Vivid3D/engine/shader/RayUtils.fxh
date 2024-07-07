@@ -299,3 +299,25 @@ float light_GetDist(float3 lightPos,float3 fragPos,float lightRange)
 
 
 }
+
+float4 ReadTex(Texture2D tex,SamplerState sampler,float2 uv,float3 worldPos)
+{
+
+    
+       float2 textureSize;
+    uint mipLevels;
+    tex.GetDimensions(0, textureSize.x, textureSize.y, mipLevels);
+
+    float dist = distance(g_ConstantsCB.CamPos,worldPos);
+
+    dist = dist / (g_ConstantsCB.CamExt.y/2);
+
+    if(dist>1) dist = 1;
+
+    float ml = (dist * ((float)mipLevels));
+
+    return tex.SampleLevel(sampler, uv, ml);
+
+
+
+}
